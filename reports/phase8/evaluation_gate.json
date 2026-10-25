@@ -1,0 +1,22 @@
+{
+  "evaluation_gate_timestamp_utc": "2026-10-25T17:39:35Z",
+  "phase": "Phase 8 Evaluation Gate Audit",
+  "evaluation_gate_status": "BLOCKED_INSUFFICIENT_GROUND_TRUTH",
+  "sample_size_audit": {
+    "verified_flood_episodes_available": 0,
+    "verified_flood_episodes_required": 50,
+    "verified_non_flood_episodes_available": 0,
+    "verified_non_flood_episodes_required": 100,
+    "independent_storm_dates_available": 0,
+    "independent_storm_dates_required": 4,
+    "independent_corridors_available": 0,
+    "independent_corridors_required": 3
+  },
+  "subsystem_evaluation_boundaries": {
+    "vision_v4_optical_classifier": "NO-GO_STRICTLY_PRESERVED",
+    "rainfall_baseline_supervised_tuning": "BLOCKED_PENDING_GROUND_TRUTH",
+    "road_vulnerability_ml_tuning": "BLOCKED_PENDING_GROUND_TRUTH",
+    "decision_engine_ruleset": "VERIFIED_SOFTWARE_CONFORMANCE_ONLY"
+  },
+  "evaluation_gate_verdict": "Supervised model evaluation is strictly prohibited. Zero real ground-truth flood observations exist in the repository."
+}

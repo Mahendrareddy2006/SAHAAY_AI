@@ -1,5 +1,5 @@
 """
-Sahaay AI Phase 7 Pilot Activation & Field Operations package.
+Sahaay AI Phase 7 & 8 Pilot Activation, Session & Evidence Intake package.
 """
 
 from .models import (
@@ -17,6 +17,18 @@ from .session import (
     PreCollectionSafetyCheck,
     PostCollectionSafetyReview,
 )
+from .blockers import (
+    BlockerStatus,
+    BlockerScope,
+    BlockerRecord,
+    BlockerRegistry,
+)
+from .evidence import (
+    EvidenceCategory,
+    EvidenceStatus,
+    EvidenceDocumentRecord,
+    EvidenceIntakeService,
+)
 
 __all__ = [
     "PilotState",
@@ -30,4 +42,12 @@ __all__ = [
     "FieldSessionManager",
     "PreCollectionSafetyCheck",
     "PostCollectionSafetyReview",
+    "BlockerStatus",
+    "BlockerScope",
+    "BlockerRecord",
+    "BlockerRegistry",
+    "EvidenceCategory",
+    "EvidenceStatus",
+    "EvidenceDocumentRecord",
+    "EvidenceIntakeService",
 ]

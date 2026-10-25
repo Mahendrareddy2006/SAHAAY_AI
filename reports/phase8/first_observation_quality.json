@@ -1,0 +1,30 @@
+{
+  "report_timestamp_utc": "2026-10-25T17:39:15Z",
+  "phase": "Phase 8 Real Observation Quality & Intake Audit",
+  "collection_status": "ZERO_REAL_OBSERVATIONS_COLLECTED",
+  "reason_no_observations_collected": "The pilot activation gate truthfully remains BLOCKED_NOT_READY_FOR_LIVE_PILOT. Real-world field collection is strictly prohibited until mandatory site safety inspections and institutional agreements are verified.",
+  "data_accounting": {
+    "real_world_observations_in_database": 0,
+    "real_world_active_sessions_conducted": 0,
+    "real_world_storm_dates_sampled": 0,
+    "synthetic_dry_run_records_in_sandbox": 10,
+    "schema_template_records_in_sandbox": 5,
+    "historical_replayed_telemetry_records": 1
+  },
+  "ground_truth_episode_inventory": {
+    "verified_flood_episodes_current": 0,
+    "verified_non_flood_episodes_current": 0,
+    "preregistered_minimum_flood_episodes": 50,
+    "preregistered_minimum_non_flood_episodes": 100,
+    "preregistered_minimum_storm_dates": 4,
+    "evaluation_eligibility": "STRICTLY_BLOCKED_ZERO_DATA"
+  },
+  "provenance_and_quality_findings": {
+    "real_data_consent_rate": "N/A (0 real records)",
+    "real_data_measurement_completeness": "N/A (0 real records)",
+    "unresolved_observer_disagreements": 0,
+    "duplicate_records_in_real_store": 0,
+    "quarantined_real_records": 0
+  },
+  "scientific_integrity_attestation": "Sahaay AI certifies that zero synthetic records or unverified citizen reports have been misattributed as real ground-truth observations."
+}

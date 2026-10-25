@@ -1,0 +1,71 @@
+{
+  "simulation_metadata": {
+    "is_synthetic_or_simulated": true,
+    "simulation_id": "SIM-INCIDENT-20261025-01",
+    "exercise_title": "Phase 8 Controlled Operational Incident & Recovery Drill",
+    "timestamp_utc": "2026-10-25T12:30:00Z",
+    "target_corridor": "CORR-HYD-01",
+    "target_vantage": "Rasoolpura Metro Elevated Walkway (Concourse Station Level +4.8m)",
+    "exercise_lead": "SAFETY-OFFICER-DRILL-01"
+  },
+  "incident_event": {
+    "trigger_type": "RAPID_ENVIRONMENTAL_HAZARD_AND_AUDIT_ANOMALY",
+    "event_time_utc": "2026-10-25T12:35:10Z",
+    "telemetry_readings": {
+      "wind_speed_gust_kmh": 46.5,
+      "lightning_distance_km": 6.2,
+      "precipitation_rate_mm_hr": 68.0,
+      "optical_visibility_m": 45.0
+    },
+    "incident_description": "During dry run observation logging, wind gusts exceeded the 35 km/h safety ceiling (measured 46.5 km/h) and a simulated lightning alert triggered within 10 km (6.2 km). Simultaneously, physical curb reference marker #3 sustained temporary visual obstruction from splashback.",
+    "immediate_automated_action": "NO_AUTONOMOUS_INTERVENTION",
+    "autonomous_dispatch_prohibited": true,
+    "road_closure_initiated": false,
+    "note": "Per safety policy, Sahaay AI does NOT perform autonomous emergency dispatch or road closure."
+  },
+  "suspension_execution": {
+    "stop_work_invoked_by": "FIELD-LEAD-01",
+    "stop_work_timestamp_utc": "2026-10-25T12:35:35Z",
+    "field_session_state_transition": {
+      "from": "ACTIVE_COLLECTING",
+      "to": "SAFETY_ABORTED"
+    },
+    "activation_gate_transition": {
+      "from": "PILOT_AUTHORIZED",
+      "to": "PILOT_SUSPENDED",
+      "transition_id": "TRN-INCIDENT-SUSPEND-01",
+      "justification": "Environmental hazard threshold exceeded (wind 46.5 km/h, lightning 6.2 km) + curb reference obstruction.",
+      "authorized_by_role": "SAFETY_OFFICER",
+      "authorized_by_id": "SAFETY-OFFICER-01"
+    },
+    "data_handling": {
+      "quarantined_record_ids": ["SIM-OBS-20261025-9002"],
+      "quarantine_reason": "Incomplete verification prior to environmental abort",
+      "audit_trail_preserved": true,
+      "cryptographic_hash_chain_intact": true
+    }
+  },
+  "recovery_procedure": {
+    "root_cause_analysis": {
+      "hazard_cleared_time_utc": "2026-10-25T13:45:00Z",
+      "lightning_distance_km_post_clear": 28.0,
+      "wind_speed_kmh_post_clear": 14.0,
+      "physical_inspection_status": "Vantage railing and curb reference marker #3 inspected and undamaged."
+    },
+    "recovery_checklist": {
+      "environmental_hazards_cleared_30min": true,
+      "physical_vantage_structural_check_passed": true,
+      "ppe_and_communications_functional": true,
+      "quarantined_records_reviewed_by_data_lead": true,
+      "safety_lead_clearance_granted": true
+    },
+    "human_authorization_signoff": {
+      "recovery_authorized": true,
+      "reauthorized_to_state": "PILOT_AUTHORIZED",
+      "authorized_by_role": "PROJECT_DIRECTOR",
+      "authorized_by_id": "DIR-HYD-01",
+      "signoff_timestamp_utc": "2026-10-25T14:15:00Z",
+      "notes": "Weather system passed north-east; Rasoolpura concourse vantage confirmed safe; resumed supervised dry run."
+    }
+  }
+}

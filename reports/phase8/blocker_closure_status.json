@@ -1,0 +1,104 @@
+{
+  "report_timestamp_utc": "2026-10-25T12:06:29.110753Z",
+  "overall_closure_status": "MANDATORY_BLOCKERS_UNRESOLVED",
+  "pilot_gating_decision": "BLOCKED_NOT_READY_FOR_LIVE_PILOT",
+  "summary": {
+    "total_blockers_tracked": 7,
+    "mandatory_blockers_total": 4,
+    "mandatory_blockers_closed": 0,
+    "optional_feed_blockers_total": 3,
+    "optional_feed_blockers_closed": 0
+  },
+  "unresolved_mandatory_blockers": [
+    "BLK-03-SITE-INSPECTION (NOT_STARTED): Physical Hazard Survey & Vantage Point Safety Clearances",
+    "BLK-04-PPE-PROCUREMENT (NOT_STARTED): Procurement & Inspection of Certified PPE & Staff Gauges",
+    "BLK-05-DPDP-CONSENT (NOT_STARTED): DPDP Act 2023 Consent Notice & Coordinate Coarsening Deployment",
+    "BLK-06-ROLE-APPOINTMENT (NOT_STARTED): Formal Institutional Designation of Field Lead & Safety Officer"
+  ],
+  "blockers": [
+    {
+      "blocker_id": "BLK-01-TSDPS-AWS",
+      "description": "TSDPS Automatic Weather Station Rainfall Data Access Agreement",
+      "scope": "FEED_SPECIFIC_OPTIONAL",
+      "responsible_role": "Project Principal Investigator",
+      "status": "REQUESTED",
+      "is_verified_closed": false,
+      "evidence_reference": null,
+      "independent_reviewer": null,
+      "verification_timestamp": null,
+      "next_action": "Awaiting TSDPS Member Secretary review of formal requisition packet."
+    },
+    {
+      "blocker_id": "BLK-02-GHMC-DRF",
+      "description": "GHMC Disaster Response Force Emergency Incident Data Sharing",
+      "scope": "FEED_SPECIFIC_OPTIONAL",
+      "responsible_role": "Legal & Compliance Lead",
+      "status": "NOT_STARTED",
+      "is_verified_closed": false,
+      "evidence_reference": null,
+      "independent_reviewer": null,
+      "verification_timestamp": null,
+      "next_action": "Submit formal request letter to GHMC Commissioner & Director DRF."
+    },
+    {
+      "blocker_id": "BLK-03-SITE-INSPECTION",
+      "description": "Physical Hazard Survey & Vantage Point Safety Clearances",
+      "scope": "WHOLE_PILOT_MANDATORY",
+      "responsible_role": "Field Operations Lead",
+      "status": "NOT_STARTED",
+      "is_verified_closed": false,
+      "evidence_reference": null,
+      "independent_reviewer": null,
+      "verification_timestamp": null,
+      "next_action": "Conduct physical daytime site inspection at Rasoolpura Metro Walkway."
+    },
+    {
+      "blocker_id": "BLK-04-PPE-PROCUREMENT",
+      "description": "Procurement & Inspection of Certified PPE & Staff Gauges",
+      "scope": "WHOLE_PILOT_MANDATORY",
+      "responsible_role": "Field Operations Lead",
+      "status": "NOT_STARTED",
+      "is_verified_closed": false,
+      "evidence_reference": null,
+      "independent_reviewer": null,
+      "verification_timestamp": null,
+      "next_action": "Procure Class 2 reflective vests non-slip boots and 3m fiberglass staff gauge."
+    },
+    {
+      "blocker_id": "BLK-05-DPDP-CONSENT",
+      "description": "DPDP Act 2023 Consent Notice & Coordinate Coarsening Deployment",
+      "scope": "WHOLE_PILOT_MANDATORY",
+      "responsible_role": "Legal & Compliance Lead",
+      "status": "NOT_STARTED",
+      "is_verified_closed": false,
+      "evidence_reference": null,
+      "independent_reviewer": null,
+      "verification_timestamp": null,
+      "next_action": "Publish privacy notice and verify 3-decimal coarsening on staging portal."
+    },
+    {
+      "blocker_id": "BLK-06-ROLE-APPOINTMENT",
+      "description": "Formal Institutional Designation of Field Lead & Safety Officer",
+      "scope": "WHOLE_PILOT_MANDATORY",
+      "responsible_role": "Project Principal Investigator",
+      "status": "NOT_STARTED",
+      "is_verified_closed": false,
+      "evidence_reference": null,
+      "independent_reviewer": null,
+      "verification_timestamp": null,
+      "next_action": "Issue formal appointment letters specifying field safety veto powers."
+    },
+    {
+      "blocker_id": "BLK-07-CCTV-QUARANTINE",
+      "description": "Municipal CCTV Access Authorization & DPIA Assessment",
+      "scope": "FEED_SPECIFIC_OPTIONAL",
+      "responsible_role": "Vision Safety Lead",
+      "status": "REJECTED",
+      "is_verified_closed": false,
+      "evidence_reference": "DRAFT-DPIA-V4-BLOCKED",
+      "independent_reviewer": "VISION_SAFETY_COMMITTEE:CHAIR-V4-GATE",
+      "verification_timestamp": "2026-10-25T12:00:00+00:00",
+      "next_action": "Maintain quarantine under Vision V4 NO-GO gate; autonomous optical inference blocked."
+    }
+  ]
+}

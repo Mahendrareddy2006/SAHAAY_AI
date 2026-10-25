@@ -1,0 +1,36 @@
+{
+  "scope_decision_timestamp_utc": "2026-10-25T17:37:00Z",
+  "phase": "Phase 8 Scope Scoping & Decoupling Audit",
+  "approved_pilot_scope_profile": "SCOPE_LIMITED_PHYSICAL_VANTAGE_PILOT",
+  "scope_governance": {
+    "authorized_by_role": "PROJECT_DIRECTOR",
+    "authorized_by_id": "DIR-HYD-01",
+    "justification_notes": "Authorizing limited physical vantage observation scope. Excludes automated CCTV inference and real-time TSDPS API ingestion until bilateral MoUs are signed."
+  },
+  "subsystem_scope_boundaries": {
+    "field_vantage_observations": {
+      "is_included_in_scope": true,
+      "mandatory_blockers_required": ["BLK-03-SITE-INSPECTION", "BLK-04-PPE-PROCUREMENT", "BLK-05-DPDP-CONSENT", "BLK-06-ROLE-APPOINTMENT"],
+      "permitted_locations": ["CORR-HYD-01: Rasoolpura Metro Elevated Pedestrian Walkway"],
+      "operational_status": "BLOCKED_PENDING_MANDATORY_BLOCKER_CLOSURE"
+    },
+    "tsdps_aws_telemetry": {
+      "is_included_in_scope": false,
+      "mandatory_blockers_required": ["BLK-01-TSDPS-AWS"],
+      "operational_mode": "DISABLED_FALLBACK_ACTIVE",
+      "notes": "Absence of live TSDPS telemetry does not block manual staff-gauge pilot. Telemetry missingness triggers non-silent abstention."
+    },
+    "ghmc_drf_incident_logs": {
+      "is_included_in_scope": false,
+      "mandatory_blockers_required": ["BLK-02-GHMC-DRF"],
+      "operational_mode": "DISABLED_OPERATOR_MANUAL_ENTRY_ONLY",
+      "notes": "Automated dispatch sync disabled. Operational reviews must be initiated manually by municipal operator."
+    },
+    "municipal_cctv_optical_streams": {
+      "is_included_in_scope": false,
+      "mandatory_blockers_required": ["BLK-07-CCTV-QUARANTINE"],
+      "operational_mode": "QUARANTINED_DISABLED",
+      "notes": "Strictly prohibited from live pilot under Vision V4 NO-GO readiness gate."
+    }
+  }
+}

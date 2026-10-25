@@ -1,0 +1,50 @@
+{
+  "audit_timestamp_utc": "2026-10-25T17:35:30Z",
+  "audit_target": "Sahaay AI Phase 7 Baseline & Phase 8 Pre-Activation Audit",
+  "git_commit": "a993982",
+  "branch": "master",
+  "verified_baseline_state": "BLOCKED_NOT_READY_FOR_LIVE_PILOT",
+  "test_execution": {
+    "command": ".\\.venv\\Scripts\\python.exe -m pytest -v",
+    "total_tests": 122,
+    "passed": 122,
+    "failed": 0,
+    "skipped": 0,
+    "warnings": 15,
+    "duration_seconds": 8.19,
+    "status": "ALL_TESTS_PASSING"
+  },
+  "subsystem_test_summary": {
+    "tests/test_phase7_pilot_activation.py": { "passed": 11, "failed": 0 },
+    "tests/test_phase6_pilot_readiness.py": { "passed": 13, "failed": 0 },
+    "tests/test_phase5_integration.py": { "passed": 16, "failed": 0 },
+    "tests/test_vision_v4_phase3.py": { "passed": 7, "failed": 0 },
+    "tests/test_vision_v4_collection.py": { "passed": 15, "failed": 0 },
+    "tests/test_vision_v4.py": { "passed": 9, "failed": 0 },
+    "tests/test_hyderabad_risk_pipeline.py": { "passed": 16, "failed": 0 },
+    "tests/test_image_quality_gate.py": { "passed": 5, "failed": 0 },
+    "tests/test_transforms.py": { "passed": 3, "failed": 0 },
+    "tests/test_split_integrity.py": { "passed": 5, "failed": 0 },
+    "tests/test_vision_v3.py": { "passed": 10, "failed": 0 },
+    "tests/test_inference.py": { "passed": 3, "failed": 0 },
+    "tests/test_model.py": { "passed": 2, "failed": 0 },
+    "tests/test_api.py": { "passed": 7, "failed": 0 }
+  },
+  "blocker_status_summary": {
+    "total_blockers_tracked": 7,
+    "whole_pilot_mandatory_blockers": 4,
+    "feed_specific_optional_blockers": 3,
+    "blockers_verified_closed": 0,
+    "blockers_pending_human_resolution": 7
+  },
+  "ground_truth_inventory": {
+    "real_observations_in_database": 0,
+    "verified_flood_episodes": 0,
+    "verified_non_flood_episodes": 0,
+    "preregistered_flood_target": 50,
+    "preregistered_non_flood_target": 100,
+    "preregistered_storm_dates_target": 4
+  },
+  "vision_v4_gate_status": "NO-GO",
+  "audit_verdict": "FAIL_CLOSED_VERIFIED_BLOCKED"
+}

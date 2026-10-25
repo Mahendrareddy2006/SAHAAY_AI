@@ -1,0 +1,190 @@
+{
+  "report_timestamp_utc": "2026-10-25T12:50:28.778523+00:00",
+  "phase": "Phase 10 Rules-Based Baseline Validation",
+  "validation_verdict": "ALL_RULES_BASELINES_VERIFIED_PASSING",
+  "total_checks": 21,
+  "passed_checks": 21,
+  "failed_checks": 0,
+  "test_results": [
+    {
+      "test_group": "rainfall_intensity_boundaries",
+      "name": "Dry zero precipitation boundary",
+      "input_1h_mm": 0.0,
+      "expected_category": "LOW",
+      "observed_category": "LOW",
+      "risk_score": 0.02,
+      "passed": true
+    },
+    {
+      "test_group": "rainfall_intensity_boundaries",
+      "name": "Light rain below 7.5 mm/hr",
+      "input_1h_mm": 5.0,
+      "expected_category": "LOW",
+      "observed_category": "LOW",
+      "risk_score": 0.23,
+      "passed": true
+    },
+    {
+      "test_group": "rainfall_intensity_boundaries",
+      "name": "IMD moderate threshold boundary (7.5 mm/hr)",
+      "input_1h_mm": 7.5,
+      "expected_category": "MEDIUM",
+      "observed_category": "MEDIUM",
+      "risk_score": 0.3,
+      "passed": true
+    },
+    {
+      "test_group": "rainfall_intensity_boundaries",
+      "name": "Upper moderate threshold (14.9 mm/hr)",
+      "input_1h_mm": 14.9,
+      "expected_category": "MEDIUM",
+      "observed_category": "MEDIUM",
+      "risk_score": 0.6,
+      "passed": true
+    },
+    {
+      "test_group": "rainfall_intensity_boundaries",
+      "name": "IMD heavy threshold boundary (15.0 mm/hr)",
+      "input_1h_mm": 15.0,
+      "expected_category": "HIGH",
+      "observed_category": "HIGH",
+      "risk_score": 0.6,
+      "passed": true
+    },
+    {
+      "test_group": "rainfall_intensity_boundaries",
+      "name": "Upper heavy threshold (34.9 mm/hr)",
+      "input_1h_mm": 34.9,
+      "expected_category": "HIGH",
+      "observed_category": "HIGH",
+      "risk_score": 0.8,
+      "passed": true
+    },
+    {
+      "test_group": "rainfall_intensity_boundaries",
+      "name": "IMD very heavy / severe boundary (35.0 mm/hr)",
+      "input_1h_mm": 35.0,
+      "expected_category": "CRITICAL",
+      "observed_category": "CRITICAL",
+      "risk_score": 0.8,
+      "passed": true
+    },
+    {
+      "test_group": "rainfall_intensity_boundaries",
+      "name": "Cloudburst intensity (100.0 mm/hr)",
+      "input_1h_mm": 100.0,
+      "expected_category": "CRITICAL",
+      "observed_category": "CRITICAL",
+      "risk_score": 1.0,
+      "passed": true
+    },
+    {
+      "test_group": "rainfall_intensity_boundaries",
+      "name": "Extreme cloudburst saturation (150.0 mm/hr)",
+      "input_1h_mm": 150.0,
+      "expected_category": "CRITICAL",
+      "observed_category": "CRITICAL",
+      "risk_score": 1.0,
+      "passed": true
+    },
+    {
+      "test_group": "monotonicity",
+      "name": "Rainfall score monotonic non-decreasing check across 50 increments (0 to 100 mm/hr)",
+      "passed": true
+    },
+    {
+      "test_group": "missing_data_semantics",
+      "name": "Missing hourly rain yields UNKNOWN category (never silently assumed 0.0mm)",
+      "passed": true,
+      "observed_category": "UNKNOWN",
+      "observed_confidence": 0.1
+    },
+    {
+      "test_group": "multi_window_amplification",
+      "name": "Rolling 3h surge (45mm) elevates light base rain (5mm) to HIGH category",
+      "passed": true
+    },
+    {
+      "test_group": "multi_window_amplification",
+      "name": "Rolling 24h extreme saturation (120mm) elevates light base rain (5mm) to CRITICAL category",
+      "passed": true
+    },
+    {
+      "test_group": "confidence_discounting",
+      "name": "Station distance penalty: 45km station distance discounts confidence from 1.0 to 0.70",
+      "passed": true,
+      "observed_confidence": 0.7
+    },
+    {
+      "test_group": "confidence_discounting",
+      "name": "Data staleness penalty: 4.0h age discounts confidence from 1.0 to 0.80",
+      "passed": true,
+      "observed_confidence": 0.8
+    },
+    {
+      "test_group": "confidence_discounting",
+      "name": "Missing rolling windows penalty: 3 missing windows discounts confidence to 0.76",
+      "passed": true,
+      "observed_confidence": 0.76
+    },
+    {
+      "test_group": "vulnerability_subscores",
+      "name": "Hotspot proximity subscore monotonically decreases with distance",
+      "passed": true
+    },
+    {
+      "test_group": "vulnerability_subscores",
+      "name": "Drain network proximity subscore monotonically decreases with distance",
+      "passed": true
+    },
+    {
+      "test_group": "vulnerability_subscores",
+      "name": "Waterbody proximity subscore monotonically decreases with distance",
+      "passed": true
+    },
+    {
+      "test_group": "vulnerability_weighted_index",
+      "name": "Multi-criteria weighted index computation: 45% hotspot + 35% drain + 20% waterbody = 0.835 (SEVERE)",
+      "expected_index": 0.835,
+      "observed_index": 0.835,
+      "observed_category": "SEVERE",
+      "passed": true
+    },
+    {
+      "test_group": "geospatial_calculations",
+      "name": "Haversine distance between Lakdikapul and Khairatabad is ~920m (observed: 925.8m)",
+      "passed": true
+    }
+  ],
+  "baseline_specifications": {
+    "rainfall_engine": {
+      "imd_intensity_thresholds_mm_hr": {
+        "light_max_mm_per_hr": 7.5,
+        "moderate_max_mm_per_hr": 15.0,
+        "heavy_max_mm_per_hr": 35.0,
+        "cloudburst_min_mm_per_hr": 100.0,
+        "rolling_3h_warning_mm": 40.0,
+        "rolling_6h_warning_mm": 70.0,
+        "rolling_24h_heavy_mm": 64.5,
+        "rolling_24h_very_heavy_mm": 115.5
+      },
+      "multi_window_escalation": "3h surge >= 40mm -> HIGH, 24h extreme >= 115.5mm -> CRITICAL",
+      "missing_data_policy": "rain_1h_mm=None -> UNKNOWN (conf=0.10, score=0.0)",
+      "confidence_penalties": "Distance penalty (-0.01/km >15km, max -0.35), Staleness penalty (-0.08/h >1.5h, max -0.40)"
+    },
+    "vulnerability_engine": {
+      "weights": {
+        "hotspot_proximity": 0.45,
+        "drain_proximity": 0.35,
+        "waterbody_proximity": 0.2
+      },
+      "category_thresholds": {
+        "SEVERE": ">= 0.70",
+        "HIGH": ">= 0.45",
+        "MODERATE": ">= 0.20",
+        "LOW": "< 0.20"
+      },
+      "semantic_invariance": "Static vulnerability represents physical exposure, NOT current inundation."
+    }
+  }
+}

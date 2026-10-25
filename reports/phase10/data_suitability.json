@@ -1,0 +1,124 @@
+{
+  "report_timestamp_utc": "2026-10-25T12:48:54.435819+00:00",
+  "phase": "Phase 10 Data Suitability & ML Feasibility Audit",
+  "raw_datasets_audited": {
+    "flooding_locations_kml": {
+      "placemarks": 23,
+      "has_timestamps": false,
+      "has_depths": false
+    },
+    "hyderabad_drains_kml": {
+      "lines": 96,
+      "has_capacity": false
+    },
+    "greater_hyderabad_waterbodies_geojson": {
+      "polygons": 2324,
+      "has_bund_heights": false
+    },
+    "hyderabad_monthly_rainfall_csv": {
+      "years": 121,
+      "start_year": 1901,
+      "end_year": 2021,
+      "resolution": "monthly"
+    },
+    "telangana_hourly_telemetry_rainfall_csv": {
+      "total_records": 72223,
+      "stations": 38,
+      "districts": 22,
+      "hyderabad_district_included": false,
+      "accumulator_records_gt_250mm": 36702,
+      "accumulator_percentage": 50.82,
+      "negative_sensor_glitches": 19
+    }
+  },
+  "station_continuity_sampling": {
+    "AKBR": {
+      "record_count": 1101,
+      "start_time": "2023-11-06T15:00:00",
+      "end_time": "2025-12-27T12:00:00",
+      "duplicate_zero_diff_timestamps": 155,
+      "hourly_steps_count": 427,
+      "max_gap_days": 141.6,
+      "effective_temporal_coverage_pct": 5.87
+    },
+    "Kondapochamma Resrvoir": {
+      "record_count": 932,
+      "start_time": "2023-11-07T11:00:00",
+      "end_time": "2025-12-31T12:00:00",
+      "duplicate_zero_diff_timestamps": 206,
+      "hourly_steps_count": 221,
+      "max_gap_days": 71.3,
+      "effective_temporal_coverage_pct": 4.95
+    },
+    "Boggulawagu": {
+      "record_count": 4237,
+      "start_time": "2023-08-10T17:00:00",
+      "end_time": "2025-12-31T12:00:00",
+      "duplicate_zero_diff_timestamps": 382,
+      "hourly_steps_count": 2070,
+      "max_gap_days": 55.8,
+      "effective_temporal_coverage_pct": 20.2
+    },
+    "Ghanpur Lake_1": {
+      "record_count": 3679,
+      "start_time": "2023-08-27T06:00:00",
+      "end_time": "2025-12-15T22:00:00",
+      "duplicate_zero_diff_timestamps": 228,
+      "hourly_steps_count": 2028,
+      "max_gap_days": 36.3,
+      "effective_temporal_coverage_pct": 18.21
+    }
+  },
+  "task_suitability": {
+    "task_a_rainfall_forecasting": {
+      "task_title": "Short-Term Hourly Rainfall Forecasting",
+      "is_supervised_ml_feasible": false,
+      "experiment_status": "NOT_RUN",
+      "blocking_reasons": [
+        "Telemetry reporting exhibits massive temporal missingness (> 90% missing hours).",
+        "Extreme transmission gaps (up to 141.6 consecutive days with zero records).",
+        "Over 50.8% of records reflect seasonal bucket accumulator counters (> 250 mm up to 3,406 mm) rather than incremental hourly rain.",
+        "Zero telemetry stations exist within the GHMC urban core; nearest station is 35-50 km away."
+      ],
+      "required_data_to_unlock": "Continuous 15-minute AWS telemetry with >= 98% uptime and automated accumulator counter differencing."
+    },
+    "task_b_flood_occurrence_prediction": {
+      "task_title": "Supervised Flood Occurrence Prediction (Binary / Depth)",
+      "is_supervised_ml_feasible": false,
+      "experiment_status": "NOT_RUN",
+      "blocking_reasons": [
+        "flooding_locations.kml contains 23 static historical placemarks with ZERO timestamps, dates, or depth measurements.",
+        "Real-world observation database contains exactly 0 observations (Phase 8 activation gate blocked at BLOCKED_NOT_READY_FOR_LIVE_PILOT).",
+        "Labeling static hotspots as positive targets causes 100% spatial target leakage, memorizing placemarks rather than predicting flood events."
+      ],
+      "required_data_to_unlock": "Minimum 50 verified flood episodes (depth >= 5 cm) and 100 non-flood episodes across >= 4 storm dates."
+    },
+    "task_c_road_vulnerability_ranking": {
+      "task_title": "Road Vulnerability Index Modeling",
+      "is_supervised_ml_feasible": false,
+      "experiment_status": "NOT_RUN",
+      "blocking_reasons": [
+        "Vulnerability index is an explainable heuristic multi-criteria formula (45% hotspot, 35% drain, 20% waterbody).",
+        "Supervised training against heuristic scores is formula distillation / rule imitation, not predictive ML.",
+        "No independent road inundation damage outcomes exist to validate predictive performance."
+      ],
+      "recommended_treatment": "Retain as an auditable, transparent rules-based baseline."
+    },
+    "task_d_rainfall_risk_classification": {
+      "task_title": "Rainfall Risk Tier Classification (LOW/MED/HIGH/CRITICAL)",
+      "is_supervised_ml_feasible": false,
+      "experiment_status": "NOT_RUN",
+      "blocking_reasons": [
+        "Risk categories are directly mapped from deterministic IMD thresholds (7.5, 15.0, 35.0 mm/hr).",
+        "Training an ML classifier on these rule outputs is rule imitation with zero generalization value."
+      ],
+      "recommended_treatment": "Retain deterministic rules-based engine with explicit confidence discounting."
+    }
+  },
+  "primary_conclusions": [
+    "No valid timestamped ground-truth flood outcome labels exist in the repository.",
+    "Static hotspot coordinates cannot be substituted for flood event labels.",
+    "Regional telemetry cannot support live temporal forecasting due to >90% temporal missingness and accumulator counter confusion.",
+    "Existing rules-based rainfall and road-vulnerability baselines are mathematically transparent and must be preserved as the reference standard."
+  ]
+}

@@ -1,0 +1,171 @@
+"""
+Sahaay AI — Phase 10 Experiment Results & Evaluation Report Generator
+Compiles results across Track A (Rules-based baseline), Track B (Unsupervised exploratory analysis),
+Track C (Supervised flood ML feasibility -> NOT_RUN), and Track D (Rainfall forecasting -> NOT_RUN).
+"""
+
+import os
+import sys
+import json
+import pandas as pd
+import numpy as np
+
+def generate_experiment_results(output_path: str = "reports/phase10/experiment_results.json"):
+    print("Generating Phase 10 Experiment Results Report...")
+    os.makedirs(os.path.dirname(output_path), exist_ok=True)
+
+    # Load 20 corridors features for exploratory summary
+    corridors_df = pd.read_csv("data/hyderabad_risk/derived/hyderabad_risk_features.csv")
+
+    vuln_summary = {
+        "corridor_count": len(corridors_df),
+        "mean_vulnerability_index": round(float(corridors_df["vulnerability_index"].mean()), 3),
+        "min_vulnerability_index": round(float(corridors_df["vulnerability_index"].min()), 3),
+        "max_vulnerability_index": round(float(corridors_df["vulnerability_index"].max()), 3),
+        "category_distribution": corridors_df["vulnerability_category"].value_counts().to_dict(),
+        "proximity_feature_distributions": {
+            "dist_to_flood_hotspot_m": {
+                "mean": round(float(corridors_df["dist_to_flood_hotspot_m"].mean()), 1),
+                "min": round(float(corridors_df["dist_to_flood_hotspot_m"].min()), 1),
+                "max": round(float(corridors_df["dist_to_flood_hotspot_m"].max()), 1)
+            },
+            "dist_to_nearest_drain_m": {
+                "mean": round(float(corridors_df["dist_to_nearest_drain_m"].mean()), 1),
+                "min": round(float(corridors_df["dist_to_nearest_drain_m"].min()), 1),
+                "max": round(float(corridors_df["dist_to_nearest_drain_m"].max()), 1)
+            },
+            "dist_to_nearest_waterbody_m": {
+                "mean": round(float(corridors_df["dist_to_nearest_waterbody_m"].mean()), 1),
+                "min": round(float(corridors_df["dist_to_nearest_waterbody_m"].min()), 1),
+                "max": round(float(corridors_df["dist_to_nearest_waterbody_m"].max()), 1)
+            }
+        }
+    }
+
+    report = {
+        "report_timestamp_utc": pd.Timestamp.now("UTC").isoformat(),
+        "phase": "Phase 10 Rainfall and Road-Risk Model Experiments & Scientific Evaluation",
+        "scientific_integrity_attestation": (
+            "Sahaay AI strictly prioritizes scientific validity over manufacturing pseudo-accuracy. "
+            "Because no timestamped ground-truth flood outcome labels exist, and because telemetry data "
+            "exhibits >90% temporal missingness and accumulator counter confusion, supervised flood prediction "
+            "and live temporal rainfall forecasting are formally recorded as NOT_RUN. "
+            "Rules-based baselines are validated as the transparent operational reference standard."
+        ),
+        "tracks": {
+            "track_a_rules_based_baseline": {
+                "track_title": "Track A — Rules-Based Reference Baselines",
+                "validation_status": "VALIDATED_PASSING (21/21 checks passed)",
+                "rainfall_risk_engine": {
+                    "architecture": "IMD-calibrated piecewise intensity and multi-window accumulation rules",
+                    "inputs": ["rain_1h_mm", "rain_3h_mm", "rain_6h_mm", "rain_24h_mm", "station_dist_km", "data_freshness_hours"],
+                    "thresholds": {
+                        "light_intensity_max": 7.5,
+                        "moderate_intensity_max": 15.0,
+                        "heavy_intensity_max": 35.0,
+                        "cloudburst_intensity_min": 100.0,
+                        "rolling_3h_surge_threshold": 40.0,
+                        "rolling_24h_heavy_saturation": 64.5,
+                        "rolling_24h_extreme_saturation": 115.5
+                    },
+                    "missing_data_semantics": "rain_1h_mm=None strictly returns UNKNOWN (conf=0.10, score=0.0). Missing observations are NEVER silently converted to 0.0mm.",
+                    "confidence_discounting": "Distance penalty (-0.01/km >15km, max -0.35); Staleness penalty (-0.08/h >1.5h, max -0.40); Missing window penalty (-0.08 per window).",
+                    "failure_modes": "In convective cloudbursts localized within 2km, regional rain gauges (35-50km away) will underestimate intensity without radar/nowcast corroboration."
+                },
+                "road_vulnerability_engine": {
+                    "architecture": "Multi-criteria weighted geographic susceptibility index",
+                    "weights": {
+                        "hotspot_proximity": 0.45,
+                        "drain_proximity": 0.35,
+                        "waterbody_proximity": 0.20
+                    },
+                    "subscore_zones": {
+                        "hotspot": "Extreme (0-250m: 1.0 to 0.50), Moderate (250-1000m: 0.50 to 0.0), Negligible (>1000m: 0.0)",
+                        "drain": "High overflow risk (0-100m: 1.0 to 0.60), Buffer (100-500m: 0.60 to 0.0), Low (>500m: 0.0)",
+                        "waterbody": "Low-elevation lake bund (0-200m: 1.0 to 0.50), Slope (200-800m: 0.50 to 0.0), Minimal (>800m: 0.0)"
+                    },
+                    "category_thresholds": {
+                        "SEVERE": ">= 0.70",
+                        "HIGH": ">= 0.45",
+                        "MODERATE": ">= 0.20",
+                        "LOW": "< 0.20"
+                    },
+                    "semantic_invariant": "Static vulnerability represents underlying physical susceptibility, NOT active flooding. A SEVERE road is completely safe in dry weather."
+                }
+            },
+            "track_b_unsupervised_exploratory_analysis": {
+                "track_title": "Track B — Unsupervised & Exploratory Data Analysis",
+                "telemetry_data_quality": {
+                    "dataset": "telangana_hourly_telemetry_rainfall_2021_2025.csv",
+                    "total_records": 72223,
+                    "stations": 38,
+                    "districts": 22,
+                    "hyderabad_district_included": False,
+                    "accumulator_anomaly_count": 36702,
+                    "accumulator_percentage": 50.82,
+                    "negative_sensor_glitches": 19,
+                    "temporal_gap_analysis": {
+                        "sampling_station_AKBR": "1,101 records over 2 years (effective coverage < 7%); max transmission gap = 141.6 days; 155 duplicate timestamps.",
+                        "sampling_station_Kondapochamma": "932 records over 2 years (effective coverage < 6%); max transmission gap = 71.3 days; 206 duplicate timestamps.",
+                        "conclusion": "Discontinuous regional telemetry cannot be treated as a regular time series without extreme temporal distortion."
+                    }
+                },
+                "corridor_vulnerability_spatial_distribution": vuln_summary
+            },
+            "track_c_supervised_flood_ml_feasibility": {
+                "track_title": "Track C — Supervised Flood Prediction Feasibility",
+                "experiment_status": "NOT_RUN",
+                "decision_verdict": "SUPERVISED FLOOD PREDICTION IS CURRENTLY INFEASIBLE",
+                "blocking_reasons": [
+                    "flooding_locations.kml contains 23 static historical placemarks with zero timestamps, dates, or depth measurements.",
+                    "Real-world observation database contains exactly 0 observations (Phase 8 activation gate blocked at BLOCKED_NOT_READY_FOR_LIVE_PILOT).",
+                    "Labeling static hotspots as positive targets causes 100% spatial target leakage, memorizing placemarks rather than predicting flood events.",
+                    "Fitting an ML model to vulnerability index scores or IMD rainfall risk categories is rule imitation / formula distillation, not predictive ML."
+                ],
+                "required_data_to_unlock_supervised_ml": {
+                    "ground_truth_episodes": "Minimum 50 verified flood episodes (water depth >= 5 cm) and 100 non-flood episodes across >= 4 storm dates.",
+                    "spatiotemporal_alignment": "Timestamped physical ground observations aligned with synchronized AWS telemetry and LiDAR elevation.",
+                    "split_methodology": "Location-held-out and storm-date-grouped splits to prevent spatial and temporal duplicate leakage."
+                }
+            },
+            "track_d_rainfall_forecasting_experiment": {
+                "track_title": "Track D — Temporal Rainfall Forecasting Feasibility",
+                "experiment_status": "NOT_RUN",
+                "decision_verdict": "HOURLY TELEMETRY FORECASTING IS CURRENTLY INFEASIBLE",
+                "blocking_reasons": [
+                    "Telemetry station reporting is discontinuous (> 90% temporal missingness).",
+                    "Massive multi-week gaps (up to 141.6 consecutive days with zero records).",
+                    "Inconsistent mixed time deltas (0 minutes, 5 minutes, 1 hour, 2 hours, 5 hours).",
+                    "50.82% of records reflect seasonal accumulator counters rather than incremental hourly rain.",
+                    "Zero telemetry stations exist within the GHMC urban core; nearest station is 35-50 km away."
+                ],
+                "scientific_justification": (
+                    "Training autoregressive or neural sequence models on this telemetry would require either "
+                    "silently imputing 141 days of missing hours as zero rain (violating non-negotiable data rules) "
+                    "or concatenating across multi-month gaps as adjacent hours. A rigorous NOT_RUN result is recorded."
+                ),
+                "required_data_to_unlock_forecasting": "Sub-hourly (15-min) telemetry stream with >= 98% uptime and automated counter differencing."
+            }
+        },
+        "decision_semantics_and_safety_invariants": {
+            "advisory_only_mandate": True,
+            "autonomous_road_closures_prohibited": True,
+            "autonomous_emergency_dispatch_prohibited": True,
+            "semantic_distinctions": [
+                "Environmental susceptibility is NOT proof of current inundation.",
+                "High rainfall risk is NOT a verified flood observation.",
+                "Missing or stale rainfall data is UNKNOWN, never LOW.",
+                "A static hotspot is NOT a timestamped flood label.",
+                "Synthetic scenarios test software behavior, NOT real-world predictive accuracy."
+            ]
+        }
+    }
+
+    with open(output_path, "w", encoding="utf-8") as f:
+        json.dump(report, f, indent=2)
+
+    print(f"Saved {output_path}")
+    return report
+
+if __name__ == "__main__":
+    generate_experiment_results()

@@ -68,35 +68,27 @@ class FloodVisionInference:
         Validates image payload integrity, checks against corruptions, and ensures RGB format.
         """
         if isinstance(image_input, Image.Image):
-            image = image_input
-        elif isinstance(image_input, (bytes, bytearray)):
+            return image_input.copy().convert("RGB")
+            
+        if isinstance(image_input, (bytes, bytearray)):
             if len(image_input) == 0:
                 raise ValueError("Image byte payload is empty.")
             if len(image_input) > 15 * 1024 * 1024:
                 raise ValueError("Image file exceeds maximum allowable size (15 MB).")
             try:
+                Image.open(io.BytesIO(image_input)).verify()
                 image = Image.open(io.BytesIO(image_input))
             except Exception as e:
-                raise ValueError(f"Failed to decode image from bytes: {e}")
+                raise ValueError(f"Corrupt or malformed image: {e}")
         elif isinstance(image_input, io.BytesIO):
             try:
+                Image.open(image_input).verify()
+                image_input.seek(0)
                 image = Image.open(image_input)
             except Exception as e:
-                raise ValueError(f"Failed to decode image from stream: {e}")
+                raise ValueError(f"Corrupt or malformed image: {e}")
         else:
             raise TypeError(f"Unsupported image input type: {type(image_input)}")
-            
-        try:
-            image.verify()
-        except Exception as e:
-            raise ValueError(f"Corrupt or malformed image: {e}")
-            
-        # Re-open after verify() because verify() invalidates the image pointer
-        if isinstance(image_input, (bytes, bytearray)):
-            image = Image.open(io.BytesIO(image_input))
-        elif isinstance(image_input, io.BytesIO):
-            image_input.seek(0)
-            image = Image.open(image_input)
             
         return image.convert("RGB")
         

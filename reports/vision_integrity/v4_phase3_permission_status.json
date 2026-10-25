@@ -1,0 +1,64 @@
+{
+  "report_title": "Sahaay AI Vision V4 Phase 3 Permission & Stakeholder Onboarding Status",
+  "audit_timestamp": "2026-10-25T15:45:00Z",
+  "overall_permission_status": "PENDING_FORMAL_SUBMISSIONS",
+  "approved_stream_count": 0,
+  "pending_stream_count": 2,
+  "not_started_stream_count": 2,
+  "rejected_stream_count": 0,
+  "streams": {
+    "STREAM-01-MUNICIPAL-CCTV": {
+      "name": "GHMC / Hyderabad Traffic Police CCTV",
+      "stakeholder": "Greater Hyderabad Municipal Corporation / Hyderabad Traffic Police",
+      "status": "pending",
+      "agreement_type": "Formal Institutional MOU & Data Access Agreement",
+      "evidence_reference": "DRAFT-DOC-MUNICIPAL-MOU-v1.0",
+      "training_rights_requested": true,
+      "blockers": [
+        "Awaiting formal submission of municipal data-access request packet by human project owner to GHMC Commissioner & Traffic Police DCP"
+      ],
+      "next_action": "Submit formal municipal data-access request packet",
+      "responsible_role": "Project Principal Investigator"
+    },
+    "STREAM-02-CITIZEN-UPLOAD": {
+      "name": "Citizen-Submitted Imagery",
+      "stakeholder": "Sahaay Community Contributors / Hyderabad Residents",
+      "status": "not_started",
+      "agreement_type": "Public Terms of Service & Explicit Data-Sharing Consent Notice",
+      "evidence_reference": "DRAFT-DOC-CITIZEN-CONSENT-v1.0",
+      "training_rights_requested": true,
+      "blockers": [
+        "Citizen portal consent notice and privacy policy undergoing legal review before front-end deployment"
+      ],
+      "next_action": "Deploy citizen consent form on public web portal following legal review",
+      "responsible_role": "Legal & Compliance Lead"
+    },
+    "STREAM-03-FIELD-VANTAGE": {
+      "name": "Field-Team Photography",
+      "stakeholder": "Sahaay AI Research & Field Engineering Team",
+      "status": "pending",
+      "agreement_type": "Internal Safety Protocol & Institutional Field Work Authorization",
+      "evidence_reference": "DRAFT-DOC-FIELD-SAFETY-v1.0",
+      "training_rights_requested": true,
+      "blockers": [
+        "Pre-collection physical site verification at 4 pilot corridors and PPE gear procurement"
+      ],
+      "next_action": "Verify pedestrian sightlines and safety clearances at pilot corridors",
+      "responsible_role": "Field Operations Lead"
+    },
+    "STREAM-04-COMMERCIAL-DASHCAM": {
+      "name": "Commercial Dashcam Partners",
+      "stakeholder": "Commercial Logistics & Transit Fleet Operators",
+      "status": "not_started",
+      "agreement_type": "Bilateral Fleet Data-Sharing Agreement & API License",
+      "evidence_reference": "DRAFT-DOC-DASHCAM-AGREEMENT-v1.0",
+      "training_rights_requested": true,
+      "blockers": [
+        "Partner fleet identification and legal review of commercial telemetry data-sharing"
+      ],
+      "next_action": "Identify and engage 2 candidate fleet operators operating in Hyderabad",
+      "responsible_role": "Partnership Outreach Lead"
+    }
+  },
+  "compliance_audit_finding": "Zero external data streams possess executed legal agreements. Machine learning training on municipal or third-party data is strictly prohibited until formal written MOUs or consent notices are countersigned and registered."
+}

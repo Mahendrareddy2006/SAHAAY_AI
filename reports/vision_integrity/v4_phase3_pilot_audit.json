@@ -1,0 +1,95 @@
+{
+  "report_title": "Sahaay AI Vision V4 Phase 3 Pilot Collection Audit",
+  "timestamp": "2026-10-25T15:50:00Z",
+  "pilot_operational_status": "AWAITING_LEGAL_EXECUTION",
+  "permission_summary": {
+    "total_streams_tracked": 4,
+    "approved_streams": 0,
+    "pending_streams": 2,
+    "not_started_streams": 2,
+    "details": [
+      {
+        "stream_id": "STREAM-01-MUNICIPAL-CCTV",
+        "acquisition_stream_name": "GHMC / Hyderabad Traffic Police CCTV",
+        "responsible_organization": "Greater Hyderabad Municipal Corporation (GHMC) / Hyderabad Traffic Police (HTP)",
+        "required_agreement_type": "Formal Institutional MOU & Data Access Agreement",
+        "intended_data_use_training_rights": "Research benchmarking & machine learning model training for flood early warning",
+        "privacy_and_retention_conditions": "Mandatory blurring of faces and plates; 36-month retention; encrypted vault storage",
+        "access_restrictions": "Restricted vault access; AES-256 encryption; zero public release of raw streams",
+        "request_status": "pending",
+        "evidence_reference": "DRAFT-DOC-MUNICIPAL-MOU-v1.0",
+        "outstanding_blockers": "Awaiting human project owner formal submission to GHMC Commissioner & Traffic Police DCP",
+        "next_action": "Submit formal municipal data-access request packet to GHMC/HTP",
+        "responsible_role": "Project Principal Investigator"
+      },
+      {
+        "stream_id": "STREAM-02-CITIZEN-UPLOAD",
+        "acquisition_stream_name": "Citizen-Submitted Imagery",
+        "responsible_organization": "Sahaay Community Contributors / Registered Hyderabad Residents",
+        "required_agreement_type": "Public Terms of Service & Explicit Data-Sharing Consent Notice",
+        "intended_data_use_training_rights": "Community flood detection; ML training & non-commercial public safety research",
+        "privacy_and_retention_conditions": "Automated face and license plate redaction; right-to-erasure workflow within 14 days",
+        "access_restrictions": "Raw uploads restricted to compliance vault; anonymized derivatives available for training",
+        "request_status": "not_started",
+        "evidence_reference": "DRAFT-DOC-CITIZEN-CONSENT-v1.0",
+        "outstanding_blockers": "Frontend upload portal and terms acceptance flow undergoing legal review before deployment",
+        "next_action": "Deploy citizen consent form on public web portal following legal sign-off",
+        "responsible_role": "Legal & Compliance Lead"
+      },
+      {
+        "stream_id": "STREAM-03-FIELD-VANTAGE",
+        "acquisition_stream_name": "Field-Team Photography",
+        "responsible_organization": "Sahaay AI Research & Field Engineering Team",
+        "required_agreement_type": "Internal Safety Protocol & Institutional Field Work Authorization",
+        "intended_data_use_training_rights": "Urban flood resilience research & training of open flood classification models",
+        "privacy_and_retention_conditions": "Pedestrian face and vehicle plate redaction; zero in-traffic photography; 36-month retention",
+        "access_restrictions": "Restricted to authorized field researchers; raw originals quarantined until blurred",
+        "request_status": "pending",
+        "evidence_reference": "DRAFT-DOC-FIELD-SAFETY-v1.0",
+        "outstanding_blockers": "Pre-collection physical site inspection at 4 pilot corridors and PPE gear procurement",
+        "next_action": "Verify pedestrian sightlines and safety clearances at pilot corridors",
+        "responsible_role": "Field Operations Lead"
+      },
+      {
+        "stream_id": "STREAM-04-COMMERCIAL-DASHCAM",
+        "acquisition_stream_name": "Commercial Dashcam Partners",
+        "responsible_organization": "Commercial Logistics & Public Transit Fleet Operators",
+        "required_agreement_type": "Bilateral Fleet Data-Sharing Agreement & API License",
+        "intended_data_use_training_rights": "Street-level surface condition analysis & training vision classification models",
+        "privacy_and_retention_conditions": "Full sequence de-identification; temporal sub-sampling (1 frame per 5-10s); plate redaction",
+        "access_restrictions": "Confidential fleet data; raw video quarantined; anonymized clips only for ML",
+        "request_status": "not_started",
+        "evidence_reference": "DRAFT-DOC-DASHCAM-AGREEMENT-v1.0",
+        "outstanding_blockers": "Partner fleet identification and legal review of commercial telemetry data-sharing",
+        "next_action": "Identify and engage 2 candidate fleet operators operating in Hyderabad",
+        "responsible_role": "Partnership Outreach Lead"
+      }
+    ]
+  },
+  "data_inventory": {
+    "real_world_images_received": 0,
+    "synthetic_schema_fixtures": 3,
+    "real_with_verified_authorization": 0,
+    "real_successfully_privacy_processed": 0,
+    "real_excluded_count": 0,
+    "exclusion_reasons_summary": {},
+    "counts_by_source": {},
+    "counts_by_site": {},
+    "counts_by_condition": {}
+  },
+  "annotation_audit": {
+    "real_images_annotated": 0,
+    "inter_annotator_agreement_status": "INSUFFICIENT_REAL_DATA"
+  },
+  "duplicate_and_leakage_audit": {
+    "exact_md5_duplicates_cross_splits": 0,
+    "near_duplicates_cross_splits": 0,
+    "status": "PASS_NO_LEAKAGE"
+  },
+  "remaining_blockers": [
+    "Zero legal agreements are currently approved. Municipal MOU and citizen terms remain pending formal execution.",
+    "Zero real-world field imagery has been collected. Pilot field surveys await permission clearance.",
+    "Zero real-world annotations completed. Dual annotation is paused pending real image ingestion."
+  ],
+  "recommendation": "Maintain NO-GO status for model training. Submit draft onboarding packets to GHMC ICCC and legal counsel before deploying field researchers or recording CCTV data."
+}

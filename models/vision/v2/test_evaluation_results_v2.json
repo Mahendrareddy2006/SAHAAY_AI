@@ -1,0 +1,71 @@
+{
+  "model_name": "mobilenet_v3_small_v2",
+  "model_version": "2.0.0-clean-split",
+  "evaluation_timestamp": "2026-10-25T07:07:08Z",
+  "test_manifest": "data\\processed\\manifest_v2\\test_v2.csv",
+  "test_size": 450,
+  "accuracy": 1.0,
+  "macro_f1": 1.0,
+  "class_metrics": {
+    "not_flooded": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1_score": 1.0,
+      "support": 225
+    },
+    "flooded": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1_score": 1.0,
+      "support": 225
+    }
+  },
+  "confusion_matrix": {
+    "tn": 225,
+    "fp": 0,
+    "fn": 0,
+    "tp": 225,
+    "raw": [
+      [
+        225,
+        0
+      ],
+      [
+        0,
+        225
+      ]
+    ]
+  },
+  "bootstrap_confidence_intervals": {
+    "n_bootstraps": 1000,
+    "confidence_level": 0.95,
+    "accuracy_ci_95": [
+      1.0,
+      1.0
+    ],
+    "macro_f1_ci_95": [
+      1.0,
+      1.0
+    ]
+  },
+  "confidence_distribution": {
+    "mean": 0.9998069894313812,
+    "std": 0.002447688388512831,
+    "median": 0.9999991655349731,
+    "min": 0.9490513801574707,
+    "p25": 0.9999904632568359,
+    "p75": 1.0
+  },
+  "error_analysis": {
+    "total_errors": 0,
+    "false_positives_count": 0,
+    "false_negatives_count": 0,
+    "false_positives_sample": [],
+    "false_negatives_sample": []
+  },
+  "comparison_with_shortcuts": {
+    "dimension_only_decision_stump_accuracy": 1.0,
+    "dimension_shortcut_summary": "The raw roham1 dataset possesses 100% resolution disparity between classes (all not_flooded are 224x224, flooded are >800px). Even with zero duplicate leakage in Manifest V2, a dimensional shortcut remains in the underlying dataset source.",
+    "operational_recommendation": "External ground-level validation (e.g. Clemson, local Hyderabad images) is mandatory before deploying this classifier."
+  }
+}

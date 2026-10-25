@@ -1,0 +1,53 @@
+{
+  "analysis_date": "2026-10-25",
+  "objective": "Quantify shortcut predictability without semantic visual features",
+  "findings": {
+    "is_dimension_shortcut_lethal": true,
+    "width_alone_test_accuracy": 1.0,
+    "decision_stump_rule": "|--- width <= 237.00\n|   |--- class: 0\n|--- width >  237.00\n|   |--- class: 1",
+    "decision_tree_3depth_rules": "|--- width <= 237.00\n|   |--- width <= 209.00\n|   |   |--- class: 1\n|   |--- width >  209.00\n|   |   |--- class: 0\n|--- width >  237.00\n|   |--- class: 1",
+    "explanation": "A simple decision rule 'if width <= 224: predict not_flooded, else predict flooded' achieves 100.00% accuracy on the test set without inspecting a single pixel of flood water, water texture, or road debris. This conclusively confirms that the historical test accuracy was heavily confounded by class-specific sub-source dimensions."
+  },
+  "model_comparisons": [
+    {
+      "model_name": "Majority Class Baseline",
+      "test_accuracy": 0.5,
+      "test_macro_f1": 0.3333333333333333,
+      "test_macro_precision": 0.25,
+      "test_macro_recall": 0.5,
+      "test_roc_auc": 0.5
+    },
+    {
+      "model_name": "Decision Stump (Width Alone, Depth=1)",
+      "test_accuracy": 1.0,
+      "test_macro_f1": 1.0,
+      "test_macro_precision": 1.0,
+      "test_macro_recall": 1.0,
+      "test_roc_auc": 1.0
+    },
+    {
+      "model_name": "Decision Tree (Dimensions Only, Depth=3)",
+      "test_accuracy": 1.0,
+      "test_macro_f1": 1.0,
+      "test_macro_precision": 1.0,
+      "test_macro_recall": 1.0,
+      "test_roc_auc": 1.0
+    },
+    {
+      "model_name": "Logistic Regression (Dimensions + FileSize Only)",
+      "test_accuracy": 1.0,
+      "test_macro_f1": 1.0,
+      "test_macro_precision": 1.0,
+      "test_macro_recall": 1.0,
+      "test_roc_auc": 1.0
+    },
+    {
+      "model_name": "Logistic Regression (Dimensions + Color Stats)",
+      "test_accuracy": 1.0,
+      "test_macro_f1": 1.0,
+      "test_macro_precision": 1.0,
+      "test_macro_recall": 1.0,
+      "test_roc_auc": 1.0
+    }
+  ]
+}

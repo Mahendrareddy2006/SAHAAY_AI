@@ -1,0 +1,98 @@
+{
+  "evaluation_date": "2026-10-25",
+  "dataset_name": "Clemson FloodIMG (External Ground-Level)",
+  "source_path": "C:\\Users\\MahendraReddy\\.cache\\kagglehub\\datasets\\hhrclemson\\flooding-image-dataset\\versions\\5\\Flood Images",
+  "total_evaluated": 164,
+  "overlapping_with_training": 36,
+  "accuracy_on_external_positives": 1.0,
+  "mean_confidence": 0.9992158536585366,
+  "std_confidence": 0.006974491318319634,
+  "confidence_percentiles": {
+    "p25": 1.0,
+    "p50_median": 1.0,
+    "p75": 1.0,
+    "p95": 1.0
+  },
+  "sample_predictions": [
+    {
+      "filename": "flood_5658.jpg",
+      "md5": "68f8ac0ead3686f093cf41886a32d07c",
+      "true_label": "flooded",
+      "predicted_label": "flooded",
+      "confidence": 1.0,
+      "is_correct": true
+    },
+    {
+      "filename": "flood_199.jpg",
+      "md5": "5c32b75333f0dbba73b8b5da9dc9f7bf",
+      "true_label": "flooded",
+      "predicted_label": "flooded",
+      "confidence": 0.9999,
+      "is_correct": true
+    },
+    {
+      "filename": "flood_678.jpg",
+      "md5": "0a1e6615c72019057076a509fbc27777",
+      "true_label": "flooded",
+      "predicted_label": "flooded",
+      "confidence": 1.0,
+      "is_correct": true
+    },
+    {
+      "filename": "flood_6072.jpg",
+      "md5": "308b9a420c2862e506a296099eba5ece",
+      "true_label": "flooded",
+      "predicted_label": "flooded",
+      "confidence": 1.0,
+      "is_correct": true
+    },
+    {
+      "filename": "flood_3998.jpg",
+      "md5": "ea6cf039555f3be1e871bb8858b08a05",
+      "true_label": "flooded",
+      "predicted_label": "flooded",
+      "confidence": 1.0,
+      "is_correct": true
+    },
+    {
+      "filename": "flood_2722.jpg",
+      "md5": "e5fc2641c76d1e20b9e997a7e8805abf",
+      "true_label": "flooded",
+      "predicted_label": "flooded",
+      "confidence": 1.0,
+      "is_correct": true
+    },
+    {
+      "filename": "flood_8902.png",
+      "md5": "f03964be848c77957bf1e1e1fe37ea63",
+      "true_label": "flooded",
+      "predicted_label": "flooded",
+      "confidence": 1.0,
+      "is_correct": true
+    },
+    {
+      "filename": "flood_3095.jpg",
+      "md5": "f2040add7bde7daabbcf465f168707aa",
+      "true_label": "flooded",
+      "predicted_label": "flooded",
+      "confidence": 1.0,
+      "is_correct": true
+    },
+    {
+      "filename": "flood_1952.jpg",
+      "md5": "3909011f686f5eed3fd03d6ad2cac0ed",
+      "true_label": "flooded",
+      "predicted_label": "flooded",
+      "confidence": 0.9999,
+      "is_correct": true
+    },
+    {
+      "filename": "flood_1105.jpg",
+      "md5": "513174f27c5512561eb25e2e1048c863",
+      "true_label": "flooded",
+      "predicted_label": "flooded",
+      "confidence": 1.0,
+      "is_correct": true
+    }
+  ]
+}

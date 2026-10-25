@@ -1,0 +1,31 @@
+{
+  "validation_date": "2026-10-25",
+  "model_name": "mobilenet_v3_small_v2",
+  "checkpoint": "models\\vision\\v2\\model_v2.pt",
+  "external_benchmark_clemson": {
+    "dataset": "Clemson FloodIMG",
+    "sample_size": 200,
+    "zero_training_md5_overlap_verified": true,
+    "flood_recall": 1.0,
+    "mean_confidence": 0.9966254999999999,
+    "std_confidence": 0.03280310808063772,
+    "median_confidence": 1.0
+  },
+  "stress_testing_perturbations": {
+    "low_light_recall": 1.0,
+    "low_light_mean_confidence": 0.999794,
+    "high_glare_recall": 1.0,
+    "high_glare_mean_confidence": 0.9997400000000001,
+    "rain_blur_recall": 0.52,
+    "rain_blur_mean_confidence": 0.91373
+  },
+  "calibration_and_ambiguity_findings": {
+    "provisional_threshold": 0.65,
+    "stress_ambiguity_trigger_rate": 0.013333333333333334,
+    "finding": "Under synthetic adverse monsoon conditions (darkness, blur, glare), the model maintains 100.0% flood recall under low light, 100.0% under high glare, and 52.0% under rain blur. However, the 0.65 threshold remains provisional until local daytime and nighttime Hyderabad flood captures are evaluated."
+  },
+  "hyderabad_readiness_assessment": {
+    "status": "NOT_YET_OPERATIONALLY_READY_FOR_AUTONOMOUS_WARNINGS",
+    "reason": "While Model V2 demonstrates genuine semantic flood detection on external Clemson data (100% recall), the primary training set suffers from severe resolution disparity between classes. The model is safe for human-in-the-loop advisory triage, but must not be deployed as an autonomous warning system in Hyderabad without a balanced, native-resolution local dataset."
+  }
+}

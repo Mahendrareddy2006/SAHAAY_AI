@@ -1,6 +1,6 @@
 {
   "report_name": "Sahaay AI Phase 5 - End-to-End Demonstration Scenario Results",
-  "generated_at_utc": "2026-10-25T11:04:25.738232Z",
+  "generated_at_utc": "2026-10-25T11:30:36.876071Z",
   "total_scenarios": 10,
   "scenarios_passed": 10,
   "all_scenarios_passed": true,
@@ -154,6 +154,7 @@
         "decision_score": 0.2,
         "confidence": 0.15,
         "reason_codes": [
+          "TELEMETRY_DATA_MISSING_OR_STALE",
           "MISSING_PRIMARY_RAINFALL_TELEMETRY"
         ],
         "explanation": "Primary rainfall observation unavailable. Operational decision cannot be certified; normal traffic caution advised."

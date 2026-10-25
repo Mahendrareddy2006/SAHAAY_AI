@@ -1,0 +1,38 @@
+{
+  "gate_evaluation_timestamp": "2026-10-25T17:01:00Z",
+  "phase": "Phase 6 Field-Pilot Readiness & Ground-Truth Protocol",
+  "overall_readiness_decision": "BLOCKED_NOT_READY_FOR_LIVE_PILOT",
+  "readiness_criteria": {
+    "software_and_schemas_implemented": {
+      "status": "PASS",
+      "details": "Observation schema v2.0, ingestion pipeline, human review queue, and API endpoints implemented and tested."
+    },
+    "safety_plan_and_pilot_protocols": {
+      "status": "PASS",
+      "details": "Cardinal safety directives, PPE specifications, weather abort thresholds, and pre-collection checklist established."
+    },
+    "institutional_permissions_granted": {
+      "status": "BLOCKED",
+      "details": "0 of 7 data sources have executed MoUs or signed data-sharing agreements. TSDPS AWS and Municipal CCTV remain pending."
+    },
+    "ground_truth_field_observations": {
+      "status": "BLOCKED",
+      "details": "0 real-world field observations have been collected. Pre-registered evaluation requirements (50 flood, 100 non-flood episodes) not met."
+    },
+    "vision_v4_readiness_gate": {
+      "status": "NO-GO_PRESERVED",
+      "details": "Vision V4 remains strictly NO-GO. Autonomous optical inference on municipal CCTV is quarantined and prohibited."
+    },
+    "regression_tests": {
+      "status": "PASS",
+      "details": "111/111 automated tests passing across Phase 1-6 suites."
+    }
+  },
+  "mandatory_human_actions_to_unblock": [
+    "Execute formal research MoU with TSDPS for real-time AWS API access",
+    "Complete daytime physical hazard and sightline inspection at the 4 candidate corridors",
+    "Procure certified Class 2 high-visibility safety vests, steel-shank waterproof boots, and telescopic fiberglass depth staffs",
+    "Deploy citizen terms of service and DPDP consent notices on staging app for public review",
+    "Execute formal data-sharing agreement with GHMC Disaster Management Wing for DRF incident logs"
+  ]
+}

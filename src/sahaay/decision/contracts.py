@@ -200,6 +200,7 @@ def evaluate_decision(input_data: DecisionInput) -> DecisionOutput:
         score = 0.20
         confidence = 0.15
         requires_human_verification = True
+        reason_codes.append("TELEMETRY_DATA_MISSING_OR_STALE")
         reason_codes.append("MISSING_PRIMARY_RAINFALL_TELEMETRY")
         explanation = "Primary rainfall observation unavailable. Operational decision cannot be certified; normal traffic caution advised."
         evidence.append("Missing rainfall observation: Non-silent missingness rule triggered.")

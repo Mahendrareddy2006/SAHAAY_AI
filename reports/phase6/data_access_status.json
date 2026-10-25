@@ -1,0 +1,94 @@
+{
+  "report_timestamp": "2026-10-25T16:48:30Z",
+  "phase": "Phase 6 Field-Pilot Readiness",
+  "summary": {
+    "total_sources_tracked": 7,
+    "fully_approved_and_active": 0,
+    "pending_institutional_approval": 2,
+    "internal_protocol_pending_safety_clearance": 2,
+    "request_not_submitted": 2,
+    "no_commercial_license_identified": 1,
+    "real_live_streams_connected": 0,
+    "simulated_or_playback_feeds": 1,
+    "quarantined_or_disabled_feeds": 4
+  },
+  "overall_access_gate": "NOT_READY_BLOCKED",
+  "gate_reasons": [
+    "No formal data-sharing agreements or MoUs are currently signed with TSDPS, GHMC, or HTP",
+    "Zero institutional API tokens, RTSP credentials, or network ingress permissions exist in the repository",
+    "Field-team physical safety inspection and PPE procurement are not yet complete",
+    "Vision V4 optical CCTV stream remains legally and scientifically quarantined under the V4 NO-GO readiness gate"
+  ],
+  "sources": [
+    {
+      "source_id": "SRC-01-TSDPS-AWS",
+      "name": "TSDPS Automatic Weather Stations",
+      "agency": "TSDPS",
+      "status": "PENDING_INSTITUTIONAL_APPROVAL",
+      "authorization_granted": false,
+      "usable_in_production": false,
+      "usable_in_pilot_sandbox": true,
+      "active_adapter": "TSDPSFeedAdapter (Mock/Playback)"
+    },
+    {
+      "source_id": "SRC-02-GHMC-DRF",
+      "name": "GHMC DRF Incident Logs",
+      "agency": "GHMC Disaster Management Wing",
+      "status": "REQUEST_NOT_SUBMITTED",
+      "authorization_granted": false,
+      "usable_in_production": false,
+      "usable_in_pilot_sandbox": false,
+      "active_adapter": "GHMCDRFIncidentAdapter (Disabled Pending Approval)"
+    },
+    {
+      "source_id": "SRC-03-MUNICIPAL-CCTV",
+      "name": "Municipal & Traffic CCTV Network",
+      "agency": "Hyderabad Traffic Police / GHMC CCC",
+      "status": "PENDING_INSTITUTIONAL_APPROVAL",
+      "authorization_granted": false,
+      "usable_in_production": false,
+      "usable_in_pilot_sandbox": false,
+      "active_adapter": "MunicipalCCTVAdapter (Quarantined Disabled)"
+    },
+    {
+      "source_id": "SRC-04-CITIZEN-REPORTS",
+      "name": "Citizen-Submitted Reports",
+      "agency": "Registered App Users",
+      "status": "INTERNAL_PROTOCOL_PENDING_SAFETY_CLEARANCE",
+      "authorization_granted": false,
+      "usable_in_production": false,
+      "usable_in_pilot_sandbox": true,
+      "active_adapter": "CitizenReportsService (Synthetic / Staging)"
+    },
+    {
+      "source_id": "SRC-05-FIELD-OBSERVATIONS",
+      "name": "Supervised Field-Team Observations",
+      "agency": "Sahaay Research Team",
+      "status": "INTERNAL_PROTOCOL_PENDING_SAFETY_CLEARANCE",
+      "authorization_granted": false,
+      "usable_in_production": false,
+      "usable_in_pilot_sandbox": false,
+      "active_adapter": "FieldObservationIngestionPipeline (Pending Protocol Clearance)"
+    },
+    {
+      "source_id": "SRC-06-WATER-DEPTH-SENSORS",
+      "name": "Municipal Water-Depth Telemetry",
+      "agency": "Irrigation Dept / GHMC Stormwater",
+      "status": "REQUEST_NOT_SUBMITTED",
+      "authorization_granted": false,
+      "usable_in_production": false,
+      "usable_in_pilot_sandbox": false,
+      "active_adapter": "None"
+    },
+    {
+      "source_id": "SRC-07-ELEVATION-DRAINAGE",
+      "name": "Hyderabad DEM & Stormwater GIS",
+      "agency": "TRAC / GHMC",
+      "status": "NO_COMMERCIAL_LICENSE_IDENTIFIED",
+      "authorization_granted": false,
+      "usable_in_production": false,
+      "usable_in_pilot_sandbox": true,
+      "active_adapter": "Static GeoPackage / CSV Baselines"
+    }
+  ]
+}

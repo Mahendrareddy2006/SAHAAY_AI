@@ -3,7 +3,8 @@ Sahaay AI - FastAPI Route Handlers
 Implements versioned /api/v1 endpoints for Flood Vision inference and system health.
 """
 
-from typing import Optional
+from typing import Optional, List
+from pydantic import BaseModel
 from fastapi import APIRouter, File, UploadFile, Form, HTTPException, status
 from fastapi.responses import JSONResponse
 
@@ -314,5 +315,61 @@ async def get_live_data_source_status():
     Returns the real-time operational status, authorization state, and limitations of all data feeds.
     """
     return default_adapter_registry.generate_source_status_report()
+
+
+from sahaay.review.workflow import (
+    ReviewQueueService,
+    ReviewItem,
+    ReviewAction,
+    ReviewItemType,
+    ReviewStatus,
+    ReviewerRole,
+)
+
+review_queue_service = ReviewQueueService()
+
+
+class ReviewActionSubmission(BaseModel):
+    item_id: str
+    reviewer_role: ReviewerRole
+    reviewer_id: str
+    action_type: str
+    justification_notes: str
+    new_status: ReviewStatus
+
+
+@router.get(
+    "/review/pending",
+    response_model=List[ReviewItem],
+    status_code=status.HTTP_200_OK,
+    tags=["Human Review Queue"]
+)
+async def list_pending_reviews():
+    """Returns all items currently awaiting human supervisor review."""
+    return review_queue_service.list_pending()
+
+
+@router.post(
+    "/review/action",
+    response_model=ReviewItem,
+    status_code=status.HTTP_200_OK,
+    tags=["Human Review Queue"]
+)
+async def submit_review_action(submission: ReviewActionSubmission):
+    """Submits an attributable, cryptographically hashed human review decision."""
+    try:
+        return review_queue_service.record_review_action(
+            item_id=submission.item_id,
+            reviewer_role=submission.reviewer_role,
+            reviewer_id=submission.reviewer_id,
+            action_type=submission.action_type,
+            justification_notes=submission.justification_notes,
+            new_status=submission.new_status,
+        )
+    except KeyError as e:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=str(e)
+        )
 
 

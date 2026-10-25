@@ -1,0 +1,72 @@
+{
+  "incident_id": "INC-REVIEW-20261025-001",
+  "is_synthetic_or_simulated": true,
+  "corridor_id": "CORR-HYD-01",
+  "corridor_name": "Begumpet (Rasoolpura - Prakash Nagar Junction)",
+  "incident_created_at_utc": "2026-10-25T07:35:00Z",
+  "review_trigger": "CONTRADICTORY_EVIDENCE",
+  "initial_system_evaluation": {
+    "evaluated_at_utc": "2026-10-25T07:35:05Z",
+    "alert_level": "ADVISORY",
+    "decision_status": "INCONCLUSIVE_CONTRADICTORY",
+    "environmental_risk_category": "HIGH",
+    "road_vulnerability_category": "CRITICAL",
+    "current_flood_evidence_status": "INCONCLUSIVE",
+    "reason_codes": [
+      "CONTRADICTORY_OBSERVATIONS_DETECTED",
+      "ELEVATED_ENVIRONMENTAL_RUNOFF_RISK",
+      "CRITICAL_HOTSPOT_PROXIMITY"
+    ],
+    "supporting_evidence": [
+      "Citizen report CIT-REP-8834 claimed 40cm water depth at Rasoolpura Junction",
+      "Municipal CCTV stream CAM-HYD-012 showed dry asphalt at same junction"
+    ],
+    "missing_inputs": [],
+    "stale_inputs": [],
+    "source_timestamps": {
+      "citizen_report": "2026-10-25T07:32:00Z",
+      "municipal_cctv": "2026-10-25T07:34:00Z",
+      "tsdps_aws": "2026-10-25T07:30:00Z"
+    },
+    "model_or_rule_versions": {
+      "decision_engine": "v2.0.0",
+      "rainfall_engine": "v1.2.0",
+      "vulnerability_engine": "v1.1.0"
+    },
+    "requires_human_verification": true
+  },
+  "review_queue_item": {
+    "item_id": "REV-ITEM-20261025-01",
+    "item_type": "CONTRADICTORY_EVIDENCE",
+    "status": "ESCALATED_TO_FIELD_TEAM",
+    "audit_chain": [
+      {
+        "action_id": "ACT-7A9B1C2D",
+        "reviewer_role": "SUPERVISOR_DISPATCHER",
+        "reviewer_id": "SUP-HYD-04",
+        "action_type": "INVESTIGATE_CONTRADICTION",
+        "timestamp_utc": "2026-10-25T07:38:00Z",
+        "justification_notes": "Camera CAM-HYD-012 field of view was altered by Pan-Tilt-Zoom operator away from low-lying curb toward upper flyover ramp. Citizen report location corresponds to genuine depression under metro pier 14. Requesting physical vantage check by Field Unit F01.",
+        "audit_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "action_id": "ACT-3F8E9A0B",
+        "reviewer_role": "FIELD_SAFETY_LEAD",
+        "reviewer_id": "LEAD-FIELD-01",
+        "action_type": "CONFIRM_FIELD_OBSERVATION",
+        "timestamp_utc": "2026-10-25T07:50:00Z",
+        "justification_notes": "Field Unit F01 completed non-contact curb measurement from Rasoolpura Metro Walkway. Confirmed 14.5cm water accumulation over left-most two lanes (PARTIAL_LANE_WATERLOGGING). Two-wheelers stalling. Road remains passable for buses. Alert escalated from INCONCLUSIVE to WATCH / OBSERVED_FLOOD_EVIDENCE.",
+        "audit_hash": "8f434346648f6b96df89dda901c5176b10e6d83961dd3c1ac88b59b2dc327aa4"
+      }
+    ]
+  },
+  "post_review_system_state": {
+    "updated_at_utc": "2026-10-25T07:51:00Z",
+    "alert_level": "WATCH",
+    "decision_status": "EVALUATED_VALID_EVIDENCE",
+    "current_flood_evidence_status": "OBSERVED_FLOOD_EVIDENCE",
+    "requires_human_verification": false,
+    "human_verifier_id": "LEAD-FIELD-01",
+    "autonomous_actions_prohibited": true
+  }
+}

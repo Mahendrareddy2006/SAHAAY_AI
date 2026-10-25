@@ -1,0 +1,93 @@
+{
+  "audit_timestamp": "2026-10-25T16:47:30Z",
+  "git_commit": "ce26c31",
+  "branch": "master",
+  "audit_target": "Sahaay AI Phase 5 Baseline and Verification Audit",
+  "test_execution": {
+    "command": ".\\.venv\\Scripts\\python.exe -m pytest -v",
+    "total_tests": 98,
+    "passed": 98,
+    "failed": 0,
+    "skipped": 0,
+    "warnings": 15,
+    "duration_seconds": 8.03,
+    "status": "ALL_TESTS_PASSING",
+    "test_file_breakdown": {
+      "tests/test_phase5_integration.py": {
+        "passed": 16,
+        "failed": 0
+      },
+      "tests/test_vision_v4_phase3.py": {
+        "passed": 7,
+        "failed": 0
+      },
+      "tests/test_vision_v4_collection.py": {
+        "passed": 15,
+        "failed": 0
+      },
+      "tests/test_vision_v4.py": {
+        "passed": 9,
+        "failed": 0
+      },
+      "tests/test_vision_v3.py": {
+        "passed": 10,
+        "failed": 0
+      },
+      "tests/test_transforms.py": {
+        "passed": 3,
+        "failed": 0
+      },
+      "tests/test_split_integrity.py": {
+        "passed": 5,
+        "failed": 0
+      },
+      "tests/test_model.py": {
+        "passed": 2,
+        "failed": 0
+      },
+      "tests/test_inference.py": {
+        "passed": 3,
+        "failed": 0
+      },
+      "tests/test_image_quality_gate.py": {
+        "passed": 5,
+        "failed": 0
+      },
+      "tests/test_hyderabad_risk_pipeline.py": {
+        "passed": 16,
+        "failed": 0
+      },
+      "tests/test_api.py": {
+        "passed": 7,
+        "failed": 0
+      }
+    }
+  },
+  "demo_scenario_execution": {
+    "command": ".\\.venv\\Scripts\\python.exe scripts/run_phase5_demo.py",
+    "total_scenarios": 10,
+    "passed": 10,
+    "failed": 0,
+    "status": "ALL_SCENARIOS_PASSING",
+    "report_file": "reports/phase5/end_to_end_scenarios.json"
+  },
+  "safety_gates_status": {
+    "vision_v4_readiness_gate": "NO-GO",
+    "vision_v4_operational_inference": "BLOCKED",
+    "autonomous_emergency_dispatch": "PROHIBITED",
+    "autonomous_road_closure": "PROHIBITED",
+    "historical_artifacts_preserved": true
+  },
+  "operational_feeds_status": {
+    "tsdps_aws": "DISABLED_PENDING_APPROVAL",
+    "nwic_telemetry": "HISTORICAL_PLAYBACK_ONLY",
+    "ghmc_drf_incident_logs": "DISABLED_PENDING_APPROVAL",
+    "municipal_cctv": "QUARANTINED_DISABLED"
+  },
+  "ground_truth_field_data": {
+    "acquired_field_observations": 0,
+    "verified_water_depth_sensors": 0,
+    "candidate_corridors_approved": 0,
+    "data_collection_status": "NOT_STARTED"
+  }
+}

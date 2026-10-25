@@ -1,0 +1,45 @@
+{
+  "evaluation_readiness_timestamp": "2026-10-25T16:52:50Z",
+  "phase": "Phase 6 Field-Pilot Readiness",
+  "preregistered_evaluation_protocol_version": "1.0.0",
+  "readiness_status": "BLOCKED_PENDING_GROUND_TRUTH_COLLECTION",
+  "components": {
+    "rainfall_baseline": {
+      "status": "READY_FOR_OFFLINE_VERIFICATION",
+      "preregistered_questions": [
+        "Does the engine abstain safely when telemetry latency exceeds 120 minutes?",
+        "Does the engine reject or flag negative or unphysical rainfall spikes (>150 mm/hr)?",
+        "Does spatial inverse-distance weighting decay properly with distance (>15 km)?"
+      ],
+      "metrics": ["Monotonicity score", "Missingness abstention rate", "Spatial decay gradient error"]
+    },
+    "road_vulnerability_baseline": {
+      "status": "READY_FOR_STABILITY_AUDIT",
+      "preregistered_questions": [
+        "Are static vulnerability categories stable across corridor coordinate shifts (<25m)?",
+        "Do reason codes correctly differentiate between low-lying elevation, drainage bottlenecks, and hotspot proximity?"
+      ],
+      "metrics": ["Categorical stability rate", "Reason code completeness rate", "Independence from circular training hotspots"]
+    },
+    "decision_engine": {
+      "status": "READY_FOR_CONTRACT_CONFORMANCE_TESTING",
+      "preregistered_questions": [
+        "Does the engine abstain from raising emergency alerts when ground evidence is unverified?",
+        "Does the engine correctly surface INCONCLUSIVE when vision and citizen reports contradict?",
+        "Does the engine guarantee that missing inputs are never converted to zero rainfall?"
+      ],
+      "metrics": ["Contract schema validity rate", "Contradiction detection recall", "Safe abstention rate", "Zero-imputation rejection rate"]
+    },
+    "vision_v4": {
+      "status": "STRICTLY_BLOCKED_NO_GO",
+      "reason": "Operational inference disabled; dataset lacks matched flooded and non-flooded road imagery from independent Hyderabad sources."
+    }
+  },
+  "ground_truth_label_inventory": {
+    "verified_positive_flood_events": 0,
+    "verified_negative_rainy_road_events": 0,
+    "calibrated_depth_measurements": 0,
+    "required_sample_size_per_stratum": 50,
+    "evaluation_readiness_gate": "NOT_READY"
+  }
+}

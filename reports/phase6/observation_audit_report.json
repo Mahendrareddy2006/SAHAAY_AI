@@ -1,0 +1,13 @@
+{
+  "audit_timestamp": "2026-10-25T11:22:18.756086+00:00",
+  "input_dataset": "data/phase6/observation_template.csv",
+  "dry_run": true,
+  "total_records_evaluated": 5,
+  "valid_records_passed": 5,
+  "rejected_records": 0,
+  "duplicate_records_flagged": 0,
+  "synthetic_records_quarantined": 0,
+  "status": "AUDIT_COMPLETE",
+  "real_world_field_data_acquired": 0,
+  "errors": []
+}

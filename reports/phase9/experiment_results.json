@@ -1,0 +1,175 @@
+{
+  "report_timestamp_utc": "2026-10-25T12:29:48.167022+00:00",
+  "phase": "Phase 9 AI/ML Dataset Readiness, Leakage-Free Experiments & Vision Benchmarking",
+  "scientific_integrity_attestation": "Sahaay AI prioritizes scientific validity over producing unvalidated checkpoints. Because available training data suffers from complete source-label confounding (Cramer's V = 1.0) and metadata shortcut exploitability (85.97% pixel-free test accuracy), production Vision V4 model training is formally NOT_RUN. All reported numbers represent controlled diagnostic baselines or historical transfers.",
+  "tracks": {
+    "track_a_existing_data_diagnostics": {
+      "track_title": "Track A \u2014 Existing-Data Diagnostic Experiments on Manifest V4",
+      "dataset_scope": "Clemson FloodIMG (N=739, label=1) vs Virenbr11 Plain & Potholes (N=740, label=0)",
+      "split_architecture": "Leak-free, globally clustered Manifest V4 (Train=1034, Val=223, Test=221)",
+      "source_label_confounding": {
+        "is_confounded": true,
+        "cramers_v": 1.0,
+        "mutual_information_bits": 1.0,
+        "interpretation": "Source identity is 100% collinear with the class label."
+      },
+      "diagnostic_models": {
+        "metadata_only_file_size": {
+          "model_family": "DecisionTree (max_depth=2)",
+          "input_features": [
+            "file_size_kb"
+          ],
+          "train_accuracy": 0.8501,
+          "val_accuracy": 0.8744,
+          "test_accuracy": 0.8009,
+          "test_roc_auc": 0.828,
+          "notes": "Single non-semantic feature separates classes with >80% accuracy."
+        },
+        "metadata_only_dimensions": {
+          "model_family": "DecisionTree (max_depth=2)",
+          "input_features": [
+            "width",
+            "height"
+          ],
+          "train_accuracy": 0.7563,
+          "val_accuracy": 0.704,
+          "test_accuracy": 0.6742,
+          "test_roc_auc": 0.7583
+        },
+        "metadata_only_random_forest": {
+          "model_family": "RandomForest (n_estimators=100, max_depth=4)",
+          "input_features": [
+            "width",
+            "height",
+            "aspect_ratio",
+            "file_size_kb",
+            "megapixels",
+            "bytes_per_pixel"
+          ],
+          "train_accuracy": 0.8762,
+          "val_accuracy": 0.8744,
+          "test_accuracy": 0.8597,
+          "test_precision": 0.954,
+          "test_recall": 0.7545,
+          "test_macro_f1": 0.8426,
+          "test_roc_auc": 0.9145,
+          "feature_importances": {
+            "file_size_kb": 0.3775,
+            "bytes_per_pixel": 0.312,
+            "width": 0.1205,
+            "megapixels": 0.0801,
+            "height": 0.0698,
+            "aspect_ratio": 0.0401
+          }
+        },
+        "image_quality_gate_baseline": {
+          "model_family": "Deterministic optical filter ruleset (pre-inference)",
+          "filters": {
+            "darkness_filter": "luminance < 15.0 -> inconclusive",
+            "whiteout_filter": "luminance > 240.0 -> inconclusive",
+            "blur_filter": "laplacian_variance < 100.0 -> inconclusive",
+            "resolution_filter": "width < 128 or height < 128 -> inconclusive"
+          },
+          "abstention_rate_on_degraded_inputs": 1.0,
+          "false_decision_rate_on_degraded_inputs": 0.0
+        }
+      },
+      "scientific_finding": "Even when near-duplicate leakage is completely eliminated (0 pairs at Hamming distance <= 2), a model evaluated on this split achieves high accuracy by exploiting camera acquisition profiles. Metrics on this test set do NOT constitute valid evidence of real-world flood detection."
+    },
+    "track_b_cross_source_transfer": {
+      "track_title": "Track B \u2014 Historical Model Cross-Source Transfer & Stress Testing",
+      "models_audited": [
+        "model_v1_baseline",
+        "model_v2_historical",
+        "model_v3_clean",
+        "model_v3_monsoon"
+      ],
+      "transfer_evaluations": {
+        "v2_historical_on_unseen_pavement": {
+          "eval_dataset": "virenbr11_plain (N=50 clean dry roads)",
+          "ground_truth_label": "non_flood (0)",
+          "model_v2_accuracy": 0.06,
+          "model_v2_false_positive_rate": 0.94,
+          "model_v2_mean_flood_probability": 0.9173,
+          "finding": "V2 completely collapses on out-of-distribution clean asphalt, falsely flagging 94% as flooded."
+        },
+        "v3_clean_vs_monsoon_under_optical_degradation": {
+          "eval_dataset": "Clemson rain & spray degradation cohort (N=111)",
+          "ground_truth_label": "flood (1)",
+          "model_v3_clean_recall": 0.982,
+          "model_v3_clean_fnr": 0.018,
+          "model_v3_monsoon_recall": 0.964,
+          "model_v3_monsoon_fnr": 0.036,
+          "model_v3_monsoon_pothole_specificity": 1.0,
+          "finding": "Monsoon data augmentation provides robust hard-negative rejection (0% false positives on puddles) but slightly lowers recall on severe spray."
+        },
+        "roham1_transfer_audit": {
+          "eval_dataset": "roham1_flood (N=1500) vs roham1_non_flood (N=1500)",
+          "transfer_status": "DISQUALIFIED_FROM_BENCHMARKING",
+          "defect": "Non-flood images are 100% 224x224 fixed thumbnails of indoor objects/animals; flood images are high-res web photos.",
+          "finding": "Evaluating models on Roham1 tests resolution-matching shortcuts rather than flood generalization."
+        }
+      }
+    },
+    "track_c_production_training_readiness": {
+      "track_title": "Track C \u2014 Vision V4 Production Training Decision & Gating",
+      "experiment_status": "NOT_RUN",
+      "decision_verdict": "NO-GO FOR PRODUCTION VISION V4 TRAINING",
+      "blocking_gates": [
+        {
+          "gate_id": "GATE-01-MULTI-SOURCE-REPRESENTATION",
+          "status": "FAILED",
+          "requirement": "At least 2 independent acquisition sources each providing >= 200 flooded and >= 200 non-flooded road images.",
+          "current_state": "0 sources currently satisfy multi-class road criteria."
+        },
+        {
+          "gate_id": "GATE-02-CONTINGENCY-AND-COLLINEARITY",
+          "status": "FAILED",
+          "requirement": "Cramer's V <= 0.30 and Mutual Information <= 0.20 bits across Source x Class.",
+          "current_state": "Cramer's V = 1.0000, Mutual Information = 1.0000 bits (complete collinearity)."
+        },
+        {
+          "gate_id": "GATE-03-METADATA-SHORTCUT-CEILING",
+          "status": "FAILED",
+          "requirement": "Pixel-free metadata diagnostic test accuracy <= 65.0% and ROC-AUC <= 0.60.",
+          "current_state": "Pixel-free Random Forest achieves 85.97% test accuracy and 0.9145 ROC-AUC."
+        },
+        {
+          "gate_id": "GATE-04-REAL-WORLD-OBSERVATIONS",
+          "status": "FAILED",
+          "requirement": "Real-world field observations verified and ingested under approved protocol.",
+          "current_state": "0 real-world observations acquired (activation gate blocked at BLOCKED_NOT_READY_FOR_LIVE_PILOT)."
+        }
+      ],
+      "required_collection_target_to_unlock_training": {
+        "locations": "Minimum 4 Hyderabad candidate elevated vantage corridors (Rasoolpura, Lakdikapul, Tolichowki, Malakpet).",
+        "conditions_per_location": [
+          "Condition A: Dry pavement baseline (>= 200 daylight, >= 100 night lit).",
+          "Condition B: Wet pavement / puddles / potholes without inundation (>= 200 wet road hard negatives).",
+          "Condition C: True road inundation with water depth >= 5 cm (>= 200 validated flood scenes)."
+        ],
+        "independent_storm_dates": ">= 4 distinct monsoon rainfall dates.",
+        "annotation_protocol": "Dual blind annotation with Cohen's Kappa >= 0.85.",
+        "governance_rule": "Training remains NOT_RUN until this target is legitimately collected and audited."
+      }
+    }
+  },
+  "model_safety_contract_adherence": {
+    "advisory_only_classification": true,
+    "autonomous_road_closure_prohibited": true,
+    "autonomous_emergency_dispatch_prohibited": true,
+    "decision_engine_alert_levels": {
+      "CLEAR": "No flood evidence, normal traffic flow",
+      "ADVISORY": "Rainfall threshold or wet pavement advisory, caution recommended",
+      "WARNING": "Standing water or heavy rainfall, potential disruption",
+      "EMERGENCY": "Severe waterlogging corroboration required by physical crew or severe gauge telemetry"
+    },
+    "vision_abstention_states": [
+      "FLOOD_EVIDENCE_DETECTED",
+      "NO_CURRENT_FLOOD_EVIDENCE",
+      "INCONCLUSIVE",
+      "INSUFFICIENT_OR_STALE_DATA",
+      "HUMAN_VERIFICATION_REQUIRED"
+    ]
+  }
+}

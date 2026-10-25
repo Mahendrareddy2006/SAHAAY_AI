@@ -1,0 +1,79 @@
+{
+  "audit_timestamp_utc": "2026-10-25T12:26:05.996331+00:00",
+  "metadata_features_audited": [
+    "width",
+    "height",
+    "aspect_ratio",
+    "file_size_kb",
+    "megapixels",
+    "bytes_per_pixel"
+  ],
+  "contingency_analysis": {
+    "source_dataset_collinear_with_label": true,
+    "cramers_v": 1.0,
+    "mutual_information_bits": 1.0,
+    "gate_threshold_max_cramers_v": 0.3,
+    "gate_threshold_max_mutual_info": 0.2,
+    "contingency_gate_status": "FAILED_EXTREME_CONFOUNDING"
+  },
+  "models": {
+    "logistic_regression_metadata": {
+      "features": [
+        "width",
+        "height",
+        "aspect_ratio",
+        "file_size_kb",
+        "megapixels",
+        "bytes_per_pixel"
+      ],
+      "train_accuracy": 0.8279,
+      "val_accuracy": 0.852,
+      "test_accuracy": 0.8326,
+      "test_precision": 0.8763,
+      "test_recall": 0.7727,
+      "test_macro_f1": 0.8213,
+      "test_roc_auc": 0.8749,
+      "coefficients": {
+        "width": 1.6769,
+        "height": 0.4065,
+        "aspect_ratio": -0.4192,
+        "file_size_kb": 0.4548,
+        "megapixels": -1.8266,
+        "bytes_per_pixel": 1.3532
+      }
+    },
+    "random_forest_metadata": {
+      "features": [
+        "width",
+        "height",
+        "aspect_ratio",
+        "file_size_kb",
+        "megapixels",
+        "bytes_per_pixel"
+      ],
+      "train_accuracy": 0.8762,
+      "val_accuracy": 0.8744,
+      "test_accuracy": 0.8597,
+      "test_precision": 0.954,
+      "test_recall": 0.7545,
+      "test_macro_f1": 0.8426,
+      "test_roc_auc": 0.9145,
+      "feature_importances": {
+        "width": 0.1205,
+        "height": 0.0698,
+        "aspect_ratio": 0.0401,
+        "file_size_kb": 0.3775,
+        "megapixels": 0.0801,
+        "bytes_per_pixel": 0.312
+      }
+    },
+    "file_size_only_baseline": {
+      "features": [
+        "file_size_kb"
+      ],
+      "test_accuracy": 0.8009,
+      "test_roc_auc": 0.8534
+    }
+  },
+  "scientific_implication": "A pixel-free Random Forest achieves 85.97% test accuracy and 0.9066 AUC using strictly image dimensions and file size. Because Clemson flood images have larger native dimensions and file sizes compared to Virenbr11 road images, any visual classifier trained on this split will exploit camera metadata shortcuts rather than floodwater physics."
+}

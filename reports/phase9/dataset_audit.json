@@ -1,0 +1,96 @@
+{
+  "audit_timestamp_utc": "2026-10-25T12:26:06.001827+00:00",
+  "phase": "Phase 9 ML Dataset Readiness Audit",
+  "total_available_images_audited": 1478,
+  "split_counts": {
+    "train": 1034,
+    "val": 223,
+    "test": 221
+  },
+  "class_composition": {
+    "total_flooded_road_images": 739,
+    "total_non_flooded_road_images": 739,
+    "plain_dry_road_negatives": 374,
+    "wet_road_pothole_hard_negatives": 365
+  },
+  "source_inventory": {
+    "clemson_flood": {
+      "source_dataset_id": "clemson_floodimg",
+      "provenance": "Karanjit et al., Data in Brief (2023) / USGS & DOT cameras",
+      "license": "CC-BY 4.0 / Academic Non-Commercial",
+      "total_images_in_v4": 739,
+      "flooded_road_samples": 739,
+      "non_flood_samples": 0,
+      "both_classes_represented": false,
+      "mean_resolution": "1375.1x918.9",
+      "mean_file_size_kb": 1215.35,
+      "depicts_roads_and_standing_water": true,
+      "suitability": "DIAGNOSTIC_EXPERIMENTS_ONLY (single-class positive)"
+    },
+    "virenbr11_plain": {
+      "source_dataset_id": "virenbr11_plain_roads",
+      "provenance": "Kaggle Open Dataset (Road Pavement Surface)",
+      "license": "ODbL / Public Domain",
+      "total_images_in_v4": 374,
+      "flooded_road_samples": 0,
+      "non_flood_samples": 374,
+      "both_classes_represented": false,
+      "mean_resolution": "976.3x639.7",
+      "mean_file_size_kb": 294.4,
+      "depicts_roads_and_standing_water": true,
+      "subcondition": "Clean dry asphalt and lane markers",
+      "suitability": "DIAGNOSTIC_EXPERIMENTS_ONLY (single-class negative baseline)"
+    },
+    "virenbr11_pothole": {
+      "source_dataset_id": "virenbr11_pothole_hard_negatives",
+      "provenance": "Kaggle Open Dataset (Road Pavement Surface)",
+      "license": "ODbL / Public Domain",
+      "total_images_in_v4": 365,
+      "flooded_road_samples": 0,
+      "non_flood_samples": 365,
+      "both_classes_represented": false,
+      "mean_resolution": "990.6x652.6",
+      "mean_file_size_kb": 363.85,
+      "depicts_roads_and_standing_water": true,
+      "subcondition": "Wet asphalt, rain puddles, waterlogged potholes without road inundation",
+      "suitability": "DIAGNOSTIC_EXPERIMENTS_ONLY (single-class hard negative)"
+    },
+    "roham1_dataset": {
+      "source_dataset_id": "roham1_flood_kaggle",
+      "provenance": "Kaggle web scrape",
+      "license": "ODbL / Community",
+      "total_images_in_v4": 0,
+      "flooded_road_samples": 1500,
+      "non_flood_samples": 1500,
+      "both_classes_represented": true,
+      "defect_analysis": "Severe resolution confound: Non-flood images are 100% 224x224 fixed thumbnails of random non-road objects (indoor rooms, pets, objects); flood images are high-res mixed web photos.",
+      "depicts_roads_and_standing_water": false,
+      "suitability": "REJECTED_DEFECTIVE (cannot be used for valid road flood benchmarking)"
+    },
+    "hyderabad_field_collection": {
+      "source_dataset_id": "sahaay_phase8_field_observations",
+      "provenance": "Sahaay AI Phase 7/8 Field Pilot Protocol",
+      "license": "Sahaay Research Data Protocol",
+      "total_images_in_v4": 0,
+      "flooded_road_samples": 0,
+      "non_flood_samples": 0,
+      "both_classes_represented": false,
+      "status": "0 real observations collected (pilot gate blocked).",
+      "suitability": "NOT_AVAILABLE"
+    }
+  },
+  "contingency_summary": {
+    "sources_with_both_classes": 0,
+    "cramers_v": 1.0,
+    "mutual_information_bits": 1.0,
+    "source_label_confounding_verdict": "COMPLETE_COLLINEARITY"
+  },
+  "task_distinctions": {
+    "task_1_flooded_road_detection": "Supported only with synthetic/confounded sources (Clemson vs Viren). NOT valid for production claims.",
+    "task_2_wet_road_vs_inundated_discrimination": "Viren potholes provide hard negatives, but positive counterpart is from distinct camera source.",
+    "task_3_generic_flood_classification": "Confounded; generic floods include aerial/indoor scenes outside road scope.",
+    "task_4_image_quality_and_ood_rejection": "Fully operational via ImageQualityGate and DecisionEngine abstention contracts."
+  },
+  "readiness_gate_verdict": "NO-GO FOR PRODUCTION VISION V4 TRAINING",
+  "actionable_next_step": "Preserve existing models as historical artifacts. Formally execute Track A (diagnostic experiments) and Track B (transfer benchmarking). Mark production V4 model training as NOT_RUN."
+}

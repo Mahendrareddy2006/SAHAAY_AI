@@ -1,0 +1,127 @@
+{
+  "report_timestamp_utc": "2026-10-25T12:28:50.317428+00:00",
+  "phase": "Phase 9 Split Integrity Forensic Verification",
+  "manifest_path": "data/processed/manifest_v4",
+  "sample_counts": {
+    "total_images": 1478,
+    "train_images": 1034,
+    "val_images": 223,
+    "test_images": 221,
+    "total_atomic_clusters": 1405,
+    "multi_image_clusters": 57,
+    "singleton_clusters": 1348
+  },
+  "disjointness_audit": {
+    "image_id_overlap": {
+      "train_val": 0,
+      "train_test": 0,
+      "val_test": 0
+    },
+    "md5_hash_overlap": {
+      "train_val": 0,
+      "train_test": 0,
+      "val_test": 0
+    },
+    "cluster_id_overlap": {
+      "train_val": 0,
+      "train_test": 0,
+      "val_test": 0
+    },
+    "exact_overlap_detected": false
+  },
+  "perceptual_hash_audit": {
+    "hash_algorithm": "64-bit difference hash (dhash)",
+    "cross_split_near_duplicate_pairs_h_le_2": 0,
+    "minimum_cross_split_hamming_distances": {
+      "test_vs_train": 3,
+      "test_vs_val": 3,
+      "val_vs_train": 3
+    },
+    "perceptual_leakage_detected": false
+  },
+  "historical_v3_leak_resolution": {
+    "pairs_audited": 5,
+    "all_historical_leaks_cured": true,
+    "details": [
+      {
+        "file_a": "flood_7940.png",
+        "file_b": "flood_7963.png",
+        "expected_v3_leak": true,
+        "cluster_a": "cluster_v4_00479",
+        "cluster_b": "cluster_v4_00479",
+        "clusters_unified": true,
+        "split_a": "test",
+        "split_b": "test",
+        "leak_cured": true
+      },
+      {
+        "file_a": "flood_7210.png",
+        "file_b": "flood_9328.png",
+        "expected_v3_leak": true,
+        "cluster_a": "cluster_v4_00116",
+        "cluster_b": "cluster_v4_00116",
+        "clusters_unified": true,
+        "split_a": "train",
+        "split_b": "train",
+        "leak_cured": true
+      },
+      {
+        "file_a": "flood_7210.png",
+        "file_b": "flood_7283.png",
+        "expected_v3_leak": true,
+        "cluster_a": "cluster_v4_00116",
+        "cluster_b": "cluster_v4_00116",
+        "clusters_unified": true,
+        "split_a": "train",
+        "split_b": "train",
+        "leak_cured": true
+      },
+      {
+        "file_a": "flood_7295.png",
+        "file_b": "flood_9328.png",
+        "expected_v3_leak": true,
+        "cluster_a": "cluster_v4_00116",
+        "cluster_b": "cluster_v4_00116",
+        "clusters_unified": true,
+        "split_a": "train",
+        "split_b": "train",
+        "leak_cured": true
+      },
+      {
+        "file_a": "flood_7186.png",
+        "file_b": "flood_7184.png",
+        "expected_v3_leak": true,
+        "cluster_a": "cluster_v4_00141",
+        "cluster_b": "cluster_v4_00141",
+        "clusters_unified": true,
+        "split_a": "test",
+        "split_b": "test",
+        "leak_cured": true
+      }
+    ]
+  },
+  "cluster_atomicity": {
+    "multi_image_clusters_audited": 57,
+    "atomicity_violations": 0,
+    "all_clusters_strictly_partitioned": true
+  },
+  "split_determinism_and_invariance": {
+    "canonical_group_sorting_active": true,
+    "row_order_invariance_verified": true,
+    "reproducibility_seed": 42
+  },
+  "tuning_and_test_set_isolation": {
+    "test_set_status": "STRICTLY_LOCKED",
+    "threshold_tuning_partition": "val_v4.csv (Macro-F1 subject to FPR_potholes <= 0.05)",
+    "hyperparameter_selection_partition": "val_v4.csv",
+    "test_evaluations_executed_during_training": 0
+  },
+  "methodological_limitations_of_dhash": [
+    "dhash captures low-frequency structural gradients; robust to mild re-compression and aspect-preserving resizing.",
+    "dhash CANNOT detect semantic duplicates across camera viewpoint rotations > 15 degrees.",
+    "dhash CANNOT detect identical locations photographed under drastic day-to-night lighting transitions.",
+    "dhash CANNOT detect zoomed or cropped sub-regions (> 20% crop).",
+    "Perceptual hashing alone is insufficient for real-world guarantees; future data must use location/corridor tokens and temporal storm burst grouping."
+  ],
+  "verdict": "SPLIT_INTEGRITY_VERIFIED_LEAK_FREE"
+}

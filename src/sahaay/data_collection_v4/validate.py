@@ -166,17 +166,10 @@ def cluster_perceptual_duplicates_exhaustive(
             if dist <= hamming_threshold:
                 dsu.union(image_ids[i], image_ids[j])
 
-    # Assign consistent cluster IDs based on root representative
-    cluster_mapping = {}
-    root_to_cluster_id = {}
-    cluster_counter = 1
-
-    for img_id in image_ids:
-        root = dsu.find(img_id)
-        if root not in root_to_cluster_id:
-            root_to_cluster_id[root] = f"cluster_acq_{cluster_counter:05d}"
-            cluster_counter += 1
-        cluster_mapping[img_id] = root_to_cluster_id[root]
+    # Assign consistent cluster IDs based on canonically sorted roots
+    unique_roots = sorted(list(set(dsu.find(img_id) for img_id in image_ids)))
+    root_to_cluster_id = {root: f"cluster_acq_{idx+1:05d}" for idx, root in enumerate(unique_roots)}
+    cluster_mapping = {img_id: root_to_cluster_id[dsu.find(img_id)] for img_id in image_ids}
 
     return cluster_mapping
 

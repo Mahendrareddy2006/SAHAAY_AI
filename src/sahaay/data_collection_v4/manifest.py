@@ -45,9 +45,9 @@ def group_aware_split(
     if abs((train_ratio + val_ratio + test_ratio) - 1.0) > 1e-4:
         raise ValueError("Split ratios must sum to 1.0")
 
-    np.random.seed(random_seed)
-    unique_groups = list(manifest_df[group_col].unique())
-    np.random.shuffle(unique_groups)
+    rng = np.random.RandomState(random_seed)
+    unique_groups = sorted(list(manifest_df[group_col].unique()))
+    rng.shuffle(unique_groups)
 
     n_groups = len(unique_groups)
     n_train = int(n_groups * train_ratio)

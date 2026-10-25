@@ -1,0 +1,65 @@
+{
+  "report_timestamp_utc": "2026-10-25T17:20:30Z",
+  "phase": "Phase 7 Pilot Activation Gate & Blocker Resolution",
+  "summary": {
+    "total_blockers_tracked": 7,
+    "whole_pilot_mandatory_blockers": 4,
+    "feed_specific_blockers": 3,
+    "blockers_resolved": 0,
+    "blockers_pending_human_resolution": 7
+  },
+  "overall_pilot_impact": "FIELD_PILOT_BLOCKED",
+  "mandatory_pilot_blockers": [
+    {
+      "blocker_id": "BLK-03-SITE-INSPECTIONS",
+      "title": "Physical Safety Inspection at 4 Candidate Corridors",
+      "responsible_role": "Field Operations Lead",
+      "status": "PENDING_INSPECTION",
+      "action_required": "Conduct daytime hazard surveys of walkways at Rasoolpura, Tolichowki, Cyber Towers, and RTC X Roads."
+    },
+    {
+      "blocker_id": "BLK-04-PPE-PROCUREMENT",
+      "title": "Procure & Inspect Certified PPE & Calibrated Gauges",
+      "responsible_role": "Field Operations Lead",
+      "status": "PENDING_PROCUREMENT",
+      "action_required": "Procure Class 2 safety vests, non-slip waterproof boots, and 3m fiberglass depth staffs."
+    },
+    {
+      "blocker_id": "BLK-05-DPDP-CONSENT-STAGING",
+      "title": "Deploy DPDP Consent Policy on Staging Portal",
+      "responsible_role": "Legal & Compliance Lead",
+      "status": "PENDING_DEPLOYMENT",
+      "action_required": "Publish terms of service and coordinate coarsening verification on web portal."
+    },
+    {
+      "blocker_id": "BLK-06-FIELD-LEAD-APPOINTMENT",
+      "title": "Formally Designate Field Lead & Safety Officer",
+      "responsible_role": "Project Principal Investigator",
+      "status": "PENDING_APPOINTMENT",
+      "action_required": "Issue formal institutional role appointment letters."
+    }
+  ],
+  "feed_specific_blockers": [
+    {
+      "blocker_id": "BLK-01-TSDPS-MOU",
+      "title": "TSDPS AWS Data-Sharing Agreement",
+      "responsible_role": "Project Principal Investigator",
+      "status": "PENDING_APPROVAL",
+      "impact": "TSDPS telemetry operates under historical/sandbox fallback; does not block manual vantage pilot."
+    },
+    {
+      "blocker_id": "BLK-02-GHMC-DRF-MOU",
+      "title": "GHMC DRF Incident Logs Access Agreement",
+      "responsible_role": "Legal & Compliance Lead",
+      "status": "NOT_SUBMITTED",
+      "impact": "DRF calls must be manually entered by operator; does not block manual vantage pilot."
+    },
+    {
+      "blocker_id": "BLK-07-CCTV-QUARANTINE",
+      "title": "Municipal CCTV Access & DPIA Clearance",
+      "responsible_role": "Vision Safety Lead",
+      "status": "QUARANTINED_BLOCKED",
+      "impact": "CCTV is strictly quarantined under Vision V4 NO-GO readiness gate."
+    }
+  ]
+}

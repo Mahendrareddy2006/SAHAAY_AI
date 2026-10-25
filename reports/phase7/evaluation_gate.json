@@ -1,0 +1,27 @@
+{
+  "evaluation_gate_timestamp_utc": "2026-10-25T17:23:20Z",
+  "phase": "Phase 7 Evaluation Gate Preservation",
+  "evaluation_gate_status": "BLOCKED_INSUFFICIENT_GROUND_TRUTH",
+  "eligibility_audit": {
+    "verified_flood_episodes_available": 0,
+    "verified_flood_episodes_required": 50,
+    "verified_non_flood_episodes_available": 0,
+    "verified_non_flood_episodes_required": 100,
+    "independent_storm_dates_available": 0,
+    "independent_storm_dates_required": 4,
+    "independent_corridors_available": 0,
+    "independent_corridors_required": 3
+  },
+  "episode_definitions": {
+    "flood_episode": "A continuous episode where physical water depth is verified at d >= 5.0 cm on at least one travel lane, separated by at least 60 minutes or 500 meters from adjacent observations.",
+    "non_flood_episode": "A verified observation confirming asphalt is dry, damp, or puddle-only (d < 5.0 cm) under active or recent rainfall conditions, separated by at least 60 minutes.",
+    "leakage_boundary": "Observations from the same corridor and storm event date must reside in the same split partition."
+  },
+  "model_readiness_gates": {
+    "vision_v4_readiness_gate": "NO-GO",
+    "rainfall_baseline_supervised_tuning": "BLOCKED_PENDING_GROUND_TRUTH",
+    "road_vulnerability_ml_tuning": "BLOCKED_PENDING_GROUND_TRUTH",
+    "decision_engine_ruleset": "VERIFIED_SOFTWARE_CONFORMANCE_ONLY"
+  },
+  "gate_ruling": "Supervised model evaluation is strictly prohibited. Current metrics reflect software rule conformance only, not real-world flood prediction accuracy."
+}

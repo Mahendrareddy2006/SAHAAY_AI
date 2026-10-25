@@ -1,0 +1,54 @@
+{
+  "audit_timestamp": "2026-10-25T17:15:00Z",
+  "audit_target": "Sahaay AI Phase 6 Baseline and Operational Readiness Audit",
+  "git_commit": "0393286",
+  "branch": "master",
+  "verified_baseline_readiness": "BLOCKED_NOT_READY_FOR_LIVE_PILOT",
+  "test_execution": {
+    "command": ".\\.venv\\Scripts\\python.exe -m pytest -v",
+    "total_tests": 111,
+    "passed": 111,
+    "failed": 0,
+    "skipped": 0,
+    "warnings": 15,
+    "duration_seconds": 8.22,
+    "status": "ALL_TESTS_PASSING"
+  },
+  "subsystem_test_summary": {
+    "tests/test_phase6_pilot_readiness.py": { "passed": 13, "failed": 0 },
+    "tests/test_phase5_integration.py": { "passed": 16, "failed": 0 },
+    "tests/test_vision_v4_phase3.py": { "passed": 7, "failed": 0 },
+    "tests/test_vision_v4_collection.py": { "passed": 15, "failed": 0 },
+    "tests/test_vision_v4.py": { "passed": 9, "failed": 0 },
+    "tests/test_hyderabad_risk_pipeline.py": { "passed": 16, "failed": 0 },
+    "tests/test_image_quality_gate.py": { "passed": 5, "failed": 0 },
+    "tests/test_transforms.py": { "passed": 3, "failed": 0 },
+    "tests/test_split_integrity.py": { "passed": 5, "failed": 0 },
+    "tests/test_vision_v3.py": { "passed": 10, "failed": 0 },
+    "tests/test_inference.py": { "passed": 3, "failed": 0 },
+    "tests/test_model.py": { "passed": 2, "failed": 0 },
+    "tests/test_api.py": { "passed": 7, "failed": 0 }
+  },
+  "institutional_permissions_status": {
+    "total_candidate_feeds": 7,
+    "agreements_executed": 0,
+    "real_live_connections": 0,
+    "credentials_in_repo": 0
+  },
+  "field_safety_and_site_status": {
+    "candidate_corridors_total": 4,
+    "site_inspections_approved": 0,
+    "ppe_gear_procured_and_verified": false,
+    "field_teams_authorized": 0
+  },
+  "ground_truth_inventory": {
+    "real_observations_in_store": 0,
+    "verified_flood_episodes": 0,
+    "verified_non_flood_episodes": 0,
+    "required_flood_episodes": 50,
+    "required_non_flood_episodes": 100,
+    "evaluation_preregistration_status": "LOCKED_PENDING_GROUND_TRUTH"
+  },
+  "vision_v4_gate_status": "NO-GO",
+  "audit_verdict": "VERIFIED_BLOCKED_FAIL_CLOSED"
+}

@@ -1,0 +1,52 @@
+{
+  "feasibility_checklist_timestamp_utc": "2026-10-25T17:22:00Z",
+  "phase": "Phase 7 Pilot Feasibility Protocol",
+  "protocol_version": "1.0.0",
+  "overall_feasibility_status": "STAGED_READY_FOR_DRY_RUN",
+  "stages": {
+    "stage_a_dry_run": {
+      "name": "Stage A: Synthetic Dry Run & Pipeline Stress Test",
+      "status": "READY_FOR_EXECUTION",
+      "prerequisites_required": "None (uses simulated fixtures marked is_synthetic_or_simulated=true)",
+      "validation_criteria": [
+        "Schema v2.0 correctly rejects invalid coordinates and future timestamps",
+        "Ingestion pipeline flags spatio-temporal near-duplicates (<= 50m, <= 15min)",
+        "Review queue successfully logs cryptographically chained supervisor actions",
+        "Field session CLI handles initialize, start, abort, and close cycles"
+      ]
+    },
+    "stage_b_non_hazardous_vantage": {
+      "name": "Stage B: Authorized Dry-Weather Baseline Observation",
+      "status": "BLOCKED_PENDING_ACTIVATION_GATE",
+      "prerequisites_required": "PilotActivationGate evaluates to PILOT_AUTHORIZED",
+      "validation_criteria": [
+        "Team successfully occupies elevated footbridge without vehicular interaction",
+        "Calibrated non-contact optical rangefinder and staff gauges tested from railing",
+        "Zero identifiable bystander faces or private properties captured in telephoto imagery",
+        "Observations ingested into encrypted raw vault with 100% metadata completeness"
+      ]
+    },
+    "stage_c_weather_event_observation": {
+      "name": "Stage C: Controlled Monsoon Weather-Event Observation",
+      "status": "BLOCKED_PENDING_ACTIVATION_GATE",
+      "prerequisites_required": "PilotActivationGate evaluates to PILOT_AUTHORIZED and Stage B cleared",
+      "validation_criteria": [
+        "Pre-collection safety check strictly enforced by Field Lead prior to dispatch",
+        "Safety Officer maintains 360-degree awareness; zero entry into standing water",
+        "Abort triggers (lightning < 10km, wind > 35km/h, rising water) strictly enforced",
+        "Water depth measurements recorded with explicit provenance (staff vs curb index)"
+      ]
+    },
+    "stage_d_data_quality_audit": {
+      "name": "Stage D: Data Quality & Disagreement Audit",
+      "status": "BLOCKED_PENDING_COLLECTION",
+      "prerequisites_required": "Completion of at least 2 Stage C observation shifts",
+      "validation_criteria": [
+        "Completeness of key measurement fields >= 95.0%",
+        "Unresolved observer disagreements <= 5.0%",
+        "Zero circular validation leakage from historical hotspot catalog",
+        "Separation of verified inundation episodes from modeled environmental risk"
+      ]
+    }
+  }
+}

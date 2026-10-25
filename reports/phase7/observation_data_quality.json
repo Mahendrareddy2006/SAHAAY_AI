@@ -1,0 +1,47 @@
+{
+  "report_timestamp_utc": "2026-10-25T11:52:53.304597Z",
+  "phase": "Phase 7 Ground-Truth Quality & Coverage Audit",
+  "data_inventory": {
+    "real_world_field_observations_acquired": 0,
+    "template_validation_records": 5,
+    "historical_replayed_telemetry_records": 1,
+    "synthetic_fixtures_tracked": 10
+  },
+  "coverage_metrics": {
+    "unique_corridors_observed": 4,
+    "observed_corridor_ids": [
+      "CORR-HYD-01",
+      "CORR-HYD-02",
+      "CORR-HYD-03",
+      "CORR-HYD-04"
+    ],
+    "unique_storm_dates": 1,
+    "temporal_range": {
+      "earliest_timestamp": "2026-10-25",
+      "latest_timestamp": "2026-10-25"
+    }
+  },
+  "measurement_quality_and_completeness": {
+    "total_records_evaluated": 5,
+    "depth_measurements_recorded": 3,
+    "depth_measurements_unmeasured_or_null": 2,
+    "measurement_units": "centimeters (cm)",
+    "unit_validation_errors": 0,
+    "consent_compliance_rate": "100.0%",
+    "duplicate_flags_detected": 0,
+    "unresolved_observer_disagreements": 0
+  },
+  "evaluation_dataset_eligibility": {
+    "verified_flood_episodes_current": 0,
+    "verified_non_flood_episodes_current": 0,
+    "preregistered_flood_target": 50,
+    "preregistered_non_flood_target": 100,
+    "preregistered_storm_dates_target": 4,
+    "evaluation_eligibility_status": "INSUFFICIENT_GROUND_TRUTH_BLOCKED",
+    "exclusion_reasons": [
+      "Zero real-world physical field observations have been collected",
+      "Template records in data/phase6/observation_template.csv are synthetic/validation fixtures only",
+      "Minimum sample size threshold (50 flood / 100 non-flood episodes) not satisfied"
+    ]
+  }
+}

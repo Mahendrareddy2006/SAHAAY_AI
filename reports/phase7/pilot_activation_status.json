@@ -1,0 +1,111 @@
+{
+  "report_timestamp_utc": "2026-10-25T11:49:33.814128Z",
+  "pilot_activation_state": "BLOCKED_NOT_READY_FOR_LIVE_PILOT",
+  "overall_readiness_summary": {
+    "total_prerequisites_tracked": 8,
+    "mandatory_prerequisites_total": 7,
+    "mandatory_prerequisites_satisfied": 2,
+    "all_mandatory_satisfied": false,
+    "can_start_field_sessions": false
+  },
+  "prerequisites": [
+    {
+      "prereq_id": "PREREQ_01_INSTITUTIONAL_AGREEMENT",
+      "title": "Executed Institutional MoU & Data-Sharing Agreement with GHMC / HTP",
+      "is_mandatory": true,
+      "status": "UNVERIFIED_PENDING",
+      "is_valid": false,
+      "evidence_reference": null,
+      "verified_by_role": null,
+      "verification_timestamp": null,
+      "expiration_timestamp": null,
+      "notes": "Formal research data-sharing agreement request awaiting institutional execution."
+    },
+    {
+      "prereq_id": "PREREQ_02_RESPONSIBLE_LEAD_RECORDED",
+      "title": "Authorized Field Lead & Safety Officer Formally Designated",
+      "is_mandatory": true,
+      "status": "UNVERIFIED_PENDING",
+      "is_valid": false,
+      "evidence_reference": null,
+      "verified_by_role": null,
+      "verification_timestamp": null,
+      "expiration_timestamp": null,
+      "notes": "Field roles defined in safety plan; specific individuals awaiting formal appointment letter."
+    },
+    {
+      "prereq_id": "PREREQ_03_SITE_SAFETY_INSPECTIONS",
+      "title": "Physical Site Hazard & Railing Safety Inspection Completed",
+      "is_mandatory": true,
+      "status": "UNVERIFIED_PENDING",
+      "is_valid": false,
+      "evidence_reference": null,
+      "verified_by_role": null,
+      "verification_timestamp": null,
+      "expiration_timestamp": null,
+      "notes": "Physical daytime surveys at 4 candidate elevated vantage points pending execution."
+    },
+    {
+      "prereq_id": "PREREQ_04_PPE_EQUIPMENT_CHECK",
+      "title": "Certified High-Visibility PPE & Calibrated Staff Gauges Verified",
+      "is_mandatory": true,
+      "status": "UNVERIFIED_PENDING",
+      "is_valid": false,
+      "evidence_reference": null,
+      "verified_by_role": null,
+      "verification_timestamp": null,
+      "expiration_timestamp": null,
+      "notes": "Procurement and calibration checklist for EN ISO 20471 Class 2 vests and depth staffs pending."
+    },
+    {
+      "prereq_id": "PREREQ_05_CONSENT_PRIVACY_DEPLOYED",
+      "title": "DPDP Act 2023 Consent Notice & 3-Decimal Coarsening Verified",
+      "is_mandatory": true,
+      "status": "UNVERIFIED_PENDING",
+      "is_valid": false,
+      "evidence_reference": null,
+      "verified_by_role": null,
+      "verification_timestamp": null,
+      "expiration_timestamp": null,
+      "notes": "Consent notice drafted; staging portal deployment and legal sign-off pending."
+    },
+    {
+      "prereq_id": "PREREQ_06_RETENTION_DELETION_OPERATIONAL",
+      "title": "Data Tiering, Vault Encryption, and Right-to-Erasure Workflow Operational",
+      "is_mandatory": true,
+      "status": "VERIFIED_EVIDENCE_ATTACHED",
+      "is_valid": true,
+      "evidence_reference": "DOC-PHASE6-DATA-GOVERNANCE-v1.0",
+      "verified_by_role": "LEGAL_AND_COMPLIANCE_LEAD",
+      "verification_timestamp": "2026-10-25T12:00:00+00:00",
+      "expiration_timestamp": null,
+      "notes": "Multi-tier data vault and DPDP erasure policies implemented in src/sahaay/observations/."
+    },
+    {
+      "prereq_id": "PREREQ_07_INGESTION_WORKFLOW_VERIFIED",
+      "title": "Field Observation Schema v2.0 & Ingestion Pipeline Verified",
+      "is_mandatory": true,
+      "status": "VERIFIED_EVIDENCE_ATTACHED",
+      "is_valid": true,
+      "evidence_reference": "SUITE-PHASE6-REGRESSION-111-PASSING",
+      "verified_by_role": "SYSTEMS_INTEGRATION_LEAD",
+      "verification_timestamp": "2026-10-25T12:00:00+00:00",
+      "expiration_timestamp": null,
+      "notes": "ObservationIngestionPipeline, duplicate detection, and bounding box checks fully passing tests."
+    },
+    {
+      "prereq_id": "PREREQ_08_DATA_FEED_AUTHORIZATION",
+      "title": "External Telemetry Authorization (Optional Feeds: TSDPS / NWIC / DRF)",
+      "is_mandatory": false,
+      "status": "UNVERIFIED_PENDING",
+      "is_valid": false,
+      "evidence_reference": null,
+      "verified_by_role": null,
+      "verification_timestamp": null,
+      "expiration_timestamp": null,
+      "notes": "External live streams operate in fallback or sandbox mode; does not block manual vantage pilot."
+    }
+  ],
+  "audit_chain_length": 0,
+  "latest_transition": null
+}

@@ -1,0 +1,32 @@
+{
+  "suspension_event_id": "EVT-SUSPEND-20261025-01",
+  "is_synthetic_or_simulated": true,
+  "trigger_timestamp_utc": "2026-10-25T14:15:00Z",
+  "trigger_reason": "UNSAFE_WEATHER_HAZARD_LIGHTNING_BREACH",
+  "session_affected": "SES-20261025-0001",
+  "corridor_id": "CORR-HYD-01",
+  "location_name": "Rasoolpura Metro Walkway",
+  "reported_hazard": {
+    "hazard_type": "LIGHTNING_STRIKE_PROXIMITY",
+    "measured_distance_km": 3.8,
+    "threshold_limit_km": 10.0,
+    "detecting_system": "IMD_DAMINI_LIGHTNING_SENSOR_RADAR",
+    "immediate_action": "Field Safety Officer ordered immediate 'STOP WORK' and team evacuation to Rasoolpura Metro Concourse."
+  },
+  "gate_transition_executed": {
+    "transition_id": "TRN-9F2D8A1C",
+    "from_state": "PILOT_AUTHORIZED",
+    "to_state": "PILOT_SUSPENDED",
+    "authorized_by_role": "FIELD_SAFETY_LEAD",
+    "authorized_by_id": "SAFETY-LEAD-01",
+    "timestamp_utc": "2026-10-25T14:16:00Z",
+    "justification_notes": "Lightning strike recorded 3.8 km from Rasoolpura vantage point. Cardinal Rule 4 enforced; field shift suspended; team sheltered safely.",
+    "audit_hash": "a1b2c3d4e5f60718293a4b5c6d7e8f90123456789abcdef0123456789abcdef0"
+  },
+  "recovery_audit_requirements": {
+    "clearance_condition": "Zero lightning strikes detected within 10 km for a minimum of 45 consecutive minutes.",
+    "site_reinspection": "Safety Officer must verify pedestrian walkway free of standing water and fallen debris.",
+    "authorization_required": "Supervisor Dispatcher sign-off required prior to re-entering vantage point."
+  },
+  "autonomous_actions_prohibited": true
+}

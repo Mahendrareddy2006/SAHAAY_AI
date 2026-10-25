@@ -1,0 +1,449 @@
+{
+  "audit_title": "Source-Label Confounding and Metadata Shortcut Audit",
+  "dataset_analyzed": "manifest_v3",
+  "total_images": 1478,
+  "source_dataset_breakdown": {
+    "clemson_flood": 739,
+    "virenbr11_plain": 374,
+    "virenbr11_pothole": 365
+  },
+  "cross_tabulation": {
+    "('clemson_flood', 'flood')": {
+      "test": 111,
+      "train": 517,
+      "val": 111,
+      "All": 739
+    },
+    "('virenbr11_plain', 'non_flood')": {
+      "test": 50,
+      "train": 260,
+      "val": 64,
+      "All": 374
+    },
+    "('virenbr11_pothole', 'non_flood')": {
+      "test": 61,
+      "train": 257,
+      "val": 47,
+      "All": 365
+    },
+    "('All', '')": {
+      "test": 222,
+      "train": 1034,
+      "val": 222,
+      "All": 1478
+    }
+  },
+  "group_summary_statistics": {
+    "clemson_flood_flood_test": {
+      "source_dataset": "clemson_flood",
+      "class_name": "flood",
+      "split": "test",
+      "count": 111,
+      "width": {
+        "mean": 1322.13,
+        "std": 520.4,
+        "min": 378.0,
+        "p25": 800.0,
+        "median": 1280.0,
+        "p75": 1707.0,
+        "max": 2276.0
+      },
+      "height": {
+        "mean": 910.74,
+        "std": 427.14,
+        "min": 213.0,
+        "p25": 450.0,
+        "median": 720.0,
+        "p75": 1280.0,
+        "max": 1925.0
+      },
+      "aspect_ratio": {
+        "mean": 1.53,
+        "std": 0.27,
+        "min": 0.66,
+        "p25": 1.33,
+        "median": 1.5,
+        "p75": 1.78,
+        "max": 2.06
+      },
+      "file_size_kb": {
+        "mean": 1230.64,
+        "std": 800.07,
+        "min": 21.28,
+        "p25": 629.03,
+        "median": 1358.2,
+        "p75": 1881.89,
+        "max": 3071.22
+      }
+    },
+    "clemson_flood_flood_train": {
+      "source_dataset": "clemson_flood",
+      "class_name": "flood",
+      "split": "train",
+      "count": 517,
+      "width": {
+        "mean": 1373.69,
+        "std": 606.31,
+        "min": 287.0,
+        "p25": 800.0,
+        "median": 1280.0,
+        "p75": 1920.0,
+        "max": 4928.0
+      },
+      "height": {
+        "mean": 910.54,
+        "std": 444.05,
+        "min": 168.0,
+        "p25": 450.0,
+        "median": 720.0,
+        "p75": 1280.0,
+        "max": 3280.0
+      },
+      "aspect_ratio": {
+        "mean": 1.58,
+        "std": 0.31,
+        "min": 0.46,
+        "p25": 1.33,
+        "median": 1.54,
+        "p75": 1.78,
+        "max": 3.79
+      },
+      "file_size_kb": {
+        "mean": 1195.46,
+        "std": 780.73,
+        "min": 9.34,
+        "p25": 599.07,
+        "median": 1355.68,
+        "p75": 1779.31,
+        "max": 5180.78
+      }
+    },
+    "clemson_flood_flood_val": {
+      "source_dataset": "clemson_flood",
+      "class_name": "flood",
+      "split": "val",
+      "count": 111,
+      "width": {
+        "mean": 1434.32,
+        "std": 610.7,
+        "min": 429.0,
+        "p25": 800.0,
+        "median": 1280.0,
+        "p75": 1920.0,
+        "max": 4288.0
+      },
+      "height": {
+        "mean": 966.18,
+        "std": 466.07,
+        "min": 310.0,
+        "p25": 450.0,
+        "median": 1006.0,
+        "p75": 1280.0,
+        "max": 2848.0
+      },
+      "aspect_ratio": {
+        "mean": 1.56,
+        "std": 0.29,
+        "min": 0.66,
+        "p25": 1.44,
+        "median": 1.63,
+        "p75": 1.78,
+        "max": 2.0
+      },
+      "file_size_kb": {
+        "mean": 1292.73,
+        "std": 760.22,
+        "min": 24.13,
+        "p25": 651.52,
+        "median": 1519.04,
+        "p75": 1860.66,
+        "max": 2947.8
+      }
+    },
+    "virenbr11_plain_non_flood_test": {
+      "source_dataset": "virenbr11_plain",
+      "class_name": "non_flood",
+      "split": "test",
+      "count": 50,
+      "width": {
+        "mean": 987.28,
+        "std": 604.04,
+        "min": 275.0,
+        "p25": 600.0,
+        "median": 835.0,
+        "p75": 1175.0,
+        "max": 3200.0
+      },
+      "height": {
+        "mean": 627.04,
+        "std": 396.23,
+        "min": 177.0,
+        "p25": 376.5,
+        "median": 453.0,
+        "p75": 747.25,
+        "max": 2400.0
+      },
+      "aspect_ratio": {
+        "mean": 1.6,
+        "std": 0.35,
+        "min": 0.66,
+        "p25": 1.33,
+        "median": 1.5,
+        "p75": 1.79,
+        "max": 2.67
+      },
+      "file_size_kb": {
+        "mean": 187.44,
+        "std": 225.48,
+        "min": 5.67,
+        "p25": 50.84,
+        "median": 83.95,
+        "p75": 238.43,
+        "max": 1113.13
+      }
+    },
+    "virenbr11_plain_non_flood_train": {
+      "source_dataset": "virenbr11_plain",
+      "class_name": "non_flood",
+      "split": "train",
+      "count": 260,
+      "width": {
+        "mean": 954.08,
+        "std": 688.6,
+        "min": 170.0,
+        "p25": 600.0,
+        "median": 770.0,
+        "p75": 1134.25,
+        "max": 5760.0
+      },
+      "height": {
+        "mean": 621.33,
+        "std": 502.16,
+        "min": 142.0,
+        "p25": 350.0,
+        "median": 479.0,
+        "p75": 720.0,
+        "max": 3840.0
+      },
+      "aspect_ratio": {
+        "mean": 1.63,
+        "std": 0.48,
+        "min": 0.63,
+        "p25": 1.34,
+        "median": 1.5,
+        "p75": 1.78,
+        "max": 3.99
+      },
+      "file_size_kb": {
+        "mean": 293.68,
+        "std": 963.22,
+        "min": 4.54,
+        "p25": 45.27,
+        "median": 89.15,
+        "p75": 194.05,
+        "max": 10742.68
+      }
+    },
+    "virenbr11_plain_non_flood_val": {
+      "source_dataset": "virenbr11_plain",
+      "class_name": "non_flood",
+      "split": "val",
+      "count": 64,
+      "width": {
+        "mean": 1058.05,
+        "std": 769.79,
+        "min": 160.0,
+        "p25": 682.5,
+        "median": 913.0,
+        "p75": 1185.0,
+        "max": 5184.0
+      },
+      "height": {
+        "mean": 724.02,
+        "std": 586.57,
+        "min": 120.0,
+        "p25": 437.5,
+        "median": 532.5,
+        "p75": 776.0,
+        "max": 3456.0
+      },
+      "aspect_ratio": {
+        "mean": 1.58,
+        "std": 0.48,
+        "min": 0.67,
+        "p25": 1.33,
+        "median": 1.5,
+        "p75": 1.78,
+        "max": 3.29
+      },
+      "file_size_kb": {
+        "mean": 380.89,
+        "std": 1183.6,
+        "min": 5.41,
+        "p25": 56.08,
+        "median": 108.88,
+        "p75": 256.37,
+        "max": 9115.92
+      }
+    },
+    "virenbr11_pothole_non_flood_test": {
+      "source_dataset": "virenbr11_pothole",
+      "class_name": "non_flood",
+      "split": "test",
+      "count": 61,
+      "width": {
+        "mean": 915.77,
+        "std": 495.7,
+        "min": 169.0,
+        "p25": 660.0,
+        "median": 780.0,
+        "p75": 1068.0,
+        "max": 3000.0
+      },
+      "height": {
+        "mean": 596.21,
+        "std": 360.05,
+        "min": 179.0,
+        "p25": 410.0,
+        "median": 450.0,
+        "p75": 678.0,
+        "max": 2000.0
+      },
+      "aspect_ratio": {
+        "mean": 1.6,
+        "std": 0.29,
+        "min": 0.75,
+        "p25": 1.5,
+        "median": 1.75,
+        "p75": 1.78,
+        "max": 2.26
+      },
+      "file_size_kb": {
+        "mean": 190.14,
+        "std": 310.1,
+        "min": 10.39,
+        "p25": 66.12,
+        "median": 105.54,
+        "p75": 209.71,
+        "max": 2261.81
+      }
+    },
+    "virenbr11_pothole_non_flood_train": {
+      "source_dataset": "virenbr11_pothole",
+      "class_name": "non_flood",
+      "split": "train",
+      "count": 257,
+      "width": {
+        "mean": 1008.73,
+        "std": 761.35,
+        "min": 225.0,
+        "p25": 626.0,
+        "median": 800.0,
+        "p75": 1200.0,
+        "max": 5760.0
+      },
+      "height": {
+        "mean": 666.67,
+        "std": 547.41,
+        "min": 168.0,
+        "p25": 400.0,
+        "median": 495.0,
+        "p75": 720.0,
+        "max": 3840.0
+      },
+      "aspect_ratio": {
+        "mean": 1.58,
+        "std": 0.31,
+        "min": 0.65,
+        "p25": 1.49,
+        "median": 1.5,
+        "p75": 1.78,
+        "max": 2.88
+      },
+      "file_size_kb": {
+        "mean": 429.4,
+        "std": 1579.08,
+        "min": 9.03,
+        "p25": 62.33,
+        "median": 133.07,
+        "p75": 267.79,
+        "max": 17283.96
+      }
+    },
+    "virenbr11_pothole_non_flood_val": {
+      "source_dataset": "virenbr11_pothole",
+      "class_name": "non_flood",
+      "split": "val",
+      "count": 47,
+      "width": {
+        "mean": 988.81,
+        "std": 737.98,
+        "min": 300.0,
+        "p25": 627.5,
+        "median": 819.0,
+        "p75": 1024.0,
+        "max": 4256.0
+      },
+      "height": {
+        "mean": 649.23,
+        "std": 489.16,
+        "min": 200.0,
+        "p25": 373.5,
+        "median": 541.0,
+        "p75": 712.0,
+        "max": 2832.0
+      },
+      "aspect_ratio": {
+        "mean": 1.57,
+        "std": 0.31,
+        "min": 0.52,
+        "p25": 1.43,
+        "median": 1.51,
+        "p75": 1.78,
+        "max": 2.28
+      },
+      "file_size_kb": {
+        "mean": 230.87,
+        "std": 286.4,
+        "min": 19.36,
+        "p25": 60.56,
+        "median": 112.63,
+        "p75": 248.68,
+        "max": 1122.48
+      }
+    }
+  },
+  "information_theoretic_confounding": {
+    "label_entropy_bits": 1.0,
+    "mutual_information_bits": 1.0,
+    "uncertainty_coefficient": 1.0,
+    "deterministic_relationship": true,
+    "explanation": "Because 100% of non-flood images originate from virenbr11 (plain and pothole) and 100% of flood images originate from clemson_flood, source identity alone perfectly predicts the class label with 100% accuracy."
+  },
+  "non_semantic_diagnostic_baseline": {
+    "features_used": [
+      "width",
+      "height",
+      "aspect_ratio",
+      "file_size_kb"
+    ],
+    "decision_tree_depth_2_accuracy": 0.8378,
+    "random_forest_depth_4": {
+      "test_accuracy": 0.8739,
+      "test_macro_f1": 0.8627,
+      "test_roc_auc": 0.9138,
+      "feature_importances": {
+        "width": 0.2241,
+        "height": 0.1529,
+        "aspect_ratio": 0.073,
+        "file_size_kb": 0.5501
+      }
+    }
+  },
+  "critical_methodological_conclusions": [
+    "SOURCE CONVOLUTION: Class balancing does NOT eliminate source confounding when positive and negative classes originate from entirely separate datasets.",
+    "METADATA LEAKAGE RISK: The random forest metadata baseline achieves 83.78% test accuracy without seeing any pixels, driven primarily by file size (44.5% importance) and image width (29.2% importance).",
+    "POTENTIAL FOR ARTIFACT LEARNING: A deep convolutional neural network trained on this split could learn dataset-specific acquisition artifacts (e.g., JPEG compression quant tables, sensor noise profiles, Twitter scrape re-encoding) instead of true flood water semantics.",
+    "REQUIREMENT FOR MULTI-SOURCE HELD-OUT GENERALIZATION: True generalization must be proven by evaluating models on independent datasets containing BOTH positive and negative instances from sources unseen during training."
+  ]
+}

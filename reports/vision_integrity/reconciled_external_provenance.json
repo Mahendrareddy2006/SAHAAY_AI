@@ -1,0 +1,3640 @@
+{
+  "audit_title": "External Data Provenance and Overlap Reconciliation",
+  "evaluation_cohorts_analyzed": [
+    "clemson_200_historical_eval",
+    "clemson_v3_filtered_test_subset"
+  ],
+  "comparisons": {
+    "clemson_200_vs_train_v1": {
+      "eval_set": "clemson_200_historical",
+      "manifest_target": "train_v1",
+      "eval_count": 200,
+      "manifest_count": 2100,
+      "exact_md5_match_count": 36,
+      "exact_md5_matches": [
+        {
+          "eval_file": "flood_4676.jpg",
+          "eval_id": "clemson_200_flood_4676.jpg",
+          "manifest_file": "flood_4676.jpg",
+          "manifest_id": "flood_4676.jpg",
+          "md5": "59f6059e0d6a48e6a6eb285ebb37d536"
+        },
+        {
+          "eval_file": "flood_6712.png",
+          "eval_id": "clemson_200_flood_6712.png",
+          "manifest_file": "flood_6712.png",
+          "manifest_id": "flood_6712.png",
+          "md5": "cce3c27552faa4b30b118c6852c2d252"
+        },
+        {
+          "eval_file": "flood_4671.jpg",
+          "eval_id": "clemson_200_flood_4671.jpg",
+          "manifest_file": "flood_4671.jpg",
+          "manifest_id": "flood_4671.jpg",
+          "md5": "b1f8db588a51d886d0197469fa49b419"
+        },
+        {
+          "eval_file": "flood_6791.png",
+          "eval_id": "clemson_200_flood_6791.png",
+          "manifest_file": "flood_6791.png",
+          "manifest_id": "flood_6791.png",
+          "md5": "2d24db9ee6ca553a5d9436c6070ae185"
+        },
+        {
+          "eval_file": "flood_864.jpg",
+          "eval_id": "clemson_200_flood_864.jpg",
+          "manifest_file": "flood_6070.jpg",
+          "manifest_id": "flood_6070.jpg",
+          "md5": "d9abeb780ce068410a0c978eec9dac20"
+        },
+        {
+          "eval_file": "flood_6533.png",
+          "eval_id": "clemson_200_flood_6533.png",
+          "manifest_file": "flood_6533.png",
+          "manifest_id": "flood_6533.png",
+          "md5": "b5b87e686ebdd73a5bd4236ef2b08186"
+        },
+        {
+          "eval_file": "flood_2808.jpg",
+          "eval_id": "clemson_200_flood_2808.jpg",
+          "manifest_file": "flood_2808.jpg",
+          "manifest_id": "flood_2808.jpg",
+          "md5": "36137233f7a5f37d6c9260ab259ded7e"
+        },
+        {
+          "eval_file": "flood_1660.jpg",
+          "eval_id": "clemson_200_flood_1660.jpg",
+          "manifest_file": "flood_1660.jpg",
+          "manifest_id": "flood_1660.jpg",
+          "md5": "acd86aea50078ed29c83490d643b493d"
+        },
+        {
+          "eval_file": "flood_3283.jpg",
+          "eval_id": "clemson_200_flood_3283.jpg",
+          "manifest_file": "flood_3283.jpg",
+          "manifest_id": "flood_3283.jpg",
+          "md5": "724c16e4315ab7cd0785665cd7d9c24f"
+        },
+        {
+          "eval_file": "flood_235.jpg",
+          "eval_id": "clemson_200_flood_235.jpg",
+          "manifest_file": "flood_2666.jpg",
+          "manifest_id": "flood_2666.jpg",
+          "md5": "7b8eaa65770b7d065d1d8e67cfdd8bc2"
+        },
+        {
+          "eval_file": "flood_5662.jpg",
+          "eval_id": "clemson_200_flood_5662.jpg",
+          "manifest_file": "flood_3475.jpg",
+          "manifest_id": "flood_3475.jpg",
+          "md5": "2a14b411e312eb9a5d99f0c114298f38"
+        },
+        {
+          "eval_file": "flood_2301.jpg",
+          "eval_id": "clemson_200_flood_2301.jpg",
+          "manifest_file": "flood_99.jpg",
+          "manifest_id": "flood_99.jpg",
+          "md5": "2e23dff6827ebe94cee5797358a91aff"
+        },
+        {
+          "eval_file": "flood_883.jpg",
+          "eval_id": "clemson_200_flood_883.jpg",
+          "manifest_file": "flood_883.jpg",
+          "manifest_id": "flood_883.jpg",
+          "md5": "8940570f735659eaa7325d427ec08f93"
+        },
+        {
+          "eval_file": "flood_7260.png",
+          "eval_id": "clemson_200_flood_7260.png",
+          "manifest_file": "flood_9303.png",
+          "manifest_id": "flood_9303.png",
+          "md5": "dd9d350f8888567ab38f421a276794a1"
+        },
+        {
+          "eval_file": "flood_6383.jpg",
+          "eval_id": "clemson_200_flood_6383.jpg",
+          "manifest_file": "flood_6383.jpg",
+          "manifest_id": "flood_6383.jpg",
+          "md5": "652a723755a15a77b5bdac031b6e49b1"
+        },
+        {
+          "eval_file": "flood_7773.png",
+          "eval_id": "clemson_200_flood_7773.png",
+          "manifest_file": "flood_7773.png",
+          "manifest_id": "flood_7773.png",
+          "md5": "2b528775f0c369dd885da05828da18db"
+        },
+        {
+          "eval_file": "flood_7145.png",
+          "eval_id": "clemson_200_flood_7145.png",
+          "manifest_file": "flood_7144.png",
+          "manifest_id": "flood_7144.png",
+          "md5": "01f7ec56967ae03be812e5ee58b6f8fb"
+        },
+        {
+          "eval_file": "flood_8584.png",
+          "eval_id": "clemson_200_flood_8584.png",
+          "manifest_file": "flood_8584.png",
+          "manifest_id": "flood_8584.png",
+          "md5": "978fd2d7cee51a2522e1ee30ae7bc586"
+        },
+        {
+          "eval_file": "flood_882.jpg",
+          "eval_id": "clemson_200_flood_882.jpg",
+          "manifest_file": "flood_882.jpg",
+          "manifest_id": "flood_882.jpg",
+          "md5": "6a90b6c54314248d0f826f960e9a1350"
+        },
+        {
+          "eval_file": "flood_351.jpg",
+          "eval_id": "clemson_200_flood_351.jpg",
+          "manifest_file": "flood_5494.jpg",
+          "manifest_id": "flood_5494.jpg",
+          "md5": "856cd2b5fb2de010cfb94e468248e54a"
+        },
+        {
+          "eval_file": "flood_6341.jpg",
+          "eval_id": "clemson_200_flood_6341.jpg",
+          "manifest_file": "flood_6341.jpg",
+          "manifest_id": "flood_6341.jpg",
+          "md5": "731245c48c2e9aa37997d6a8e4e5f413"
+        },
+        {
+          "eval_file": "flood_6473.png",
+          "eval_id": "clemson_200_flood_6473.png",
+          "manifest_file": "flood_6473.png",
+          "manifest_id": "flood_6473.png",
+          "md5": "a3c02328788c409cd2bd80296a126c1c"
+        },
+        {
+          "eval_file": "flood_8797.png",
+          "eval_id": "clemson_200_flood_8797.png",
+          "manifest_file": "flood_8797.png",
+          "manifest_id": "flood_8797.png",
+          "md5": "d0677427a57f74e9e717e9327973ca9f"
+        },
+        {
+          "eval_file": "flood_3604.jpg",
+          "eval_id": "clemson_200_flood_3604.jpg",
+          "manifest_file": "flood_3604.jpg",
+          "manifest_id": "flood_3604.jpg",
+          "md5": "5cf5104352b22649a7740a76065c4b89"
+        },
+        {
+          "eval_file": "flood_193.jpg",
+          "eval_id": "clemson_200_flood_193.jpg",
+          "manifest_file": "flood_193.jpg",
+          "manifest_id": "flood_193.jpg",
+          "md5": "d919c3ce0c1aad7559977e7398a0f6ee"
+        },
+        {
+          "eval_file": "flood_820.jpg",
+          "eval_id": "clemson_200_flood_820.jpg",
+          "manifest_file": "flood_820.jpg",
+          "manifest_id": "flood_820.jpg",
+          "md5": "990671e7996aa1e4d01aacc647fa79ca"
+        },
+        {
+          "eval_file": "flood_6754.png",
+          "eval_id": "clemson_200_flood_6754.png",
+          "manifest_file": "flood_6754.png",
+          "manifest_id": "flood_6754.png",
+          "md5": "c55726eaef30a77f614a51101da0c711"
+        },
+        {
+          "eval_file": "flood_2483.jpg",
+          "eval_id": "clemson_200_flood_2483.jpg",
+          "manifest_file": "flood_2483.jpg",
+          "manifest_id": "flood_2483.jpg",
+          "md5": "ed37133659a4a39560d24cebddd26976"
+        },
+        {
+          "eval_file": "flood_3430.jpg",
+          "eval_id": "clemson_200_flood_3430.jpg",
+          "manifest_file": "flood_3430.jpg",
+          "manifest_id": "flood_3430.jpg",
+          "md5": "4c961d61e66f2267f93f7cec4d5dccf4"
+        },
+        {
+          "eval_file": "flood_4803.jpg",
+          "eval_id": "clemson_200_flood_4803.jpg",
+          "manifest_file": "flood_1143.jpg",
+          "manifest_id": "flood_1143.jpg",
+          "md5": "9d731577b233bceb09c301962172a5f5"
+        },
+        {
+          "eval_file": "flood_5362.jpg",
+          "eval_id": "clemson_200_flood_5362.jpg",
+          "manifest_file": "flood_2654.jpg",
+          "manifest_id": "flood_2654.jpg",
+          "md5": "9797f37d52ce3630105e05a3df30eab6"
+        },
+        {
+          "eval_file": "flood_6099.jpg",
+          "eval_id": "clemson_200_flood_6099.jpg",
+          "manifest_file": "flood_6099.jpg",
+          "manifest_id": "flood_6099.jpg",
+          "md5": "1b292e79f548fd98a8f7312d42de0f4b"
+        },
+        {
+          "eval_file": "flood_6567.png",
+          "eval_id": "clemson_200_flood_6567.png",
+          "manifest_file": "flood_6567.png",
+          "manifest_id": "flood_6567.png",
+          "md5": "d86d99dd040f4c19da336bdc48b99d86"
+        },
+        {
+          "eval_file": "flood_5073.jpg",
+          "eval_id": "clemson_200_flood_5073.jpg",
+          "manifest_file": "flood_5073.jpg",
+          "manifest_id": "flood_5073.jpg",
+          "md5": "24cc93d8f4248c11ff34c53683ca4638"
+        },
+        {
+          "eval_file": "Flood_997.jpg",
+          "eval_id": "clemson_200_Flood_997.jpg",
+          "manifest_file": "Flood_997.jpg",
+          "manifest_id": "Flood_997.jpg",
+          "md5": "1c051ed19ee551fc37f2a5bd432e34bf"
+        },
+        {
+          "eval_file": "flood_9332.png",
+          "eval_id": "clemson_200_flood_9332.png",
+          "manifest_file": "flood_7289.png",
+          "manifest_id": "flood_7289.png",
+          "md5": "de7a5604adf5f51b054473468e367805"
+        }
+      ],
+      "perceptual_near_duplicate_count_h2": 102,
+      "perceptual_near_duplicates_h2": [
+        {
+          "eval_file": "flood_678.jpg",
+          "eval_id": "clemson_200_flood_678.jpg",
+          "manifest_file": "flood_5863.jpg",
+          "manifest_id": "flood_5863.jpg",
+          "hamming_distance": 0
+        },
+        {
+          "eval_file": "flood_4676.jpg",
+          "eval_id": "clemson_200_flood_4676.jpg",
+          "manifest_file": "flood_4676.jpg",
+          "manifest_id": "flood_4676.jpg",
+          "hamming_distance": 0
+        },
+        {
+          "eval_file": "flood_8902.png",
+          "eval_id": "clemson_200_flood_8902.png",
+          "manifest_file": "flood_6712.png",
+          "manifest_id": "flood_6712.png",
+          "hamming_distance": 2
+        },
+        {
+          "eval_file": "flood_6712.png",
+          "eval_id": "clemson_200_flood_6712.png",
+          "manifest_file": "flood_6712.png",
+          "manifest_id": "flood_6712.png",
+          "hamming_distance": 0
+        },
+        {
+          "eval_file": "flood_6712.png",
+          "eval_id": "clemson_200_flood_6712.png",
+          "manifest_file": "flood_6709.png",
+          "manifest_id": "flood_6709.png",
+          "hamming_distance": 1
+        },
+        {
+          "eval_file": "flood_4671.jpg",
+          "eval_id": "clemson_200_flood_4671.jpg",
+          "manifest_file": "flood_4671.jpg",
+          "manifest_id": "flood_4671.jpg",
+          "hamming_distance": 0
+        },
+        {
+          "eval_file": "flood_8887.png",
+          "eval_id": "clemson_200_flood_8887.png",
+          "manifest_file": "flood_8888.png",
+          "manifest_id": "flood_8888.png",
+          "hamming_distance": 1
+        },
+        {
+          "eval_file": "flood_7731.png",
+          "eval_id": "clemson_200_flood_7731.png",
+          "manifest_file": "flood_7830.png",
+          "manifest_id": "flood_7830.png",
+          "hamming_distance": 2
+        },
+        {
+          "eval_file": "flood_7731.png",
+          "eval_id": "clemson_200_flood_7731.png",
+          "manifest_file": "flood_7730.png",
+          "manifest_id": "flood_7730.png",
+          "hamming_distance": 2
+        },
+        {
+          "eval_file": "flood_6487.png",
+          "eval_id": "clemson_200_flood_6487.png",
+          "manifest_file": "flood_8676.png",
+          "manifest_id": "flood_8676.png",
+          "hamming_distance": 2
+        },
+        {
+          "eval_file": "flood_6791.png",
+          "eval_id": "clemson_200_flood_6791.png",
+          "manifest_file": "flood_6791.png",
+          "manifest_id": "flood_6791.png",
+          "hamming_distance": 0
+        },
+        {
+          "eval_file": "flood_6791.png",
+          "eval_id": "clemson_200_flood_6791.png",
+          "manifest_file": "flood_8985.png",
+          "manifest_id": "flood_8985.png",
+          "hamming_distance": 0
+        },
+        {
+          "eval_file": "flood_7138.png",
+          "eval_id": "clemson_200_flood_7138.png",
+          "manifest_file": "flood_7137.png",
+          "manifest_id": "flood_7137.png",
+          "hamming_distance": 1
+        },
+        {
+          "eval_file": "flood_7138.png",
+          "eval_id": "clemson_200_flood_7138.png",
+          "manifest_file": "flood_9178.png",
+          "manifest_id": "flood_9178.png",
+          "hamming_distance": 1
+        },
+        {
+          "eval_file": "flood_7138.png",
+          "eval_id": "clemson_200_flood_7138.png",
+          "manifest_file": "flood_9180.png",
+          "manifest_id": "flood_9180.png",
+          "hamming_distance": 1
+        },
+        {
+          "eval_file": "flood_7944.png",
+          "eval_id": "clemson_200_flood_7944.png",
+          "manifest_file": "flood_7962.png",
+          "manifest_id": "flood_7962.png",
+          "hamming_distance": 2
+        },
+        {
+          "eval_file": "flood_864.jpg",
+          "eval_id": "clemson_200_flood_864.jpg",
+          "manifest_file": "flood_6070.jpg",
+          "manifest_id": "flood_6070.jpg",
+          "hamming_distance": 0
+        },
+        {
+          "eval_file": "flood_6533.png",
+          "eval_id": "clemson_200_flood_6533.png",
+          "manifest_file": "flood_6598.png",
+          "manifest_id": "flood_6598.png",
+          "hamming_distance": 1
+        },
+        {
+          "eval_file": "flood_6533.png",
+          "eval_id": "clemson_200_flood_6533.png",
+          "manifest_file": "flood_6533.png",
+          "manifest_id": "flood_6533.png",
+          "hamming_distance": 0
+        },
+        {
+          "eval_file": "flood_6533.png",
+          "eval_id": "clemson_200_flood_6533.png",
+          "manifest_file": "flood_6542.png",
+          "manifest_id": "flood_6542.png",
+          "hamming_distance": 2
+        }
+      ],
+      "perceptual_near_duplicate_count_h5": 242
+    },
+    "clemson_200_vs_val_v1": {
+      "eval_set": "clemson_200_historical",
+      "manifest_target": "val_v1",
+      "eval_count": 200,
+      "manifest_count": 450,
+      "exact_md5_match_count": 8,
+      "exact_md5_matches": [
+        {
+          "eval_file": "flood_7731.png",
+          "eval_id": "clemson_200_flood_7731.png",
+          "manifest_file": "flood_7731.png",
+          "manifest_id": "flood_7731.png",
+          "md5": "ad4d0427eab74ed93c31b2f3a0f18a60"
+        },
+        {
+          "eval_file": "flood_6418.jpg",
+          "eval_id": "clemson_200_flood_6418.jpg",
+          "manifest_file": "flood_6418.jpg",
+          "manifest_id": "flood_6418.jpg",
+          "md5": "33c1f5b496a47d985bc939b91734ca41"
+        },
+        {
+          "eval_file": "flood_1861.jpg",
+          "eval_id": "clemson_200_flood_1861.jpg",
+          "manifest_file": "flood_1861.jpg",
+          "manifest_id": "flood_1861.jpg",
+          "md5": "226a5b21cb7796048d87765cd0027bc0"
+        },
+        {
+          "eval_file": "flood_3531.jpg",
+          "eval_id": "clemson_200_flood_3531.jpg",
+          "manifest_file": "flood_3531.jpg",
+          "manifest_id": "flood_3531.jpg",
+          "md5": "09b73dcd10e3d3fa2d65265947503e7b"
+        },
+        {
+          "eval_file": "flood_5456.jpg",
+          "eval_id": "clemson_200_flood_5456.jpg",
+          "manifest_file": "flood_5456.jpg",
+          "manifest_id": "flood_5456.jpg",
+          "md5": "b62d92ef6118878a4ac6817fc1782d03"
+        },
+        {
+          "eval_file": "flood_7723.png",
+          "eval_id": "clemson_200_flood_7723.png",
+          "manifest_file": "flood_7723.png",
+          "manifest_id": "flood_7723.png",
+          "md5": "90a8a39a77ee1093785525a3e2405e4a"
+        },
+        {
+          "eval_file": "flood_6567.png",
+          "eval_id": "clemson_200_flood_6567.png",
+          "manifest_file": "flood_8758.png",
+          "manifest_id": "flood_8758.png",
+          "md5": "d86d99dd040f4c19da336bdc48b99d86"
+        },
+        {
+          "eval_file": "flood_7143.png",
+          "eval_id": "clemson_200_flood_7143.png",
+          "manifest_file": "flood_7143.png",
+          "manifest_id": "flood_7143.png",
+          "md5": "00ef69c5a1764d34b3ea03fb211c0a2d"
+        }
+      ],
+      "perceptual_near_duplicate_count_h2": 18,
+      "perceptual_near_duplicates_h2": [
+        {
+          "eval_file": "flood_8887.png",
+          "eval_id": "clemson_200_flood_8887.png",
+          "manifest_file": "flood_8870.png",
+          "manifest_id": "flood_8870.png",
+          "hamming_distance": 1
+        },
+        {
+          "eval_file": "flood_7731.png",
+          "eval_id": "clemson_200_flood_7731.png",
+          "manifest_file": "flood_7731.png",
+          "manifest_id": "flood_7731.png",
+          "hamming_distance": 0
+        },
+        {
+          "eval_file": "flood_7043.png",
+          "eval_id": "clemson_200_flood_7043.png",
+          "manifest_file": "flood_7042.png",
+          "manifest_id": "flood_7042.png",
+          "hamming_distance": 1
+        },
+        {
+          "eval_file": "flood_7739.png",
+          "eval_id": "clemson_200_flood_7739.png",
+          "manifest_file": "flood_7735.png",
+          "manifest_id": "flood_7735.png",
+          "hamming_distance": 2
+        },
+        {
+          "eval_file": "flood_6418.jpg",
+          "eval_id": "clemson_200_flood_6418.jpg",
+          "manifest_file": "flood_6418.jpg",
+          "manifest_id": "flood_6418.jpg",
+          "hamming_distance": 0
+        },
+        {
+          "eval_file": "flood_1861.jpg",
+          "eval_id": "clemson_200_flood_1861.jpg",
+          "manifest_file": "flood_1861.jpg",
+          "manifest_id": "flood_1861.jpg",
+          "hamming_distance": 0
+        },
+        {
+          "eval_file": "flood_3531.jpg",
+          "eval_id": "clemson_200_flood_3531.jpg",
+          "manifest_file": "flood_3531.jpg",
+          "manifest_id": "flood_3531.jpg",
+          "hamming_distance": 0
+        },
+        {
+          "eval_file": "flood_7253.png",
+          "eval_id": "clemson_200_flood_7253.png",
+          "manifest_file": "flood_9198.png",
+          "manifest_id": "flood_9198.png",
+          "hamming_distance": 0
+        },
+        {
+          "eval_file": "flood_7145.png",
+          "eval_id": "clemson_200_flood_7145.png",
+          "manifest_file": "flood_7143.png",
+          "manifest_id": "flood_7143.png",
+          "hamming_distance": 0
+        },
+        {
+          "eval_file": "flood_9226.png",
+          "eval_id": "clemson_200_flood_9226.png",
+          "manifest_file": "flood_9221.png",
+          "manifest_id": "flood_9221.png",
+          "hamming_distance": 2
+        },
+        {
+          "eval_file": "flood_6473.png",
+          "eval_id": "clemson_200_flood_6473.png",
+          "manifest_file": "flood_6481.png",
+          "manifest_id": "flood_6481.png",
+          "hamming_distance": 2
+        },
+        {
+          "eval_file": "flood_8894.png",
+          "eval_id": "clemson_200_flood_8894.png",
+          "manifest_file": "flood_8892.png",
+          "manifest_id": "flood_8892.png",
+          "hamming_distance": 2
+        },
+        {
+          "eval_file": "flood_5456.jpg",
+          "eval_id": "clemson_200_flood_5456.jpg",
+          "manifest_file": "flood_5456.jpg",
+          "manifest_id": "flood_5456.jpg",
+          "hamming_distance": 0
+        },
+        {
+          "eval_file": "flood_7723.png",
+          "eval_id": "clemson_200_flood_7723.png",
+          "manifest_file": "flood_7723.png",
+          "manifest_id": "flood_7723.png",
+          "hamming_distance": 0
+        },
+        {
+          "eval_file": "flood_9230.png",
+          "eval_id": "clemson_200_flood_9230.png",
+          "manifest_file": "flood_7225.png",
+          "manifest_id": "flood_7225.png",
+          "hamming_distance": 1
+        },
+        {
+          "eval_file": "flood_6567.png",
+          "eval_id": "clemson_200_flood_6567.png",
+          "manifest_file": "flood_8758.png",
+          "manifest_id": "flood_8758.png",
+          "hamming_distance": 0
+        },
+        {
+          "eval_file": "flood_7143.png",
+          "eval_id": "clemson_200_flood_7143.png",
+          "manifest_file": "flood_7143.png",
+          "manifest_id": "flood_7143.png",
+          "hamming_distance": 0
+        },
+        {
+          "eval_file": "flood_6561.png",
+          "eval_id": "clemson_200_flood_6561.png",
+          "manifest_file": "flood_6456.png",
+          "manifest_id": "flood_6456.png",
+          "hamming_distance": 2
+        }
+      ],
+      "perceptual_near_duplicate_count_h5": 57
+    },
+    "clemson_200_vs_test_v1": {
+      "eval_set": "clemson_200_historical",
+      "manifest_target": "test_v1",
+      "eval_count": 200,
+      "manifest_count": 450,
+      "exact_md5_match_count": 8,
+      "exact_md5_matches": [
+        {
+          "eval_file": "flood_1105.jpg",
+          "eval_id": "clemson_200_flood_1105.jpg",
+          "manifest_file": "flood_1105.jpg",
+          "manifest_id": "flood_1105.jpg",
+          "md5": "513174f27c5512561eb25e2e1048c863"
+        },
+        {
+          "eval_file": "flood_1692.jpg",
+          "eval_id": "clemson_200_flood_1692.jpg",
+          "manifest_file": "flood_1692.jpg",
+          "manifest_id": "flood_1692.jpg",
+          "md5": "aaf2bfe4aa62c19b0ea9e6eacf71f1f9"
+        },
+        {
+          "eval_file": "flood_2250.jpg",
+          "eval_id": "clemson_200_flood_2250.jpg",
+          "manifest_file": "flood_2250.jpg",
+          "manifest_id": "flood_2250.jpg",
+          "md5": "1911401a0f4682734d5cd0d7a8ba2ec3"
+        },
+        {
+          "eval_file": "flood_2432.jpg",
+          "eval_id": "clemson_200_flood_2432.jpg",
+          "manifest_file": "flood_157.jpg",
+          "manifest_id": "flood_157.jpg",
+          "md5": "12ba844fb690736d36f114d451dab08a"
+        },
+        {
+          "eval_file": "flood_78.jpg",
+          "eval_id": "clemson_200_flood_78.jpg",
+          "manifest_file": "flood_78.jpg",
+          "manifest_id": "flood_78.jpg",
+          "md5": "d6b4fc0af07b96b8f06b38f640b09b82"
+        },
+        {
+          "eval_file": "flood_5354.jpg",
+          "eval_id": "clemson_200_flood_5354.jpg",
+          "manifest_file": "flood_2641.jpg",
+          "manifest_id": "flood_2641.jpg",
+          "md5": "ff6c3b2202b00f45913baf3d62904f91"
+        },
+        {
+          "eval_file": "Flood_1012.jpg",
+          "eval_id": "clemson_200_Flood_1012.jpg",
+          "manifest_file": "Flood_1012.jpg",
+          "manifest_id": "Flood_1012.jpg",
+          "md5": "3fbef5a85caa7db0f249af88517b80b9"
+        },
+        {
+          "eval_file": "flood_5456.jpg",
+          "eval_id": "clemson_200_flood_5456.jpg",
+          "manifest_file": "flood_317.jpg",
+          "manifest_id": "flood_317.jpg",
+          "md5": "b62d92ef6118878a4ac6817fc1782d03"
+        }
+      ],
+      "perceptual_near_duplicate_count_h2": 23,
+      "perceptual_near_duplicates_h2": [
+        {
+          "eval_file": "flood_1105.jpg",
+          "eval_id": "clemson_200_flood_1105.jpg",
+          "manifest_file": "flood_1105.jpg",
+          "manifest_id": "flood_1105.jpg",
+          "hamming_distance": 0
+        },
+        {
+          "eval_file": "flood_6487.png",
+          "eval_id": "clemson_200_flood_6487.png",
+          "manifest_file": "flood_8678.png",
+          "manifest_id": "flood_8678.png",
+          "hamming_distance": 1
+        },
+        {
+          "eval_file": "flood_1692.jpg",
+          "eval_id": "clemson_200_flood_1692.jpg",
+          "manifest_file": "flood_1692.jpg",
+          "manifest_id": "flood_1692.jpg",
+          "hamming_distance": 0
+        },
+        {
+          "eval_file": "flood_2250.jpg",
+          "eval_id": "clemson_200_flood_2250.jpg",
+          "manifest_file": "flood_2250.jpg",
+          "manifest_id": "flood_2250.jpg",
+          "hamming_distance": 0
+        },
+        {
+          "eval_file": "flood_2432.jpg",
+          "eval_id": "clemson_200_flood_2432.jpg",
+          "manifest_file": "flood_157.jpg",
+          "manifest_id": "flood_157.jpg",
+          "hamming_distance": 0
+        },
+        {
+          "eval_file": "flood_7562.png",
+          "eval_id": "clemson_200_flood_7562.png",
+          "manifest_file": "flood_7561.png",
+          "manifest_id": "flood_7561.png",
+          "hamming_distance": 1
+        },
+        {
+          "eval_file": "flood_7253.png",
+          "eval_id": "clemson_200_flood_7253.png",
+          "manifest_file": "flood_7252.png",
+          "manifest_id": "flood_7252.png",
+          "hamming_distance": 0
+        },
+        {
+          "eval_file": "flood_7292.png",
+          "eval_id": "clemson_200_flood_7292.png",
+          "manifest_file": "flood_7287.png",
+          "manifest_id": "flood_7287.png",
+          "hamming_distance": 0
+        },
+        {
+          "eval_file": "flood_7292.png",
+          "eval_id": "clemson_200_flood_7292.png",
+          "manifest_file": "flood_7193.png",
+          "manifest_id": "flood_7193.png",
+          "hamming_distance": 1
+        },
+        {
+          "eval_file": "flood_78.jpg",
+          "eval_id": "clemson_200_flood_78.jpg",
+          "manifest_file": "flood_78.jpg",
+          "manifest_id": "flood_78.jpg",
+          "hamming_distance": 0
+        },
+        {
+          "eval_file": "flood_6473.png",
+          "eval_id": "clemson_200_flood_6473.png",
+          "manifest_file": "flood_6466.png",
+          "manifest_id": "flood_6466.png",
+          "hamming_distance": 2
+        },
+        {
+          "eval_file": "flood_6473.png",
+          "eval_id": "clemson_200_flood_6473.png",
+          "manifest_file": "flood_8658.png",
+          "manifest_id": "flood_8658.png",
+          "hamming_distance": 2
+        },
+        {
+          "eval_file": "flood_5354.jpg",
+          "eval_id": "clemson_200_flood_5354.jpg",
+          "manifest_file": "flood_2641.jpg",
+          "manifest_id": "flood_2641.jpg",
+          "hamming_distance": 0
+        },
+        {
+          "eval_file": "Flood_1012.jpg",
+          "eval_id": "clemson_200_Flood_1012.jpg",
+          "manifest_file": "Flood_1012.jpg",
+          "manifest_id": "Flood_1012.jpg",
+          "hamming_distance": 0
+        },
+        {
+          "eval_file": "flood_5456.jpg",
+          "eval_id": "clemson_200_flood_5456.jpg",
+          "manifest_file": "flood_317.jpg",
+          "manifest_id": "flood_317.jpg",
+          "hamming_distance": 0
+        },
+        {
+          "eval_file": "flood_7723.png",
+          "eval_id": "clemson_200_flood_7723.png",
+          "manifest_file": "flood_7825.png",
+          "manifest_id": "flood_7825.png",
+          "hamming_distance": 2
+        },
+        {
+          "eval_file": "flood_6567.png",
+          "eval_id": "clemson_200_flood_6567.png",
+          "manifest_file": "flood_6564.png",
+          "manifest_id": "flood_6564.png",
+          "hamming_distance": 0
+        },
+        {
+          "eval_file": "flood_9332.png",
+          "eval_id": "clemson_200_flood_9332.png",
+          "manifest_file": "flood_7287.png",
+          "manifest_id": "flood_7287.png",
+          "hamming_distance": 1
+        },
+        {
+          "eval_file": "flood_9332.png",
+          "eval_id": "clemson_200_flood_9332.png",
+          "manifest_file": "flood_7193.png",
+          "manifest_id": "flood_7193.png",
+          "hamming_distance": 0
+        },
+        {
+          "eval_file": "flood_6561.png",
+          "eval_id": "clemson_200_flood_6561.png",
+          "manifest_file": "flood_8745.png",
+          "manifest_id": "flood_8745.png",
+          "hamming_distance": 1
+        }
+      ],
+      "perceptual_near_duplicate_count_h5": 66
+    },
+    "clemson_200_vs_train_v2": {
+      "eval_set": "clemson_200_historical",
+      "manifest_target": "train_v2",
+      "eval_count": 200,
+      "manifest_count": 2100,
+      "exact_md5_match_count": 37,
+      "exact_md5_matches": [
+        {
+          "eval_file": "flood_1105.jpg",
+          "eval_id": "clemson_200_flood_1105.jpg",
+          "manifest_file": "flood_1105.jpg",
+          "manifest_id": "flood_1105.jpg",
+          "md5": "513174f27c5512561eb25e2e1048c863"
+        },
+        {
+          "eval_file": "flood_6712.png",
+          "eval_id": "clemson_200_flood_6712.png",
+          "manifest_file": "flood_6712.png",
+          "manifest_id": "flood_6712.png",
+          "md5": "cce3c27552faa4b30b118c6852c2d252"
+        },
+        {
+          "eval_file": "flood_4671.jpg",
+          "eval_id": "clemson_200_flood_4671.jpg",
+          "manifest_file": "flood_4671.jpg",
+          "manifest_id": "flood_4671.jpg",
+          "md5": "b1f8db588a51d886d0197469fa49b419"
+        },
+        {
+          "eval_file": "flood_7731.png",
+          "eval_id": "clemson_200_flood_7731.png",
+          "manifest_file": "flood_7731.png",
+          "manifest_id": "flood_7731.png",
+          "md5": "ad4d0427eab74ed93c31b2f3a0f18a60"
+        },
+        {
+          "eval_file": "flood_1692.jpg",
+          "eval_id": "clemson_200_flood_1692.jpg",
+          "manifest_file": "flood_1692.jpg",
+          "manifest_id": "flood_1692.jpg",
+          "md5": "aaf2bfe4aa62c19b0ea9e6eacf71f1f9"
+        },
+        {
+          "eval_file": "flood_864.jpg",
+          "eval_id": "clemson_200_flood_864.jpg",
+          "manifest_file": "flood_6070.jpg",
+          "manifest_id": "flood_6070.jpg",
+          "md5": "d9abeb780ce068410a0c978eec9dac20"
+        },
+        {
+          "eval_file": "flood_6533.png",
+          "eval_id": "clemson_200_flood_6533.png",
+          "manifest_file": "flood_6533.png",
+          "manifest_id": "flood_6533.png",
+          "md5": "b5b87e686ebdd73a5bd4236ef2b08186"
+        },
+        {
+          "eval_file": "flood_2808.jpg",
+          "eval_id": "clemson_200_flood_2808.jpg",
+          "manifest_file": "flood_2808.jpg",
+          "manifest_id": "flood_2808.jpg",
+          "md5": "36137233f7a5f37d6c9260ab259ded7e"
+        },
+        {
+          "eval_file": "flood_3283.jpg",
+          "eval_id": "clemson_200_flood_3283.jpg",
+          "manifest_file": "flood_3283.jpg",
+          "manifest_id": "flood_3283.jpg",
+          "md5": "724c16e4315ab7cd0785665cd7d9c24f"
+        },
+        {
+          "eval_file": "flood_5662.jpg",
+          "eval_id": "clemson_200_flood_5662.jpg",
+          "manifest_file": "flood_3475.jpg",
+          "manifest_id": "flood_3475.jpg",
+          "md5": "2a14b411e312eb9a5d99f0c114298f38"
+        },
+        {
+          "eval_file": "flood_6418.jpg",
+          "eval_id": "clemson_200_flood_6418.jpg",
+          "manifest_file": "flood_6418.jpg",
+          "manifest_id": "flood_6418.jpg",
+          "md5": "33c1f5b496a47d985bc939b91734ca41"
+        },
+        {
+          "eval_file": "flood_2301.jpg",
+          "eval_id": "clemson_200_flood_2301.jpg",
+          "manifest_file": "flood_99.jpg",
+          "manifest_id": "flood_99.jpg",
+          "md5": "2e23dff6827ebe94cee5797358a91aff"
+        },
+        {
+          "eval_file": "flood_2250.jpg",
+          "eval_id": "clemson_200_flood_2250.jpg",
+          "manifest_file": "flood_2250.jpg",
+          "manifest_id": "flood_2250.jpg",
+          "md5": "1911401a0f4682734d5cd0d7a8ba2ec3"
+        },
+        {
+          "eval_file": "flood_883.jpg",
+          "eval_id": "clemson_200_flood_883.jpg",
+          "manifest_file": "flood_883.jpg",
+          "manifest_id": "flood_883.jpg",
+          "md5": "8940570f735659eaa7325d427ec08f93"
+        },
+        {
+          "eval_file": "flood_7260.png",
+          "eval_id": "clemson_200_flood_7260.png",
+          "manifest_file": "flood_9303.png",
+          "manifest_id": "flood_9303.png",
+          "md5": "dd9d350f8888567ab38f421a276794a1"
+        },
+        {
+          "eval_file": "flood_6383.jpg",
+          "eval_id": "clemson_200_flood_6383.jpg",
+          "manifest_file": "flood_6383.jpg",
+          "manifest_id": "flood_6383.jpg",
+          "md5": "652a723755a15a77b5bdac031b6e49b1"
+        },
+        {
+          "eval_file": "flood_3531.jpg",
+          "eval_id": "clemson_200_flood_3531.jpg",
+          "manifest_file": "flood_3531.jpg",
+          "manifest_id": "flood_3531.jpg",
+          "md5": "09b73dcd10e3d3fa2d65265947503e7b"
+        },
+        {
+          "eval_file": "flood_7773.png",
+          "eval_id": "clemson_200_flood_7773.png",
+          "manifest_file": "flood_7773.png",
+          "manifest_id": "flood_7773.png",
+          "md5": "2b528775f0c369dd885da05828da18db"
+        },
+        {
+          "eval_file": "flood_7145.png",
+          "eval_id": "clemson_200_flood_7145.png",
+          "manifest_file": "flood_7144.png",
+          "manifest_id": "flood_7144.png",
+          "md5": "01f7ec56967ae03be812e5ee58b6f8fb"
+        },
+        {
+          "eval_file": "flood_8584.png",
+          "eval_id": "clemson_200_flood_8584.png",
+          "manifest_file": "flood_8584.png",
+          "manifest_id": "flood_8584.png",
+          "md5": "978fd2d7cee51a2522e1ee30ae7bc586"
+        },
+        {
+          "eval_file": "flood_351.jpg",
+          "eval_id": "clemson_200_flood_351.jpg",
+          "manifest_file": "flood_5494.jpg",
+          "manifest_id": "flood_5494.jpg",
+          "md5": "856cd2b5fb2de010cfb94e468248e54a"
+        },
+        {
+          "eval_file": "flood_6473.png",
+          "eval_id": "clemson_200_flood_6473.png",
+          "manifest_file": "flood_8666.png",
+          "manifest_id": "flood_8666.png",
+          "md5": "a3c02328788c409cd2bd80296a126c1c"
+        },
+        {
+          "eval_file": "flood_8797.png",
+          "eval_id": "clemson_200_flood_8797.png",
+          "manifest_file": "flood_8797.png",
+          "manifest_id": "flood_8797.png",
+          "md5": "d0677427a57f74e9e717e9327973ca9f"
+        },
+        {
+          "eval_file": "flood_5354.jpg",
+          "eval_id": "clemson_200_flood_5354.jpg",
+          "manifest_file": "flood_2641.jpg",
+          "manifest_id": "flood_2641.jpg",
+          "md5": "ff6c3b2202b00f45913baf3d62904f91"
+        },
+        {
+          "eval_file": "flood_193.jpg",
+          "eval_id": "clemson_200_flood_193.jpg",
+          "manifest_file": "flood_193.jpg",
+          "manifest_id": "flood_193.jpg",
+          "md5": "d919c3ce0c1aad7559977e7398a0f6ee"
+        },
+        {
+          "eval_file": "Flood_1012.jpg",
+          "eval_id": "clemson_200_Flood_1012.jpg",
+          "manifest_file": "Flood_1012.jpg",
+          "manifest_id": "Flood_1012.jpg",
+          "md5": "3fbef5a85caa7db0f249af88517b80b9"
+        },
+        {
+          "eval_file": "flood_820.jpg",
+          "eval_id": "clemson_200_flood_820.jpg",
+          "manifest_file": "flood_820.jpg",
+          "manifest_id": "flood_820.jpg",
+          "md5": "990671e7996aa1e4d01aacc647fa79ca"
+        },
+        {
+          "eval_file": "flood_6754.png",
+          "eval_id": "clemson_200_flood_6754.png",
+          "manifest_file": "flood_6754.png",
+          "manifest_id": "flood_6754.png",
+          "md5": "c55726eaef30a77f614a51101da0c711"
+        },
+        {
+          "eval_file": "flood_2483.jpg",
+          "eval_id": "clemson_200_flood_2483.jpg",
+          "manifest_file": "flood_2483.jpg",
+          "manifest_id": "flood_2483.jpg",
+          "md5": "ed37133659a4a39560d24cebddd26976"
+        },
+        {
+          "eval_file": "flood_3430.jpg",
+          "eval_id": "clemson_200_flood_3430.jpg",
+          "manifest_file": "flood_3430.jpg",
+          "manifest_id": "flood_3430.jpg",
+          "md5": "4c961d61e66f2267f93f7cec4d5dccf4"
+        },
+        {
+          "eval_file": "flood_4803.jpg",
+          "eval_id": "clemson_200_flood_4803.jpg",
+          "manifest_file": "flood_1143.jpg",
+          "manifest_id": "flood_1143.jpg",
+          "md5": "9d731577b233bceb09c301962172a5f5"
+        },
+        {
+          "eval_file": "flood_5362.jpg",
+          "eval_id": "clemson_200_flood_5362.jpg",
+          "manifest_file": "flood_2654.jpg",
+          "manifest_id": "flood_2654.jpg",
+          "md5": "9797f37d52ce3630105e05a3df30eab6"
+        },
+        {
+          "eval_file": "flood_5456.jpg",
+          "eval_id": "clemson_200_flood_5456.jpg",
+          "manifest_file": "flood_5456.jpg",
+          "manifest_id": "flood_5456.jpg",
+          "md5": "b62d92ef6118878a4ac6817fc1782d03"
+        },
+        {
+          "eval_file": "flood_7723.png",
+          "eval_id": "clemson_200_flood_7723.png",
+          "manifest_file": "flood_7723.png",
+          "manifest_id": "flood_7723.png",
+          "md5": "90a8a39a77ee1093785525a3e2405e4a"
+        },
+        {
+          "eval_file": "flood_7143.png",
+          "eval_id": "clemson_200_flood_7143.png",
+          "manifest_file": "flood_7143.png",
+          "manifest_id": "flood_7143.png",
+          "md5": "00ef69c5a1764d34b3ea03fb211c0a2d"
+        },
+        {
+          "eval_file": "Flood_997.jpg",
+          "eval_id": "clemson_200_Flood_997.jpg",
+          "manifest_file": "Flood_997.jpg",
+          "manifest_id": "Flood_997.jpg",
+          "md5": "1c051ed19ee551fc37f2a5bd432e34bf"
+        },
+        {
+          "eval_file": "flood_9332.png",
+          "eval_id": "clemson_200_flood_9332.png",
+          "manifest_file": "flood_7289.png",
+          "manifest_id": "flood_7289.png",
+          "md5": "de7a5604adf5f51b054473468e367805"
+        }
+      ],
+      "perceptual_near_duplicate_count_h2": 114,
+      "perceptual_near_duplicates_h2": [
+        {
+          "eval_file": "flood_678.jpg",
+          "eval_id": "clemson_200_flood_678.jpg",
+          "manifest_file": "flood_5863.jpg",
+          "manifest_id": "flood_5863.jpg",
+          "hamming_distance": 0
+        },
+        {
+          "eval_file": "flood_8902.png",
+          "eval_id": "clemson_200_flood_8902.png",
+          "manifest_file": "flood_6712.png",
+          "manifest_id": "flood_6712.png",
+          "hamming_distance": 2
+        },
+        {
+          "eval_file": "flood_1105.jpg",
+          "eval_id": "clemson_200_flood_1105.jpg",
+          "manifest_file": "flood_1105.jpg",
+          "manifest_id": "flood_1105.jpg",
+          "hamming_distance": 0
+        },
+        {
+          "eval_file": "flood_6712.png",
+          "eval_id": "clemson_200_flood_6712.png",
+          "manifest_file": "flood_6709.png",
+          "manifest_id": "flood_6709.png",
+          "hamming_distance": 1
+        },
+        {
+          "eval_file": "flood_6712.png",
+          "eval_id": "clemson_200_flood_6712.png",
+          "manifest_file": "flood_6712.png",
+          "manifest_id": "flood_6712.png",
+          "hamming_distance": 0
+        },
+        {
+          "eval_file": "flood_4671.jpg",
+          "eval_id": "clemson_200_flood_4671.jpg",
+          "manifest_file": "flood_4671.jpg",
+          "manifest_id": "flood_4671.jpg",
+          "hamming_distance": 0
+        },
+        {
+          "eval_file": "flood_8887.png",
+          "eval_id": "clemson_200_flood_8887.png",
+          "manifest_file": "flood_8870.png",
+          "manifest_id": "flood_8870.png",
+          "hamming_distance": 1
+        },
+        {
+          "eval_file": "flood_7731.png",
+          "eval_id": "clemson_200_flood_7731.png",
+          "manifest_file": "flood_7730.png",
+          "manifest_id": "flood_7730.png",
+          "hamming_distance": 2
+        },
+        {
+          "eval_file": "flood_7731.png",
+          "eval_id": "clemson_200_flood_7731.png",
+          "manifest_file": "flood_7731.png",
+          "manifest_id": "flood_7731.png",
+          "hamming_distance": 0
+        },
+        {
+          "eval_file": "flood_7731.png",
+          "eval_id": "clemson_200_flood_7731.png",
+          "manifest_file": "flood_7830.png",
+          "manifest_id": "flood_7830.png",
+          "hamming_distance": 2
+        },
+        {
+          "eval_file": "flood_6487.png",
+          "eval_id": "clemson_200_flood_6487.png",
+          "manifest_file": "flood_8676.png",
+          "manifest_id": "flood_8676.png",
+          "hamming_distance": 2
+        },
+        {
+          "eval_file": "flood_6487.png",
+          "eval_id": "clemson_200_flood_6487.png",
+          "manifest_file": "flood_8678.png",
+          "manifest_id": "flood_8678.png",
+          "hamming_distance": 1
+        },
+        {
+          "eval_file": "flood_1692.jpg",
+          "eval_id": "clemson_200_flood_1692.jpg",
+          "manifest_file": "flood_1692.jpg",
+          "manifest_id": "flood_1692.jpg",
+          "hamming_distance": 0
+        },
+        {
+          "eval_file": "flood_864.jpg",
+          "eval_id": "clemson_200_flood_864.jpg",
+          "manifest_file": "flood_6070.jpg",
+          "manifest_id": "flood_6070.jpg",
+          "hamming_distance": 0
+        },
+        {
+          "eval_file": "flood_6533.png",
+          "eval_id": "clemson_200_flood_6533.png",
+          "manifest_file": "flood_6533.png",
+          "manifest_id": "flood_6533.png",
+          "hamming_distance": 0
+        },
+        {
+          "eval_file": "flood_6533.png",
+          "eval_id": "clemson_200_flood_6533.png",
+          "manifest_file": "flood_6534.png",
+          "manifest_id": "flood_6534.png",
+          "hamming_distance": 1
+        },
+        {
+          "eval_file": "flood_6533.png",
+          "eval_id": "clemson_200_flood_6533.png",
+          "manifest_file": "flood_6542.png",
+          "manifest_id": "flood_6542.png",
+          "hamming_distance": 2
+        },
+        {
+          "eval_file": "flood_6533.png",
+          "eval_id": "clemson_200_flood_6533.png",
+          "manifest_file": "flood_6592.png",
+          "manifest_id": "flood_6592.png",
+          "hamming_distance": 1
+        },
+        {
+          "eval_file": "flood_6533.png",
+          "eval_id": "clemson_200_flood_6533.png",
+          "manifest_file": "flood_6598.png",
+          "manifest_id": "flood_6598.png",
+          "hamming_distance": 1
+        },
+        {
+          "eval_file": "flood_6533.png",
+          "eval_id": "clemson_200_flood_6533.png",
+          "manifest_file": "flood_8784.png",
+          "manifest_id": "flood_8784.png",
+          "hamming_distance": 1
+        }
+      ],
+      "perceptual_near_duplicate_count_h5": 258
+    },
+    "clemson_200_vs_val_v2": {
+      "eval_set": "clemson_200_historical",
+      "manifest_target": "val_v2",
+      "eval_count": 200,
+      "manifest_count": 450,
+      "exact_md5_match_count": 5,
+      "exact_md5_matches": [
+        {
+          "eval_file": "flood_1861.jpg",
+          "eval_id": "clemson_200_flood_1861.jpg",
+          "manifest_file": "flood_1861.jpg",
+          "manifest_id": "flood_1861.jpg",
+          "md5": "226a5b21cb7796048d87765cd0027bc0"
+        },
+        {
+          "eval_file": "flood_882.jpg",
+          "eval_id": "clemson_200_flood_882.jpg",
+          "manifest_file": "flood_882.jpg",
+          "manifest_id": "flood_882.jpg",
+          "md5": "6a90b6c54314248d0f826f960e9a1350"
+        },
+        {
+          "eval_file": "flood_3604.jpg",
+          "eval_id": "clemson_200_flood_3604.jpg",
+          "manifest_file": "flood_3604.jpg",
+          "manifest_id": "flood_3604.jpg",
+          "md5": "5cf5104352b22649a7740a76065c4b89"
+        },
+        {
+          "eval_file": "flood_6099.jpg",
+          "eval_id": "clemson_200_flood_6099.jpg",
+          "manifest_file": "flood_6099.jpg",
+          "manifest_id": "flood_6099.jpg",
+          "md5": "1b292e79f548fd98a8f7312d42de0f4b"
+        },
+        {
+          "eval_file": "flood_6567.png",
+          "eval_id": "clemson_200_flood_6567.png",
+          "manifest_file": "flood_8758.png",
+          "manifest_id": "flood_8758.png",
+          "md5": "d86d99dd040f4c19da336bdc48b99d86"
+        }
+      ],
+      "perceptual_near_duplicate_count_h2": 14,
+      "perceptual_near_duplicates_h2": [
+        {
+          "eval_file": "flood_8887.png",
+          "eval_id": "clemson_200_flood_8887.png",
+          "manifest_file": "flood_8888.png",
+          "manifest_id": "flood_8888.png",
+          "hamming_distance": 1
+        },
+        {
+          "eval_file": "flood_7944.png",
+          "eval_id": "clemson_200_flood_7944.png",
+          "manifest_file": "flood_7962.png",
+          "manifest_id": "flood_7962.png",
+          "hamming_distance": 2
+        },
+        {
+          "eval_file": "flood_1861.jpg",
+          "eval_id": "clemson_200_flood_1861.jpg",
+          "manifest_file": "flood_1861.jpg",
+          "manifest_id": "flood_1861.jpg",
+          "hamming_distance": 0
+        },
+        {
+          "eval_file": "flood_9226.png",
+          "eval_id": "clemson_200_flood_9226.png",
+          "manifest_file": "flood_9221.png",
+          "manifest_id": "flood_9221.png",
+          "hamming_distance": 2
+        },
+        {
+          "eval_file": "flood_9226.png",
+          "eval_id": "clemson_200_flood_9226.png",
+          "manifest_file": "flood_9227.png",
+          "manifest_id": "flood_9227.png",
+          "hamming_distance": 2
+        },
+        {
+          "eval_file": "flood_882.jpg",
+          "eval_id": "clemson_200_flood_882.jpg",
+          "manifest_file": "flood_882.jpg",
+          "manifest_id": "flood_882.jpg",
+          "hamming_distance": 0
+        },
+        {
+          "eval_file": "flood_3604.jpg",
+          "eval_id": "clemson_200_flood_3604.jpg",
+          "manifest_file": "flood_3604.jpg",
+          "manifest_id": "flood_3604.jpg",
+          "hamming_distance": 0
+        },
+        {
+          "eval_file": "flood_8894.png",
+          "eval_id": "clemson_200_flood_8894.png",
+          "manifest_file": "flood_8892.png",
+          "manifest_id": "flood_8892.png",
+          "hamming_distance": 2
+        },
+        {
+          "eval_file": "flood_6099.jpg",
+          "eval_id": "clemson_200_flood_6099.jpg",
+          "manifest_file": "flood_6099.jpg",
+          "manifest_id": "flood_6099.jpg",
+          "hamming_distance": 0
+        },
+        {
+          "eval_file": "flood_9230.png",
+          "eval_id": "clemson_200_flood_9230.png",
+          "manifest_file": "flood_9227.png",
+          "manifest_id": "flood_9227.png",
+          "hamming_distance": 1
+        },
+        {
+          "eval_file": "flood_6567.png",
+          "eval_id": "clemson_200_flood_6567.png",
+          "manifest_file": "flood_6564.png",
+          "manifest_id": "flood_6564.png",
+          "hamming_distance": 0
+        },
+        {
+          "eval_file": "flood_6567.png",
+          "eval_id": "clemson_200_flood_6567.png",
+          "manifest_file": "flood_6565.png",
+          "manifest_id": "flood_6565.png",
+          "hamming_distance": 0
+        },
+        {
+          "eval_file": "flood_6567.png",
+          "eval_id": "clemson_200_flood_6567.png",
+          "manifest_file": "flood_6567.png",
+          "manifest_id": "flood_6567.png",
+          "hamming_distance": 0
+        },
+        {
+          "eval_file": "flood_6567.png",
+          "eval_id": "clemson_200_flood_6567.png",
+          "manifest_file": "flood_8758.png",
+          "manifest_id": "flood_8758.png",
+          "hamming_distance": 0
+        }
+      ],
+      "perceptual_near_duplicate_count_h5": 31
+    },
+    "clemson_200_vs_test_v2": {
+      "eval_set": "clemson_200_historical",
+      "manifest_target": "test_v2",
+      "eval_count": 200,
+      "manifest_count": 450,
+      "exact_md5_match_count": 8,
+      "exact_md5_matches": [
+        {
+          "eval_file": "flood_4676.jpg",
+          "eval_id": "clemson_200_flood_4676.jpg",
+          "manifest_file": "flood_4676.jpg",
+          "manifest_id": "flood_4676.jpg",
+          "md5": "59f6059e0d6a48e6a6eb285ebb37d536"
+        },
+        {
+          "eval_file": "flood_6791.png",
+          "eval_id": "clemson_200_flood_6791.png",
+          "manifest_file": "flood_6791.png",
+          "manifest_id": "flood_6791.png",
+          "md5": "2d24db9ee6ca553a5d9436c6070ae185"
+        },
+        {
+          "eval_file": "flood_1660.jpg",
+          "eval_id": "clemson_200_flood_1660.jpg",
+          "manifest_file": "flood_1660.jpg",
+          "manifest_id": "flood_1660.jpg",
+          "md5": "acd86aea50078ed29c83490d643b493d"
+        },
+        {
+          "eval_file": "flood_235.jpg",
+          "eval_id": "clemson_200_flood_235.jpg",
+          "manifest_file": "flood_2666.jpg",
+          "manifest_id": "flood_2666.jpg",
+          "md5": "7b8eaa65770b7d065d1d8e67cfdd8bc2"
+        },
+        {
+          "eval_file": "flood_2432.jpg",
+          "eval_id": "clemson_200_flood_2432.jpg",
+          "manifest_file": "flood_157.jpg",
+          "manifest_id": "flood_157.jpg",
+          "md5": "12ba844fb690736d36f114d451dab08a"
+        },
+        {
+          "eval_file": "flood_78.jpg",
+          "eval_id": "clemson_200_flood_78.jpg",
+          "manifest_file": "flood_78.jpg",
+          "manifest_id": "flood_78.jpg",
+          "md5": "d6b4fc0af07b96b8f06b38f640b09b82"
+        },
+        {
+          "eval_file": "flood_6341.jpg",
+          "eval_id": "clemson_200_flood_6341.jpg",
+          "manifest_file": "flood_6341.jpg",
+          "manifest_id": "flood_6341.jpg",
+          "md5": "731245c48c2e9aa37997d6a8e4e5f413"
+        },
+        {
+          "eval_file": "flood_5073.jpg",
+          "eval_id": "clemson_200_flood_5073.jpg",
+          "manifest_file": "flood_5073.jpg",
+          "manifest_id": "flood_5073.jpg",
+          "md5": "24cc93d8f4248c11ff34c53683ca4638"
+        }
+      ],
+      "perceptual_near_duplicate_count_h2": 15,
+      "perceptual_near_duplicates_h2": [
+        {
+          "eval_file": "flood_4676.jpg",
+          "eval_id": "clemson_200_flood_4676.jpg",
+          "manifest_file": "flood_4676.jpg",
+          "manifest_id": "flood_4676.jpg",
+          "hamming_distance": 0
+        },
+        {
+          "eval_file": "flood_6791.png",
+          "eval_id": "clemson_200_flood_6791.png",
+          "manifest_file": "flood_6791.png",
+          "manifest_id": "flood_6791.png",
+          "hamming_distance": 0
+        },
+        {
+          "eval_file": "flood_6791.png",
+          "eval_id": "clemson_200_flood_6791.png",
+          "manifest_file": "flood_8985.png",
+          "manifest_id": "flood_8985.png",
+          "hamming_distance": 0
+        },
+        {
+          "eval_file": "flood_7138.png",
+          "eval_id": "clemson_200_flood_7138.png",
+          "manifest_file": "flood_7137.png",
+          "manifest_id": "flood_7137.png",
+          "hamming_distance": 1
+        },
+        {
+          "eval_file": "flood_7138.png",
+          "eval_id": "clemson_200_flood_7138.png",
+          "manifest_file": "flood_9178.png",
+          "manifest_id": "flood_9178.png",
+          "hamming_distance": 1
+        },
+        {
+          "eval_file": "flood_7138.png",
+          "eval_id": "clemson_200_flood_7138.png",
+          "manifest_file": "flood_9180.png",
+          "manifest_id": "flood_9180.png",
+          "hamming_distance": 1
+        },
+        {
+          "eval_file": "flood_1660.jpg",
+          "eval_id": "clemson_200_flood_1660.jpg",
+          "manifest_file": "flood_1660.jpg",
+          "manifest_id": "flood_1660.jpg",
+          "hamming_distance": 0
+        },
+        {
+          "eval_file": "flood_7043.png",
+          "eval_id": "clemson_200_flood_7043.png",
+          "manifest_file": "flood_7042.png",
+          "manifest_id": "flood_7042.png",
+          "hamming_distance": 1
+        },
+        {
+          "eval_file": "flood_235.jpg",
+          "eval_id": "clemson_200_flood_235.jpg",
+          "manifest_file": "flood_2666.jpg",
+          "manifest_id": "flood_2666.jpg",
+          "hamming_distance": 0
+        },
+        {
+          "eval_file": "flood_2432.jpg",
+          "eval_id": "clemson_200_flood_2432.jpg",
+          "manifest_file": "flood_157.jpg",
+          "manifest_id": "flood_157.jpg",
+          "hamming_distance": 0
+        },
+        {
+          "eval_file": "flood_7562.png",
+          "eval_id": "clemson_200_flood_7562.png",
+          "manifest_file": "flood_7565.png",
+          "manifest_id": "flood_7565.png",
+          "hamming_distance": 2
+        },
+        {
+          "eval_file": "flood_78.jpg",
+          "eval_id": "clemson_200_flood_78.jpg",
+          "manifest_file": "flood_78.jpg",
+          "manifest_id": "flood_78.jpg",
+          "hamming_distance": 0
+        },
+        {
+          "eval_file": "flood_6341.jpg",
+          "eval_id": "clemson_200_flood_6341.jpg",
+          "manifest_file": "flood_6341.jpg",
+          "manifest_id": "flood_6341.jpg",
+          "hamming_distance": 0
+        },
+        {
+          "eval_file": "flood_9230.png",
+          "eval_id": "clemson_200_flood_9230.png",
+          "manifest_file": "flood_7225.png",
+          "manifest_id": "flood_7225.png",
+          "hamming_distance": 1
+        },
+        {
+          "eval_file": "flood_5073.jpg",
+          "eval_id": "clemson_200_flood_5073.jpg",
+          "manifest_file": "flood_5073.jpg",
+          "manifest_id": "flood_5073.jpg",
+          "hamming_distance": 0
+        }
+      ],
+      "perceptual_near_duplicate_count_h5": 76
+    },
+    "clemson_200_vs_train_v3": {
+      "eval_set": "clemson_200_historical",
+      "manifest_target": "train_v3",
+      "eval_count": 200,
+      "manifest_count": 1034,
+      "exact_md5_match_count": 14,
+      "exact_md5_matches": [
+        {
+          "eval_file": "flood_678.jpg",
+          "eval_id": "clemson_200_flood_678.jpg",
+          "manifest_file": "flood_678.jpg",
+          "manifest_id": "v3_00304",
+          "md5": "0a1e6615c72019057076a509fbc27777"
+        },
+        {
+          "eval_file": "flood_1959.jpg",
+          "eval_id": "clemson_200_flood_1959.jpg",
+          "manifest_file": "flood_1959.jpg",
+          "manifest_id": "v3_01200",
+          "md5": "396938802370c33d94580f5326987f3a"
+        },
+        {
+          "eval_file": "flood_1208.jpg",
+          "eval_id": "clemson_200_flood_1208.jpg",
+          "manifest_file": "flood_1208.jpg",
+          "manifest_id": "v3_01414",
+          "md5": "43e63435791147f62878f43b77f2864f"
+        },
+        {
+          "eval_file": "flood_7124.png",
+          "eval_id": "clemson_200_flood_7124.png",
+          "manifest_file": "flood_7124.png",
+          "manifest_id": "v3_00704",
+          "md5": "0b7cbdacbd0444eab1e69f91f55b1804"
+        },
+        {
+          "eval_file": "flood_5806.jpg",
+          "eval_id": "clemson_200_flood_5806.jpg",
+          "manifest_file": "flood_3842.jpg",
+          "manifest_id": "v3_00617",
+          "md5": "b30d0a2bee07716d8d652b4261ca3c75"
+        },
+        {
+          "eval_file": "flood_8134.png",
+          "eval_id": "clemson_200_flood_8134.png",
+          "manifest_file": "flood_8134.png",
+          "manifest_id": "v3_01126",
+          "md5": "1e25e9da6876b28570a270f526dc33a1"
+        },
+        {
+          "eval_file": "flood_9226.png",
+          "eval_id": "clemson_200_flood_9226.png",
+          "manifest_file": "flood_9226.png",
+          "manifest_id": "v3_00669",
+          "md5": "9782392737d9c3ef09f92c678f43f99f"
+        },
+        {
+          "eval_file": "flood_4793.jpg",
+          "eval_id": "clemson_200_flood_4793.jpg",
+          "manifest_file": "flood_4793.jpg",
+          "manifest_id": "v3_00280",
+          "md5": "ffb1f82cf85c920f157d507b335997aa"
+        },
+        {
+          "eval_file": "flood_8894.png",
+          "eval_id": "clemson_200_flood_8894.png",
+          "manifest_file": "flood_6705.png",
+          "manifest_id": "v3_00459",
+          "md5": "615f8a54e362af5e2b5c28675c7ccbaf"
+        },
+        {
+          "eval_file": "flood_2377.jpg",
+          "eval_id": "clemson_200_flood_2377.jpg",
+          "manifest_file": "flood_2377.jpg",
+          "manifest_id": "v3_00620",
+          "md5": "9499ffc3318e6ed7ba233f86002fb634"
+        },
+        {
+          "eval_file": "flood_1883.jpg",
+          "eval_id": "clemson_200_flood_1883.jpg",
+          "manifest_file": "flood_1883.jpg",
+          "manifest_id": "v3_00284",
+          "md5": "2a77e1fa40cc66cef0b92211329cc086"
+        },
+        {
+          "eval_file": "flood_4546.jpg",
+          "eval_id": "clemson_200_flood_4546.jpg",
+          "manifest_file": "flood_4546.jpg",
+          "manifest_id": "v3_01091",
+          "md5": "c27215e8916fb1a846f40ff3ad3bde85"
+        },
+        {
+          "eval_file": "flood_1274.jpg",
+          "eval_id": "clemson_200_flood_1274.jpg",
+          "manifest_file": "flood_1274.jpg",
+          "manifest_id": "v3_00642",
+          "md5": "a715231b271cfa256a0d0a57045e18b8"
+        },
+        {
+          "eval_file": "flood_9286.png",
+          "eval_id": "clemson_200_flood_9286.png",
+          "manifest_file": "flood_7243.png",
+          "manifest_id": "v3_00665",
+          "md5": "7ba4c33b157aaafa4b585fffd43bddb4"
+        }
+      ],
+      "perceptual_near_duplicate_count_h2": 42,
+      "perceptual_near_duplicates_h2": [
+        {
+          "eval_file": "flood_678.jpg",
+          "eval_id": "clemson_200_flood_678.jpg",
+          "manifest_file": "flood_678.jpg",
+          "manifest_id": "v3_00304",
+          "hamming_distance": 0
+        },
+        {
+          "eval_file": "flood_1959.jpg",
+          "eval_id": "clemson_200_flood_1959.jpg",
+          "manifest_file": "flood_1959.jpg",
+          "manifest_id": "v3_01200",
+          "hamming_distance": 0
+        },
+        {
+          "eval_file": "flood_8887.png",
+          "eval_id": "clemson_200_flood_8887.png",
+          "manifest_file": "flood_8845.png",
+          "manifest_id": "v3_01427",
+          "hamming_distance": 2
+        },
+        {
+          "eval_file": "flood_6791.png",
+          "eval_id": "clemson_200_flood_6791.png",
+          "manifest_file": "flood_6787.png",
+          "manifest_id": "v3_01007",
+          "hamming_distance": 1
+        },
+        {
+          "eval_file": "flood_7944.png",
+          "eval_id": "clemson_200_flood_7944.png",
+          "manifest_file": "flood_7963.png",
+          "manifest_id": "v3_00486",
+          "hamming_distance": 2
+        },
+        {
+          "eval_file": "flood_6533.png",
+          "eval_id": "clemson_200_flood_6533.png",
+          "manifest_file": "flood_6591.png",
+          "manifest_id": "v3_01449",
+          "hamming_distance": 2
+        },
+        {
+          "eval_file": "flood_6533.png",
+          "eval_id": "clemson_200_flood_6533.png",
+          "manifest_file": "flood_8804.png",
+          "manifest_id": "v3_01388",
+          "hamming_distance": 1
+        },
+        {
+          "eval_file": "flood_6533.png",
+          "eval_id": "clemson_200_flood_6533.png",
+          "manifest_file": "flood_6616.png",
+          "manifest_id": "v3_00444",
+          "hamming_distance": 1
+        },
+        {
+          "eval_file": "flood_1208.jpg",
+          "eval_id": "clemson_200_flood_1208.jpg",
+          "manifest_file": "flood_1208.jpg",
+          "manifest_id": "v3_01414",
+          "hamming_distance": 0
+        },
+        {
+          "eval_file": "flood_6612.png",
+          "eval_id": "clemson_200_flood_6612.png",
+          "manifest_file": "flood_6591.png",
+          "manifest_id": "v3_01449",
+          "hamming_distance": 2
+        },
+        {
+          "eval_file": "flood_6612.png",
+          "eval_id": "clemson_200_flood_6612.png",
+          "manifest_file": "flood_8804.png",
+          "manifest_id": "v3_01388",
+          "hamming_distance": 1
+        },
+        {
+          "eval_file": "flood_6612.png",
+          "eval_id": "clemson_200_flood_6612.png",
+          "manifest_file": "flood_6616.png",
+          "manifest_id": "v3_00444",
+          "hamming_distance": 1
+        },
+        {
+          "eval_file": "flood_7124.png",
+          "eval_id": "clemson_200_flood_7124.png",
+          "manifest_file": "flood_7124.png",
+          "manifest_id": "v3_00704",
+          "hamming_distance": 0
+        },
+        {
+          "eval_file": "flood_5806.jpg",
+          "eval_id": "clemson_200_flood_5806.jpg",
+          "manifest_file": "flood_3842.jpg",
+          "manifest_id": "v3_00617",
+          "hamming_distance": 0
+        },
+        {
+          "eval_file": "flood_7562.png",
+          "eval_id": "clemson_200_flood_7562.png",
+          "manifest_file": "flood_7635.png",
+          "manifest_id": "v3_00624",
+          "hamming_distance": 2
+        },
+        {
+          "eval_file": "flood_7253.png",
+          "eval_id": "clemson_200_flood_7253.png",
+          "manifest_file": "flood_7153.png",
+          "manifest_id": "v3_00581",
+          "hamming_distance": 2
+        },
+        {
+          "eval_file": "flood_7253.png",
+          "eval_id": "clemson_200_flood_7253.png",
+          "manifest_file": "flood_7147.png",
+          "manifest_id": "v3_01430",
+          "hamming_distance": 2
+        },
+        {
+          "eval_file": "flood_486.jpg",
+          "eval_id": "clemson_200_flood_486.jpg",
+          "manifest_file": "flood_5650.jpg",
+          "manifest_id": "v3_00694",
+          "hamming_distance": 0
+        },
+        {
+          "eval_file": "flood_7292.png",
+          "eval_id": "clemson_200_flood_7292.png",
+          "manifest_file": "flood_9328.png",
+          "manifest_id": "v3_01247",
+          "hamming_distance": 1
+        },
+        {
+          "eval_file": "flood_7145.png",
+          "eval_id": "clemson_200_flood_7145.png",
+          "manifest_file": "flood_9186.png",
+          "manifest_id": "v3_01085",
+          "hamming_distance": 0
+        }
+      ],
+      "perceptual_near_duplicate_count_h5": 86
+    },
+    "clemson_200_vs_val_v3": {
+      "eval_set": "clemson_200_historical",
+      "manifest_target": "val_v3",
+      "eval_count": 200,
+      "manifest_count": 222,
+      "exact_md5_match_count": 5,
+      "exact_md5_matches": [
+        {
+          "eval_file": "flood_3095.jpg",
+          "eval_id": "clemson_200_flood_3095.jpg",
+          "manifest_file": "flood_3095.jpg",
+          "manifest_id": "v3_00496",
+          "md5": "f2040add7bde7daabbcf465f168707aa"
+        },
+        {
+          "eval_file": "flood_6691.png",
+          "eval_id": "clemson_200_flood_6691.png",
+          "manifest_file": "flood_8880.png",
+          "manifest_id": "v3_01073",
+          "md5": "c16a91fb5ff08897862045a4c5db721c"
+        },
+        {
+          "eval_file": "flood_5019.jpg",
+          "eval_id": "clemson_200_flood_5019.jpg",
+          "manifest_file": "flood_5019.jpg",
+          "manifest_id": "v3_01023",
+          "md5": "d8cf3c0561a257d9ae09fb48f161f8ca"
+        },
+        {
+          "eval_file": "flood_7292.png",
+          "eval_id": "clemson_200_flood_7292.png",
+          "manifest_file": "flood_7293.png",
+          "manifest_id": "v3_00555",
+          "md5": "78287f40fd1c904daea36a254773da7a"
+        },
+        {
+          "eval_file": "flood_672.jpg",
+          "eval_id": "clemson_200_flood_672.jpg",
+          "manifest_file": "flood_672.jpg",
+          "manifest_id": "v3_00945",
+          "md5": "41cbdbad779e40f04e56db42d9860c4c"
+        }
+      ],
+      "perceptual_near_duplicate_count_h2": 11,
+      "perceptual_near_duplicates_h2": [
+        {
+          "eval_file": "flood_3095.jpg",
+          "eval_id": "clemson_200_flood_3095.jpg",
+          "manifest_file": "flood_3095.jpg",
+          "manifest_id": "v3_00496",
+          "hamming_distance": 0
+        },
+        {
+          "eval_file": "flood_8887.png",
+          "eval_id": "clemson_200_flood_8887.png",
+          "manifest_file": "flood_8869.png",
+          "manifest_id": "v3_01393",
+          "hamming_distance": 1
+        },
+        {
+          "eval_file": "flood_6691.png",
+          "eval_id": "clemson_200_flood_6691.png",
+          "manifest_file": "flood_8880.png",
+          "manifest_id": "v3_01073",
+          "hamming_distance": 0
+        },
+        {
+          "eval_file": "flood_5019.jpg",
+          "eval_id": "clemson_200_flood_5019.jpg",
+          "manifest_file": "flood_5019.jpg",
+          "manifest_id": "v3_01023",
+          "hamming_distance": 0
+        },
+        {
+          "eval_file": "flood_7292.png",
+          "eval_id": "clemson_200_flood_7292.png",
+          "manifest_file": "flood_7293.png",
+          "manifest_id": "v3_00555",
+          "hamming_distance": 0
+        },
+        {
+          "eval_file": "flood_7292.png",
+          "eval_id": "clemson_200_flood_7292.png",
+          "manifest_file": "flood_9324.png",
+          "manifest_id": "v3_00607",
+          "hamming_distance": 1
+        },
+        {
+          "eval_file": "flood_672.jpg",
+          "eval_id": "clemson_200_flood_672.jpg",
+          "manifest_file": "flood_5857.jpg",
+          "manifest_id": "v3_00601",
+          "hamming_distance": 0
+        },
+        {
+          "eval_file": "flood_672.jpg",
+          "eval_id": "clemson_200_flood_672.jpg",
+          "manifest_file": "flood_672.jpg",
+          "manifest_id": "v3_00945",
+          "hamming_distance": 0
+        },
+        {
+          "eval_file": "flood_9332.png",
+          "eval_id": "clemson_200_flood_9332.png",
+          "manifest_file": "flood_7293.png",
+          "manifest_id": "v3_00555",
+          "hamming_distance": 1
+        },
+        {
+          "eval_file": "flood_9332.png",
+          "eval_id": "clemson_200_flood_9332.png",
+          "manifest_file": "flood_9324.png",
+          "manifest_id": "v3_00607",
+          "hamming_distance": 0
+        },
+        {
+          "eval_file": "flood_6561.png",
+          "eval_id": "clemson_200_flood_6561.png",
+          "manifest_file": "flood_8742.png",
+          "manifest_id": "v3_01225",
+          "hamming_distance": 2
+        }
+      ],
+      "perceptual_near_duplicate_count_h5": 26
+    },
+    "clemson_200_vs_test_v3": {
+      "eval_set": "clemson_200_historical",
+      "manifest_target": "test_v3",
+      "eval_count": 200,
+      "manifest_count": 222,
+      "exact_md5_match_count": 2,
+      "exact_md5_matches": [
+        {
+          "eval_file": "flood_2183.jpg",
+          "eval_id": "clemson_200_flood_2183.jpg",
+          "manifest_file": "flood_2183.jpg",
+          "manifest_id": "v3_00918",
+          "md5": "d838c961ffc39cd549d46e184088e757"
+        },
+        {
+          "eval_file": "flood_9230.png",
+          "eval_id": "clemson_200_flood_9230.png",
+          "manifest_file": "flood_7186.png",
+          "manifest_id": "v3_00834",
+          "md5": "6a779cecc44f0b42ecee8484c57fb67a"
+        }
+      ],
+      "perceptual_near_duplicate_count_h2": 12,
+      "perceptual_near_duplicates_h2": [
+        {
+          "eval_file": "flood_5658.jpg",
+          "eval_id": "clemson_200_flood_5658.jpg",
+          "manifest_file": "flood_493.jpg",
+          "manifest_id": "v3_00705",
+          "hamming_distance": 0
+        },
+        {
+          "eval_file": "flood_8902.png",
+          "eval_id": "clemson_200_flood_8902.png",
+          "manifest_file": "flood_8905.png",
+          "manifest_id": "v3_01187",
+          "hamming_distance": 2
+        },
+        {
+          "eval_file": "flood_7944.png",
+          "eval_id": "clemson_200_flood_7944.png",
+          "manifest_file": "flood_7940.png",
+          "manifest_id": "v3_00914",
+          "hamming_distance": 1
+        },
+        {
+          "eval_file": "flood_7292.png",
+          "eval_id": "clemson_200_flood_7292.png",
+          "manifest_file": "flood_7210.png",
+          "manifest_id": "v3_00116",
+          "hamming_distance": 1
+        },
+        {
+          "eval_file": "flood_7292.png",
+          "eval_id": "clemson_200_flood_7292.png",
+          "manifest_file": "flood_7295.png",
+          "manifest_id": "v3_00236",
+          "hamming_distance": 0
+        },
+        {
+          "eval_file": "flood_2183.jpg",
+          "eval_id": "clemson_200_flood_2183.jpg",
+          "manifest_file": "flood_2183.jpg",
+          "manifest_id": "v3_00918",
+          "hamming_distance": 0
+        },
+        {
+          "eval_file": "flood_8115.png",
+          "eval_id": "clemson_200_flood_8115.png",
+          "manifest_file": "flood_8108.png",
+          "manifest_id": "v3_00226",
+          "hamming_distance": 2
+        },
+        {
+          "eval_file": "flood_9230.png",
+          "eval_id": "clemson_200_flood_9230.png",
+          "manifest_file": "flood_7186.png",
+          "manifest_id": "v3_00834",
+          "hamming_distance": 0
+        },
+        {
+          "eval_file": "flood_9230.png",
+          "eval_id": "clemson_200_flood_9230.png",
+          "manifest_file": "flood_7294.png",
+          "manifest_id": "v3_01063",
+          "hamming_distance": 2
+        },
+        {
+          "eval_file": "flood_9332.png",
+          "eval_id": "clemson_200_flood_9332.png",
+          "manifest_file": "flood_7210.png",
+          "manifest_id": "v3_00116",
+          "hamming_distance": 2
+        },
+        {
+          "eval_file": "flood_9332.png",
+          "eval_id": "clemson_200_flood_9332.png",
+          "manifest_file": "flood_7295.png",
+          "manifest_id": "v3_00236",
+          "hamming_distance": 1
+        },
+        {
+          "eval_file": "flood_9332.png",
+          "eval_id": "clemson_200_flood_9332.png",
+          "manifest_file": "flood_9271.png",
+          "manifest_id": "v3_01135",
+          "hamming_distance": 2
+        }
+      ],
+      "perceptual_near_duplicate_count_h5": 25
+    },
+    "clemson_v3_test_vs_train_v1": {
+      "eval_set": "clemson_v3_test",
+      "manifest_target": "train_v1",
+      "eval_count": 111,
+      "manifest_count": 2100,
+      "exact_md5_match_count": 0,
+      "exact_md5_matches": [],
+      "perceptual_near_duplicate_count_h2": 24,
+      "perceptual_near_duplicates_h2": [
+        {
+          "eval_file": "flood_7940.png",
+          "eval_id": "v3_00914",
+          "manifest_file": "flood_7962.png",
+          "manifest_id": "flood_7962.png",
+          "hamming_distance": 1
+        },
+        {
+          "eval_file": "flood_7210.png",
+          "eval_id": "v3_00116",
+          "manifest_file": "flood_9248.png",
+          "manifest_id": "flood_9248.png",
+          "hamming_distance": 0
+        },
+        {
+          "eval_file": "flood_7210.png",
+          "eval_id": "v3_00116",
+          "manifest_file": "flood_9234.png",
+          "manifest_id": "flood_9234.png",
+          "hamming_distance": 2
+        },
+        {
+          "eval_file": "flood_7210.png",
+          "eval_id": "v3_00116",
+          "manifest_file": "flood_7207.png",
+          "manifest_id": "flood_7207.png",
+          "hamming_distance": 2
+        },
+        {
+          "eval_file": "flood_7210.png",
+          "eval_id": "v3_00116",
+          "manifest_file": "flood_7205.png",
+          "manifest_id": "flood_7205.png",
+          "hamming_distance": 0
+        },
+        {
+          "eval_file": "flood_7210.png",
+          "eval_id": "v3_00116",
+          "manifest_file": "flood_7289.png",
+          "manifest_id": "flood_7289.png",
+          "hamming_distance": 2
+        },
+        {
+          "eval_file": "flood_7210.png",
+          "eval_id": "v3_00116",
+          "manifest_file": "flood_7299.png",
+          "manifest_id": "flood_7299.png",
+          "hamming_distance": 2
+        },
+        {
+          "eval_file": "flood_7295.png",
+          "eval_id": "v3_00236",
+          "manifest_file": "flood_9248.png",
+          "manifest_id": "flood_9248.png",
+          "hamming_distance": 1
+        },
+        {
+          "eval_file": "flood_7295.png",
+          "eval_id": "v3_00236",
+          "manifest_file": "flood_9234.png",
+          "manifest_id": "flood_9234.png",
+          "hamming_distance": 1
+        },
+        {
+          "eval_file": "flood_7295.png",
+          "eval_id": "v3_00236",
+          "manifest_file": "flood_7205.png",
+          "manifest_id": "flood_7205.png",
+          "hamming_distance": 1
+        },
+        {
+          "eval_file": "flood_7295.png",
+          "eval_id": "v3_00236",
+          "manifest_file": "flood_7289.png",
+          "manifest_id": "flood_7289.png",
+          "hamming_distance": 1
+        },
+        {
+          "eval_file": "flood_7295.png",
+          "eval_id": "v3_00236",
+          "manifest_file": "flood_7299.png",
+          "manifest_id": "flood_7299.png",
+          "hamming_distance": 1
+        },
+        {
+          "eval_file": "flood_8108.png",
+          "eval_id": "v3_00226",
+          "manifest_file": "flood_8107.png",
+          "manifest_id": "flood_8107.png",
+          "hamming_distance": 0
+        },
+        {
+          "eval_file": "flood_5405.jpg",
+          "eval_id": "v3_01252",
+          "manifest_file": "flood_272.jpg",
+          "manifest_id": "flood_272.jpg",
+          "hamming_distance": 0
+        },
+        {
+          "eval_file": "flood_8028.png",
+          "eval_id": "v3_00952",
+          "manifest_file": "flood_8032.png",
+          "manifest_id": "flood_8032.png",
+          "hamming_distance": 2
+        },
+        {
+          "eval_file": "flood_7186.png",
+          "eval_id": "v3_00834",
+          "manifest_file": "flood_9227.png",
+          "manifest_id": "flood_9227.png",
+          "hamming_distance": 1
+        },
+        {
+          "eval_file": "flood_7294.png",
+          "eval_id": "v3_01063",
+          "manifest_file": "flood_9224.png",
+          "manifest_id": "flood_9224.png",
+          "hamming_distance": 1
+        },
+        {
+          "eval_file": "flood_7294.png",
+          "eval_id": "v3_01063",
+          "manifest_file": "flood_9262.png",
+          "manifest_id": "flood_9262.png",
+          "hamming_distance": 2
+        },
+        {
+          "eval_file": "flood_9271.png",
+          "eval_id": "v3_01135",
+          "manifest_file": "flood_7308.png",
+          "manifest_id": "flood_7308.png",
+          "hamming_distance": 2
+        },
+        {
+          "eval_file": "flood_9271.png",
+          "eval_id": "v3_01135",
+          "manifest_file": "flood_7233.png",
+          "manifest_id": "flood_7233.png",
+          "hamming_distance": 2
+        }
+      ],
+      "perceptual_near_duplicate_count_h5": 101
+    },
+    "clemson_v3_test_vs_val_v1": {
+      "eval_set": "clemson_v3_test",
+      "manifest_target": "val_v1",
+      "eval_count": 111,
+      "manifest_count": 450,
+      "exact_md5_match_count": 0,
+      "exact_md5_matches": [],
+      "perceptual_near_duplicate_count_h2": 5,
+      "perceptual_near_duplicates_h2": [
+        {
+          "eval_file": "flood_9016.png",
+          "eval_id": "v3_01475",
+          "manifest_file": "flood_9010.png",
+          "manifest_id": "flood_9010.png",
+          "hamming_distance": 1
+        },
+        {
+          "eval_file": "flood_5405.jpg",
+          "eval_id": "v3_01252",
+          "manifest_file": "flood_2769.jpg",
+          "manifest_id": "flood_2769.jpg",
+          "hamming_distance": 1
+        },
+        {
+          "eval_file": "flood_7186.png",
+          "eval_id": "v3_00834",
+          "manifest_file": "flood_7225.png",
+          "manifest_id": "flood_7225.png",
+          "hamming_distance": 1
+        },
+        {
+          "eval_file": "flood_7294.png",
+          "eval_id": "v3_01063",
+          "manifest_file": "flood_9221.png",
+          "manifest_id": "flood_9221.png",
+          "hamming_distance": 1
+        },
+        {
+          "eval_file": "flood_9271.png",
+          "eval_id": "v3_01135",
+          "manifest_file": "flood_7225.png",
+          "manifest_id": "flood_7225.png",
+          "hamming_distance": 2
+        }
+      ],
+      "perceptual_near_duplicate_count_h5": 23
+    },
+    "clemson_v3_test_vs_test_v1": {
+      "eval_set": "clemson_v3_test",
+      "manifest_target": "test_v1",
+      "eval_count": 111,
+      "manifest_count": 450,
+      "exact_md5_match_count": 0,
+      "exact_md5_matches": [],
+      "perceptual_near_duplicate_count_h2": 6,
+      "perceptual_near_duplicates_h2": [
+        {
+          "eval_file": "flood_7210.png",
+          "eval_id": "v3_00116",
+          "manifest_file": "flood_7287.png",
+          "manifest_id": "flood_7287.png",
+          "hamming_distance": 1
+        },
+        {
+          "eval_file": "flood_7210.png",
+          "eval_id": "v3_00116",
+          "manifest_file": "flood_7193.png",
+          "manifest_id": "flood_7193.png",
+          "hamming_distance": 2
+        },
+        {
+          "eval_file": "flood_7295.png",
+          "eval_id": "v3_00236",
+          "manifest_file": "flood_7287.png",
+          "manifest_id": "flood_7287.png",
+          "hamming_distance": 0
+        },
+        {
+          "eval_file": "flood_7295.png",
+          "eval_id": "v3_00236",
+          "manifest_file": "flood_7193.png",
+          "manifest_id": "flood_7193.png",
+          "hamming_distance": 1
+        },
+        {
+          "eval_file": "flood_7294.png",
+          "eval_id": "v3_01063",
+          "manifest_file": "flood_7181.png",
+          "manifest_id": "flood_7181.png",
+          "hamming_distance": 1
+        },
+        {
+          "eval_file": "flood_9271.png",
+          "eval_id": "v3_01135",
+          "manifest_file": "flood_7193.png",
+          "manifest_id": "flood_7193.png",
+          "hamming_distance": 2
+        }
+      ],
+      "perceptual_near_duplicate_count_h5": 24
+    },
+    "clemson_v3_test_vs_train_v2": {
+      "eval_set": "clemson_v3_test",
+      "manifest_target": "train_v2",
+      "eval_count": 111,
+      "manifest_count": 2100,
+      "exact_md5_match_count": 0,
+      "exact_md5_matches": [],
+      "perceptual_near_duplicate_count_h2": 21,
+      "perceptual_near_duplicates_h2": [
+        {
+          "eval_file": "flood_7210.png",
+          "eval_id": "v3_00116",
+          "manifest_file": "flood_7193.png",
+          "manifest_id": "flood_7193.png",
+          "hamming_distance": 2
+        },
+        {
+          "eval_file": "flood_7210.png",
+          "eval_id": "v3_00116",
+          "manifest_file": "flood_7205.png",
+          "manifest_id": "flood_7205.png",
+          "hamming_distance": 0
+        },
+        {
+          "eval_file": "flood_7210.png",
+          "eval_id": "v3_00116",
+          "manifest_file": "flood_7207.png",
+          "manifest_id": "flood_7207.png",
+          "hamming_distance": 2
+        },
+        {
+          "eval_file": "flood_7210.png",
+          "eval_id": "v3_00116",
+          "manifest_file": "flood_7287.png",
+          "manifest_id": "flood_7287.png",
+          "hamming_distance": 1
+        },
+        {
+          "eval_file": "flood_7210.png",
+          "eval_id": "v3_00116",
+          "manifest_file": "flood_7289.png",
+          "manifest_id": "flood_7289.png",
+          "hamming_distance": 2
+        },
+        {
+          "eval_file": "flood_7210.png",
+          "eval_id": "v3_00116",
+          "manifest_file": "flood_7299.png",
+          "manifest_id": "flood_7299.png",
+          "hamming_distance": 2
+        },
+        {
+          "eval_file": "flood_7210.png",
+          "eval_id": "v3_00116",
+          "manifest_file": "flood_9234.png",
+          "manifest_id": "flood_9234.png",
+          "hamming_distance": 2
+        },
+        {
+          "eval_file": "flood_7210.png",
+          "eval_id": "v3_00116",
+          "manifest_file": "flood_9248.png",
+          "manifest_id": "flood_9248.png",
+          "hamming_distance": 0
+        },
+        {
+          "eval_file": "flood_7295.png",
+          "eval_id": "v3_00236",
+          "manifest_file": "flood_7193.png",
+          "manifest_id": "flood_7193.png",
+          "hamming_distance": 1
+        },
+        {
+          "eval_file": "flood_7295.png",
+          "eval_id": "v3_00236",
+          "manifest_file": "flood_7205.png",
+          "manifest_id": "flood_7205.png",
+          "hamming_distance": 1
+        },
+        {
+          "eval_file": "flood_7295.png",
+          "eval_id": "v3_00236",
+          "manifest_file": "flood_7287.png",
+          "manifest_id": "flood_7287.png",
+          "hamming_distance": 0
+        },
+        {
+          "eval_file": "flood_7295.png",
+          "eval_id": "v3_00236",
+          "manifest_file": "flood_7289.png",
+          "manifest_id": "flood_7289.png",
+          "hamming_distance": 1
+        },
+        {
+          "eval_file": "flood_7295.png",
+          "eval_id": "v3_00236",
+          "manifest_file": "flood_7299.png",
+          "manifest_id": "flood_7299.png",
+          "hamming_distance": 1
+        },
+        {
+          "eval_file": "flood_7295.png",
+          "eval_id": "v3_00236",
+          "manifest_file": "flood_9234.png",
+          "manifest_id": "flood_9234.png",
+          "hamming_distance": 1
+        },
+        {
+          "eval_file": "flood_7295.png",
+          "eval_id": "v3_00236",
+          "manifest_file": "flood_9248.png",
+          "manifest_id": "flood_9248.png",
+          "hamming_distance": 1
+        },
+        {
+          "eval_file": "flood_8108.png",
+          "eval_id": "v3_00226",
+          "manifest_file": "flood_8107.png",
+          "manifest_id": "flood_8107.png",
+          "hamming_distance": 0
+        },
+        {
+          "eval_file": "flood_9016.png",
+          "eval_id": "v3_01475",
+          "manifest_file": "flood_9010.png",
+          "manifest_id": "flood_9010.png",
+          "hamming_distance": 1
+        },
+        {
+          "eval_file": "flood_8028.png",
+          "eval_id": "v3_00952",
+          "manifest_file": "flood_8032.png",
+          "manifest_id": "flood_8032.png",
+          "hamming_distance": 2
+        },
+        {
+          "eval_file": "flood_9271.png",
+          "eval_id": "v3_01135",
+          "manifest_file": "flood_7193.png",
+          "manifest_id": "flood_7193.png",
+          "hamming_distance": 2
+        },
+        {
+          "eval_file": "flood_9271.png",
+          "eval_id": "v3_01135",
+          "manifest_file": "flood_7289.png",
+          "manifest_id": "flood_7289.png",
+          "hamming_distance": 2
+        }
+      ],
+      "perceptual_near_duplicate_count_h5": 95
+    },
+    "clemson_v3_test_vs_val_v2": {
+      "eval_set": "clemson_v3_test",
+      "manifest_target": "val_v2",
+      "eval_count": 111,
+      "manifest_count": 450,
+      "exact_md5_match_count": 0,
+      "exact_md5_matches": [],
+      "perceptual_near_duplicate_count_h2": 6,
+      "perceptual_near_duplicates_h2": [
+        {
+          "eval_file": "flood_7940.png",
+          "eval_id": "v3_00914",
+          "manifest_file": "flood_7962.png",
+          "manifest_id": "flood_7962.png",
+          "hamming_distance": 1
+        },
+        {
+          "eval_file": "flood_7186.png",
+          "eval_id": "v3_00834",
+          "manifest_file": "flood_9227.png",
+          "manifest_id": "flood_9227.png",
+          "hamming_distance": 1
+        },
+        {
+          "eval_file": "flood_7294.png",
+          "eval_id": "v3_01063",
+          "manifest_file": "flood_7181.png",
+          "manifest_id": "flood_7181.png",
+          "hamming_distance": 1
+        },
+        {
+          "eval_file": "flood_7294.png",
+          "eval_id": "v3_01063",
+          "manifest_file": "flood_9221.png",
+          "manifest_id": "flood_9221.png",
+          "hamming_distance": 1
+        },
+        {
+          "eval_file": "flood_7294.png",
+          "eval_id": "v3_01063",
+          "manifest_file": "flood_9224.png",
+          "manifest_id": "flood_9224.png",
+          "hamming_distance": 1
+        },
+        {
+          "eval_file": "flood_7294.png",
+          "eval_id": "v3_01063",
+          "manifest_file": "flood_9262.png",
+          "manifest_id": "flood_9262.png",
+          "hamming_distance": 2
+        }
+      ],
+      "perceptual_near_duplicate_count_h5": 20
+    },
+    "clemson_v3_test_vs_test_v2": {
+      "eval_set": "clemson_v3_test",
+      "manifest_target": "test_v2",
+      "eval_count": 111,
+      "manifest_count": 450,
+      "exact_md5_match_count": 0,
+      "exact_md5_matches": [],
+      "perceptual_near_duplicate_count_h2": 8,
+      "perceptual_near_duplicates_h2": [
+        {
+          "eval_file": "flood_5405.jpg",
+          "eval_id": "v3_01252",
+          "manifest_file": "flood_272.jpg",
+          "manifest_id": "flood_272.jpg",
+          "hamming_distance": 0
+        },
+        {
+          "eval_file": "flood_5405.jpg",
+          "eval_id": "v3_01252",
+          "manifest_file": "flood_2769.jpg",
+          "manifest_id": "flood_2769.jpg",
+          "hamming_distance": 1
+        },
+        {
+          "eval_file": "flood_7186.png",
+          "eval_id": "v3_00834",
+          "manifest_file": "flood_7225.png",
+          "manifest_id": "flood_7225.png",
+          "hamming_distance": 1
+        },
+        {
+          "eval_file": "flood_9271.png",
+          "eval_id": "v3_01135",
+          "manifest_file": "flood_7225.png",
+          "manifest_id": "flood_7225.png",
+          "hamming_distance": 2
+        },
+        {
+          "eval_file": "flood_9271.png",
+          "eval_id": "v3_01135",
+          "manifest_file": "flood_7233.png",
+          "manifest_id": "flood_7233.png",
+          "hamming_distance": 2
+        },
+        {
+          "eval_file": "flood_9271.png",
+          "eval_id": "v3_01135",
+          "manifest_file": "flood_7302.png",
+          "manifest_id": "flood_7302.png",
+          "hamming_distance": 2
+        },
+        {
+          "eval_file": "flood_9271.png",
+          "eval_id": "v3_01135",
+          "manifest_file": "flood_7308.png",
+          "manifest_id": "flood_7308.png",
+          "hamming_distance": 2
+        },
+        {
+          "eval_file": "flood_9271.png",
+          "eval_id": "v3_01135",
+          "manifest_file": "flood_9276.png",
+          "manifest_id": "flood_9276.png",
+          "hamming_distance": 2
+        }
+      ],
+      "perceptual_near_duplicate_count_h5": 33
+    },
+    "clemson_v3_test_vs_train_v3": {
+      "eval_set": "clemson_v3_test",
+      "manifest_target": "train_v3",
+      "eval_count": 111,
+      "manifest_count": 1034,
+      "exact_md5_match_count": 0,
+      "exact_md5_matches": [],
+      "perceptual_near_duplicate_count_h2": 5,
+      "perceptual_near_duplicates_h2": [
+        {
+          "eval_file": "flood_7940.png",
+          "eval_id": "v3_00914",
+          "manifest_file": "flood_7963.png",
+          "manifest_id": "v3_00486",
+          "hamming_distance": 1
+        },
+        {
+          "eval_file": "flood_7210.png",
+          "eval_id": "v3_00116",
+          "manifest_file": "flood_9328.png",
+          "manifest_id": "v3_01247",
+          "hamming_distance": 0
+        },
+        {
+          "eval_file": "flood_7210.png",
+          "eval_id": "v3_00116",
+          "manifest_file": "flood_7283.png",
+          "manifest_id": "v3_00706",
+          "hamming_distance": 2
+        },
+        {
+          "eval_file": "flood_7295.png",
+          "eval_id": "v3_00236",
+          "manifest_file": "flood_9328.png",
+          "manifest_id": "v3_01247",
+          "hamming_distance": 1
+        },
+        {
+          "eval_file": "flood_7186.png",
+          "eval_id": "v3_00834",
+          "manifest_file": "flood_7184.png",
+          "manifest_id": "v3_00141",
+          "hamming_distance": 2
+        }
+      ],
+      "perceptual_near_duplicate_count_h5": 61
+    },
+    "clemson_v3_test_vs_val_v3": {
+      "eval_set": "clemson_v3_test",
+      "manifest_target": "val_v3",
+      "eval_count": 111,
+      "manifest_count": 222,
+      "exact_md5_match_count": 0,
+      "exact_md5_matches": [],
+      "perceptual_near_duplicate_count_h2": 5,
+      "perceptual_near_duplicates_h2": [
+        {
+          "eval_file": "flood_7210.png",
+          "eval_id": "v3_00116",
+          "manifest_file": "flood_7293.png",
+          "manifest_id": "v3_00555",
+          "hamming_distance": 1
+        },
+        {
+          "eval_file": "flood_7210.png",
+          "eval_id": "v3_00116",
+          "manifest_file": "flood_9324.png",
+          "manifest_id": "v3_00607",
+          "hamming_distance": 2
+        },
+        {
+          "eval_file": "flood_7295.png",
+          "eval_id": "v3_00236",
+          "manifest_file": "flood_7293.png",
+          "manifest_id": "v3_00555",
+          "hamming_distance": 0
+        },
+        {
+          "eval_file": "flood_7295.png",
+          "eval_id": "v3_00236",
+          "manifest_file": "flood_9324.png",
+          "manifest_id": "v3_00607",
+          "hamming_distance": 1
+        },
+        {
+          "eval_file": "flood_9271.png",
+          "eval_id": "v3_01135",
+          "manifest_file": "flood_9324.png",
+          "manifest_id": "v3_00607",
+          "hamming_distance": 2
+        }
+      ],
+      "perceptual_near_duplicate_count_h5": 8
+    },
+    "clemson_v3_test_vs_test_v3": {
+      "eval_set": "clemson_v3_test",
+      "manifest_target": "test_v3",
+      "eval_count": 111,
+      "manifest_count": 222,
+      "exact_md5_match_count": 111,
+      "exact_md5_matches": [
+        {
+          "eval_file": "flood_6414.jpg",
+          "eval_id": "v3_00489",
+          "manifest_file": "flood_6414.jpg",
+          "manifest_id": "v3_00489",
+          "md5": "7fc41acbcbc5762d32360b8e55149b30"
+        },
+        {
+          "eval_file": "flood_7708.png",
+          "eval_id": "v3_00287",
+          "manifest_file": "flood_7708.png",
+          "manifest_id": "v3_00287",
+          "md5": "0b8d43c8aaa4db41be620382b0c9f992"
+        },
+        {
+          "eval_file": "flood_6027.jpg",
+          "eval_id": "v3_01422",
+          "manifest_file": "flood_6027.jpg",
+          "manifest_id": "v3_01422",
+          "md5": "673404a7ad759ab59dbc41a4298702d4"
+        },
+        {
+          "eval_file": "flood_4371.jpg",
+          "eval_id": "v3_00133",
+          "manifest_file": "flood_4371.jpg",
+          "manifest_id": "v3_00133",
+          "md5": "268cdb18c375ab8eea985cc8ab9b0376"
+        },
+        {
+          "eval_file": "flood_4278.jpg",
+          "eval_id": "v3_01087",
+          "manifest_file": "flood_4278.jpg",
+          "manifest_id": "v3_01087",
+          "md5": "0883ae92c91f1c2a548ee8fb4fc067dd"
+        },
+        {
+          "eval_file": "flood_4985.jpg",
+          "eval_id": "v3_00840",
+          "manifest_file": "flood_4985.jpg",
+          "manifest_id": "v3_00840",
+          "md5": "a01934d7ed3a9a76cedf6960937e34d8"
+        },
+        {
+          "eval_file": "flood_8560.png",
+          "eval_id": "v3_00307",
+          "manifest_file": "flood_8560.png",
+          "manifest_id": "v3_00307",
+          "md5": "006ecaec1d1839761416d63eb34bc0fa"
+        },
+        {
+          "eval_file": "flood_7035.png",
+          "eval_id": "v3_00384",
+          "manifest_file": "flood_7035.png",
+          "manifest_id": "v3_00384",
+          "md5": "880dcf5520351ce88fc8a6802c504cc3"
+        },
+        {
+          "eval_file": "Flood_982.jpg",
+          "eval_id": "v3_00354",
+          "manifest_file": "Flood_982.jpg",
+          "manifest_id": "v3_00354",
+          "md5": "dde34d6fbfc14c3db438e7c47f1a67f8"
+        },
+        {
+          "eval_file": "flood_6319.jpg",
+          "eval_id": "v3_00473",
+          "manifest_file": "flood_6319.jpg",
+          "manifest_id": "v3_00473",
+          "md5": "26e50b311eeeccba8d1e7022d4c85002"
+        },
+        {
+          "eval_file": "flood_2939.jpg",
+          "eval_id": "v3_00674",
+          "manifest_file": "flood_2939.jpg",
+          "manifest_id": "v3_00674",
+          "md5": "5f70cfc2c034ffdf21a0e010493c8a44"
+        },
+        {
+          "eval_file": "flood_9302.png",
+          "eval_id": "v3_01437",
+          "manifest_file": "flood_9302.png",
+          "manifest_id": "v3_01437",
+          "md5": "e7a8ca9d7587e8dc17286bea2ddd80f4"
+        },
+        {
+          "eval_file": "flood_4654.jpg",
+          "eval_id": "v3_01354",
+          "manifest_file": "flood_4654.jpg",
+          "manifest_id": "v3_01354",
+          "md5": "1fa966a51ab116c240d368152c0a1d35"
+        },
+        {
+          "eval_file": "flood_7940.png",
+          "eval_id": "v3_00914",
+          "manifest_file": "flood_7940.png",
+          "manifest_id": "v3_00914",
+          "md5": "976475dfe42422504ede39343fe748e3"
+        },
+        {
+          "eval_file": "flood_7603.png",
+          "eval_id": "v3_00027",
+          "manifest_file": "flood_7603.png",
+          "manifest_id": "v3_00027",
+          "md5": "239b22b6bb24be52f69b27e4b9d9aaef"
+        },
+        {
+          "eval_file": "flood_9055.png",
+          "eval_id": "v3_00063",
+          "manifest_file": "flood_9055.png",
+          "manifest_id": "v3_00063",
+          "md5": "aae7770c23ae8db2486314ae4e380827"
+        },
+        {
+          "eval_file": "flood_7210.png",
+          "eval_id": "v3_00116",
+          "manifest_file": "flood_7210.png",
+          "manifest_id": "v3_00116",
+          "md5": "764cd4b7dad05e6880f9c22b3410d1d2"
+        },
+        {
+          "eval_file": "flood_7295.png",
+          "eval_id": "v3_00236",
+          "manifest_file": "flood_7295.png",
+          "manifest_id": "v3_00236",
+          "md5": "c3198cd2e0980b79321e77eced7c3779"
+        },
+        {
+          "eval_file": "flood_1154.jpg",
+          "eval_id": "v3_00859",
+          "manifest_file": "flood_1154.jpg",
+          "manifest_id": "v3_00859",
+          "md5": "81f260cdd3e35e6bbb30f35ce7c402fa"
+        },
+        {
+          "eval_file": "flood_8638.png",
+          "eval_id": "v3_00761",
+          "manifest_file": "flood_8638.png",
+          "manifest_id": "v3_00761",
+          "md5": "c77a21d5a43df115001c5a5fb4592166"
+        },
+        {
+          "eval_file": "flood_493.jpg",
+          "eval_id": "v3_00705",
+          "manifest_file": "flood_493.jpg",
+          "manifest_id": "v3_00705",
+          "md5": "9699e447c4349fe7f88b05f37852baab"
+        },
+        {
+          "eval_file": "flood_3965.jpg",
+          "eval_id": "v3_00416",
+          "manifest_file": "flood_3965.jpg",
+          "manifest_id": "v3_00416",
+          "md5": "5b4e5c03ba58ac57de66346172d66462"
+        },
+        {
+          "eval_file": "flood_175.jpg",
+          "eval_id": "v3_00562",
+          "manifest_file": "flood_175.jpg",
+          "manifest_id": "v3_00562",
+          "md5": "bce639bb2282b84a7fdf7f65f136f297"
+        },
+        {
+          "eval_file": "flood_1341.jpg",
+          "eval_id": "v3_01384",
+          "manifest_file": "flood_1341.jpg",
+          "manifest_id": "v3_01384",
+          "md5": "a0eead0da448d82af7fca2e58115660a"
+        },
+        {
+          "eval_file": "flood_715.jpg",
+          "eval_id": "v3_01328",
+          "manifest_file": "flood_715.jpg",
+          "manifest_id": "v3_01328",
+          "md5": "872dba06d289954f0b18c0183798ebc4"
+        },
+        {
+          "eval_file": "flood_8108.png",
+          "eval_id": "v3_00226",
+          "manifest_file": "flood_8108.png",
+          "manifest_id": "v3_00226",
+          "md5": "fba19c83022e2e49c6ea575264490406"
+        },
+        {
+          "eval_file": "flood_6606.png",
+          "eval_id": "v3_00684",
+          "manifest_file": "flood_6606.png",
+          "manifest_id": "v3_00684",
+          "md5": "b61293bd0b691fe8591b6427f55600a7"
+        },
+        {
+          "eval_file": "flood_4485.jpg",
+          "eval_id": "v3_00374",
+          "manifest_file": "flood_4485.jpg",
+          "manifest_id": "v3_00374",
+          "md5": "b694e61449e2fcaa75f6e39b8fdd7cc2"
+        },
+        {
+          "eval_file": "flood_2853.jpg",
+          "eval_id": "v3_01443",
+          "manifest_file": "flood_2853.jpg",
+          "manifest_id": "v3_01443",
+          "md5": "9bc24f358f5b2b182c681734fd512e48"
+        },
+        {
+          "eval_file": "flood_1176.jpg",
+          "eval_id": "v3_00519",
+          "manifest_file": "flood_1176.jpg",
+          "manifest_id": "v3_00519",
+          "md5": "67e1ced8572b3295354b40a53c649a73"
+        },
+        {
+          "eval_file": "flood_3656.jpg",
+          "eval_id": "v3_00198",
+          "manifest_file": "flood_3656.jpg",
+          "manifest_id": "v3_00198",
+          "md5": "5e3424fa1cf3c652c753d14330237b69"
+        },
+        {
+          "eval_file": "flood_4129.jpg",
+          "eval_id": "v3_01257",
+          "manifest_file": "flood_4129.jpg",
+          "manifest_id": "v3_01257",
+          "md5": "c15abcffbb9ca34283c3093af1545d3c"
+        },
+        {
+          "eval_file": "flood_259.jpg",
+          "eval_id": "v3_00927",
+          "manifest_file": "flood_259.jpg",
+          "manifest_id": "v3_00927",
+          "md5": "7a898b82f81954b428c89e7129453133"
+        },
+        {
+          "eval_file": "flood_8941.png",
+          "eval_id": "v3_01396",
+          "manifest_file": "flood_8941.png",
+          "manifest_id": "v3_01396",
+          "md5": "3a54584b26f5ba57d0fa7833bf98b466"
+        },
+        {
+          "eval_file": "flood_452.jpg",
+          "eval_id": "v3_01246",
+          "manifest_file": "flood_452.jpg",
+          "manifest_id": "v3_01246",
+          "md5": "3e668e98aef4864d11e2336395e8f34f"
+        },
+        {
+          "eval_file": "flood_87.jpg",
+          "eval_id": "v3_00437",
+          "manifest_file": "flood_87.jpg",
+          "manifest_id": "v3_00437",
+          "md5": "2bc3c9f85364d5fc11aa1e724c3fc269"
+        },
+        {
+          "eval_file": "flood_5627.jpg",
+          "eval_id": "v3_01333",
+          "manifest_file": "flood_5627.jpg",
+          "manifest_id": "v3_01333",
+          "md5": "87ac232372aba622d5d25a5125d193c4"
+        },
+        {
+          "eval_file": "flood_9016.png",
+          "eval_id": "v3_01475",
+          "manifest_file": "flood_9016.png",
+          "manifest_id": "v3_01475",
+          "md5": "aeea5af7229c993bd4c25ba53b232ba6"
+        },
+        {
+          "eval_file": "flood_3606.jpg",
+          "eval_id": "v3_00916",
+          "manifest_file": "flood_539.jpg",
+          "manifest_id": "v3_01250",
+          "md5": "f0b81e860737c2d68910cf0e79872e4e"
+        },
+        {
+          "eval_file": "flood_539.jpg",
+          "eval_id": "v3_01250",
+          "manifest_file": "flood_539.jpg",
+          "manifest_id": "v3_01250",
+          "md5": "f0b81e860737c2d68910cf0e79872e4e"
+        },
+        {
+          "eval_file": "flood_4229.jpg",
+          "eval_id": "v3_01410",
+          "manifest_file": "flood_4229.jpg",
+          "manifest_id": "v3_01410",
+          "md5": "3b3459154c58a35d79678cf3264b6bfe"
+        },
+        {
+          "eval_file": "flood_1773.jpg",
+          "eval_id": "v3_01013",
+          "manifest_file": "flood_1773.jpg",
+          "manifest_id": "v3_01013",
+          "md5": "fa840500bc79f03903a0083ab60cb8d8"
+        },
+        {
+          "eval_file": "flood_1163.jpg",
+          "eval_id": "v3_00221",
+          "manifest_file": "flood_1163.jpg",
+          "manifest_id": "v3_00221",
+          "md5": "3449b33a3ae2dd4ab87bb2718494aad7"
+        },
+        {
+          "eval_file": "flood_5049.jpg",
+          "eval_id": "v3_00700",
+          "manifest_file": "flood_5049.jpg",
+          "manifest_id": "v3_00700",
+          "md5": "a857d90e22df06d34d9bb4e16f36b0ec"
+        },
+        {
+          "eval_file": "flood_4929.jpg",
+          "eval_id": "v3_00561",
+          "manifest_file": "flood_4929.jpg",
+          "manifest_id": "v3_00561",
+          "md5": "3aec423f6ab155eff08d47347eaceace"
+        },
+        {
+          "eval_file": "flood_526.jpg",
+          "eval_id": "v3_00757",
+          "manifest_file": "flood_526.jpg",
+          "manifest_id": "v3_00757",
+          "md5": "148b63e9ca6e8dffa49428a6b07e31de"
+        },
+        {
+          "eval_file": "flood_2820.jpg",
+          "eval_id": "v3_00259",
+          "manifest_file": "flood_2820.jpg",
+          "manifest_id": "v3_00259",
+          "md5": "5716d80a95ff8c995d568e219f65234b"
+        },
+        {
+          "eval_file": "flood_4701.jpg",
+          "eval_id": "v3_00369",
+          "manifest_file": "flood_4701.jpg",
+          "manifest_id": "v3_00369",
+          "md5": "c8abf474b1249ce5225f12e7c9da3a26"
+        },
+        {
+          "eval_file": "flood_6101.jpg",
+          "eval_id": "v3_00854",
+          "manifest_file": "flood_6101.jpg",
+          "manifest_id": "v3_00854",
+          "md5": "da8a747390190ebfad6372334a369c5e"
+        },
+        {
+          "eval_file": "flood_1946.jpg",
+          "eval_id": "v3_00301",
+          "manifest_file": "flood_1946.jpg",
+          "manifest_id": "v3_00301",
+          "md5": "49aa520ac5bed4f73d43a8f09b3571be"
+        },
+        {
+          "eval_file": "flood_8552.png",
+          "eval_id": "v3_01378",
+          "manifest_file": "flood_8552.png",
+          "manifest_id": "v3_01378",
+          "md5": "b4888bbd6a6169a21bfbf42e0048b964"
+        },
+        {
+          "eval_file": "flood_7974.png",
+          "eval_id": "v3_00989",
+          "manifest_file": "flood_7974.png",
+          "manifest_id": "v3_00989",
+          "md5": "8d5231e0b4a5e5132c5c004044f88628"
+        },
+        {
+          "eval_file": "flood_6942.png",
+          "eval_id": "v3_00441",
+          "manifest_file": "flood_6942.png",
+          "manifest_id": "v3_00441",
+          "md5": "705442d11210ae59e5e94f3d477cc402"
+        },
+        {
+          "eval_file": "flood_6873.png",
+          "eval_id": "v3_00078",
+          "manifest_file": "flood_6873.png",
+          "manifest_id": "v3_00078",
+          "md5": "f56404e2745b5c311d68ad9aff216825"
+        },
+        {
+          "eval_file": "flood_4644.jpg",
+          "eval_id": "v3_01467",
+          "manifest_file": "flood_4644.jpg",
+          "manifest_id": "v3_01467",
+          "md5": "e8fe23b0d60d86d84f183bf571d3c183"
+        },
+        {
+          "eval_file": "flood_2271.jpg",
+          "eval_id": "v3_00633",
+          "manifest_file": "flood_2271.jpg",
+          "manifest_id": "v3_00633",
+          "md5": "02a1ace7624c99ae134c9fc5fcf44930"
+        },
+        {
+          "eval_file": "flood_1776.jpg",
+          "eval_id": "v3_01288",
+          "manifest_file": "flood_1776.jpg",
+          "manifest_id": "v3_01288",
+          "md5": "7a47d7f427114ed509f4496ae4b8818e"
+        },
+        {
+          "eval_file": "flood_4380.jpg",
+          "eval_id": "v3_00281",
+          "manifest_file": "flood_4380.jpg",
+          "manifest_id": "v3_00281",
+          "md5": "1073a04402a8d6d8cc424f54528ba6b3"
+        },
+        {
+          "eval_file": "flood_8605.png",
+          "eval_id": "v3_00343",
+          "manifest_file": "flood_8605.png",
+          "manifest_id": "v3_00343",
+          "md5": "4e8d4cb0ffe9381ea253a382458e0718"
+        },
+        {
+          "eval_file": "flood_5219.jpg",
+          "eval_id": "v3_01313",
+          "manifest_file": "flood_5219.jpg",
+          "manifest_id": "v3_01313",
+          "md5": "1f066d693670f6c9778814cbd0e496a7"
+        },
+        {
+          "eval_file": "flood_1148.jpg",
+          "eval_id": "v3_00256",
+          "manifest_file": "flood_1148.jpg",
+          "manifest_id": "v3_00256",
+          "md5": "6e733a6b189507173503312e6bb60131"
+        },
+        {
+          "eval_file": "flood_3574.jpg",
+          "eval_id": "v3_00673",
+          "manifest_file": "flood_3574.jpg",
+          "manifest_id": "v3_00673",
+          "md5": "c69b85ca8bc49bfea803d095995bab04"
+        },
+        {
+          "eval_file": "flood_3275.jpg",
+          "eval_id": "v3_00396",
+          "manifest_file": "flood_3275.jpg",
+          "manifest_id": "v3_00396",
+          "md5": "0d6a0e9cbbca297d56641916fbb6a7fe"
+        },
+        {
+          "eval_file": "flood_7480.png",
+          "eval_id": "v3_00571",
+          "manifest_file": "flood_7479.png",
+          "manifest_id": "v3_01408",
+          "md5": "1c702a3c11038d7796951ac7b97f02d9"
+        },
+        {
+          "eval_file": "flood_7479.png",
+          "eval_id": "v3_01408",
+          "manifest_file": "flood_7479.png",
+          "manifest_id": "v3_01408",
+          "md5": "1c702a3c11038d7796951ac7b97f02d9"
+        },
+        {
+          "eval_file": "flood_1723.jpg",
+          "eval_id": "v3_01321",
+          "manifest_file": "flood_1723.jpg",
+          "manifest_id": "v3_01321",
+          "md5": "1dff196fd70f6d6f9d9c519b6608c0b4"
+        },
+        {
+          "eval_file": "flood_1740.jpg",
+          "eval_id": "v3_00047",
+          "manifest_file": "flood_1740.jpg",
+          "manifest_id": "v3_00047",
+          "md5": "c2c310a52b79f944cafc2315ba8b31d1"
+        },
+        {
+          "eval_file": "flood_7710.png",
+          "eval_id": "v3_00583",
+          "manifest_file": "flood_7710.png",
+          "manifest_id": "v3_00583",
+          "md5": "cff2bd75abb49613876e5292725ae287"
+        },
+        {
+          "eval_file": "flood_5130.jpg",
+          "eval_id": "v3_00679",
+          "manifest_file": "flood_5130.jpg",
+          "manifest_id": "v3_00679",
+          "md5": "0a44b9b90c70a50d1e257c42b395362a"
+        },
+        {
+          "eval_file": "flood_5405.jpg",
+          "eval_id": "v3_01252",
+          "manifest_file": "flood_5405.jpg",
+          "manifest_id": "v3_01252",
+          "md5": "140a63ce5e246205073c58fea9d7316c"
+        },
+        {
+          "eval_file": "flood_8592.png",
+          "eval_id": "v3_01314",
+          "manifest_file": "flood_8592.png",
+          "manifest_id": "v3_01314",
+          "md5": "5525792b075f1c059dd23ccce86e9398"
+        },
+        {
+          "eval_file": "flood_2261.jpg",
+          "eval_id": "v3_00096",
+          "manifest_file": "flood_2261.jpg",
+          "manifest_id": "v3_00096",
+          "md5": "9a64f782f3f47f44abfe355a2de1bdad"
+        },
+        {
+          "eval_file": "flood_5506.jpg",
+          "eval_id": "v3_00594",
+          "manifest_file": "flood_5506.jpg",
+          "manifest_id": "v3_00594",
+          "md5": "afe7d898cefe84b8eba6a4a243661144"
+        },
+        {
+          "eval_file": "flood_7880.png",
+          "eval_id": "v3_00382",
+          "manifest_file": "flood_7880.png",
+          "manifest_id": "v3_00382",
+          "md5": "c6271686e043bdea87581c5034f6072d"
+        },
+        {
+          "eval_file": "flood_3120.jpg",
+          "eval_id": "v3_00686",
+          "manifest_file": "flood_3120.jpg",
+          "manifest_id": "v3_00686",
+          "md5": "a7e42a42b180f4d698096a4966864ae2"
+        },
+        {
+          "eval_file": "flood_2778.jpg",
+          "eval_id": "v3_01185",
+          "manifest_file": "flood_2778.jpg",
+          "manifest_id": "v3_01185",
+          "md5": "a25cad53f7ce42ff5ed97dfd0a856426"
+        },
+        {
+          "eval_file": "flood_7908.png",
+          "eval_id": "v3_01137",
+          "manifest_file": "flood_7908.png",
+          "manifest_id": "v3_01137",
+          "md5": "68da594f81993080d5e1e9702102e664"
+        },
+        {
+          "eval_file": "flood_3227.jpg",
+          "eval_id": "v3_01113",
+          "manifest_file": "flood_3227.jpg",
+          "manifest_id": "v3_01113",
+          "md5": "af8a014107d36e57a286b68f090ee90a"
+        },
+        {
+          "eval_file": "flood_3540.jpg",
+          "eval_id": "v3_00104",
+          "manifest_file": "flood_3540.jpg",
+          "manifest_id": "v3_00104",
+          "md5": "bf03dd5438f9dc592498bd67e82e0d47"
+        },
+        {
+          "eval_file": "flood_8905.png",
+          "eval_id": "v3_01187",
+          "manifest_file": "flood_8905.png",
+          "manifest_id": "v3_01187",
+          "md5": "82d7519abde90d24b07e5dcd30d00e04"
+        },
+        {
+          "eval_file": "flood_6581.png",
+          "eval_id": "v3_00979",
+          "manifest_file": "flood_6581.png",
+          "manifest_id": "v3_00979",
+          "md5": "3db765dbe2e26d147fb471d31bb257e6"
+        },
+        {
+          "eval_file": "flood_8021.png",
+          "eval_id": "v3_00839",
+          "manifest_file": "flood_8021.png",
+          "manifest_id": "v3_00839",
+          "md5": "dda34c8aec65294f5b9f4788cfc792f0"
+        },
+        {
+          "eval_file": "flood_2804.jpg",
+          "eval_id": "v3_00622",
+          "manifest_file": "flood_2804.jpg",
+          "manifest_id": "v3_00622",
+          "md5": "014e10b5dad6324e6490d886a91263d9"
+        },
+        {
+          "eval_file": "flood_7813.png",
+          "eval_id": "v3_00605",
+          "manifest_file": "flood_7813.png",
+          "manifest_id": "v3_00605",
+          "md5": "6d7e4008f1b85a750f3ed5bc4db554f0"
+        },
+        {
+          "eval_file": "flood_8028.png",
+          "eval_id": "v3_00952",
+          "manifest_file": "flood_8028.png",
+          "manifest_id": "v3_00952",
+          "md5": "6d0ff68bc4f26a18f3ed0684a2f9e61e"
+        },
+        {
+          "eval_file": "flood_4428.jpg",
+          "eval_id": "v3_00666",
+          "manifest_file": "flood_4428.jpg",
+          "manifest_id": "v3_00666",
+          "md5": "dbe78d8d00826e930b86867d2c5a2320"
+        },
+        {
+          "eval_file": "flood_1348.jpg",
+          "eval_id": "v3_00181",
+          "manifest_file": "flood_1348.jpg",
+          "manifest_id": "v3_00181",
+          "md5": "b70b332ff35ff49b09f47a63e7c8a2c3"
+        },
+        {
+          "eval_file": "flood_5098.jpg",
+          "eval_id": "v3_01387",
+          "manifest_file": "flood_5098.jpg",
+          "manifest_id": "v3_01387",
+          "md5": "213449f802f9bd214488fa2df3df8774"
+        },
+        {
+          "eval_file": "flood_7120.png",
+          "eval_id": "v3_00505",
+          "manifest_file": "flood_7120.png",
+          "manifest_id": "v3_00505",
+          "md5": "fc6ff1f38388bdbaa16f76309190f0e4"
+        },
+        {
+          "eval_file": "flood_4790.jpg",
+          "eval_id": "v3_00297",
+          "manifest_file": "flood_4790.jpg",
+          "manifest_id": "v3_00297",
+          "md5": "34a9a7b8f04e10938f407d7ec83ae6ac"
+        },
+        {
+          "eval_file": "flood_7186.png",
+          "eval_id": "v3_00834",
+          "manifest_file": "flood_7186.png",
+          "manifest_id": "v3_00834",
+          "md5": "6a779cecc44f0b42ecee8484c57fb67a"
+        },
+        {
+          "eval_file": "flood_7294.png",
+          "eval_id": "v3_01063",
+          "manifest_file": "flood_7294.png",
+          "manifest_id": "v3_01063",
+          "md5": "5520473a8815adb49f99f5a2e1bb5a0d"
+        },
+        {
+          "eval_file": "flood_1618.jpg",
+          "eval_id": "v3_00439",
+          "manifest_file": "flood_1618.jpg",
+          "manifest_id": "v3_00439",
+          "md5": "33f0efa94144bb44cc4f0345d8892943"
+        },
+        {
+          "eval_file": "flood_4396.jpg",
+          "eval_id": "v3_01235",
+          "manifest_file": "flood_4396.jpg",
+          "manifest_id": "v3_01235",
+          "md5": "bfc2187234396c536be0c621b84a9d4d"
+        },
+        {
+          "eval_file": "flood_2183.jpg",
+          "eval_id": "v3_00918",
+          "manifest_file": "flood_2183.jpg",
+          "manifest_id": "v3_00918",
+          "md5": "d838c961ffc39cd549d46e184088e757"
+        },
+        {
+          "eval_file": "flood_4275.jpg",
+          "eval_id": "v3_00227",
+          "manifest_file": "flood_4275.jpg",
+          "manifest_id": "v3_00227",
+          "md5": "5b8ee92c0b337c7efe9931ae4cb07098"
+        },
+        {
+          "eval_file": "flood_6309.jpg",
+          "eval_id": "v3_01021",
+          "manifest_file": "flood_6309.jpg",
+          "manifest_id": "v3_01021",
+          "md5": "2a840b02576b6cf7c107449fc3637ec7"
+        },
+        {
+          "eval_file": "flood_2382.jpg",
+          "eval_id": "v3_00717",
+          "manifest_file": "flood_2382.jpg",
+          "manifest_id": "v3_00717",
+          "md5": "89fc42892452917d4cf2b5cf644f8295"
+        },
+        {
+          "eval_file": "flood_5142.jpg",
+          "eval_id": "v3_00392",
+          "manifest_file": "flood_5142.jpg",
+          "manifest_id": "v3_00392",
+          "md5": "bfcaa21ce611db699d1329046244515c"
+        },
+        {
+          "eval_file": "flood_4766.jpg",
+          "eval_id": "v3_01236",
+          "manifest_file": "flood_4766.jpg",
+          "manifest_id": "v3_01236",
+          "md5": "a846a6b653a81695ef21d3dcef395572"
+        },
+        {
+          "eval_file": "flood_4236.jpg",
+          "eval_id": "v3_00070",
+          "manifest_file": "flood_4236.jpg",
+          "manifest_id": "v3_00070",
+          "md5": "3f690489052fa6d158cfb412782ae11c"
+        },
+        {
+          "eval_file": "flood_524.jpg",
+          "eval_id": "v3_00909",
+          "manifest_file": "flood_524.jpg",
+          "manifest_id": "v3_00909",
+          "md5": "503454eae01e909ebf6396cd6d113818"
+        },
+        {
+          "eval_file": "flood_3967.jpg",
+          "eval_id": "v3_00641",
+          "manifest_file": "flood_3967.jpg",
+          "manifest_id": "v3_00641",
+          "md5": "42db8ae654c3adbbc38777c8fe22dd37"
+        },
+        {
+          "eval_file": "flood_6254.jpg",
+          "eval_id": "v3_01279",
+          "manifest_file": "flood_6254.jpg",
+          "manifest_id": "v3_01279",
+          "md5": "b86999f79f10a8b6c0c7730fdf8a3845"
+        },
+        {
+          "eval_file": "flood_71.jpg",
+          "eval_id": "v3_01131",
+          "manifest_file": "flood_71.jpg",
+          "manifest_id": "v3_01131",
+          "md5": "5abc255bc05b90efa907327d12710b65"
+        },
+        {
+          "eval_file": "flood_2431.jpg",
+          "eval_id": "v3_01448",
+          "manifest_file": "flood_2431.jpg",
+          "manifest_id": "v3_01448",
+          "md5": "4117bf59879534d07da3616b8b0f9d55"
+        },
+        {
+          "eval_file": "flood_7865.png",
+          "eval_id": "v3_00936",
+          "manifest_file": "flood_7865.png",
+          "manifest_id": "v3_00936",
+          "md5": "9fe05b7ad152ee494f68a33d85e974eb"
+        },
+        {
+          "eval_file": "flood_2115.jpg",
+          "eval_id": "v3_01155",
+          "manifest_file": "flood_2115.jpg",
+          "manifest_id": "v3_01155",
+          "md5": "b15fecd11bd11bc969b22ccca05a6420"
+        },
+        {
+          "eval_file": "flood_287.jpg",
+          "eval_id": "v3_00106",
+          "manifest_file": "flood_287.jpg",
+          "manifest_id": "v3_00106",
+          "md5": "e38c715ccbb30c8e872f703209c5fbee"
+        },
+        {
+          "eval_file": "flood_9271.png",
+          "eval_id": "v3_01135",
+          "manifest_file": "flood_9271.png",
+          "manifest_id": "v3_01135",
+          "md5": "65072c916f2edd9de936f498e05c068f"
+        },
+        {
+          "eval_file": "flood_5162.jpg",
+          "eval_id": "v3_01262",
+          "manifest_file": "flood_5162.jpg",
+          "manifest_id": "v3_01262",
+          "md5": "f68a0a2ff09113d417c30a0b1265bceb"
+        }
+      ],
+      "perceptual_near_duplicate_count_h2": 121,
+      "perceptual_near_duplicates_h2": [
+        {
+          "eval_file": "flood_6414.jpg",
+          "eval_id": "v3_00489",
+          "manifest_file": "flood_6414.jpg",
+          "manifest_id": "v3_00489",
+          "hamming_distance": 0
+        },
+        {
+          "eval_file": "flood_7708.png",
+          "eval_id": "v3_00287",
+          "manifest_file": "flood_7708.png",
+          "manifest_id": "v3_00287",
+          "hamming_distance": 0
+        },
+        {
+          "eval_file": "flood_7708.png",
+          "eval_id": "v3_00287",
+          "manifest_file": "flood_7813.png",
+          "manifest_id": "v3_00605",
+          "hamming_distance": 2
+        },
+        {
+          "eval_file": "flood_6027.jpg",
+          "eval_id": "v3_01422",
+          "manifest_file": "flood_6027.jpg",
+          "manifest_id": "v3_01422",
+          "hamming_distance": 0
+        },
+        {
+          "eval_file": "flood_4371.jpg",
+          "eval_id": "v3_00133",
+          "manifest_file": "flood_4371.jpg",
+          "manifest_id": "v3_00133",
+          "hamming_distance": 0
+        },
+        {
+          "eval_file": "flood_4278.jpg",
+          "eval_id": "v3_01087",
+          "manifest_file": "flood_4278.jpg",
+          "manifest_id": "v3_01087",
+          "hamming_distance": 0
+        },
+        {
+          "eval_file": "flood_4985.jpg",
+          "eval_id": "v3_00840",
+          "manifest_file": "flood_4985.jpg",
+          "manifest_id": "v3_00840",
+          "hamming_distance": 0
+        },
+        {
+          "eval_file": "flood_8560.png",
+          "eval_id": "v3_00307",
+          "manifest_file": "flood_8560.png",
+          "manifest_id": "v3_00307",
+          "hamming_distance": 0
+        },
+        {
+          "eval_file": "flood_7035.png",
+          "eval_id": "v3_00384",
+          "manifest_file": "flood_7035.png",
+          "manifest_id": "v3_00384",
+          "hamming_distance": 0
+        },
+        {
+          "eval_file": "Flood_982.jpg",
+          "eval_id": "v3_00354",
+          "manifest_file": "Flood_982.jpg",
+          "manifest_id": "v3_00354",
+          "hamming_distance": 0
+        },
+        {
+          "eval_file": "flood_6319.jpg",
+          "eval_id": "v3_00473",
+          "manifest_file": "flood_6319.jpg",
+          "manifest_id": "v3_00473",
+          "hamming_distance": 0
+        },
+        {
+          "eval_file": "flood_2939.jpg",
+          "eval_id": "v3_00674",
+          "manifest_file": "flood_2939.jpg",
+          "manifest_id": "v3_00674",
+          "hamming_distance": 0
+        },
+        {
+          "eval_file": "flood_9302.png",
+          "eval_id": "v3_01437",
+          "manifest_file": "flood_9302.png",
+          "manifest_id": "v3_01437",
+          "hamming_distance": 0
+        },
+        {
+          "eval_file": "flood_4654.jpg",
+          "eval_id": "v3_01354",
+          "manifest_file": "flood_4654.jpg",
+          "manifest_id": "v3_01354",
+          "hamming_distance": 0
+        },
+        {
+          "eval_file": "flood_7940.png",
+          "eval_id": "v3_00914",
+          "manifest_file": "flood_7940.png",
+          "manifest_id": "v3_00914",
+          "hamming_distance": 0
+        },
+        {
+          "eval_file": "flood_7603.png",
+          "eval_id": "v3_00027",
+          "manifest_file": "flood_7603.png",
+          "manifest_id": "v3_00027",
+          "hamming_distance": 0
+        },
+        {
+          "eval_file": "flood_9055.png",
+          "eval_id": "v3_00063",
+          "manifest_file": "flood_9055.png",
+          "manifest_id": "v3_00063",
+          "hamming_distance": 0
+        },
+        {
+          "eval_file": "flood_7210.png",
+          "eval_id": "v3_00116",
+          "manifest_file": "flood_7210.png",
+          "manifest_id": "v3_00116",
+          "hamming_distance": 0
+        },
+        {
+          "eval_file": "flood_7210.png",
+          "eval_id": "v3_00116",
+          "manifest_file": "flood_7295.png",
+          "manifest_id": "v3_00236",
+          "hamming_distance": 1
+        },
+        {
+          "eval_file": "flood_7295.png",
+          "eval_id": "v3_00236",
+          "manifest_file": "flood_7210.png",
+          "manifest_id": "v3_00116",
+          "hamming_distance": 1
+        }
+      ],
+      "perceptual_near_duplicate_count_h5": 20
+    }
+  },
+  "methodological_audit_findings": {
+    "exact_md5_overlap_test_v3_vs_train_v3": 0,
+    "exact_md5_overlap_test_v3_vs_val_v3": 0,
+    "perceptual_near_duplicates_h2_test_v3_vs_train_v3": 5,
+    "perceptual_near_duplicates_h2_test_v3_vs_val_v3": 5,
+    "affected_pairs_sample": [
+      {
+        "eval_file": "flood_7940.png",
+        "eval_id": "v3_00914",
+        "manifest_file": "flood_7963.png",
+        "manifest_id": "v3_00486",
+        "hamming_distance": 1
+      },
+      {
+        "eval_file": "flood_7210.png",
+        "eval_id": "v3_00116",
+        "manifest_file": "flood_9328.png",
+        "manifest_id": "v3_01247",
+        "hamming_distance": 0
+      },
+      {
+        "eval_file": "flood_7210.png",
+        "eval_id": "v3_00116",
+        "manifest_file": "flood_7283.png",
+        "manifest_id": "v3_00706",
+        "hamming_distance": 2
+      },
+      {
+        "eval_file": "flood_7295.png",
+        "eval_id": "v3_00236",
+        "manifest_file": "flood_9328.png",
+        "manifest_id": "v3_01247",
+        "hamming_distance": 1
+      },
+      {
+        "eval_file": "flood_7186.png",
+        "eval_id": "v3_00834",
+        "manifest_file": "flood_7184.png",
+        "manifest_id": "v3_00141",
+        "hamming_distance": 2
+      }
+    ],
+    "historical_clemson_200_leaks": {
+      "exact_md5_train_v1": 36,
+      "exact_md5_val_v1": 8,
+      "exact_md5_test_v1": 8,
+      "exact_md5_train_v2": 37,
+      "exact_md5_val_v2": 5,
+      "exact_md5_test_v2": 8
+    },
+    "scientific_assessment": "AUDIT DISCOVERY: While exact MD5 leakage was strictly 0 between V3 Test and V3 Train/Val, the windowed near-duplicate clustering (window=300) in V3 preparation allowed 5 perceptual near-duplicate pairs (Hamming distance <= 2) to cross between Train V3 and Test V3. Furthermore, the historical 200 Clemson evaluation sample contained 36 exact MD5 training images in V1 and 37 in V2, disproving historical claims of external independence."
+  }
+}

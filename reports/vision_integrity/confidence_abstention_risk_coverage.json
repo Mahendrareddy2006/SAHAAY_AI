@@ -1,0 +1,270 @@
+{
+  "audit_title": "Confidence, Abstention, and Risk-Coverage Audit",
+  "model_evaluated": "model_v3_monsoon (mobilenet_v3_small)",
+  "threshold_origin_trace": {
+    "origin": "Heuristic preset in src/sahaay/config.py (VisionModelConfig.confidence_threshold = 0.65)",
+    "selected_on_validation_only": false,
+    "provisional_status": "PROVISIONAL. The 0.65 threshold was chosen a priori based on standard binary classification heuristics rather than empirical risk-coverage optimization on validation data.",
+    "recommendation": "Maintain 0.65 as an advisory threshold for development, but calibrate to a target false-alarm tolerance (e.g. risk <= 0.01) before municipal deployment."
+  },
+  "calibration_metrics": {
+    "validation_split": {
+      "sample_count": 222,
+      "ece": 0.0202,
+      "brier_score": 0.0223
+    },
+    "test_split": {
+      "sample_count": 222,
+      "ece": 0.0237,
+      "brier_score": 0.0255
+    }
+  },
+  "risk_coverage_sweep": {
+    "validation_v3": [
+      {
+        "threshold": 0.5,
+        "coverage": 1.0,
+        "review_rate": 0.0,
+        "accepted_count": 222,
+        "reviewed_count": 0,
+        "risk_on_accepted": 0.0225,
+        "accuracy_on_accepted": 0.9775,
+        "accuracy_on_reviewed": 0.0
+      },
+      {
+        "threshold": 0.55,
+        "coverage": 1.0,
+        "review_rate": 0.0,
+        "accepted_count": 222,
+        "reviewed_count": 0,
+        "risk_on_accepted": 0.0225,
+        "accuracy_on_accepted": 0.9775,
+        "accuracy_on_reviewed": 0.0
+      },
+      {
+        "threshold": 0.6,
+        "coverage": 0.982,
+        "review_rate": 0.018,
+        "accepted_count": 218,
+        "reviewed_count": 4,
+        "risk_on_accepted": 0.0183,
+        "accuracy_on_accepted": 0.9817,
+        "accuracy_on_reviewed": 0.75
+      },
+      {
+        "threshold": 0.65,
+        "coverage": 0.982,
+        "review_rate": 0.018,
+        "accepted_count": 218,
+        "reviewed_count": 4,
+        "risk_on_accepted": 0.0183,
+        "accuracy_on_accepted": 0.9817,
+        "accuracy_on_reviewed": 0.75
+      },
+      {
+        "threshold": 0.7,
+        "coverage": 0.982,
+        "review_rate": 0.018,
+        "accepted_count": 218,
+        "reviewed_count": 4,
+        "risk_on_accepted": 0.0183,
+        "accuracy_on_accepted": 0.9817,
+        "accuracy_on_reviewed": 0.75
+      },
+      {
+        "threshold": 0.75,
+        "coverage": 0.982,
+        "review_rate": 0.018,
+        "accepted_count": 218,
+        "reviewed_count": 4,
+        "risk_on_accepted": 0.0183,
+        "accuracy_on_accepted": 0.9817,
+        "accuracy_on_reviewed": 0.75
+      },
+      {
+        "threshold": 0.8,
+        "coverage": 0.9775,
+        "review_rate": 0.0225,
+        "accepted_count": 217,
+        "reviewed_count": 5,
+        "risk_on_accepted": 0.0184,
+        "accuracy_on_accepted": 0.9816,
+        "accuracy_on_reviewed": 0.8
+      },
+      {
+        "threshold": 0.85,
+        "coverage": 0.9685,
+        "review_rate": 0.0315,
+        "accepted_count": 215,
+        "reviewed_count": 7,
+        "risk_on_accepted": 0.0186,
+        "accuracy_on_accepted": 0.9814,
+        "accuracy_on_reviewed": 0.8571
+      },
+      {
+        "threshold": 0.9,
+        "coverage": 0.955,
+        "review_rate": 0.045,
+        "accepted_count": 212,
+        "reviewed_count": 10,
+        "risk_on_accepted": 0.0189,
+        "accuracy_on_accepted": 0.9811,
+        "accuracy_on_reviewed": 0.9
+      },
+      {
+        "threshold": 0.95,
+        "coverage": 0.9369,
+        "review_rate": 0.0631,
+        "accepted_count": 208,
+        "reviewed_count": 14,
+        "risk_on_accepted": 0.0192,
+        "accuracy_on_accepted": 0.9808,
+        "accuracy_on_reviewed": 0.9286
+      },
+      {
+        "threshold": 0.98,
+        "coverage": 0.8604,
+        "review_rate": 0.1396,
+        "accepted_count": 191,
+        "reviewed_count": 31,
+        "risk_on_accepted": 0.0157,
+        "accuracy_on_accepted": 0.9843,
+        "accuracy_on_reviewed": 0.9355
+      }
+    ],
+    "test_v3": [
+      {
+        "threshold": 0.5,
+        "coverage": 1.0,
+        "review_rate": 0.0,
+        "accepted_count": 222,
+        "reviewed_count": 0,
+        "risk_on_accepted": 0.0225,
+        "accuracy_on_accepted": 0.9775,
+        "accuracy_on_reviewed": 0.0
+      },
+      {
+        "threshold": 0.55,
+        "coverage": 0.991,
+        "review_rate": 0.009,
+        "accepted_count": 220,
+        "reviewed_count": 2,
+        "risk_on_accepted": 0.0227,
+        "accuracy_on_accepted": 0.9773,
+        "accuracy_on_reviewed": 1.0
+      },
+      {
+        "threshold": 0.6,
+        "coverage": 0.991,
+        "review_rate": 0.009,
+        "accepted_count": 220,
+        "reviewed_count": 2,
+        "risk_on_accepted": 0.0227,
+        "accuracy_on_accepted": 0.9773,
+        "accuracy_on_reviewed": 1.0
+      },
+      {
+        "threshold": 0.65,
+        "coverage": 0.991,
+        "review_rate": 0.009,
+        "accepted_count": 220,
+        "reviewed_count": 2,
+        "risk_on_accepted": 0.0227,
+        "accuracy_on_accepted": 0.9773,
+        "accuracy_on_reviewed": 1.0
+      },
+      {
+        "threshold": 0.7,
+        "coverage": 0.9865,
+        "review_rate": 0.0135,
+        "accepted_count": 219,
+        "reviewed_count": 3,
+        "risk_on_accepted": 0.0228,
+        "accuracy_on_accepted": 0.9772,
+        "accuracy_on_reviewed": 1.0
+      },
+      {
+        "threshold": 0.75,
+        "coverage": 0.9775,
+        "review_rate": 0.0225,
+        "accepted_count": 217,
+        "reviewed_count": 5,
+        "risk_on_accepted": 0.023,
+        "accuracy_on_accepted": 0.977,
+        "accuracy_on_reviewed": 1.0
+      },
+      {
+        "threshold": 0.8,
+        "coverage": 0.964,
+        "review_rate": 0.036,
+        "accepted_count": 214,
+        "reviewed_count": 8,
+        "risk_on_accepted": 0.0234,
+        "accuracy_on_accepted": 0.9766,
+        "accuracy_on_reviewed": 1.0
+      },
+      {
+        "threshold": 0.85,
+        "coverage": 0.9459,
+        "review_rate": 0.0541,
+        "accepted_count": 210,
+        "reviewed_count": 12,
+        "risk_on_accepted": 0.0238,
+        "accuracy_on_accepted": 0.9762,
+        "accuracy_on_reviewed": 1.0
+      },
+      {
+        "threshold": 0.9,
+        "coverage": 0.9234,
+        "review_rate": 0.0766,
+        "accepted_count": 205,
+        "reviewed_count": 17,
+        "risk_on_accepted": 0.0195,
+        "accuracy_on_accepted": 0.9805,
+        "accuracy_on_reviewed": 0.9412
+      },
+      {
+        "threshold": 0.95,
+        "coverage": 0.8784,
+        "review_rate": 0.1216,
+        "accepted_count": 195,
+        "reviewed_count": 27,
+        "risk_on_accepted": 0.0154,
+        "accuracy_on_accepted": 0.9846,
+        "accuracy_on_reviewed": 0.9259
+      },
+      {
+        "threshold": 0.98,
+        "coverage": 0.8243,
+        "review_rate": 0.1757,
+        "accepted_count": 183,
+        "reviewed_count": 39,
+        "risk_on_accepted": 0.0164,
+        "accuracy_on_accepted": 0.9836,
+        "accuracy_on_reviewed": 0.9487
+      }
+    ]
+  },
+  "operational_threshold_comparison": {
+    "at_threshold_0_50": {
+      "coverage": 1.0,
+      "risk": 0.0225,
+      "review_rate": 0.0
+    },
+    "at_threshold_0_65": {
+      "coverage": 0.991,
+      "risk": 0.0227,
+      "review_rate": 0.009
+    },
+    "at_threshold_0_80": {
+      "coverage": 0.964,
+      "risk": 0.0234,
+      "review_rate": 0.036
+    },
+    "at_threshold_0_90": {
+      "coverage": 0.9234,
+      "risk": 0.0195,
+      "review_rate": 0.0766
+    }
+  }
+}

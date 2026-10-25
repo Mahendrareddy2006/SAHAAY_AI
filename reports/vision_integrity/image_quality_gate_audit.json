@@ -1,0 +1,82 @@
+{
+  "audit_title": "Image Quality Gate Forensic and Behavioral Audit",
+  "implementation_module": "src/sahaay/vision/inference.py (FloodVisionInference)",
+  "architectural_pipeline": {
+    "execution_order": "1. validate_and_decode_image -> 2. evaluate_image_quality (NATIVE PIL) -> 3. transform (RESIZE/NORM) -> 4. forward pass",
+    "native_dimension_preservation": "CONFIRMED: Quality metrics are calculated directly on the decoded native RGB PIL Image prior to resizing to 224x224."
+  },
+  "mathematical_operators": {
+    "blur_operator": "3x3 discrete 2D Laplacian kernel: [[0, 1, 0], [1, -4, 1], [0, 1, 0]] convolved over grayscale native array",
+    "blur_threshold": "blur_variance < 15.0 AND luminance_std > 12.0",
+    "darkness_threshold": "mean_luminance < 10.0",
+    "whiteout_threshold": "mean_luminance > 248.0 AND luminance_std < 8.0",
+    "resolution_threshold": "width < 64 OR height < 64"
+  },
+  "empirical_test_cases": {
+    "native_resolution_preservation": {
+      "input_dimensions": [
+        1280,
+        720
+      ],
+      "metrics_dimensions": [
+        1280,
+        720
+      ],
+      "preserved_native_resolution": true,
+      "is_inconclusive": false
+    },
+    "borderline_resolution": {
+      "below_threshold_63x64": {
+        "predicted_class": "inconclusive",
+        "is_inconclusive": true,
+        "reasons": [
+          "Image resolution (63x64) is below minimal discernment threshold (64x64)."
+        ]
+      },
+      "at_threshold_64x64": {
+        "predicted_class": "flooded",
+        "is_inconclusive": false
+      }
+    },
+    "borderline_darkness": {
+      "luminance_8_fail": {
+        "mean_luminance": 8.0,
+        "predicted_class": "inconclusive",
+        "is_inconclusive": true
+      },
+      "luminance_15_pass": {
+        "mean_luminance": 15.0,
+        "predicted_class": "flooded",
+        "is_inconclusive": false
+      }
+    },
+    "borderline_whiteout": {
+      "luminance_252_fail": {
+        "mean_luminance": 252.0,
+        "predicted_class": "inconclusive",
+        "is_inconclusive": true
+      },
+      "luminance_240_pass": {
+        "mean_luminance": 240.0,
+        "predicted_class": "flooded",
+        "is_inconclusive": false
+      }
+    },
+    "severe_blur": {
+      "blur_variance": 0.28,
+      "luminance_std": 79.35,
+      "predicted_class": "inconclusive",
+      "is_inconclusive": true,
+      "reasons": [
+        "Image has severe motion smearing or lens condensation blur (blur variance: 0.3 < 15.0)."
+      ]
+    },
+    "non_silent_rejection_verification": {
+      "rejected_prediction_class": "inconclusive",
+      "not_flooded_silently_declared": false,
+      "flooded_silently_declared": false,
+      "confidence_clamped_to_zero": true,
+      "is_ambiguous_flagged": true
+    }
+  }
+}

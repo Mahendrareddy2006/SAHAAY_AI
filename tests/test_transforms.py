@@ -21,3 +21,14 @@ def test_eval_transforms_output_shape():
     assert isinstance(tensor, torch.Tensor)
     assert tensor.shape == (3, 224, 224)
     assert tensor.dtype == torch.float32
+
+def test_monsoon_train_transforms_output_shape():
+    from sahaay.vision.transforms import get_monsoon_train_transforms
+    transform = get_monsoon_train_transforms(image_size=224)
+    img = Image.new("RGB", (640, 480), color=(80, 80, 90))
+    tensor = transform(img)
+    
+    assert isinstance(tensor, torch.Tensor)
+    assert tensor.shape == (3, 224, 224)
+    assert tensor.dtype == torch.float32
+

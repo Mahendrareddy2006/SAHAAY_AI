@@ -1,0 +1,265 @@
+{
+  "audit_version": "1.0",
+  "audit_date": "2026-10-25",
+  "objective": "Audit independence and provenance of external Clemson evaluation cohort",
+  "provenance_and_licensing": {
+    "dataset_source": "Clemson University FloodIMG (Kaggle: hhrclemson/flooding-image-dataset)",
+    "research_citation": "Karanjit et al., Data in Brief (2023), DOI: 10.1016/j.dib.2023.109164",
+    "license": "Academic Research / Open Access (Data in Brief)",
+    "acquisition_nature": "Scraped from Twitter/X and USGS/DOT traffic cameras during flood events",
+    "ground_truth_label": "100% positive flood event photography (no negative class)",
+    "usage_role": "Strictly post-hoc external validation (NOT used for model training, hyperparameter tuning, or threshold selection)"
+  },
+  "sample_selection_methodology": {
+    "total_available_images": 9296,
+    "selection_strategy": "Sequential selection filtered against training MD5 hashes (seed 123)",
+    "sample_size": 200
+  },
+  "independence_verification": {
+    "overlap_audit": {
+      "sample_size": 200,
+      "exact_md5_overlap": {
+        "train_v1": {
+          "count": 8,
+          "matches": [
+            {
+              "clemson_file": "Flood_1002.jpg",
+              "md5": "e2f967a2e9f9794f925596854c469221",
+              "split_file": "C:\\Users\\MahendraReddy\\.cache\\kagglehub\\datasets\\roham1\\flood-classification-dataset\\versions\\1\\Flood\\Flood_1002.jpg"
+            },
+            {
+              "clemson_file": "Flood_1023.jpg",
+              "md5": "7f2692ac539f74ef8c0e3ac02a3b89c2",
+              "split_file": "C:\\Users\\MahendraReddy\\.cache\\kagglehub\\datasets\\roham1\\flood-classification-dataset\\versions\\1\\Flood\\Flood_1023.jpg"
+            },
+            {
+              "clemson_file": "Flood_1036.jpg",
+              "md5": "ee58129ba78a94c6504c7a266e1b6a85",
+              "split_file": "C:\\Users\\MahendraReddy\\.cache\\kagglehub\\datasets\\roham1\\flood-classification-dataset\\versions\\1\\Flood\\Flood_1036.jpg"
+            },
+            {
+              "clemson_file": "Flood_1075.jpg",
+              "md5": "663600c3c8865b49592ba528cbde7736",
+              "split_file": "C:\\Users\\MahendraReddy\\.cache\\kagglehub\\datasets\\roham1\\flood-classification-dataset\\versions\\1\\Flood\\Flood_1075.jpg"
+            },
+            {
+              "clemson_file": "Flood_1099.jpg",
+              "md5": "dbc38c0bb862d54b2c9675224b08065f",
+              "split_file": "C:\\Users\\MahendraReddy\\.cache\\kagglehub\\datasets\\roham1\\flood-classification-dataset\\versions\\1\\Flood\\Flood_1099.jpg"
+            },
+            {
+              "clemson_file": "flood_111.jpg",
+              "md5": "64bd2d49456e6f069d8a78eec269a5e4",
+              "split_file": "C:\\Users\\MahendraReddy\\.cache\\kagglehub\\datasets\\roham1\\flood-classification-dataset\\versions\\1\\Flood\\flood_5208.jpg"
+            },
+            {
+              "clemson_file": "flood_1167.jpg",
+              "md5": "0a8da14d924a81cedc5b5835ad018bfc",
+              "split_file": "C:\\Users\\MahendraReddy\\.cache\\kagglehub\\datasets\\roham1\\flood-classification-dataset\\versions\\1\\Flood\\flood_1167.jpg"
+            },
+            {
+              "clemson_file": "flood_117.jpg",
+              "md5": "0198403fc167a2d6b2ef4e0500bcc5a0",
+              "split_file": "C:\\Users\\MahendraReddy\\.cache\\kagglehub\\datasets\\roham1\\flood-classification-dataset\\versions\\1\\Flood\\flood_2360.jpg"
+            }
+          ]
+        },
+        "val_v1": {
+          "count": 4,
+          "matches": [
+            {
+              "clemson_file": "flood_1037.jpg",
+              "md5": "3968ee9f9bf7da489fdcc0a6e73a579c",
+              "split_file": "C:\\Users\\MahendraReddy\\.cache\\kagglehub\\datasets\\roham1\\flood-classification-dataset\\versions\\1\\Flood\\flood_1037.jpg"
+            },
+            {
+              "clemson_file": "flood_1042.jpg",
+              "md5": "1d56e329312b13d2827093139f8d277f",
+              "split_file": "C:\\Users\\MahendraReddy\\.cache\\kagglehub\\datasets\\roham1\\flood-classification-dataset\\versions\\1\\Flood\\flood_1042.jpg"
+            },
+            {
+              "clemson_file": "flood_1113.jpg",
+              "md5": "59eda706a94d760135b8888a51431dd8",
+              "split_file": "C:\\Users\\MahendraReddy\\.cache\\kagglehub\\datasets\\roham1\\flood-classification-dataset\\versions\\1\\Flood\\flood_1113.jpg"
+            },
+            {
+              "clemson_file": "flood_117.jpg",
+              "md5": "0198403fc167a2d6b2ef4e0500bcc5a0",
+              "split_file": "C:\\Users\\MahendraReddy\\.cache\\kagglehub\\datasets\\roham1\\flood-classification-dataset\\versions\\1\\Flood\\flood_5214.jpg"
+            }
+          ]
+        },
+        "test_v1": {
+          "count": 1,
+          "matches": [
+            {
+              "clemson_file": "flood_117.jpg",
+              "md5": "0198403fc167a2d6b2ef4e0500bcc5a0",
+              "split_file": "C:\\Users\\MahendraReddy\\.cache\\kagglehub\\datasets\\roham1\\flood-classification-dataset\\versions\\1\\Flood\\flood_117.jpg"
+            }
+          ]
+        },
+        "train_v2": {
+          "count": 0,
+          "matches": []
+        },
+        "val_v2": {
+          "count": 5,
+          "matches": [
+            {
+              "clemson_file": "Flood_1002.jpg",
+              "md5": "e2f967a2e9f9794f925596854c469221",
+              "split_file": "C:\\Users\\MahendraReddy\\.cache\\kagglehub\\datasets\\roham1\\flood-classification-dataset\\versions\\1\\Flood\\Flood_1002.jpg"
+            },
+            {
+              "clemson_file": "Flood_1023.jpg",
+              "md5": "7f2692ac539f74ef8c0e3ac02a3b89c2",
+              "split_file": "C:\\Users\\MahendraReddy\\.cache\\kagglehub\\datasets\\roham1\\flood-classification-dataset\\versions\\1\\Flood\\Flood_1023.jpg"
+            },
+            {
+              "clemson_file": "Flood_1075.jpg",
+              "md5": "663600c3c8865b49592ba528cbde7736",
+              "split_file": "C:\\Users\\MahendraReddy\\.cache\\kagglehub\\datasets\\roham1\\flood-classification-dataset\\versions\\1\\Flood\\Flood_1075.jpg"
+            },
+            {
+              "clemson_file": "flood_1042.jpg",
+              "md5": "1d56e329312b13d2827093139f8d277f",
+              "split_file": "C:\\Users\\MahendraReddy\\.cache\\kagglehub\\datasets\\roham1\\flood-classification-dataset\\versions\\1\\Flood\\flood_1042.jpg"
+            },
+            {
+              "clemson_file": "flood_1167.jpg",
+              "md5": "0a8da14d924a81cedc5b5835ad018bfc",
+              "split_file": "C:\\Users\\MahendraReddy\\.cache\\kagglehub\\datasets\\roham1\\flood-classification-dataset\\versions\\1\\Flood\\flood_1167.jpg"
+            }
+          ]
+        },
+        "test_v2": {
+          "count": 6,
+          "matches": [
+            {
+              "clemson_file": "Flood_1036.jpg",
+              "md5": "ee58129ba78a94c6504c7a266e1b6a85",
+              "split_file": "C:\\Users\\MahendraReddy\\.cache\\kagglehub\\datasets\\roham1\\flood-classification-dataset\\versions\\1\\Flood\\Flood_1036.jpg"
+            },
+            {
+              "clemson_file": "Flood_1099.jpg",
+              "md5": "dbc38c0bb862d54b2c9675224b08065f",
+              "split_file": "C:\\Users\\MahendraReddy\\.cache\\kagglehub\\datasets\\roham1\\flood-classification-dataset\\versions\\1\\Flood\\Flood_1099.jpg"
+            },
+            {
+              "clemson_file": "flood_1037.jpg",
+              "md5": "3968ee9f9bf7da489fdcc0a6e73a579c",
+              "split_file": "C:\\Users\\MahendraReddy\\.cache\\kagglehub\\datasets\\roham1\\flood-classification-dataset\\versions\\1\\Flood\\flood_1037.jpg"
+            },
+            {
+              "clemson_file": "flood_111.jpg",
+              "md5": "64bd2d49456e6f069d8a78eec269a5e4",
+              "split_file": "C:\\Users\\MahendraReddy\\.cache\\kagglehub\\datasets\\roham1\\flood-classification-dataset\\versions\\1\\Flood\\flood_5208.jpg"
+            },
+            {
+              "clemson_file": "flood_1113.jpg",
+              "md5": "59eda706a94d760135b8888a51431dd8",
+              "split_file": "C:\\Users\\MahendraReddy\\.cache\\kagglehub\\datasets\\roham1\\flood-classification-dataset\\versions\\1\\Flood\\flood_1113.jpg"
+            },
+            {
+              "clemson_file": "flood_117.jpg",
+              "md5": "0198403fc167a2d6b2ef4e0500bcc5a0",
+              "split_file": "C:\\Users\\MahendraReddy\\.cache\\kagglehub\\datasets\\roham1\\flood-classification-dataset\\versions\\1\\Flood\\flood_5214.jpg"
+            }
+          ]
+        }
+      },
+      "perceptual_near_duplicate_overlap": {
+        "val_v2": {
+          "count": 7,
+          "matches": [
+            {
+              "clemson_file": "Flood_1002.jpg",
+              "target_file": "C:\\Users\\MahendraReddy\\.cache\\kagglehub\\datasets\\roham1\\flood-classification-dataset\\versions\\1\\Flood\\Flood_1002.jpg",
+              "hamming_distance": 0
+            },
+            {
+              "clemson_file": "Flood_1023.jpg",
+              "target_file": "C:\\Users\\MahendraReddy\\.cache\\kagglehub\\datasets\\roham1\\flood-classification-dataset\\versions\\1\\Flood\\Flood_1023.jpg",
+              "hamming_distance": 0
+            },
+            {
+              "clemson_file": "Flood_1075.jpg",
+              "target_file": "C:\\Users\\MahendraReddy\\.cache\\kagglehub\\datasets\\roham1\\flood-classification-dataset\\versions\\1\\Flood\\Flood_1075.jpg",
+              "hamming_distance": 0
+            },
+            {
+              "clemson_file": "flood_1042.jpg",
+              "target_file": "C:\\Users\\MahendraReddy\\.cache\\kagglehub\\datasets\\roham1\\flood-classification-dataset\\versions\\1\\Flood\\flood_1042.jpg",
+              "hamming_distance": 0
+            },
+            {
+              "clemson_file": "flood_108.jpg",
+              "target_file": "C:\\Users\\MahendraReddy\\.cache\\kagglehub\\datasets\\roham1\\flood-classification-dataset\\versions\\1\\Flood\\flood_2310.jpg",
+              "hamming_distance": 0
+            }
+          ]
+        },
+        "test_v2": {
+          "count": 8,
+          "matches": [
+            {
+              "clemson_file": "Flood_1036.jpg",
+              "target_file": "C:\\Users\\MahendraReddy\\.cache\\kagglehub\\datasets\\roham1\\flood-classification-dataset\\versions\\1\\Flood\\Flood_1036.jpg",
+              "hamming_distance": 0
+            },
+            {
+              "clemson_file": "Flood_1099.jpg",
+              "target_file": "C:\\Users\\MahendraReddy\\.cache\\kagglehub\\datasets\\roham1\\flood-classification-dataset\\versions\\1\\Flood\\Flood_1099.jpg",
+              "hamming_distance": 0
+            },
+            {
+              "clemson_file": "flood_1037.jpg",
+              "target_file": "C:\\Users\\MahendraReddy\\.cache\\kagglehub\\datasets\\roham1\\flood-classification-dataset\\versions\\1\\Flood\\flood_1037.jpg",
+              "hamming_distance": 0
+            },
+            {
+              "clemson_file": "flood_111.jpg",
+              "target_file": "C:\\Users\\MahendraReddy\\.cache\\kagglehub\\datasets\\roham1\\flood-classification-dataset\\versions\\1\\Flood\\flood_5208.jpg",
+              "hamming_distance": 0
+            },
+            {
+              "clemson_file": "flood_1113.jpg",
+              "target_file": "C:\\Users\\MahendraReddy\\.cache\\kagglehub\\datasets\\roham1\\flood-classification-dataset\\versions\\1\\Flood\\flood_1113.jpg",
+              "hamming_distance": 0
+            }
+          ]
+        },
+        "train_v2": {
+          "count": 1,
+          "matches": [
+            {
+              "clemson_file": "flood_10.jpg",
+              "target_file": "C:\\Users\\MahendraReddy\\.cache\\kagglehub\\datasets\\roham1\\flood-classification-dataset\\versions\\1\\Flood\\flood_5175.jpg",
+              "hamming_distance": 0
+            }
+          ]
+        }
+      }
+    },
+    "internal_duplicate_scenes": {
+      "total_clusters": 198,
+      "multi_image_clusters_count": 2,
+      "multi_image_clusters_sample": [
+        [
+          "flood_1019.jpg",
+          "flood_1184.jpg"
+        ],
+        [
+          "flood_1101.jpg",
+          "flood_1149.jpg"
+        ]
+      ]
+    }
+  },
+  "critical_methodological_limitations": [
+    "POSITIVE-ONLY COHORT: The external Clemson dataset contains exclusively flood images. It CANNOT evaluate false positive rate, true negative rate, specificity, or overall precision.",
+    "PROVISIONAL CALIBRATION: Evaluating calibration or threshold efficacy on a 100% positive distribution is mathematically incomplete, as receiver operating characteristic (ROC) curves and precision-recall curves require both positive and negative ground-truth instances.",
+    "DEPLOYMENT NON-READINESS: High external recall (100% on Clemson) proves feature transfer for flood patterns, but does NOT establish deployment readiness for urban Hyderabad due to absent local hard-negative validation."
+  ]
+}

@@ -1,0 +1,72 @@
+{
+  "model_name": "mobilenet_v3_small",
+  "model_version": "3.0.0-monsoon-robust",
+  "best_epoch": 2,
+  "best_val_macro_f1": 0.9774770204735913,
+  "best_val_metrics": {
+    "loss": 0.12805231882108226,
+    "accuracy": 0.9774774774774775,
+    "macro_f1": 0.9774770204735913,
+    "precision_not_flooded": 0.9732142857142857,
+    "recall_not_flooded": 0.9819819819819819,
+    "f1_not_flooded": 0.9775784753363229,
+    "precision_flooded": 0.9818181818181818,
+    "recall_flooded": 0.972972972972973,
+    "f1_flooded": 0.9773755656108597
+  },
+  "total_training_time_seconds": 165.21,
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 0.28839955246886617,
+      "val_loss": 0.11217715960365159,
+      "val_accuracy": 0.9774774774774775,
+      "val_macro_f1": 0.9774733637747336,
+      "val_f1_flooded": 0.9771689497716894,
+      "val_f1_not_flooded": 0.9777777777777777,
+      "epoch_time_seconds": 32.91
+    },
+    {
+      "epoch": 2,
+      "train_loss": 0.10131322520531037,
+      "val_loss": 0.12805231882108226,
+      "val_accuracy": 0.9774774774774775,
+      "val_macro_f1": 0.9774770204735913,
+      "val_f1_flooded": 0.9773755656108597,
+      "val_f1_not_flooded": 0.9775784753363229,
+      "epoch_time_seconds": 32.8
+    },
+    {
+      "epoch": 3,
+      "train_loss": 0.06363328829105057,
+      "val_loss": 0.12629891824614894,
+      "val_accuracy": 0.972972972972973,
+      "val_macro_f1": 0.9729707792207792,
+      "val_f1_flooded": 0.9727272727272728,
+      "val_f1_not_flooded": 0.9732142857142857,
+      "epoch_time_seconds": 33.07
+    },
+    {
+      "epoch": 4,
+      "train_loss": 0.0413067153163211,
+      "val_loss": 0.10717167218660449,
+      "val_accuracy": 0.9774774774774775,
+      "val_macro_f1": 0.9774770204735913,
+      "val_f1_flooded": 0.9773755656108597,
+      "val_f1_not_flooded": 0.9775784753363229,
+      "epoch_time_seconds": 33.01
+    },
+    {
+      "epoch": 5,
+      "train_loss": 0.03897791688026035,
+      "val_loss": 0.10375228406743961,
+      "val_accuracy": 0.972972972972973,
+      "val_macro_f1": 0.972972972972973,
+      "val_f1_flooded": 0.972972972972973,
+      "val_f1_not_flooded": 0.972972972972973,
+      "epoch_time_seconds": 33.3
+    }
+  ],
+  "total_parameters": 1519906,
+  "checkpoint_file": "models\\vision\\v3\\model_v3_monsoon.pt"
+}

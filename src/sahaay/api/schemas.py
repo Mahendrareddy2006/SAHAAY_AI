@@ -3,7 +3,7 @@ Sahaay AI - API Schemas (Pydantic V2)
 Strict data contracts for HTTP request/response payloads.
 """
 
-from typing import Dict, List, Optional
+from typing import Dict, List, Optional, Any
 from pydantic import BaseModel, Field
 
 class LocationCoords(BaseModel):
@@ -20,6 +20,9 @@ class VisionPredictionResponse(BaseModel):
     confidence: float
     class_scores: ClassScores
     is_ambiguous: bool
+    is_inconclusive: Optional[bool] = False
+    inconclusive_reasons: Optional[List[str]] = None
+    quality_metrics: Optional[Dict[str, Any]] = None
     model_name: str
     model_version: str
     device: str

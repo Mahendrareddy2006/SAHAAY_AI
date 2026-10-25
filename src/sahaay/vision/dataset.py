@@ -23,6 +23,8 @@ class FloodDataset(Dataset):
             raise FileNotFoundError(f"Manifest not found at: {csv_file}")
             
         self.df = pd.read_csv(csv_file)
+        if "label_idx" not in self.df.columns and "label" in self.df.columns:
+            self.df["label_idx"] = self.df["label"]
         if "file_path" not in self.df.columns or "label_idx" not in self.df.columns:
             raise ValueError(f"CSV manifest must contain 'file_path' and 'label_idx' columns: {csv_file}")
             

@@ -1,0 +1,382 @@
+{
+  "test_split_size": 222,
+  "real_world_cohorts": {
+    "puddles_and_wet_roads_hard_negatives": {
+      "sample_count": 61,
+      "selection_procedure": "Real road inspection images with rain puddles, wet asphalt, cracks without flooding",
+      "models": {
+        "model_v2_historical": {
+          "sample_count": 61,
+          "accuracy": 0.0656,
+          "precision": 0.0,
+          "recall": 0.0,
+          "macro_f1": 0.0,
+          "false_positive_rate": 0.9344,
+          "false_negative_rate": 0.0,
+          "mean_confidence": 0.9625
+        },
+        "model_v3_clean": {
+          "sample_count": 61,
+          "accuracy": 0.9836,
+          "precision": 0.0,
+          "recall": 0.0,
+          "macro_f1": 0.0,
+          "false_positive_rate": 0.0164,
+          "false_negative_rate": 0.0,
+          "mean_confidence": 0.9645
+        },
+        "model_v3_monsoon": {
+          "sample_count": 61,
+          "accuracy": 0.9836,
+          "precision": 0.0,
+          "recall": 0.0,
+          "macro_f1": 0.0,
+          "false_positive_rate": 0.0164,
+          "false_negative_rate": 0.0,
+          "mean_confidence": 0.9673
+        }
+      }
+    },
+    "plain_dry_roads": {
+      "sample_count": 50,
+      "selection_procedure": "Real road inspection images with dry asphalt, curbs, traffic",
+      "models": {
+        "model_v2_historical": {
+          "sample_count": 50,
+          "accuracy": 0.06,
+          "precision": 0.0,
+          "recall": 0.0,
+          "macro_f1": 0.0,
+          "false_positive_rate": 0.94,
+          "false_negative_rate": 0.0,
+          "mean_confidence": 0.9771
+        },
+        "model_v3_clean": {
+          "sample_count": 50,
+          "accuracy": 0.94,
+          "precision": 0.0,
+          "recall": 0.0,
+          "macro_f1": 0.0,
+          "false_positive_rate": 0.06,
+          "false_negative_rate": 0.0,
+          "mean_confidence": 0.9269
+        },
+        "model_v3_monsoon": {
+          "sample_count": 50,
+          "accuracy": 1.0,
+          "precision": 0.0,
+          "recall": 0.0,
+          "macro_f1": 0.0,
+          "false_positive_rate": 0.0,
+          "false_negative_rate": 0.0,
+          "mean_confidence": 0.985
+        }
+      }
+    },
+    "flooded_streets_clemson": {
+      "sample_count": 111,
+      "selection_procedure": "Ground-level street flood photography",
+      "models": {
+        "model_v2_historical": {
+          "sample_count": 111,
+          "accuracy": 1.0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "macro_f1": 1.0,
+          "false_positive_rate": 0.0,
+          "false_negative_rate": 0.0,
+          "mean_confidence": 0.9991
+        },
+        "model_v3_clean": {
+          "sample_count": 111,
+          "accuracy": 0.982,
+          "precision": 1.0,
+          "recall": 0.982,
+          "macro_f1": 0.9909,
+          "false_positive_rate": 0.0,
+          "false_negative_rate": 0.018,
+          "mean_confidence": 0.9813
+        },
+        "model_v3_monsoon": {
+          "sample_count": 111,
+          "accuracy": 0.964,
+          "precision": 1.0,
+          "recall": 0.964,
+          "macro_f1": 0.9817,
+          "false_positive_rate": 0.0,
+          "false_negative_rate": 0.036,
+          "mean_confidence": 0.9779
+        }
+      }
+    },
+    "real_low_light_and_overcast": {
+      "sample_count": 21,
+      "selection_procedure": "Natural images with mean pixel luminance < 85 (N=21)",
+      "models": {
+        "model_v2_historical": {
+          "sample_count": 21,
+          "accuracy": 0.4286,
+          "precision": 0.4286,
+          "recall": 1.0,
+          "macro_f1": 0.6,
+          "false_positive_rate": 1.0,
+          "false_negative_rate": 0.0,
+          "mean_confidence": 0.9843
+        },
+        "model_v3_clean": {
+          "sample_count": 21,
+          "accuracy": 0.9524,
+          "precision": 0.9,
+          "recall": 1.0,
+          "macro_f1": 0.9474,
+          "false_positive_rate": 0.0833,
+          "false_negative_rate": 0.0,
+          "mean_confidence": 0.9199
+        },
+        "model_v3_monsoon": {
+          "sample_count": 21,
+          "accuracy": 0.9524,
+          "precision": 1.0,
+          "recall": 0.8889,
+          "macro_f1": 0.9412,
+          "false_positive_rate": 0.0,
+          "false_negative_rate": 0.1111,
+          "mean_confidence": 0.9875
+        }
+      }
+    }
+  },
+  "synthetic_perturbation_cohorts": {
+    "synthetic_rain_mist_blur": {
+      "sample_count": 222,
+      "perturbation_type": "synthetic_rain_mist_blur",
+      "models": {
+        "model_v2_historical": {
+          "sample_count": 222,
+          "accuracy": 0.7072,
+          "precision": 0.871,
+          "recall": 0.4865,
+          "macro_f1": 0.6243,
+          "false_positive_rate": 0.0721,
+          "false_negative_rate": 0.5135,
+          "mean_confidence": 0.9095
+        },
+        "model_v3_clean": {
+          "sample_count": 222,
+          "accuracy": 0.9324,
+          "precision": 1.0,
+          "recall": 0.8649,
+          "macro_f1": 0.9275,
+          "false_positive_rate": 0.0,
+          "false_negative_rate": 0.1351,
+          "mean_confidence": 0.9307
+        },
+        "model_v3_monsoon": {
+          "sample_count": 222,
+          "accuracy": 0.9685,
+          "precision": 0.9815,
+          "recall": 0.955,
+          "macro_f1": 0.968,
+          "false_positive_rate": 0.018,
+          "false_negative_rate": 0.045,
+          "mean_confidence": 0.9612
+        }
+      }
+    },
+    "synthetic_night_darkness": {
+      "sample_count": 222,
+      "perturbation_type": "synthetic_night_darkness",
+      "models": {
+        "model_v2_historical": {
+          "sample_count": 222,
+          "accuracy": 0.5541,
+          "precision": 0.5288,
+          "recall": 0.991,
+          "macro_f1": 0.6897,
+          "false_positive_rate": 0.8829,
+          "false_negative_rate": 0.009,
+          "mean_confidence": 0.9734
+        },
+        "model_v3_clean": {
+          "sample_count": 222,
+          "accuracy": 0.8739,
+          "precision": 0.8268,
+          "recall": 0.9459,
+          "macro_f1": 0.8824,
+          "false_positive_rate": 0.1982,
+          "false_negative_rate": 0.0541,
+          "mean_confidence": 0.9096
+        },
+        "model_v3_monsoon": {
+          "sample_count": 222,
+          "accuracy": 0.9189,
+          "precision": 0.8908,
+          "recall": 0.955,
+          "macro_f1": 0.9217,
+          "false_positive_rate": 0.1171,
+          "false_negative_rate": 0.045,
+          "mean_confidence": 0.9269
+        }
+      }
+    },
+    "synthetic_headlight_glare": {
+      "sample_count": 222,
+      "perturbation_type": "synthetic_headlight_glare",
+      "models": {
+        "model_v2_historical": {
+          "sample_count": 222,
+          "accuracy": 0.545,
+          "precision": 0.5238,
+          "recall": 0.991,
+          "macro_f1": 0.6854,
+          "false_positive_rate": 0.9009,
+          "false_negative_rate": 0.009,
+          "mean_confidence": 0.958
+        },
+        "model_v3_clean": {
+          "sample_count": 222,
+          "accuracy": 0.9234,
+          "precision": 0.879,
+          "recall": 0.982,
+          "macro_f1": 0.9277,
+          "false_positive_rate": 0.1351,
+          "false_negative_rate": 0.018,
+          "mean_confidence": 0.9477
+        },
+        "model_v3_monsoon": {
+          "sample_count": 222,
+          "accuracy": 0.9459,
+          "precision": 0.9304,
+          "recall": 0.964,
+          "macro_f1": 0.9469,
+          "false_positive_rate": 0.0721,
+          "false_negative_rate": 0.036,
+          "mean_confidence": 0.9534
+        }
+      }
+    },
+    "synthetic_lens_droplet_spray": {
+      "sample_count": 222,
+      "perturbation_type": "synthetic_lens_droplet_spray",
+      "models": {
+        "model_v2_historical": {
+          "sample_count": 222,
+          "accuracy": 0.518,
+          "precision": 0.5092,
+          "recall": 1.0,
+          "macro_f1": 0.6748,
+          "false_positive_rate": 0.964,
+          "false_negative_rate": 0.0,
+          "mean_confidence": 0.9916
+        },
+        "model_v3_clean": {
+          "sample_count": 222,
+          "accuracy": 0.8874,
+          "precision": 0.8308,
+          "recall": 0.973,
+          "macro_f1": 0.8963,
+          "false_positive_rate": 0.1982,
+          "false_negative_rate": 0.027,
+          "mean_confidence": 0.9451
+        },
+        "model_v3_monsoon": {
+          "sample_count": 222,
+          "accuracy": 0.9234,
+          "precision": 0.8917,
+          "recall": 0.964,
+          "macro_f1": 0.9264,
+          "false_positive_rate": 0.1171,
+          "false_negative_rate": 0.036,
+          "mean_confidence": 0.9411
+        }
+      }
+    },
+    "synthetic_motion_blur": {
+      "sample_count": 222,
+      "perturbation_type": "synthetic_motion_blur",
+      "models": {
+        "model_v2_historical": {
+          "sample_count": 222,
+          "accuracy": 0.7838,
+          "precision": 0.7692,
+          "recall": 0.8108,
+          "macro_f1": 0.7895,
+          "false_positive_rate": 0.2432,
+          "false_negative_rate": 0.1892,
+          "mean_confidence": 0.8992
+        },
+        "model_v3_clean": {
+          "sample_count": 222,
+          "accuracy": 0.9595,
+          "precision": 1.0,
+          "recall": 0.9189,
+          "macro_f1": 0.9577,
+          "false_positive_rate": 0.0,
+          "false_negative_rate": 0.0811,
+          "mean_confidence": 0.9558
+        },
+        "model_v3_monsoon": {
+          "sample_count": 222,
+          "accuracy": 0.9685,
+          "precision": 0.9906,
+          "recall": 0.9459,
+          "macro_f1": 0.9677,
+          "false_positive_rate": 0.009,
+          "false_negative_rate": 0.0541,
+          "mean_confidence": 0.9774
+        }
+      }
+    }
+  },
+  "calibration_and_confidence": {
+    "model_v2_historical": {
+      "validation_ece": 0.4581,
+      "validation_brier_score": 0.4567,
+      "test_ece": 0.4526,
+      "test_brier_score": 0.4485,
+      "ambiguity_analysis_0_65_threshold": {
+        "ambiguous_sample_count": 2,
+        "ambiguous_fraction": 0.009,
+        "ambiguous_accuracy": 0.0,
+        "unambiguous_accuracy": 0.5364
+      },
+      "high_confidence_errors_over_85": {
+        "error_count": 96,
+        "high_conf_total": 212
+      }
+    },
+    "model_v3_clean": {
+      "validation_ece": 0.0171,
+      "validation_brier_score": 0.027,
+      "test_ece": 0.0134,
+      "test_brier_score": 0.0187,
+      "ambiguity_analysis_0_65_threshold": {
+        "ambiguous_sample_count": 6,
+        "ambiguous_fraction": 0.027,
+        "ambiguous_accuracy": 0.5,
+        "unambiguous_accuracy": 0.9861
+      },
+      "high_confidence_errors_over_85": {
+        "error_count": 1,
+        "high_conf_total": 200
+      }
+    },
+    "model_v3_monsoon": {
+      "validation_ece": 0.0202,
+      "validation_brier_score": 0.0223,
+      "test_ece": 0.0237,
+      "test_brier_score": 0.0255,
+      "ambiguity_analysis_0_65_threshold": {
+        "ambiguous_sample_count": 2,
+        "ambiguous_fraction": 0.009,
+        "ambiguous_accuracy": 1.0,
+        "unambiguous_accuracy": 0.9773
+      },
+      "high_confidence_errors_over_85": {
+        "error_count": 5,
+        "high_conf_total": 210
+      }
+    }
+  },
+  "high_confidence_error_analysis": {}
+}

@@ -34,3 +34,21 @@ def get_eval_transforms(image_size: int = 224) -> transforms.Compose:
         transforms.ToTensor(),
         transforms.Normalize(mean=IMAGENET_MEAN, std=IMAGENET_STD)
     ])
+
+def get_monsoon_train_transforms(image_size: int = 224) -> transforms.Compose:
+    """
+    Realistic monsoon degradation augmentation pipeline for robust model training.
+    Injects Gaussian blur, sharpness attenuation, contrast degradation, and lighting shifts
+    characteristic of torrential rain downpours and lens mist.
+    """
+    return transforms.Compose([
+        transforms.Resize((256, 256)),
+        transforms.RandomResizedCrop(image_size, scale=(0.75, 1.0)),
+        transforms.RandomHorizontalFlip(p=0.5),
+        transforms.ColorJitter(brightness=0.3, contrast=0.3, saturation=0.2, hue=0.05),
+        transforms.RandomAdjustSharpness(sharpness_factor=0.4, p=0.4),
+        transforms.GaussianBlur(kernel_size=(5, 9), sigma=(0.1, 2.5)),
+        transforms.ToTensor(),
+        transforms.Normalize(mean=IMAGENET_MEAN, std=IMAGENET_STD)
+    ])
+

@@ -93,6 +93,9 @@ def evaluate_decision(input_data: DecisionInput) -> DecisionOutput:
     elif has_vision and input_data.vision_predicted_class == "not_flooded":
         evidence.append(f"Visual check: No surface inundation observed (confidence {input_data.vision_confidence*100:.1f}%)")
         warnings.append("Absence of visual flooding in uploaded photo does NOT confirm passability.")
+    elif has_vision and input_data.vision_predicted_class == "inconclusive":
+        evidence.append("Visual evidence inconclusive: Uploaded image failed automated quality gate or exhibits high ambiguity.")
+        warnings.append("Inconclusive vision evidence cannot trigger autonomous road closure or emergency claims. Field verification required.")
         
     # Check rainfall
     if input_data.rainfall_risk_category in ["HIGH", "CRITICAL"]:

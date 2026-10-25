@@ -1,0 +1,72 @@
+{
+  "model_name": "mobilenet_v3_small",
+  "model_version": "3.0.0-clean-balanced",
+  "best_epoch": 2,
+  "best_val_macro_f1": 0.9684627092846271,
+  "best_val_metrics": {
+    "loss": 0.10397294982596561,
+    "accuracy": 0.9684684684684685,
+    "macro_f1": 0.9684627092846271,
+    "precision_not_flooded": 0.9814814814814815,
+    "recall_not_flooded": 0.954954954954955,
+    "f1_not_flooded": 0.9680365296803652,
+    "precision_flooded": 0.956140350877193,
+    "recall_flooded": 0.9819819819819819,
+    "f1_flooded": 0.9688888888888889
+  },
+  "total_training_time_seconds": 140.31,
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 0.25462415635701074,
+      "val_loss": 0.15825902744456455,
+      "val_accuracy": 0.954954954954955,
+      "val_macro_f1": 0.9549403263781766,
+      "val_f1_flooded": 0.9557522123893806,
+      "val_f1_not_flooded": 0.9541284403669725,
+      "epoch_time_seconds": 28.46
+    },
+    {
+      "epoch": 2,
+      "train_loss": 0.0835996619506777,
+      "val_loss": 0.10397294982596561,
+      "val_accuracy": 0.9684684684684685,
+      "val_macro_f1": 0.9684627092846271,
+      "val_f1_flooded": 0.9688888888888889,
+      "val_f1_not_flooded": 0.9680365296803652,
+      "epoch_time_seconds": 28.08
+    },
+    {
+      "epoch": 3,
+      "train_loss": 0.02856162801471393,
+      "val_loss": 0.11351354876617054,
+      "val_accuracy": 0.9594594594594594,
+      "val_macro_f1": 0.9594388842648044,
+      "val_f1_flooded": 0.960352422907489,
+      "val_f1_not_flooded": 0.9585253456221198,
+      "epoch_time_seconds": 27.84
+    },
+    {
+      "epoch": 4,
+      "train_loss": 0.027364800423852077,
+      "val_loss": 0.09849483043223888,
+      "val_accuracy": 0.9684684684684685,
+      "val_macro_f1": 0.9684627092846271,
+      "val_f1_flooded": 0.9688888888888889,
+      "val_f1_not_flooded": 0.9680365296803652,
+      "epoch_time_seconds": 27.85
+    },
+    {
+      "epoch": 5,
+      "train_loss": 0.019931776276150108,
+      "val_loss": 0.08895983815461665,
+      "val_accuracy": 0.9684684684684685,
+      "val_macro_f1": 0.9684627092846271,
+      "val_f1_flooded": 0.9688888888888889,
+      "val_f1_not_flooded": 0.9680365296803652,
+      "epoch_time_seconds": 27.96
+    }
+  ],
+  "total_parameters": 1519906,
+  "checkpoint_file": "models\\vision\\v3\\model_v3_clean.pt"
+}

@@ -1,0 +1,42 @@
+{
+  "width_only": {
+    "features": [
+      "width"
+    ],
+    "train_accuracy": 0.7292,
+    "val_accuracy": 0.7748,
+    "test_accuracy": 0.7387,
+    "test_precision": 0.8193,
+    "test_recall": 0.6126,
+    "test_macro_f1": 0.701,
+    "test_roc_auc": 0.7872
+  },
+  "dimensions_only": {
+    "features": [
+      "width",
+      "height"
+    ],
+    "train_accuracy": 0.7321,
+    "val_accuracy": 0.7523,
+    "test_accuracy": 0.7162,
+    "test_precision": 0.8077,
+    "test_recall": 0.5676,
+    "test_macro_f1": 0.6667,
+    "test_roc_auc": 0.7679
+  },
+  "all_metadata_features": {
+    "features": [
+      "width",
+      "height",
+      "aspect_ratio",
+      "file_size_kb"
+    ],
+    "train_accuracy": 0.852,
+    "val_accuracy": 0.8559,
+    "test_accuracy": 0.8378,
+    "test_precision": 0.9412,
+    "test_recall": 0.7207,
+    "test_macro_f1": 0.8163,
+    "test_roc_auc": 0.8658
+  }
+}

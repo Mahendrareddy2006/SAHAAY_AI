@@ -100,7 +100,8 @@ def train_flood_model(
     train_csv: str,
     val_csv: str,
     output_dir: str,
-    config: Optional[VisionModelConfig] = None
+    config: Optional[VisionModelConfig] = None,
+    train_transforms: Optional[Any] = None
 ) -> Dict[str, Any]:
     if config is None:
         config = VisionModelConfig()
@@ -111,7 +112,8 @@ def train_flood_model(
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     print(f"Using compute device: {device} ({torch.cuda.get_device_name(0) if torch.cuda.is_available() else 'CPU'})")
     
-    train_dataset = FloodDataset(train_csv, transform=get_train_transforms(config.image_size))
+    active_train_tf = train_transforms if train_transforms is not None else get_train_transforms(config.image_size)
+    train_dataset = FloodDataset(train_csv, transform=active_train_tf)
     val_dataset = FloodDataset(val_csv, transform=get_eval_transforms(config.image_size))
     
     train_loader = DataLoader(

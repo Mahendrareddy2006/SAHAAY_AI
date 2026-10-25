@@ -1,0 +1,54 @@
+{
+  "manifest_name": "Sahaay AI Phase 4 - Hyderabad Risk Features Manifest",
+  "generated_at_utc": "2026-10-25T10:38:38.152030Z",
+  "corridors_analyzed": 20,
+  "target_timestamp": "2023-12-01T19:00:00Z",
+  "source_datasets": [
+    "data/hyderabad_risk/raw/flooding_locations.kml",
+    "data/hyderabad_risk/raw/hyderabad_drains.kml",
+    "data/hyderabad_risk/raw/greater_hyderabad_waterbodies.geojson",
+    "data/hyderabad_risk/raw/hyderabad_monthly_rainfall_1901_2021.csv",
+    "data/hyderabad_risk/raw/telangana_hourly_telemetry_rainfall_2021_2025.csv"
+  ],
+  "derived_files": {
+    "features_csv": "data\\hyderabad_risk\\derived\\hyderabad_risk_features.csv",
+    "rows": 20,
+    "columns": [
+      "location_id",
+      "corridor_name",
+      "zone",
+      "latitude",
+      "longitude",
+      "dist_to_flood_hotspot_m",
+      "nearest_hotspot_name",
+      "dist_to_nearest_drain_m",
+      "dist_to_nearest_waterbody_m",
+      "nearest_waterbody_name",
+      "nearest_telemetry_station",
+      "nearest_station_dist_km",
+      "telemetry_freshness_hours",
+      "rain_1h_mm",
+      "rain_3h_mm",
+      "rain_6h_mm",
+      "rain_24h_mm",
+      "hist_month_mean_mm",
+      "hist_month_p90_mm",
+      "vulnerability_index",
+      "vulnerability_category",
+      "rainfall_risk_score",
+      "rainfall_risk_category",
+      "confidence_score",
+      "generated_at_utc"
+    ]
+  },
+  "vulnerability_distribution": {
+    "LOW": 10,
+    "MODERATE": 9,
+    "HIGH": 1
+  },
+  "rainfall_risk_distribution": {
+    "MEDIUM": 20
+  },
+  "mean_vulnerability_index": 0.21,
+  "mean_confidence_score": 0.53
+}

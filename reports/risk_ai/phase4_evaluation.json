@@ -1,0 +1,147 @@
+{
+  "evaluation_name": "Sahaay AI Phase 4 - Hyderabad Risk AI Baseline Engineering Evaluation & Label Feasibility Audit",
+  "generated_at_utc": "2026-10-25T11:00:00Z",
+  "supervised_training_feasibility": {
+    "decision": "NO-GO_SUPERVISED_TRAINING_UNJUSTIFIED",
+    "rationale": "Historical flooding locations dataset (flooding_locations.kml) contains 23 static spatial points with zero time-series flood occurrence or depth labels. Telangana telemetry rainfall contains hourly measurements across 38 stations, but lacks paired ground-truth road inundation outcome labels. Supervised ML trained on static hotspots would cause severe circular target leakage.",
+    "scientific_safeguard": "Delivered explainable, physics-calibrated rules baseline (IMD SOP thresholds + multi-criteria GIS road vulnerability index). No unsupported claims of predictive generalization are made."
+  },
+  "engineering_validation": {
+    "coordinate_transformations": {
+      "kml_crs": "EPSG:4326 (WGS84)",
+      "validation_status": "PASS",
+      "coordinate_inversion_safeguard": "Verified KML (lon, lat) vs Python (lat, lon) ordering across all 23 hotspots and 277 drain segments."
+    },
+    "accumulator_and_anomaly_filtering": {
+      "negative_sensor_faults_detected": 19,
+      "accumulator_spikes_over_250mm_detected": 36398,
+      "deduplicated_timestamps": 6027,
+      "clean_usable_telemetry_records": 29779,
+      "validation_status": "PASS"
+    },
+    "non_silent_missingness_handling": {
+      "rule": "Missing telemetry observations are never silently imputed as 0 mm.",
+      "behavior": "Missing 1h observation returns UNKNOWN category and triggers warning; missing rolling windows reduce confidence by 0.08 each.",
+      "validation_status": "PASS"
+    }
+  },
+  "sensitivity_analysis": {
+    "rainfall_risk_engine_response": [
+      {
+        "test_case": "Dry Weather (0.0 mm/hr, 0.0 mm 24h)",
+        "expected_category": "LOW",
+        "observed_category": "LOW",
+        "observed_score": 0.02,
+        "confidence": 0.65,
+        "pass": true
+      },
+      {
+        "test_case": "IMD Light Rain (5.0 mm/hr)",
+        "expected_category": "LOW",
+        "observed_category": "LOW",
+        "observed_score": 0.23,
+        "confidence": 0.65,
+        "pass": true
+      },
+      {
+        "test_case": "IMD Moderate Rain (12.0 mm/hr)",
+        "expected_category": "MEDIUM",
+        "observed_category": "MEDIUM",
+        "observed_score": 0.48,
+        "confidence": 0.65,
+        "pass": true
+      },
+      {
+        "test_case": "IMD Heavy Rain (25.0 mm/hr)",
+        "expected_category": "HIGH",
+        "observed_category": "HIGH",
+        "observed_score": 0.70,
+        "confidence": 0.65,
+        "pass": true
+      },
+      {
+        "test_case": "IMD Very Heavy Rain (45.0 mm/hr)",
+        "expected_category": "CRITICAL",
+        "observed_category": "CRITICAL",
+        "observed_score": 0.90,
+        "confidence": 0.65,
+        "pass": true
+      },
+      {
+        "test_case": "Cloudburst Intensity (110.0 mm/hr)",
+        "expected_category": "CRITICAL",
+        "observed_category": "CRITICAL",
+        "observed_score": 1.00,
+        "confidence": 0.65,
+        "pass": true
+      },
+      {
+        "test_case": "3-Hour Flash Surge (10 mm/hr, 45 mm 3h)",
+        "expected_category": "HIGH",
+        "observed_category": "HIGH",
+        "observed_score": 0.70,
+        "confidence": 0.65,
+        "pass": true
+      },
+      {
+        "test_case": "Missing Hourly Observation (rain_1h=None)",
+        "expected_category": "UNKNOWN",
+        "observed_category": "UNKNOWN",
+        "observed_score": 0.00,
+        "confidence": 0.10,
+        "pass": true
+      }
+    ],
+    "confidence_degradation_behavior": [
+      {
+        "condition": "Nearby Station (dist <= 15 km, fresh <= 1.5h, 4 windows)",
+        "confidence": 1.00
+      },
+      {
+        "condition": "Kondapochamma Station (dist = 50.6 km, fresh <= 1.5h, 4 windows)",
+        "confidence": 0.64
+      },
+      {
+        "condition": "Kondapochamma Station with 2 missing rolling windows",
+        "confidence": 0.48
+      },
+      {
+        "condition": "Stale Telemetry (dist = 50.6 km, data 4.0 hours stale)",
+        "confidence": 0.44
+      },
+      {
+        "condition": "Distant & Highly Stale (dist = 80 km, data 8.0 hours stale, missing 2 windows)",
+        "confidence": 0.10
+      }
+    ],
+    "road_vulnerability_engine_response": [
+      {
+        "test_case": "Direct Hotspot Centroid (dist_h=0m, dist_d=50m, dist_wb=100m)",
+        "expected_category": "SEVERE",
+        "observed_vulnerability_index": 0.90,
+        "pass": true
+      },
+      {
+        "test_case": "Tolichowki Corridor Profile (dist_h=120m, dist_d=80m, dist_wb=450m)",
+        "expected_category": "HIGH",
+        "observed_vulnerability_index": 0.53,
+        "pass": true
+      },
+      {
+        "test_case": "Upland Corridor (dist_h=1500m, dist_d=800m, dist_wb=1200m)",
+        "expected_category": "LOW",
+        "observed_vulnerability_index": 0.00,
+        "pass": true
+      }
+    ]
+  },
+  "required_observations_for_future_supervised_training": {
+    "label_specifications": [
+      "Timestamped road water depth telemetry (e.g., ultrasonic or radar stage sensors measuring inundation depth in cm).",
+      "Municipal GHMC Disaster Response Force (DRF) waterlogging dispatch logs with georeferenced incident start, peak, and clearance timestamps.",
+      "Verified citizen reports with EXIF timestamps, geolocation accuracy <= 15m, and optical confirmation of standing water."
+    ],
+    "temporal_alignment": "Observations must be paired with preceding 1h, 3h, 6h, 12h, and 24h rolling rainfall accumulations strictly before event onset to eliminate future-data leakage.",
+    "held_out_validation_design": "Temporal split reserving 2024 monsoon season + spatial split reserving 5 GHMC administrative circles."
+  }
+}

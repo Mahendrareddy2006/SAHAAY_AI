@@ -43,3 +43,28 @@ class ErrorResponse(BaseModel):
     error: str
     detail: str
     code: str
+
+
+class RainfallEstimateRequest(BaseModel):
+    location_id: str
+    rain_1h_mm: Optional[float] = None
+    rain_3h_mm: Optional[float] = None
+    rain_6h_mm: Optional[float] = None
+    rain_24h_mm: Optional[float] = None
+    station_dist_km: float = Field(0.0, ge=0.0)
+    data_freshness_hours: float = Field(0.0, ge=0.0)
+    data_timestamp: Optional[str] = None
+    historical_month_p90_mm: Optional[float] = None
+
+
+class RoadVulnerabilityRequest(BaseModel):
+    location_id: str
+    road_name: str
+    dist_to_hotspot_m: float = Field(..., ge=0.0)
+    nearest_hotspot_name: str
+    dist_to_drain_m: float = Field(..., ge=0.0)
+    dist_to_waterbody_m: float = Field(..., ge=0.0)
+    nearest_waterbody_name: str
+    road_elevation_m: Optional[float] = None
+    drainage_capacity_cusecs: Optional[float] = None
+

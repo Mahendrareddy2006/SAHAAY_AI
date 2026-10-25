@@ -1,0 +1,84 @@
+{
+  "report_name": "Sahaay AI Phase 4 - Hyderabad Risk AI Data Quality Audit",
+  "generated_at_utc": "2026-10-25T10:35:41.129580Z",
+  "datasets": {
+    "flooding_locations": {
+      "dataset": "hyderabad_flooding_hotspots",
+      "total_records": 23,
+      "valid_coordinates": 23,
+      "within_hyderabad_bbox": 23,
+      "duplicate_names": 0,
+      "crs": "EPSG:4326 (WGS84)",
+      "source_license": "Open Data Telangana / OpenCity",
+      "status": "PASS",
+      "notes": "23 chronic waterlogging hotspots in GHMC core arterial network."
+    },
+    "hyderabad_drains": {
+      "dataset": "hyderabad_drains_and_nalas",
+      "total_segments": 277,
+      "total_points": 14368,
+      "segments_within_hyderabad_bbox": 277,
+      "crs": "EPSG:4326 (WGS84)",
+      "source_license": "GHMC / OpenCity",
+      "status": "PASS",
+      "notes": "96 primary storm water drains/nalas with multi-vertex linestrings."
+    },
+    "greater_hyderabad_waterbodies": {
+      "dataset": "greater_hyderabad_waterbodies",
+      "total_polygons": 2324,
+      "valid_centroids": 2324,
+      "within_regional_bbox": 2324,
+      "zero_area_records": 0,
+      "crs": "EPSG:4326 (WGS84)",
+      "source_license": "HMDA / Irrigation Dept / OpenCity",
+      "status": "PASS",
+      "notes": "2,324 tanks/lakes across Greater Hyderabad & Rangareddy catchment basins."
+    },
+    "hyderabad_monthly_rainfall_1901_2021": {
+      "dataset": "hyderabad_monthly_rainfall_1901_2021",
+      "record_count_years": 121,
+      "year_range": "1901-2021",
+      "months_covered": 12,
+      "negative_rainfall_values": 0,
+      "missing_null_values": 0,
+      "mean_annual_monsoon_rainfall_mm": 592.9,
+      "p90_annual_monsoon_rainfall_mm": 812.08,
+      "source_provenance": "IMD (India Meteorological Department) / OpenCity",
+      "status": "PASS",
+      "notes": "121-year climatological baseline. Serves as seasonal reference percentiles, NOT real-time forecasts."
+    },
+    "telangana_hourly_telemetry_rainfall": {
+      "dataset": "telangana_hourly_telemetry_rainfall",
+      "raw_record_count": 72223,
+      "duplicate_timestamps_removed": 6027,
+      "clean_record_count": 66196,
+      "valid_qc_records": 29779,
+      "qc_negative_sensor_faults": 19,
+      "qc_accumulator_spikes_over_250mm": 36398,
+      "null_rainfall_records": 0,
+      "invalid_timestamps": 0,
+      "coordinate_bounding_box_failures": 0,
+      "unique_stations": 38,
+      "districts_represented": 22,
+      "closest_station_to_hyderabad": {
+        "station": "Kondapochamma Resrvoir",
+        "district": "SIDDIPET",
+        "dist_km": 47.88,
+        "coordinates": [
+          17.763,
+          78.703
+        ]
+      },
+      "spatial_resolution_limitation": "Telemetry stations are regional reservoir/dam gauges situated 47km to 113km from Hyderabad center. Data represents regional catchment rainfall, NOT hyper-local road-level precipitation.",
+      "non_silent_missingness_rule": "MANDATORY: Missing telemetry intervals must NEVER be silently imputed as 0 mm. Missingness triggers confidence discounting and explicit reason codes.",
+      "source_provenance": "National Water Data Portal (NWIC) / Telangana Surface Water Dept",
+      "status": "PASS_WITH_QC_FILTERING"
+    }
+  },
+  "critical_findings": [
+    "Flooding locations dataset contains 23 static historical waterlogging points with zero time-series outcome labels.",
+    "Telemetry rainfall exhibits 50.8% cumulative gauge accumulator entries (>250mm) and 19 negative sensor errors which must be filtered.",
+    "Telemetry weather stations are located 47km to 113km from Hyderabad center, requiring regional-scale attribution and confidence discounting.",
+    "Supervised predictive ML is NOT scientifically justified due to absence of dynamic ground-truth flood outcome labels."
+  ]
+}

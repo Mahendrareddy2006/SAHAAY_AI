@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+<Document id="root_doc">
+<Schema name="inundation_areas" id="inundation_areas">
+	<SimpleField name="OID" type="float"></SimpleField>
+	<SimpleField name="FolderPath" type="string"></SimpleField>
+	<SimpleField name="SymbolID" type="float"></SimpleField>
+	<SimpleField name="AltMode" type="int"></SimpleField>
+	<SimpleField name="Base" type="float"></SimpleField>
+	<SimpleField name="Snippet" type="string"></SimpleField>
+	<SimpleField name="PopupInfo" type="string"></SimpleField>
+	<SimpleField name="HasLabel" type="int"></SimpleField>
+	<SimpleField name="LabelID" type="float"></SimpleField>
+</Schema>
+<Folder><name>inundation_areas</name>
+  <Placemark>
+	<name>BALKAMPET RUB</name>
+	<ExtendedData><SchemaData schemaUrl="#inundation_areas">
+		<SimpleData name="OID">1</SimpleData>
+		<SimpleData name="FolderPath">MAJOR WATER LOGGING PLACES.kmz/Water logging</SimpleData>
+		<SimpleData name="SymbolID">0</SimpleData>
+		<SimpleData name="AltMode">-1</SimpleData>
+		<SimpleData name="Base">0</SimpleData>
+		<SimpleData name="Snippet"></SimpleData>
+		<SimpleData name="PopupInfo"></SimpleData>
+		<SimpleData name="HasLabel">-1</SimpleData>
+		<SimpleData name="LabelID">0</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>78.4512928670001,17.4487760540001,0</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<name>NEAR APOLLO CRADLE HOSPITAL , ROAD NO 12</name>
+	<ExtendedData><SchemaData schemaUrl="#inundation_areas">
+		<SimpleData name="OID">2</SimpleData>
+		<SimpleData name="FolderPath">MAJOR WATER LOGGING PLACES.kmz/Water logging</SimpleData>
+		<SimpleData name="SymbolID">0</SimpleData>
+		<SimpleData name="AltMode">-1</SimpleData>
+		<SimpleData name="Base">0</SimpleData>
+		<SimpleData name="Snippet"></SimpleData>
+		<SimpleData name="PopupInfo"></SimpleData>
+		<SimpleData name="HasLabel">-1</SimpleData>
+		<SimpleData name="LabelID">0</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>78.419640219,17.4160163450001,0</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<name>NEAR TAPADIA DIAGNOSTIC CENTRE, CHIKKADPALLY</name>
+	<ExtendedData><SchemaData schemaUrl="#inundation_areas">
+		<SimpleData name="OID">3</SimpleData>
+		<SimpleData name="FolderPath">MAJOR WATER LOGGING PLACES.kmz/Water logging</SimpleData>
+		<SimpleData name="SymbolID">0</SimpleData>
+		<SimpleData name="AltMode">-1</SimpleData>
+		<SimpleData name="Base">0</SimpleData>
+		<SimpleData name="Snippet"></SimpleData>
+		<SimpleData name="PopupInfo"></SimpleData>
+		<SimpleData name="HasLabel">-1</SimpleData>
+		<SimpleData name="LabelID">0</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>78.4971142640001,17.4075710750001,0</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<name>FIZA HOTEL,BHAHADURPURA X ROADS</name>
+	<ExtendedData><SchemaData schemaUrl="#inundation_areas">
+		<SimpleData name="OID">4</SimpleData>
+		<SimpleData name="FolderPath">MAJOR WATER LOGGING PLACES.kmz/Water logging</SimpleData>
+		<SimpleData name="SymbolID">0</SimpleData>
+		<SimpleData name="AltMode">-1</SimpleData>
+		<SimpleData name="Base">0</SimpleData>
+		<SimpleData name="Snippet"></SimpleData>
+		<SimpleData name="PopupInfo"></SimpleData>
+		<SimpleData name="HasLabel">-1</SimpleData>
+		<SimpleData name="LabelID">0</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>78.4542312450001,17.355292236,0</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<name>OPP BEGUM BAZAR POLICE STATION</name>
+	<ExtendedData><SchemaData schemaUrl="#inundation_areas">
+		<SimpleData name="OID">5</SimpleData>
+		<SimpleData name="FolderPath">MAJOR WATER LOGGING PLACES.kmz/Water logging</SimpleData>
+		<SimpleData name="SymbolID">0</SimpleData>
+		<SimpleData name="AltMode">-1</SimpleData>
+		<SimpleData name="Base">0</SimpleData>
+		<SimpleData name="Snippet"></SimpleData>
+		<SimpleData name="PopupInfo"></SimpleData>
+		<SimpleData name="HasLabel">-1</SimpleData>
+		<SimpleData name="LabelID">0</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>78.4752035750001,17.3797784020001,0</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<name>RETHIBOWLI JUNCTION</name>
+	<ExtendedData><SchemaData schemaUrl="#inundation_areas">
+		<SimpleData name="OID">6</SimpleData>
+		<SimpleData name="FolderPath">MAJOR WATER LOGGING PLACES.kmz/Water logging</SimpleData>
+		<SimpleData name="SymbolID">0</SimpleData>
+		<SimpleData name="AltMode">-1</SimpleData>
+		<SimpleData name="Base">0</SimpleData>
+		<SimpleData name="Snippet"></SimpleData>
+		<SimpleData name="PopupInfo"></SimpleData>
+		<SimpleData name="HasLabel">-1</SimpleData>
+		<SimpleData name="LabelID">0</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>78.4310778340001,17.3955330150001,0</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<name>NEAR GALAXY THEATRE,TOLICHOWKI</name>
+	<ExtendedData><SchemaData schemaUrl="#inundation_areas">
+		<SimpleData name="OID">7</SimpleData>
+		<SimpleData name="FolderPath">MAJOR WATER LOGGING PLACES.kmz/Water logging</SimpleData>
+		<SimpleData name="SymbolID">0</SimpleData>
+		<SimpleData name="AltMode">-1</SimpleData>
+		<SimpleData name="Base">0</SimpleData>
+		<SimpleData name="Snippet"></SimpleData>
+		<SimpleData name="PopupInfo"></SimpleData>
+		<SimpleData name="HasLabel">-1</SimpleData>
+		<SimpleData name="LabelID">0</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>78.4107353080001,17.402771021,0</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<name>LAKDIKAPUL</name>
+	<ExtendedData><SchemaData schemaUrl="#inundation_areas">
+		<SimpleData name="OID">8</SimpleData>
+		<SimpleData name="FolderPath">MAJOR WATER LOGGING PLACES.kmz/Water logging</SimpleData>
+		<SimpleData name="SymbolID">0</SimpleData>
+		<SimpleData name="AltMode">-1</SimpleData>
+		<SimpleData name="Base">0</SimpleData>
+		<SimpleData name="Snippet"></SimpleData>
+		<SimpleData name="PopupInfo"></SimpleData>
+		<SimpleData name="HasLabel">-1</SimpleData>
+		<SimpleData name="LabelID">0</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>78.4644954990001,17.404140093,0</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<name>Bombay Hotel, Ranigunj</name>
+	<ExtendedData><SchemaData schemaUrl="#inundation_areas">
+		<SimpleData name="OID">9</SimpleData>
+		<SimpleData name="FolderPath">MAJOR WATER LOGGING PLACES.kmz/Water logging</SimpleData>
+		<SimpleData name="SymbolID">0</SimpleData>
+		<SimpleData name="AltMode">-1</SimpleData>
+		<SimpleData name="Base">0</SimpleData>
+		<SimpleData name="Snippet"></SimpleData>
+		<SimpleData name="PopupInfo"></SimpleData>
+		<SimpleData name="HasLabel">-1</SimpleData>
+		<SimpleData name="LabelID">0</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>78.4884776820001,17.4324784470001,0</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<name>MODEL HOUSE, PUNJAGUTTA</name>
+	<ExtendedData><SchemaData schemaUrl="#inundation_areas">
+		<SimpleData name="OID">10</SimpleData>
+		<SimpleData name="FolderPath">MAJOR WATER LOGGING PLACES.kmz/Water logging</SimpleData>
+		<SimpleData name="SymbolID">0</SimpleData>
+		<SimpleData name="AltMode">-1</SimpleData>
+		<SimpleData name="Base">0</SimpleData>
+		<SimpleData name="Snippet"></SimpleData>
+		<SimpleData name="PopupInfo"></SimpleData>
+		<SimpleData name="HasLabel">-1</SimpleData>
+		<SimpleData name="LabelID">0</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>78.4535870460001,17.42445231,0</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<name>LAKE VIEW GUEST HOUSE</name>
+	<ExtendedData><SchemaData schemaUrl="#inundation_areas">
+		<SimpleData name="OID">11</SimpleData>
+		<SimpleData name="FolderPath">MAJOR WATER LOGGING PLACES.kmz/Water logging</SimpleData>
+		<SimpleData name="SymbolID">0</SimpleData>
+		<SimpleData name="AltMode">-1</SimpleData>
+		<SimpleData name="Base">0</SimpleData>
+		<SimpleData name="Snippet"></SimpleData>
+		<SimpleData name="PopupInfo"></SimpleData>
+		<SimpleData name="HasLabel">-1</SimpleData>
+		<SimpleData name="LabelID">0</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>78.460813639,17.4162287090001,0</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<name>VILLA MARY COLLEGE , RAJBHAVAN ROAD</name>
+	<ExtendedData><SchemaData schemaUrl="#inundation_areas">
+		<SimpleData name="OID">12</SimpleData>
+		<SimpleData name="FolderPath">MAJOR WATER LOGGING PLACES.kmz/Water logging</SimpleData>
+		<SimpleData name="SymbolID">0</SimpleData>
+		<SimpleData name="AltMode">-1</SimpleData>
+		<SimpleData name="Base">0</SimpleData>
+		<SimpleData name="Snippet"></SimpleData>
+		<SimpleData name="PopupInfo"></SimpleData>
+		<SimpleData name="HasLabel">-1</SimpleData>
+		<SimpleData name="LabelID">0</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>78.460300971,17.4212847090001,0</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<name>KCP JUNCTION ,NEAR RTA OFFICE,KHAIRATHABAD</name>
+	<ExtendedData><SchemaData schemaUrl="#inundation_areas">
+		<SimpleData name="OID">13</SimpleData>
+		<SimpleData name="FolderPath">MAJOR WATER LOGGING PLACES.kmz/Water logging</SimpleData>
+		<SimpleData name="SymbolID">0</SimpleData>
+		<SimpleData name="AltMode">-1</SimpleData>
+		<SimpleData name="Base">0</SimpleData>
+		<SimpleData name="Snippet"></SimpleData>
+		<SimpleData name="PopupInfo"></SimpleData>
+		<SimpleData name="HasLabel">-1</SimpleData>
+		<SimpleData name="LabelID">0</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>78.4570658100001,17.4174786030001,0</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<name>NEERU'S SHOWROOM ROAD NO 36,BANJARAHILLS</name>
+	<ExtendedData><SchemaData schemaUrl="#inundation_areas">
+		<SimpleData name="OID">14</SimpleData>
+		<SimpleData name="FolderPath">MAJOR WATER LOGGING PLACES.kmz/Water logging</SimpleData>
+		<SimpleData name="SymbolID">0</SimpleData>
+		<SimpleData name="AltMode">-1</SimpleData>
+		<SimpleData name="Base">0</SimpleData>
+		<SimpleData name="Snippet"></SimpleData>
+		<SimpleData name="PopupInfo"></SimpleData>
+		<SimpleData name="HasLabel">-1</SimpleData>
+		<SimpleData name="LabelID">0</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>78.399523474,17.4386529330001,0</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<name>MINERVA HOTEL,HIMAYATHNAGAR</name>
+	<ExtendedData><SchemaData schemaUrl="#inundation_areas">
+		<SimpleData name="OID">15</SimpleData>
+		<SimpleData name="FolderPath">MAJOR WATER LOGGING PLACES.kmz/Water logging</SimpleData>
+		<SimpleData name="SymbolID">0</SimpleData>
+		<SimpleData name="AltMode">-1</SimpleData>
+		<SimpleData name="Base">0</SimpleData>
+		<SimpleData name="Snippet"></SimpleData>
+		<SimpleData name="PopupInfo"></SimpleData>
+		<SimpleData name="HasLabel">-1</SimpleData>
+		<SimpleData name="LabelID">0</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>78.4854839060001,17.401406896,0</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<name>OLIPHANT BRIDGE,CHILKALGUDA X ROADS</name>
+	<ExtendedData><SchemaData schemaUrl="#inundation_areas">
+		<SimpleData name="OID">16</SimpleData>
+		<SimpleData name="FolderPath">MAJOR WATER LOGGING PLACES.kmz/Water logging</SimpleData>
+		<SimpleData name="SymbolID">0</SimpleData>
+		<SimpleData name="AltMode">-1</SimpleData>
+		<SimpleData name="Base">0</SimpleData>
+		<SimpleData name="Snippet"></SimpleData>
+		<SimpleData name="PopupInfo"></SimpleData>
+		<SimpleData name="HasLabel">-1</SimpleData>
+		<SimpleData name="LabelID">0</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>78.5059445630001,17.4336464690001,0</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<name>NAMPALLY T JUMCTION</name>
+	<ExtendedData><SchemaData schemaUrl="#inundation_areas">
+		<SimpleData name="OID">17</SimpleData>
+		<SimpleData name="FolderPath">MAJOR WATER LOGGING PLACES.kmz/Water logging</SimpleData>
+		<SimpleData name="SymbolID">0</SimpleData>
+		<SimpleData name="AltMode">-1</SimpleData>
+		<SimpleData name="Base">0</SimpleData>
+		<SimpleData name="Snippet"></SimpleData>
+		<SimpleData name="PopupInfo"></SimpleData>
+		<SimpleData name="HasLabel">-1</SimpleData>
+		<SimpleData name="LabelID">0</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>78.470026799,17.3923020730001,0</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<name>OPP MEDIVISION EYE HOSPITAL, NMDC</name>
+	<ExtendedData><SchemaData schemaUrl="#inundation_areas">
+		<SimpleData name="OID">18</SimpleData>
+		<SimpleData name="FolderPath">MAJOR WATER LOGGING PLACES.kmz/Water logging</SimpleData>
+		<SimpleData name="SymbolID">0</SimpleData>
+		<SimpleData name="AltMode">-1</SimpleData>
+		<SimpleData name="Base">0</SimpleData>
+		<SimpleData name="Snippet"></SimpleData>
+		<SimpleData name="PopupInfo"></SimpleData>
+		<SimpleData name="HasLabel">-1</SimpleData>
+		<SimpleData name="LabelID">0</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>78.447947609,17.399061938,0</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<name>MOGHAL ENGINEERING COLLEGE,BANDLAGUDA</name>
+	<ExtendedData><SchemaData schemaUrl="#inundation_areas">
+		<SimpleData name="OID">19</SimpleData>
+		<SimpleData name="FolderPath">MAJOR WATER LOGGING PLACES.kmz/Water logging</SimpleData>
+		<SimpleData name="SymbolID">0</SimpleData>
+		<SimpleData name="AltMode">-1</SimpleData>
+		<SimpleData name="Base">0</SimpleData>
+		<SimpleData name="Snippet"></SimpleData>
+		<SimpleData name="PopupInfo"></SimpleData>
+		<SimpleData name="HasLabel">-1</SimpleData>
+		<SimpleData name="LabelID">0</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>78.4599532010001,17.314368804,0</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<name>MALAKPET GUNJ</name>
+	<ExtendedData><SchemaData schemaUrl="#inundation_areas">
+		<SimpleData name="OID">20</SimpleData>
+		<SimpleData name="FolderPath">MAJOR WATER LOGGING PLACES.kmz/Water logging</SimpleData>
+		<SimpleData name="SymbolID">0</SimpleData>
+		<SimpleData name="AltMode">-1</SimpleData>
+		<SimpleData name="Base">0</SimpleData>
+		<SimpleData name="Snippet"></SimpleData>
+		<SimpleData name="PopupInfo"></SimpleData>
+		<SimpleData name="HasLabel">-1</SimpleData>
+		<SimpleData name="LabelID">0</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>78.504616846,17.3733012870001,0</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<name>MALAKPET RUB</name>
+	<ExtendedData><SchemaData schemaUrl="#inundation_areas">
+		<SimpleData name="OID">21</SimpleData>
+		<SimpleData name="FolderPath">MAJOR WATER LOGGING PLACES.kmz/Water logging</SimpleData>
+		<SimpleData name="SymbolID">0</SimpleData>
+		<SimpleData name="AltMode">-1</SimpleData>
+		<SimpleData name="Base">0</SimpleData>
+		<SimpleData name="Snippet"></SimpleData>
+		<SimpleData name="PopupInfo"></SimpleData>
+		<SimpleData name="HasLabel">-1</SimpleData>
+		<SimpleData name="LabelID">0</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>78.495137873,17.3770456660001,0</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<name>CHILKALGUDA RUB</name>
+	<ExtendedData><SchemaData schemaUrl="#inundation_areas">
+		<SimpleData name="OID">22</SimpleData>
+		<SimpleData name="FolderPath">MAJOR WATER LOGGING PLACES.kmz/Water logging</SimpleData>
+		<SimpleData name="SymbolID">0</SimpleData>
+		<SimpleData name="AltMode">-1</SimpleData>
+		<SimpleData name="Base">0</SimpleData>
+		<SimpleData name="Snippet"></SimpleData>
+		<SimpleData name="PopupInfo"></SimpleData>
+		<SimpleData name="HasLabel">-1</SimpleData>
+		<SimpleData name="LabelID">0</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>78.5124668160001,17.434696622,0</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<name>SHAIKPET NALA</name>
+	<ExtendedData><SchemaData schemaUrl="#inundation_areas">
+		<SimpleData name="OID">23</SimpleData>
+		<SimpleData name="FolderPath">MAJOR WATER LOGGING PLACES.kmz/Water logging</SimpleData>
+		<SimpleData name="SymbolID">0</SimpleData>
+		<SimpleData name="AltMode">-1</SimpleData>
+		<SimpleData name="Base">0</SimpleData>
+		<SimpleData name="Snippet"></SimpleData>
+		<SimpleData name="PopupInfo"></SimpleData>
+		<SimpleData name="HasLabel">-1</SimpleData>
+		<SimpleData name="LabelID">0</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>78.402841165,17.4067215600001,0</coordinates></Point>
+  </Placemark>
+</Folder>
+</Document></kml>

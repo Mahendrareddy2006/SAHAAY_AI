@@ -10,9 +10,14 @@ from fastapi.responses import JSONResponse
 from sahaay.api.schemas import (
     VisionPredictionResponse,
     VisionHealthResponse,
-    ErrorResponse
+    ErrorResponse,
+    RainfallEstimateRequest,
+    RoadVulnerabilityRequest,
 )
 from sahaay.decision.contracts import DecisionInput, DecisionOutput, evaluate_decision
+from sahaay.hyderabad_risk.rainfall_engine import evaluate_rainfall_risk_engine
+from sahaay.hyderabad_risk.schemas import RainfallRiskResult, RoadVulnerabilityResult
+from sahaay.hyderabad_risk.vulnerability_engine import evaluate_road_vulnerability_engine
 from sahaay.vision.inference import FloodVisionInference
 
 router = APIRouter(prefix="/api/v1")
@@ -131,3 +136,102 @@ async def evaluate_risk_decision(input_data: DecisionInput):
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"Decision evaluation failed: {str(e)}"
         )
+
+
+@router.post(
+    "/risk/rainfall/estimate",
+    response_model=RainfallRiskResult,
+    status_code=status.HTTP_200_OK,
+    tags=["Hyderabad Risk AI"]
+)
+async def estimate_rainfall_risk(request: RainfallEstimateRequest):
+    """
+    Hyderabad Rainfall Risk Baseline Evaluation Endpoint.
+    Evaluates precipitation intensity against IMD standard operational procedure thresholds.
+    """
+    try:
+        return evaluate_rainfall_risk_engine(
+            location_id=request.location_id,
+            rain_1h_mm=request.rain_1h_mm,
+            rain_3h_mm=request.rain_3h_mm,
+            rain_6h_mm=request.rain_6h_mm,
+            rain_24h_mm=request.rain_24h_mm,
+            station_dist_km=request.station_dist_km,
+            data_freshness_hours=request.data_freshness_hours,
+            data_timestamp=request.data_timestamp,
+            historical_month_p90_mm=request.historical_month_p90_mm,
+        )
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Rainfall risk calculation failed: {str(e)}"
+        )
+
+
+@router.post(
+    "/risk/vulnerability/calculate",
+    response_model=RoadVulnerabilityResult,
+    status_code=status.HTTP_200_OK,
+    tags=["Hyderabad Risk AI"]
+)
+async def calculate_road_vulnerability(request: RoadVulnerabilityRequest):
+    """
+    Hyderabad Road Vulnerability Baseline Evaluation Endpoint.
+    Computes static physical susceptibility index from proximity to hotspots, nalas, and water bodies.
+    """
+    try:
+        return evaluate_road_vulnerability_engine(
+            location_id=request.location_id,
+            road_name=request.road_name,
+            dist_to_hotspot_m=request.dist_to_hotspot_m,
+            nearest_hotspot_name=request.nearest_hotspot_name,
+            dist_to_drain_m=request.dist_to_drain_m,
+            dist_to_waterbody_m=request.dist_to_waterbody_m,
+            nearest_waterbody_name=request.nearest_waterbody_name,
+            road_elevation_m=request.road_elevation_m,
+            drainage_capacity_cusecs=request.drainage_capacity_cusecs,
+        )
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Road vulnerability calculation failed: {str(e)}"
+        )
+
+
+@router.get(
+    "/risk/corridors",
+    status_code=status.HTTP_200_OK,
+    tags=["Hyderabad Risk AI"]
+)
+async def list_corridor_risk_profiles():
+    """
+    Returns pre-computed risk features across the 20 candidate Hyderabad corridors.
+    """
+    from pathlib import Path
+    import pandas as pd
+
+    features_csv = Path("data/hyderabad_risk/derived/hyderabad_risk_features.csv")
+    if not features_csv.exists():
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Derived corridor risk features have not been generated yet."
+        )
+
+    df = pd.read_csv(features_csv)
+    import math
+    records = []
+    for row in df.to_dict(orient="records"):
+        clean_row = {}
+        for k, v in row.items():
+            if isinstance(v, float) and (math.isnan(v) or math.isinf(v)):
+                clean_row[k] = None
+            else:
+                clean_row[k] = v
+        records.append(clean_row)
+
+    return {
+        "status": "success",
+        "total_corridors": len(records),
+        "corridors": records
+    }
+

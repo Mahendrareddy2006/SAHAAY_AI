@@ -1,0 +1,87 @@
+{
+  "inventory_title": "Sahaay AI Phase 4 Hyderabad Risk Data Inventory",
+  "generated_at_utc": "2026-10-25T16:00:00Z",
+  "data_directory_raw": "data/hyderabad_risk/raw",
+  "datasets": {
+    "flooding_locations": {
+      "file_name": "flooding_locations.kml",
+      "format": "KML",
+      "publisher": "TRAC Telangana / GHMC via OpenCity",
+      "license": "Public Domain / Open Data",
+      "record_count": 23,
+      "feature_type": "Spatial Points (Inundation Hotspots)",
+      "file_size_kb": 15.98,
+      "md5": "52180f3e0a29486c47672ff881269389",
+      "geographic_bounds": {
+        "min_latitude": 17.3143,
+        "max_latitude": 17.4488,
+        "min_longitude": 78.3995,
+        "max_longitude": 78.5125
+      },
+      "temporal_coverage": "Static historical recurrence compile (2016-2023)",
+      "pipeline_role": "Spatial susceptibility hotspot distance calculation"
+    },
+    "hyderabad_drains": {
+      "file_name": "hyderabad_drains.kml",
+      "format": "KML",
+      "publisher": "GHMC via OpenCity",
+      "license": "Open Data / Public Domain",
+      "record_count": 96,
+      "feature_type": "Spatial LineStrings (Canals, Drains, Major Nalas)",
+      "file_size_kb": 570.4,
+      "md5": "9de0987bee6fcae3934f0d2c94ca1e32",
+      "geographic_bounds": {
+        "min_latitude": 17.3301,
+        "max_latitude": 17.5122,
+        "min_longitude": 78.4112,
+        "max_longitude": 78.5621
+      },
+      "temporal_coverage": "Static infrastructure survey",
+      "pipeline_role": "Proximity to primary stormwater conveyance channels"
+    },
+    "greater_hyderabad_waterbodies": {
+      "file_name": "greater_hyderabad_waterbodies.geojson",
+      "format": "GeoJSON",
+      "publisher": "TRAC Telangana via OpenCity",
+      "license": "Open Data / Public Domain",
+      "record_count": 2324,
+      "feature_type": "Spatial Polygons (Lakes, Tanks, Cheruvus)",
+      "file_size_kb": 4921.57,
+      "md5": "2d33ee59f143ee60216bbca88ea7b751",
+      "geographic_bounds": {
+        "min_latitude": 17.0512,
+        "max_latitude": 17.6521,
+        "min_longitude": 78.1124,
+        "max_longitude": 78.7841
+      },
+      "temporal_coverage": "Static hydrological tank inventory",
+      "pipeline_role": "Proximity to urban water retention bodies"
+    },
+    "hyderabad_monthly_rainfall": {
+      "file_name": "hyderabad_monthly_rainfall_1901_2021.csv",
+      "format": "CSV",
+      "publisher": "India Meteorological Department (IMD) via OpenCity",
+      "license": "Open Government Data (OGD) India",
+      "record_count": 121,
+      "feature_type": "Time Series Grid (Monthly mm)",
+      "file_size_kb": 16.38,
+      "md5": "023abc5d7a6e788bc5f33334800e28e4",
+      "temporal_coverage": "1901 to 2021 (121 Years)",
+      "pipeline_role": "Climatological monsoonal baseline and monthly percentile context"
+    },
+    "telangana_hourly_telemetry_rainfall": {
+      "file_name": "telangana_hourly_telemetry_rainfall_2021_2025.csv",
+      "format": "CSV",
+      "publisher": "National Water Informatics Centre (NWIC) / Telangana SW Dept",
+      "license": "Open Government Data (OGD) India / NWIC Access Terms",
+      "record_count": 72223,
+      "station_count": 38,
+      "feature_type": "Time Series Telemetry (Hourly mm / Accumulator)",
+      "file_size_kb": 8917.67,
+      "md5": "caf7704ffe93ceeb8d195f190db982d6",
+      "temporal_coverage": "2021-01-01 to 2025-12-31",
+      "pipeline_role": "Dynamic rainfall intensity, rolling accumulation, and data freshness calculations"
+    }
+  },
+  "summary": "All 4 candidate datasets successfully acquired from original open publishers and cached in immutable raw storage."
+}

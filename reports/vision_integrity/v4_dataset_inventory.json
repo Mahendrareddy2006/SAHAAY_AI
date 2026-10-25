@@ -1,0 +1,207 @@
+{
+  "inventory_title": "Sahaay AI Vision V4 Dataset Inventory & Domain Audit",
+  "sources": {
+    "virenbr11_plain_roads": {
+      "source_name": "virenbr11/pothole-and-plain-rode-images (Plain)",
+      "provenance": "Kaggle Open Dataset (Road Pavement Surface Condition)",
+      "license": "Open Database License (ODbL) / Public Domain",
+      "ground_truth_class": "non_flood",
+      "contains_both_classes": false,
+      "domain_type": "Ground-level street photography (dry asphalt, lane markings, curbs, traffic)",
+      "suitability_for_hard_negatives": "High (clean urban asphalt roads)",
+      "statistics": {
+        "total_files": 8,
+        "sampled_analyzed": 8,
+        "corrupt_images": 0,
+        "width": {
+          "mean": 291.4,
+          "min": 259,
+          "max": 354
+        },
+        "height": {
+          "mean": 173.9,
+          "min": 142,
+          "max": 194
+        },
+        "aspect_ratio": {
+          "mean": 1.7,
+          "min": 1.34,
+          "max": 2.49
+        },
+        "file_size_kb": {
+          "mean": 6.8,
+          "min": 4.5,
+          "max": 8.3
+        }
+      },
+      "total_available_images": 375
+    },
+    "virenbr11_potholes_hard_negatives": {
+      "source_name": "virenbr11/pothole-and-plain-rode-images (Pothole)",
+      "provenance": "Kaggle Open Dataset (Road Pavement Surface Condition)",
+      "license": "Open Database License (ODbL) / Public Domain",
+      "ground_truth_class": "non_flood (hard negative)",
+      "contains_both_classes": false,
+      "domain_type": "Ground-level road inspection (rain puddles, water accumulation, asphalt cracks without inundation)",
+      "suitability_for_hard_negatives": "Exceptional (direct hard-negative controls)",
+      "statistics": {
+        "total_files": 8,
+        "sampled_analyzed": 8,
+        "corrupt_images": 0,
+        "width": {
+          "mean": 663.4,
+          "min": 267,
+          "max": 1440
+        },
+        "height": {
+          "mean": 498.0,
+          "min": 179,
+          "max": 810
+        },
+        "aspect_ratio": {
+          "mean": 1.37,
+          "min": 0.65,
+          "max": 1.78
+        },
+        "file_size_kb": {
+          "mean": 141.0,
+          "min": 21.6,
+          "max": 467.8
+        }
+      },
+      "total_available_images": 365
+    },
+    "clemson_floodimg": {
+      "source_name": "Clemson University FloodIMG (hhrclemson/flooding-image-dataset)",
+      "provenance": "Karanjit et al., Data in Brief (2023), DOI: 10.1016/j.dib.2023.109164",
+      "license": "Academic Research / Open Access (Creative Commons)",
+      "ground_truth_class": "flood",
+      "contains_both_classes": false,
+      "domain_type": "Ground-level and street-level flood event photography (USGS DOT cams, Twitter/X storm scrapes)",
+      "suitability_for_flood_positives": "High (authentic ground inundation)",
+      "statistics": {
+        "total_files": 9296,
+        "sampled_analyzed": 1000,
+        "corrupt_images": 0,
+        "width": {
+          "mean": 1598.0,
+          "min": 300,
+          "max": 6999
+        },
+        "height": {
+          "mean": 1110.5,
+          "min": 213,
+          "max": 5020
+        },
+        "aspect_ratio": {
+          "mean": 1.47,
+          "min": 0.6,
+          "max": 4.75
+        },
+        "file_size_kb": {
+          "mean": 1193.1,
+          "min": 24.6,
+          "max": 11440.1
+        }
+      },
+      "total_available_images": 9296
+    },
+    "roham1_flood": {
+      "source_name": "roham1/flood-classification-dataset (Flood)",
+      "provenance": "Kaggle Open Dataset (Aggregated web scraping)",
+      "license": "Open Database License / Community Public",
+      "ground_truth_class": "flood",
+      "contains_both_classes": false,
+      "domain_type": "Mixed flood imagery (street floods, aerial river floods, emergency rescues)",
+      "suitability_for_flood_positives": "Moderate (contains non-road aerials and water bodies)",
+      "statistics": {
+        "total_files": 1500,
+        "sampled_analyzed": 1000,
+        "corrupt_images": 0,
+        "width": {
+          "mean": 1596.6,
+          "min": 194,
+          "max": 6074
+        },
+        "height": {
+          "mean": 1125.1,
+          "min": 168,
+          "max": 2339
+        },
+        "aspect_ratio": {
+          "mean": 1.46,
+          "min": 0.56,
+          "max": 4.75
+        },
+        "file_size_kb": {
+          "mean": 1357.8,
+          "min": 6.6,
+          "max": 4759.2
+        }
+      },
+      "total_available_images": 1500
+    },
+    "roham1_non_flood": {
+      "source_name": "roham1/flood-classification-dataset (Non_Flood)",
+      "provenance": "Kaggle Open Dataset (Aggregated web scraping)",
+      "license": "Open Database License / Community Public",
+      "ground_truth_class": "non_flood",
+      "contains_both_classes": false,
+      "domain_type": "Arbitrary non-road imagery (interiors, animals, landscapes, generic objects, 100% 224x224 thumbnail confounded)",
+      "suitability_for_hard_negatives": "Severely Defective (lacks road structure, triggers dimension shortcut)",
+      "statistics": {
+        "total_files": 1500,
+        "sampled_analyzed": 1000,
+        "corrupt_images": 0,
+        "width": {
+          "mean": 224.0,
+          "min": 224,
+          "max": 224
+        },
+        "height": {
+          "mean": 224.0,
+          "min": 224,
+          "max": 224
+        },
+        "aspect_ratio": {
+          "mean": 1.0,
+          "min": 1.0,
+          "max": 1.0
+        },
+        "file_size_kb": {
+          "mean": 11.4,
+          "min": 3.4,
+          "max": 21.4
+        }
+      },
+      "total_available_images": 1500
+    },
+    "floodnet_download_repo": {
+      "source_name": "FloodNet-Supervised_v1.0-main",
+      "path": "C:\\Users\\MahendraReddy\\Downloads\\FloodNet-Supervised_v1.0-main",
+      "status": "Incomplete / Code Repo Only (Raw image binary archives require separate external Google Drive access request)",
+      "usable_image_count": 1
+    },
+    "eu_flood_download_repo": {
+      "source_name": "eu-flood-dataset-master",
+      "path": "C:\\Users\\MahendraReddy\\Downloads\\eu-flood-dataset-master",
+      "status": "Incomplete / Metadata Repo Only (Requires scraping 3,500 Wikimedia Commons URLs which returned HTTP 403 Forbidden)",
+      "usable_image_count": 1
+    }
+  },
+  "cross_source_assessment": {
+    "sources_with_both_valid_classes": [],
+    "positive_only_sources": [
+      "clemson_floodimg",
+      "roham1_flood"
+    ],
+    "negative_only_sources": [
+      "virenbr11_plain_roads",
+      "virenbr11_potholes_hard_negatives"
+    ],
+    "convoluted_sources": [
+      "roham1 (Non_Flood is 100% 224x224 and non-road domain)"
+    ],
+    "fundamental_finding": "ZERO local datasets contain BOTH high-resolution road floods AND high-resolution non-flooded road surfaces. All road negatives reside in virenbr11; all high-resolution road floods reside in Clemson. Therefore, source identity is intrinsically confounded with the binary label across all available local data."
+  }
+}

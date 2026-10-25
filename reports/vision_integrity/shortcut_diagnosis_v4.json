@@ -1,0 +1,72 @@
+{
+  "width_only": {
+    "features": [
+      "width"
+    ],
+    "train_accuracy": 0.7563,
+    "val_accuracy": 0.704,
+    "test_accuracy": 0.6742,
+    "test_precision": 0.75,
+    "test_recall": 0.5182,
+    "test_macro_f1": 0.6129,
+    "test_roc_auc": 0.7583
+  },
+  "height_only": {
+    "features": [
+      "height"
+    ],
+    "train_accuracy": 0.7128,
+    "val_accuracy": 0.6861,
+    "test_accuracy": 0.6606,
+    "test_precision": 1.0,
+    "test_recall": 0.3182,
+    "test_macro_f1": 0.4828,
+    "test_roc_auc": 0.7566
+  },
+  "file_size_only": {
+    "features": [
+      "file_size_kb"
+    ],
+    "train_accuracy": 0.8501,
+    "val_accuracy": 0.8744,
+    "test_accuracy": 0.8009,
+    "test_precision": 0.8367,
+    "test_recall": 0.7455,
+    "test_macro_f1": 0.7885,
+    "test_roc_auc": 0.828
+  },
+  "dimensions_only": {
+    "features": [
+      "width",
+      "height"
+    ],
+    "train_accuracy": 0.7563,
+    "val_accuracy": 0.704,
+    "test_accuracy": 0.6742,
+    "test_precision": 0.75,
+    "test_recall": 0.5182,
+    "test_macro_f1": 0.6129,
+    "test_roc_auc": 0.7583
+  },
+  "all_metadata_rf": {
+    "features": [
+      "width",
+      "height",
+      "aspect_ratio",
+      "file_size_kb"
+    ],
+    "train_accuracy": 0.881,
+    "val_accuracy": 0.8834,
+    "test_accuracy": 0.8597,
+    "test_precision": 0.954,
+    "test_recall": 0.7545,
+    "test_macro_f1": 0.8426,
+    "test_roc_auc": 0.9066
+  },
+  "feature_importances": {
+    "width": 0.2461,
+    "height": 0.1499,
+    "aspect_ratio": 0.0623,
+    "file_size_kb": 0.5417
+  }
+}

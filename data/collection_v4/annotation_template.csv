@@ -1,0 +1,5 @@
+image_id,annotator_id_pseudonymous,label,visible_water_extent,road_obstruction_evidence,visibility_quality,lighting_condition,occlusion,label_confidence,adjudication_status,adjudicated_label,annotation_notes
+SYNTHETIC-EX-001,ANN-01,flooded_road,full_carriageway,slow_traffic,moderate_spray,daylight,none,0.95,consensus,flooded_road,Continuous standing water across 2 lanes with tire spray bow waves
+SYNTHETIC-EX-001,ANN-02,flooded_road,full_carriageway,slow_traffic,moderate_spray,daylight,none,0.90,consensus,flooded_road,Curbs submerged with water covering full lane width
+SYNTHETIC-EX-002,ANN-01,dry_road,none,none,high_clarity,daylight,none,1.0,consensus,dry_road,Asphalt completely dry with visible white lane markings
+SYNTHETIC-EX-002,ANN-02,dry_road,none,none,high_clarity,daylight,none,1.0,consensus,dry_road,Clear dry road surface

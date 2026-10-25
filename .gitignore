@@ -1,0 +1,13 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+*.egg-info/
+dist/
+build/
+*.pt
+*.pth
+data/raw/
+!data/processed/*.json
+!data/processed/*.csv
+!models/vision/*.json

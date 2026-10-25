@@ -1,0 +1,57 @@
+{
+  "model_name": "mobilenet_v3_small",
+  "model_version": "1.0.0",
+  "checkpoint_path": "models\\vision\\best_model.pt",
+  "evaluation_timestamp": "2026-10-25T06:36:57Z",
+  "test_dataset_size": 450,
+  "class_support": {
+    "not_flooded": 225,
+    "flooded": 225
+  },
+  "accuracy": 1.0,
+  "macro_f1": 1.0,
+  "metrics_by_class": {
+    "not_flooded": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1_score": 1.0,
+      "support": 225
+    },
+    "flooded": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1_score": 1.0,
+      "support": 225
+    }
+  },
+  "confusion_matrix": {
+    "true_negatives": 225,
+    "false_positives": 0,
+    "false_negatives": 0,
+    "true_positives": 225,
+    "matrix_layout": "[[TN, FP], [FN, TP]]",
+    "raw": [
+      [
+        225,
+        0
+      ],
+      [
+        0,
+        225
+      ]
+    ]
+  },
+  "error_analysis": {
+    "total_errors": 0,
+    "false_positives_count": 0,
+    "false_negatives_count": 0,
+    "false_positives": [],
+    "false_negatives": []
+  },
+  "inference_benchmark": {
+    "device": "cuda",
+    "total_inference_time_seconds": 6.282,
+    "average_latency_ms_per_image": 13.96,
+    "checkpoint_size_mb": 17.64
+  }
+}

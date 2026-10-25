@@ -1,0 +1,117 @@
+{
+  "audit_version": "1.0",
+  "project": "Sahaay AI - Flood Vision Dataset Audit",
+  "audit_date": "2026-10-25",
+  "datasets": {
+    "floodnet": {
+      "dataset_name": "FloodNet-Supervised_v1.0",
+      "perspective": "Aerial (UAS / DJI Mavic Pro Quadcopter)",
+      "source_type": "Drone imagery after Hurricane Harvey (Texas, USA)",
+      "license": "CDLA-Permissive-1.0 (Community Data License Agreement)",
+      "intended_task": "Semantic Segmentation & Visual Question Answering (VQA)",
+      "exists_locally": true,
+      "files_found": [
+        "FloodNet-Sample.jpg",
+        "README.md"
+      ],
+      "classes": [
+        "Background (0)",
+        "Building Flooded (1)",
+        "Building Non-Flooded (2)",
+        "Road Flooded (3)",
+        "Road Non-Flooded (4)",
+        "Water (5)",
+        "Tree (6)",
+        "Vehicle (7)",
+        "Pool (8)",
+        "Grass (9)"
+      ],
+      "image_count_documented": 2343,
+      "split_documented": {
+        "train": "~60%",
+        "val": "~20%",
+        "test": "~20%"
+      },
+      "download_source": "Dropbox (13.05 GB total zip)",
+      "domain_shift_assessment": "CRITICAL PERSPECTIVE MISMATCH: FloodNet images are nadir/oblique high-altitude aerial drone shots. Our target application receives street-level citizen smartphone photos. Training exclusively on aerial images causes severe domain failure on ground-level features (e.g. eye-level reflections, curbs, headlight glares, water depth relative to tires).",
+      "sample_image": {
+        "filename": "FloodNet-Sample.jpg",
+        "size": [
+          5988,
+          3521
+        ],
+        "mode": "RGB",
+        "format": "JPEG"
+      }
+    },
+    "eu_flood": {
+      "dataset_name": "European Flood 2013 Dataset",
+      "perspective": "Ground-level & Street-level (Social media / Wikimedia Commons)",
+      "source_type": "Crowdsourced and official event photos during Central Europe Floods (June 2013)",
+      "license": "CC BY-SA 3.0 / Wikimedia Commons licenses",
+      "intended_task": "Interactive Image Retrieval & Task Relevance Annotation",
+      "exists_locally": true,
+      "relevance_counts": {
+        "depth.txt": 1549,
+        "flooding.txt": 3151,
+        "irrelevant.txt": 327,
+        "pollution.txt": 275
+      },
+      "metadata_count": 3435,
+      "geocoded_count": 883,
+      "archive_download_url": "https://archive.org/download/european-flood-2013/european-flood-2013_imgs_small.zip (1.14 GB)",
+      "domain_shift_assessment": "EXCELLENT DOMAIN MATCH FOR GROUND-LEVEL CLASSIFICATION: Photos feature streetscapes, cars, sidewalks, flood waters, and dry transport scenes. Crucially provides 327 verified negative images (irrelevant.txt) captured during the event that show no flood waters, alongside 3,151 verified positive flood images."
+    },
+    "clemson_floodimg": {
+      "dataset_name": "Clemson FloodIMG (HHR Clemson / Data in Brief 2023)",
+      "perspective": "Ground-level & CCTV (Twitter/X and USGS/DOT traffic cameras)",
+      "source_type": "IoT and social media flood event feeds",
+      "license": "Academic / Open dataset on Kaggle (hhrclemson/flooding-image-dataset)",
+      "intended_task": "Flood detection, severity estimation, object localization",
+      "exists_locally": true,
+      "total_images": 9296,
+      "corrupt_images": 0,
+      "annotation_files_count": 25,
+      "annotated_object_counts": {
+        "Truck": 4,
+        "Road": 4,
+        "Person": 19,
+        "Bridge": 10,
+        "Traffic Sign": 12,
+        "House": 13,
+        "Tree": 14,
+        "Builbing": 13,
+        "Car": 6,
+        "Forest": 8
+      },
+      "negative_examples_found": 0,
+      "domain_shift_assessment": "STRONG PERSPECTIVE MATCH BUT COMPLETE LACK OF NEGATIVE EXAMPLES: The 9,296 images depict real flood events from ground/traffic camera levels. However, every image is a positive flood event. Only 25 images have object-level polygon annotations. CRITICAL CAUTION: Cannot be used alone for binary supervised classification without pairing with a verified non-flooded negative class.",
+      "sample_corruption_rate": "0/200 sampled"
+    },
+    "binary_ground_level": {
+      "dataset_name": "Curated Ground-Level Binary Flood Classification Dataset",
+      "perspective": "Ground-level street photos (mobile, vehicle dashcams, pedestrian)",
+      "source_type": "Curated multi-source street flood disaster imagery paired with normal road scenes",
+      "license": "Public Kaggle Dataset (roham1/flood-classification-dataset)",
+      "intended_task": "Binary Image Classification: Flooded vs Non-Flooded",
+      "exists_locally": true,
+      "classes": {
+        "Flood": 1500,
+        "Non_Flood": 1500
+      },
+      "total_usable_images": 3000,
+      "corrupt_images": 0,
+      "domain_shift_assessment": "OPTIMAL FOR FIRST PRODUCTION BASELINE: Contains 1,500 flooded street images and 1,500 non-flooded street images (3,000 total). Perfect 50/50 balance. Street-level perspective matches citizen mobile uploads. Negative class includes dry pavement, urban traffic, curbs, sidewalks, and parked cars."
+    }
+  },
+  "synthesis_and_strategy": {
+    "primary_training_source": "binary_ground_level (3,000 images, 50% flooded, 50% non-flooded)",
+    "supplementary_positive_pool": "clemson_floodimg (9,296 images, ground-level flood positives for augmentation/pre-training)",
+    "held_out_validation_benchmark": "eu_flood metadata & ground-level evaluation split",
+    "aerial_secondary_model": "floodnet (requires separate aerial classifier if drone streams are deployed; do not mix directly with citizen phone stream without source tags)",
+    "label_schema": {
+      "0": "not_flooded",
+      "1": "flooded"
+    }
+  }
+}

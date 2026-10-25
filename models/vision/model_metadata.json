@@ -1,0 +1,72 @@
+{
+  "model_name": "mobilenet_v3_small",
+  "model_version": "1.0.0",
+  "best_epoch": 4,
+  "best_val_macro_f1": 1.0,
+  "best_val_metrics": {
+    "loss": 0.0017179566689689333,
+    "accuracy": 1.0,
+    "macro_f1": 1.0,
+    "precision_not_flooded": 1.0,
+    "recall_not_flooded": 1.0,
+    "f1_not_flooded": 1.0,
+    "precision_flooded": 1.0,
+    "recall_flooded": 1.0,
+    "f1_flooded": 1.0
+  },
+  "total_training_time_seconds": 217.23,
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 0.0962996473569157,
+      "val_loss": 0.005440618668863964,
+      "val_accuracy": 0.9977777777777778,
+      "val_macro_f1": 0.9977777668037867,
+      "val_f1_flooded": 0.9977728285077951,
+      "val_f1_not_flooded": 0.9977827050997783,
+      "epoch_time_seconds": 43.74
+    },
+    {
+      "epoch": 2,
+      "train_loss": 0.02060906924795182,
+      "val_loss": 0.003451458659999642,
+      "val_accuracy": 0.9977777777777778,
+      "val_macro_f1": 0.9977777668037867,
+      "val_f1_flooded": 0.9977728285077951,
+      "val_f1_not_flooded": 0.9977827050997783,
+      "epoch_time_seconds": 42.84
+    },
+    {
+      "epoch": 3,
+      "train_loss": 0.009945931208231265,
+      "val_loss": 0.002573929392060058,
+      "val_accuracy": 0.9977777777777778,
+      "val_macro_f1": 0.9977777668037867,
+      "val_f1_flooded": 0.9977728285077951,
+      "val_f1_not_flooded": 0.9977827050997783,
+      "epoch_time_seconds": 42.88
+    },
+    {
+      "epoch": 4,
+      "train_loss": 0.00649077491601929,
+      "val_loss": 0.0017179566689689333,
+      "val_accuracy": 1.0,
+      "val_macro_f1": 1.0,
+      "val_f1_flooded": 1.0,
+      "val_f1_not_flooded": 1.0,
+      "epoch_time_seconds": 43.12
+    },
+    {
+      "epoch": 5,
+      "train_loss": 0.008011867144211595,
+      "val_loss": 0.0019255767362968375,
+      "val_accuracy": 1.0,
+      "val_macro_f1": 1.0,
+      "val_f1_flooded": 1.0,
+      "val_f1_not_flooded": 1.0,
+      "epoch_time_seconds": 44.53
+    }
+  ],
+  "total_parameters": 1519906,
+  "checkpoint_file": "models\\vision\\best_model.pt"
+}

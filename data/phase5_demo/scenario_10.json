@@ -1,0 +1,25 @@
+{
+  "scenario_id": "SCENARIO-10",
+  "scenario_name": "Recovery after a data source becomes available again",
+  "description": "Weather telemetry recovers from outage; fresh dry reading received. Restores CLEAR evaluated status.",
+  "input_data": {
+    "location_id": "HYD-LOC-016",
+    "road_name": "Uppal Ring Road Junction",
+    "vision_predicted_class": null,
+    "vision_confidence": null,
+    "vision_is_ambiguous": false,
+    "rainfall_risk_category": "LOW",
+    "rainfall_risk_score": 0.02,
+    "vulnerability_category": "MODERATE",
+    "vulnerability_index": 0.25,
+    "report_age_minutes": 0.0,
+    "is_field_verified": false,
+    "citizen_report_count_in_zone": 0,
+    "water_depth_estimate": null,
+    "has_contradictory_evidence": false,
+    "missing_inputs": [],
+    "stale_inputs": [],
+    "source_timestamps": {}
+  },
+  "is_demonstration_fixture": true
+}

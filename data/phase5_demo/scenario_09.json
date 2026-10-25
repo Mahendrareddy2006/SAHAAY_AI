@@ -1,0 +1,25 @@
+{
+  "scenario_id": "SCENARIO-09",
+  "scenario_name": "High environmental risk with missing current-flood evidence",
+  "description": "Cloudburst rainfall (105mm/hr) on chronically vulnerable corridor without ground reports. Triggers WATCH.",
+  "input_data": {
+    "location_id": "HYD-LOC-001",
+    "road_name": "Tolichowki Flyover Underpass",
+    "vision_predicted_class": null,
+    "vision_confidence": null,
+    "vision_is_ambiguous": false,
+    "rainfall_risk_category": "CRITICAL",
+    "rainfall_risk_score": 0.98,
+    "vulnerability_category": "HIGH",
+    "vulnerability_index": 0.53,
+    "report_age_minutes": 0.0,
+    "is_field_verified": false,
+    "citizen_report_count_in_zone": 0,
+    "water_depth_estimate": null,
+    "has_contradictory_evidence": false,
+    "missing_inputs": [],
+    "stale_inputs": [],
+    "source_timestamps": {}
+  },
+  "is_demonstration_fixture": true
+}

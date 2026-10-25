@@ -1,0 +1,267 @@
+{
+  "report_name": "Sahaay AI Phase 5 - End-to-End Demonstration Scenario Results",
+  "generated_at_utc": "2026-10-25T11:04:25.738232Z",
+  "total_scenarios": 10,
+  "scenarios_passed": 10,
+  "all_scenarios_passed": true,
+  "demonstration_rules_conformance": "100%",
+  "scientific_integrity_notice": "Scenario pass rates measure decision rule and contract conformance under controlled fixtures. They do NOT establish real-world predictive flood accuracy.",
+  "results": [
+    {
+      "scenario_id": "SCENARIO-01",
+      "scenario_name": "Low rainfall, low vulnerability, no current reports",
+      "description": "Dry baseline conditions on resilient corridor. Baseline safety verification.",
+      "fixture_file": "data\\phase5_demo\\scenario_01.json",
+      "expected": {
+        "alert_level": "CLEAR",
+        "decision_status": "EVALUATED",
+        "current_flood_evidence_status": "NO_CURRENT_EVIDENCE_AVAILABLE",
+        "is_actionable_for_crews": false
+      },
+      "actual": {
+        "alert_level": "CLEAR",
+        "decision_status": "EVALUATED",
+        "current_flood_evidence_status": "NO_CURRENT_EVIDENCE_AVAILABLE",
+        "is_actionable_for_crews": false,
+        "decision_score": 0.1,
+        "confidence": 0.7,
+        "reason_codes": [
+          "NORMAL_DRY_BASELINE"
+        ],
+        "explanation": "Normal conditions. No active flood evidence or elevated rainfall risk."
+      },
+      "passed": true
+    },
+    {
+      "scenario_id": "SCENARIO-02",
+      "scenario_name": "Heavy rainfall and high vulnerability, with no observed flood report",
+      "description": "High environmental waterlogging risk anticipated. Must trigger WATCH without claiming proven flooding.",
+      "fixture_file": "data\\phase5_demo\\scenario_02.json",
+      "expected": {
+        "alert_level": "WATCH",
+        "decision_status": "EVALUATED",
+        "current_flood_evidence_status": "ELEVATED_ENVIRONMENTAL_RISK",
+        "is_actionable_for_crews": true
+      },
+      "actual": {
+        "alert_level": "WATCH",
+        "decision_status": "EVALUATED",
+        "current_flood_evidence_status": "ELEVATED_ENVIRONMENTAL_RISK",
+        "is_actionable_for_crews": true,
+        "decision_score": 0.75,
+        "confidence": 0.65,
+        "reason_codes": [
+          "RAINFALL_TRIGGER_HIGH",
+          "VULNERABILITY_INDEX_HIGH",
+          "PREDICTED_WATERLOGGING_SURGE_ANTICIPATED"
+        ],
+        "explanation": "High waterlogging risk anticipated over the next 1-3 hours due to heavy rainfall on a chronically vulnerable road segment."
+      },
+      "passed": true
+    },
+    {
+      "scenario_id": "SCENARIO-03",
+      "scenario_name": "One unverified citizen report",
+      "description": "Single community submission in dry weather. Must trigger ADVISORY and request verification, not emergency.",
+      "fixture_file": "data\\phase5_demo\\scenario_03.json",
+      "expected": {
+        "alert_level": "ADVISORY",
+        "decision_status": "EVALUATED",
+        "current_flood_evidence_status": "INCONCLUSIVE",
+        "is_actionable_for_crews": false
+      },
+      "actual": {
+        "alert_level": "ADVISORY",
+        "decision_status": "EVALUATED",
+        "current_flood_evidence_status": "INCONCLUSIVE",
+        "is_actionable_for_crews": false,
+        "decision_score": 0.45,
+        "confidence": 0.5,
+        "reason_codes": [
+          "UNVERIFIED_COMMUNITY_SUBMISSION"
+        ],
+        "explanation": "Unverified citizen report received. Requires field dispatch or independent corroboration."
+      },
+      "passed": true
+    },
+    {
+      "scenario_id": "SCENARIO-04",
+      "scenario_name": "Multiple reports that may be duplicates",
+      "description": "Three citizen submissions from same 50m radius within 10 min. Evaluates near-duplicate suppression.",
+      "fixture_file": "data\\phase5_demo\\scenario_04.json",
+      "expected": {
+        "alert_level": "WATCH",
+        "decision_status": "EVALUATED",
+        "current_flood_evidence_status": "OBSERVED_FLOOD_EVIDENCE",
+        "is_actionable_for_crews": true
+      },
+      "actual": {
+        "alert_level": "WATCH",
+        "decision_status": "EVALUATED",
+        "current_flood_evidence_status": "OBSERVED_FLOOD_EVIDENCE",
+        "is_actionable_for_crews": true,
+        "decision_score": 0.7,
+        "confidence": 0.75,
+        "reason_codes": [
+          "COMMUNITY_CORROBORATION_THRESHOLD_MET"
+        ],
+        "explanation": "Multiple independent community reports (3) corroborate active waterlogging on corridor."
+      },
+      "passed": true
+    },
+    {
+      "scenario_id": "SCENARIO-05",
+      "scenario_name": "A verified, recent flood observation",
+      "description": "Ground responder confirms 45cm waterlogging. Must escalate to WARNING with observed evidence.",
+      "fixture_file": "data\\phase5_demo\\scenario_05.json",
+      "expected": {
+        "alert_level": "WARNING",
+        "decision_status": "EVALUATED",
+        "current_flood_evidence_status": "OBSERVED_FLOOD_EVIDENCE",
+        "is_actionable_for_crews": true
+      },
+      "actual": {
+        "alert_level": "WARNING",
+        "decision_status": "EVALUATED",
+        "current_flood_evidence_status": "OBSERVED_FLOOD_EVIDENCE",
+        "is_actionable_for_crews": true,
+        "decision_score": 0.88,
+        "confidence": 0.92,
+        "reason_codes": [
+          "VULNERABILITY_INDEX_HIGH",
+          "FIELD_RESPONDER_INSPECTION_CONFIRMED"
+        ],
+        "explanation": "Ground flood condition verified by municipal DRF or traffic police field inspection."
+      },
+      "passed": true
+    },
+    {
+      "scenario_id": "SCENARIO-06",
+      "scenario_name": "Stale or unavailable rainfall telemetry",
+      "description": "Hourly telemetry observation is missing. Non-silent missingness must trigger INSUFFICIENT_DATA and ADVISORY.",
+      "fixture_file": "data\\phase5_demo\\scenario_06.json",
+      "expected": {
+        "alert_level": "ADVISORY",
+        "decision_status": "INSUFFICIENT_DATA",
+        "current_flood_evidence_status": "INSUFFICIENT_OR_STALE_DATA",
+        "is_actionable_for_crews": false
+      },
+      "actual": {
+        "alert_level": "ADVISORY",
+        "decision_status": "INSUFFICIENT_DATA",
+        "current_flood_evidence_status": "INSUFFICIENT_OR_STALE_DATA",
+        "is_actionable_for_crews": false,
+        "decision_score": 0.2,
+        "confidence": 0.15,
+        "reason_codes": [
+          "MISSING_PRIMARY_RAINFALL_TELEMETRY"
+        ],
+        "explanation": "Primary rainfall observation unavailable. Operational decision cannot be certified; normal traffic caution advised."
+      },
+      "passed": true
+    },
+    {
+      "scenario_id": "SCENARIO-07",
+      "scenario_name": "Contradictory reports",
+      "description": "Citizen asserts deep water while contemporaneous camera confirms dry asphalt. Must flag INCONCLUSIVE_CONTRADICTORY.",
+      "fixture_file": "data\\phase5_demo\\scenario_07.json",
+      "expected": {
+        "alert_level": "ADVISORY",
+        "decision_status": "INCONCLUSIVE_CONTRADICTORY",
+        "current_flood_evidence_status": "INCONCLUSIVE",
+        "is_actionable_for_crews": false
+      },
+      "actual": {
+        "alert_level": "ADVISORY",
+        "decision_status": "INCONCLUSIVE_CONTRADICTORY",
+        "current_flood_evidence_status": "INCONCLUSIVE",
+        "is_actionable_for_crews": false,
+        "decision_score": 0.4,
+        "confidence": 0.35,
+        "reason_codes": [
+          "CONTRADICTORY_OBSERVATIONS_DETECTED"
+        ],
+        "explanation": "Contradictory observations detected between ground community reports and optical surveillance. Evidence is inconclusive; field verification required."
+      },
+      "passed": true
+    },
+    {
+      "scenario_id": "SCENARIO-08",
+      "scenario_name": "Low-quality or inconclusive vision output",
+      "description": "Image fails automated quality gate due to extreme glare/blur. Must NOT trigger flood false-alarm.",
+      "fixture_file": "data\\phase5_demo\\scenario_08.json",
+      "expected": {
+        "alert_level": "CLEAR",
+        "decision_status": "EVALUATED",
+        "current_flood_evidence_status": "NO_CURRENT_EVIDENCE_AVAILABLE",
+        "is_actionable_for_crews": false
+      },
+      "actual": {
+        "alert_level": "CLEAR",
+        "decision_status": "EVALUATED",
+        "current_flood_evidence_status": "NO_CURRENT_EVIDENCE_AVAILABLE",
+        "is_actionable_for_crews": false,
+        "decision_score": 0.1,
+        "confidence": 0.7,
+        "reason_codes": [
+          "OPTICAL_QUALITY_GATE_AMBIGUOUS",
+          "NORMAL_DRY_BASELINE"
+        ],
+        "explanation": "Normal conditions. No active flood evidence or elevated rainfall risk."
+      },
+      "passed": true
+    },
+    {
+      "scenario_id": "SCENARIO-09",
+      "scenario_name": "High environmental risk with missing current-flood evidence",
+      "description": "Cloudburst rainfall (105mm/hr) on chronically vulnerable corridor without ground reports. Triggers WATCH.",
+      "fixture_file": "data\\phase5_demo\\scenario_09.json",
+      "expected": {
+        "alert_level": "WATCH",
+        "decision_status": "EVALUATED",
+        "current_flood_evidence_status": "ELEVATED_ENVIRONMENTAL_RISK",
+        "is_actionable_for_crews": true
+      },
+      "actual": {
+        "alert_level": "WATCH",
+        "decision_status": "EVALUATED",
+        "current_flood_evidence_status": "ELEVATED_ENVIRONMENTAL_RISK",
+        "is_actionable_for_crews": true,
+        "decision_score": 0.75,
+        "confidence": 0.65,
+        "reason_codes": [
+          "RAINFALL_TRIGGER_CRITICAL",
+          "VULNERABILITY_INDEX_HIGH",
+          "PREDICTED_WATERLOGGING_SURGE_ANTICIPATED"
+        ],
+        "explanation": "High waterlogging risk anticipated over the next 1-3 hours due to heavy rainfall on a chronically vulnerable road segment."
+      },
+      "passed": true
+    },
+    {
+      "scenario_id": "SCENARIO-10",
+      "scenario_name": "Recovery after a data source becomes available again",
+      "description": "Weather telemetry recovers from outage; fresh dry reading received. Restores CLEAR evaluated status.",
+      "fixture_file": "data\\phase5_demo\\scenario_10.json",
+      "expected": {
+        "alert_level": "CLEAR",
+        "decision_status": "EVALUATED",
+        "current_flood_evidence_status": "NO_CURRENT_EVIDENCE_AVAILABLE",
+        "is_actionable_for_crews": false
+      },
+      "actual": {
+        "alert_level": "CLEAR",
+        "decision_status": "EVALUATED",
+        "current_flood_evidence_status": "NO_CURRENT_EVIDENCE_AVAILABLE",
+        "is_actionable_for_crews": false,
+        "decision_score": 0.1,
+        "confidence": 0.7,
+        "reason_codes": [
+          "NORMAL_DRY_BASELINE"
+        ],
+        "explanation": "Normal conditions. No active flood evidence or elevated rainfall risk."
+      },
+      "passed": true
+    }
+  ]
+}

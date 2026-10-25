@@ -235,3 +235,84 @@ async def list_corridor_risk_profiles():
         "corridors": records
     }
 
+
+# ---------------------------------------------------------------------------
+# Phase 5: Citizen Reports & Verification Endpoints
+# ---------------------------------------------------------------------------
+
+from typing import List
+from sahaay.reports.schemas import (
+    CitizenReportRecord,
+    CitizenReportSubmission,
+    ReportVerificationRequest,
+)
+from sahaay.reports.service import CitizenReportService
+from sahaay.adapters.registry import default_adapter_registry
+
+report_service = CitizenReportService()
+
+
+@router.post(
+    "/reports/submit",
+    response_model=CitizenReportRecord,
+    status_code=status.HTTP_201_CREATED,
+    tags=["Citizen Reports"]
+)
+async def submit_citizen_report(submission: CitizenReportSubmission):
+    """
+    Submits a ground flood observation. Enforces privacy masking,
+    location coarsening, near-duplicate clustering, and corroboration tracking.
+    """
+    try:
+        return report_service.submit_report(submission)
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Report submission failed: {str(e)}"
+        )
+
+
+@router.post(
+    "/reports/verify/{report_id}",
+    response_model=CitizenReportRecord,
+    status_code=status.HTTP_200_OK,
+    tags=["Citizen Reports"]
+)
+async def verify_citizen_report(report_id: str, request: ReportVerificationRequest):
+    """
+    Updates the verification status of a ground report by an authorized responder.
+    """
+    record = report_service.verify_report(report_id, request)
+    if record is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Report {report_id} not found."
+        )
+    return record
+
+
+@router.get(
+    "/reports/corridor/{corridor_id}",
+    response_model=List[CitizenReportRecord],
+    status_code=status.HTTP_200_OK,
+    tags=["Citizen Reports"]
+)
+async def get_corridor_reports(corridor_id: str):
+    """
+    Retrieves active, valid, non-expired reports for a specific corridor.
+    """
+    return report_service.get_active_reports_for_corridor(corridor_id)
+
+
+@router.get(
+    "/sources/status",
+    status_code=status.HTTP_200_OK,
+    tags=["Live Adapters"]
+)
+async def get_live_data_source_status():
+    """
+    Returns the real-time operational status, authorization state, and limitations of all data feeds.
+    """
+    return default_adapter_registry.generate_source_status_report()
+
+

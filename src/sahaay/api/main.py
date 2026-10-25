@@ -37,8 +37,24 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+from pathlib import Path
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import HTMLResponse, FileResponse
+
 app.include_router(router)
+
+static_dir = Path(__file__).parent / "static"
+if static_dir.exists():
+    app.mount("/static", StaticFiles(directory=str(static_dir)), name="static")
+
+@app.get("/dashboard", response_class=HTMLResponse, tags=["Dashboard"])
+async def get_dashboard():
+    index_file = static_dir / "index.html"
+    if index_file.exists():
+        return FileResponse(index_file)
+    return HTMLResponse("<h1>Dashboard index.html not found</h1>", status_code=404)
 
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run("sahaay.api.main:app", host="0.0.0.0", port=8000, reload=True)
+

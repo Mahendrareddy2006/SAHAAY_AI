@@ -1,0 +1,25 @@
+{
+  "scenario_id": "SCENARIO-08",
+  "scenario_name": "Low-quality or inconclusive vision output",
+  "description": "Image fails automated quality gate due to extreme glare/blur. Must NOT trigger flood false-alarm.",
+  "input_data": {
+    "location_id": "HYD-LOC-013",
+    "road_name": "Ameerpet Metro Junction",
+    "vision_predicted_class": "inconclusive",
+    "vision_confidence": 0.48,
+    "vision_is_ambiguous": true,
+    "rainfall_risk_category": "LOW",
+    "rainfall_risk_score": 0.05,
+    "vulnerability_category": "LOW",
+    "vulnerability_index": 0.12,
+    "report_age_minutes": 5.0,
+    "is_field_verified": false,
+    "citizen_report_count_in_zone": 0,
+    "water_depth_estimate": null,
+    "has_contradictory_evidence": false,
+    "missing_inputs": [],
+    "stale_inputs": [],
+    "source_timestamps": {}
+  },
+  "is_demonstration_fixture": true
+}

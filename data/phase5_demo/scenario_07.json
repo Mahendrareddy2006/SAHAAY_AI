@@ -1,0 +1,25 @@
+{
+  "scenario_id": "SCENARIO-07",
+  "scenario_name": "Contradictory reports",
+  "description": "Citizen asserts deep water while contemporaneous camera confirms dry asphalt. Must flag INCONCLUSIVE_CONTRADICTORY.",
+  "input_data": {
+    "location_id": "HYD-LOC-008",
+    "road_name": "Lakdikapul Junction & Railway Bridge",
+    "vision_predicted_class": "not_flooded",
+    "vision_confidence": 0.85,
+    "vision_is_ambiguous": false,
+    "rainfall_risk_category": "LOW",
+    "rainfall_risk_score": 0.1,
+    "vulnerability_category": "MODERATE",
+    "vulnerability_index": 0.39,
+    "report_age_minutes": 8.0,
+    "is_field_verified": false,
+    "citizen_report_count_in_zone": 1,
+    "water_depth_estimate": "KNEE_DEEP",
+    "has_contradictory_evidence": true,
+    "missing_inputs": [],
+    "stale_inputs": [],
+    "source_timestamps": {}
+  },
+  "is_demonstration_fixture": true
+}

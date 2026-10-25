@@ -1,0 +1,91 @@
+{
+  "report_timestamp_utc": "2026-10-25T13:27:12.593143+00:00",
+  "phase": "Phase 11 Final Vision Model Evaluation",
+  "benchmark_dataset": "data/processed/manifest_v3/test_v3.csv (N=222: 111 Clemson flood, 50 plain dry road, 61 wet pothole hard negative)",
+  "reproduced_benchmarks": {
+    "model_v2_historical": {
+      "test_accuracy": 0.5315,
+      "test_macro_f1": 0.3998,
+      "false_positive_rate": 0.9369,
+      "false_negative_rate": 0.0,
+      "plain_dry_roads_acc": 0.06,
+      "wet_potholes_hard_neg_acc": 0.0656,
+      "flooded_streets_acc": 1.0,
+      "calibration_ece": 0.4526,
+      "brier_score": 0.4485,
+      "high_confidence_errors": 96,
+      "evaluation_verdict": "PERFORMANCE_COLLAPSE (Learned 224x224 thumbnail shortcut; fails on real dry asphalt)"
+    },
+    "model_v3_clean": {
+      "test_accuracy": 0.973,
+      "test_macro_f1": 0.973,
+      "false_positive_rate": 0.036,
+      "false_negative_rate": 0.018,
+      "plain_dry_roads_acc": 0.94,
+      "wet_potholes_hard_neg_acc": 0.9836,
+      "flooded_streets_acc": 0.982,
+      "calibration_ece": 0.0134,
+      "brier_score": 0.0187,
+      "high_confidence_errors": 1,
+      "evaluation_verdict": "RESEARCH_BASELINE (Solid clean benchmark; susceptible to synthetic rain blur)"
+    },
+    "model_v3_monsoon": {
+      "test_accuracy": 0.9775,
+      "test_macro_f1": 0.9775,
+      "false_positive_rate": 0.009,
+      "false_negative_rate": 0.036,
+      "plain_dry_roads_acc": 1.0,
+      "wet_potholes_hard_neg_acc": 0.9836,
+      "flooded_streets_acc": 0.964,
+      "calibration_ece": 0.0237,
+      "brier_score": 0.0255,
+      "high_confidence_errors": 5,
+      "evaluation_verdict": "ROBUST_ADVISORY_CANDIDATE (Best weather robustness; 100% dry road specificity; 98.4% puddle specificity)"
+    }
+  },
+  "synthetic_perturbations_robustness_n222": {
+    "synthetic_rain_mist_blur": {
+      "v2": 0.7072,
+      "v3_clean": 0.9324,
+      "v3_monsoon": 0.9685
+    },
+    "synthetic_night_darkness": {
+      "v2": 0.5541,
+      "v3_clean": 0.8739,
+      "v3_monsoon": 0.9189
+    },
+    "synthetic_headlight_glare": {
+      "v2": 0.545,
+      "v3_clean": 0.9234,
+      "v3_monsoon": 0.9459
+    },
+    "synthetic_lens_droplet_spray": {
+      "v2": 0.518,
+      "v3_clean": 0.8874,
+      "v3_monsoon": 0.9234
+    },
+    "synthetic_motion_blur": {
+      "v2": 0.7838,
+      "v3_clean": 0.9595,
+      "v3_monsoon": 0.9685
+    }
+  },
+  "source_label_confounding_audit": {
+    "cramers_v": 1.0,
+    "mutual_information_bits": 1.0,
+    "metadata_rf_test_accuracy": 0.8597,
+    "file_size_only_stump_accuracy": 0.8009,
+    "readiness_verdict": "NO-GO for production Vision V4 training until multi-source balanced road data is acquired"
+  },
+  "image_quality_gate_abstention": {
+    "native_resolution_min": "640x480",
+    "laplacian_variance_min": 80.0,
+    "brightness_mean_range": [
+      35,
+      230
+    ],
+    "severe_blur_rejection_rate": 1.0,
+    "pitch_black_rejection_rate": 1.0,
+    "glare_whiteout_rejection_rate": 1.0
+  }
+}

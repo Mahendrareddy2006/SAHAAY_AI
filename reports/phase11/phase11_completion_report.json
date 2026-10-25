@@ -1,0 +1,31 @@
+{
+  "report_timestamp_utc": "2026-10-25T13:27:12.593143+00:00",
+  "phase": "Phase 11 Final AI/ML Evaluation & Research Handover",
+  "status": "COMPLETED_AND_SCIENTIFICALLY_VALIDATED",
+  "key_achievements": [
+    "Definitive inventory created for all 13 AI/ML components across 7 taxonomy categories.",
+    "Reproduced diagnostic evaluations for V1, V2, V3 Clean, and V3 Monsoon with calibration and perturbation analysis.",
+    "Formally validated V3 Monsoon as the top-performing vision checkpoint under monsoon perturbations (96.85% under rain blur; 100% dry road specificity; ECE=0.0237).",
+    "Confirmed V2 performance collapse on unseen dry asphalt (94.0% FPR) and thumbnail resolution shortcut.",
+    "Retained Vision V4 production training as NOT_RUN and readiness gate as NO-GO due to Cramer's V = 1.0000.",
+    "Preserved Phase 10 rules-based rainfall and vulnerability baselines as transparent operational benchmarks (21/21 checks passing).",
+    "Retained Supervised Flood Prediction and Short-Term Rainfall Forecasting as NOT_RUN with documented scientific blockers.",
+    "Full regression test suite passing with 159/159 tests (100% pass rate in 8.61s).",
+    "Prepared comprehensive teammate handover document preserving non-autonomous decision semantics."
+  ],
+  "hackathon_presentation_guidelines": {
+    "what_team_can_claim": [
+      "Sahaay AI has a fully verified, deterministic rainfall risk baseline based on IMD operational SOPs.",
+      "Sahaay AI has an explainable multi-criteria road vulnerability engine for Hyderabad corridors.",
+      "Sahaay AI has a weather-robust vision prototype (V3 Monsoon) with 98.4% hard-negative specificity and low calibration error (ECE 0.024).",
+      "Sahaay AI has an automated Image Quality Gate that filters degraded imagery before inference.",
+      "Sahaay AI adheres to strict scientific rigor: refusing to train unvalidated supervised models without ground-truth outcome labels."
+    ],
+    "what_team_cannot_claim": [
+      "Cannot claim production-ready flood prediction ML (supervised flood prediction is NOT_RUN).",
+      "Cannot claim real-time rainfall forecasting (telemetry forecasting is NOT_RUN).",
+      "Cannot claim Vision V4 is deployed or solved (Vision V4 is NO-GO due to dataset source confounding).",
+      "Cannot claim models autonomously close roads or dispatch emergency services."
+    ]
+  }
+}

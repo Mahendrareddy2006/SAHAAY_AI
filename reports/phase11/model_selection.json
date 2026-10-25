@@ -1,0 +1,78 @@
+{
+  "report_timestamp_utc": "2026-10-25T13:27:12.593143+00:00",
+  "phase": "Phase 11 Model Selection & Operational Dispositions",
+  "taxonomy": [
+    "RECOMMENDED_FOR_ADVISORY_EVALUATION",
+    "RESEARCH_ONLY",
+    "RULE_BASELINE_ONLY",
+    "NOT_READY_INSUFFICIENT_DATA",
+    "NOT_RUN"
+  ],
+  "dispositions": {
+    "rainfall_risk_engine": {
+      "disposition": "RECOMMENDED_FOR_ADVISORY_EVALUATION",
+      "rationale": "Mathematically verified IMD intensity rules, multi-window surge checks, and quality-discounted confidence. 21/21 checks passing. Transparent, explainable, and deterministic.",
+      "advisory_constraints": "Advisory only; distance penalty applies beyond 15km; missing data returns UNKNOWN."
+    },
+    "image_quality_gate": {
+      "disposition": "RECOMMENDED_FOR_ADVISORY_EVALUATION",
+      "rationale": "Deterministic filter that reliably rejects blurry, pitch-black, and whiteout glare imagery before inference.",
+      "advisory_constraints": "Must be run as a mandatory pre-filter before any vision model invocation."
+    },
+    "mobilenet_v3_small_v3_monsoon": {
+      "disposition": "RECOMMENDED_FOR_ADVISORY_EVALUATION",
+      "rationale": "Best-performing vision checkpoint under weather perturbations (96.85% under rain blur; 100% dry road specificity; 98.36% wet pothole specificity; calibration ECE = 0.0237).",
+      "advisory_constraints": "Restricted strictly to shadow/advisory mode with human-in-the-loop verification. Cannot autonomously trigger road closures or dispatch due to source-label confounding."
+    },
+    "road_vulnerability_engine": {
+      "disposition": "RULE_BASELINE_ONLY",
+      "rationale": "Multi-criteria spatial heuristic. Transparent civil engineering baseline. Not trained ML; fitting an ML model to it is rule distillation without empirical validity.",
+      "advisory_constraints": "Represents static physical susceptibility, NOT active flooding."
+    },
+    "mobilenet_v3_small_v3_clean": {
+      "disposition": "RESEARCH_ONLY",
+      "rationale": "Valid clean split baseline (97.30% acc), but superseded by V3 Monsoon which demonstrates superior robustness under rain blur and headlight glare.",
+      "advisory_constraints": "Retain as research benchmark."
+    },
+    "metadata_shortcut_classifier_rf": {
+      "disposition": "RESEARCH_ONLY",
+      "rationale": "Diagnostic tool proving source confounding (85.97% test accuracy on non-semantic metadata alone).",
+      "advisory_constraints": "Never to be used as a flood detector."
+    },
+    "corridor_susceptibility_analysis": {
+      "disposition": "RESEARCH_ONLY",
+      "rationale": "Exploratory spatial analysis of 20 Hyderabad corridors.",
+      "advisory_constraints": "Must not be cited as predictive flood risk."
+    },
+    "telemetry_continuity_diagnostics": {
+      "disposition": "RESEARCH_ONLY",
+      "rationale": "Exploratory profiling of regional rain gauge transmission gaps and accumulator confusion.",
+      "advisory_constraints": "Confirms telemetry is currently unviable for continuous hourly forecasting."
+    },
+    "mobilenet_v3_small_v1": {
+      "disposition": "NOT_READY_INSUFFICIENT_DATA",
+      "rationale": "Historical checkpoint trained on leaky, biased web scrape with arbitrary non-road images.",
+      "advisory_constraints": "Disqualified from operational use."
+    },
+    "mobilenet_v3_small_v2": {
+      "disposition": "NOT_READY_INSUFFICIENT_DATA",
+      "rationale": "Collapses to 53.15% accuracy on Test V3 with 94.0% False Positive Rate on unseen dry asphalt. Learned thumbnail resolution shortcut.",
+      "advisory_constraints": "Disqualified from operational use."
+    },
+    "vision_v4_production_deep_model": {
+      "disposition": "NOT_RUN",
+      "rationale": "Production training blocked by readiness gate (Cramer's V = 1.0000; 0 multi-class road imagery sources; 0 real field observations).",
+      "advisory_constraints": "Will be unlocked only when genuine matched road imagery is acquired under pilot collection."
+    },
+    "supervised_flood_occurrence_prediction": {
+      "disposition": "NOT_RUN",
+      "rationale": "Zero ground-truth flood outcome observations exist. Static KML placemarks are chronic locations without timestamps or depths.",
+      "advisory_constraints": "Will be unlocked only when >=50 verified flood episodes and >=100 non-flood episodes across >=4 storm dates are collected."
+    },
+    "short_term_hourly_rainfall_forecasting": {
+      "disposition": "NOT_RUN",
+      "rationale": "Telemetry suffers from >90% temporal missingness, 141-day gaps, 50.82% bucket accumulator counters, and zero stations in the GHMC urban core.",
+      "advisory_constraints": "Will be unlocked only when continuous 15-minute urban AWS telemetry with >=98% uptime is deployed."
+    }
+  }
+}

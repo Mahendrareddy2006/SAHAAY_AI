@@ -1,0 +1,76 @@
+{
+  "report_timestamp_utc": "2026-10-25T13:27:12.593143+00:00",
+  "phase": "Phase 11 Test Execution Summary",
+  "full_regression_suite": {
+    "total_tests": 159,
+    "passed": 159,
+    "failed": 0,
+    "warnings": 132,
+    "execution_time_seconds": 8.61,
+    "pass_rate": 1.0
+  },
+  "subsystem_test_breakdown": {
+    "phase9_split_and_audit": {
+      "file": "tests/test_phase9_split_and_audit.py",
+      "tests": 8,
+      "passed": 8
+    },
+    "phase10_risk_baselines": {
+      "file": "tests/test_phase10_risk_baselines.py",
+      "tests": 18,
+      "passed": 18
+    },
+    "image_quality_gate": {
+      "file": "tests/test_image_quality_gate.py",
+      "tests": 6,
+      "passed": 6
+    },
+    "split_integrity": {
+      "file": "tests/test_split_integrity.py",
+      "tests": 13,
+      "passed": 13
+    },
+    "vision_v3": {
+      "file": "tests/test_vision_v3.py",
+      "tests": 9,
+      "passed": 9
+    },
+    "vision_v4_core": {
+      "file": "tests/test_vision_v4.py",
+      "tests": 8,
+      "passed": 8
+    },
+    "vision_v4_collection": {
+      "file": "tests/test_vision_v4_collection.py",
+      "tests": 14,
+      "passed": 14
+    },
+    "vision_v4_phase3": {
+      "file": "tests/test_vision_v4_phase3.py",
+      "tests": 14,
+      "passed": 14
+    },
+    "hyderabad_risk_pipeline": {
+      "file": "tests/test_hyderabad_risk_pipeline.py",
+      "tests": 12,
+      "passed": 12
+    },
+    "pilot_readiness_and_activation": {
+      "files": [
+        "tests/test_phase6_pilot_readiness.py",
+        "tests/test_phase7_pilot_activation.py",
+        "tests/test_phase8_blockers_and_intake.py"
+      ],
+      "tests": 36,
+      "passed": 36
+    },
+    "end_to_end_decision_integration": {
+      "files": [
+        "tests/test_api_contract.py",
+        "tests/test_phase5_integration.py"
+      ],
+      "tests": 21,
+      "passed": 21
+    }
+  }
+}

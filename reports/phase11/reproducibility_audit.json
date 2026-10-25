@@ -1,0 +1,121 @@
+{
+  "report_timestamp_utc": "2026-10-25T13:27:12.593143+00:00",
+  "phase": "Phase 11 Reproducibility Audit",
+  "git_state": {
+    "commit": "e1ada07",
+    "branch": "master",
+    "working_tree_clean": true
+  },
+  "environment": {
+    "os": "Windows 11",
+    "python_version": "3.12.14",
+    "torch_version": "2.5.1+cu121",
+    "torchvision_version": "0.20.1+cu121",
+    "sklearn_version": "1.6.1",
+    "pandas_version": "2.2.3",
+    "numpy_version": "2.2.3",
+    "pytest_version": "9.1.1",
+    "cuda_available": true
+  },
+  "checkpoint_fingerprints": {
+    "v1_baseline": {
+      "path": "models/vision/best_model.pt",
+      "size_bytes": 18493276,
+      "md5": "82b57acf92942266b4a6a26713515ee4"
+    },
+    "v2_clean_split": {
+      "path": "models/vision/v2/model_v2.pt",
+      "size_bytes": 18493276,
+      "md5": "88e117abbc123bd6299e22c6374bd8c7"
+    },
+    "v3_clean": {
+      "path": "models/vision/v3/model_v3_clean.pt",
+      "size_bytes": 18493276,
+      "md5": "b553eee151c66f96b809204a638fd30e"
+    },
+    "v3_monsoon": {
+      "path": "models/vision/v3/model_v3_monsoon.pt",
+      "size_bytes": 18493276,
+      "md5": "818ae953fc264badf86e14e08bf9f26b"
+    }
+  },
+  "manifest_fingerprints": {
+    "manifest_v2_test": {
+      "path": "data/processed/manifest_v2/test_v2.csv",
+      "size_bytes": 122297,
+      "md5": "0207c1501e8c7e1878f5c2d5acbb8144"
+    },
+    "manifest_v3_test": {
+      "path": "data/processed/manifest_v3/test_v3.csv",
+      "size_bytes": 70572,
+      "md5": "551d91c9254a29dde46b0b3e3e05f09f"
+    },
+    "manifest_v4_full": {
+      "path": "data/processed/manifest_v4/full_manifest_v4.csv",
+      "size_bytes": 477289,
+      "md5": "c7d9665e51d64c3b826840a8f76b4fdd"
+    },
+    "manifest_v4_train": {
+      "path": "data/processed/manifest_v4/train_v4.csv",
+      "size_bytes": 334064,
+      "md5": "c3a08bfcc8a71a619eb7ebc197cfcfd7"
+    },
+    "manifest_v4_val": {
+      "path": "data/processed/manifest_v4/val_v4.csv",
+      "size_bytes": 71943,
+      "md5": "ed700563a837af34cd5c69548c706373"
+    },
+    "manifest_v4_test": {
+      "path": "data/processed/manifest_v4/test_v4.csv",
+      "size_bytes": 71602,
+      "md5": "35e3e52c52c831657fff60e0d67ca398"
+    }
+  },
+  "dataset_fingerprints": {
+    "flooding_locations_kml": {
+      "path": "data/hyderabad_risk/raw/flooding_locations.kml",
+      "size_bytes": 16367,
+      "md5": "52180f3e0ac2a0fcaa0b3407041e4576"
+    },
+    "hyderabad_drains_kml": {
+      "path": "data/hyderabad_risk/raw/hyderabad_drains.kml",
+      "size_bytes": 584087,
+      "md5": "9de0987beed49f1ced89982dad2c82a6"
+    },
+    "waterbodies_geojson": {
+      "path": "data/hyderabad_risk/raw/greater_hyderabad_waterbodies.geojson",
+      "size_bytes": 5039685,
+      "md5": "2d33ee59f119e40722e7e2dea6734ff7"
+    },
+    "monthly_rainfall_csv": {
+      "path": "data/hyderabad_risk/raw/hyderabad_monthly_rainfall_1901_2021.csv",
+      "size_bytes": 16778,
+      "md5": "023abc5d7a1635bc593e132f354e8dc4"
+    },
+    "telemetry_rainfall_csv": {
+      "path": "data/hyderabad_risk/raw/telangana_hourly_telemetry_rainfall_2021_2025.csv",
+      "size_bytes": 9131690,
+      "md5": "caf7704ffe26ca9ec18d207b9d2d1924"
+    },
+    "derived_features_csv": {
+      "path": "data/hyderabad_risk/derived/hyderabad_risk_features.csv",
+      "size_bytes": 5232,
+      "md5": "000d66e7a851be396f171aadd636114c"
+    }
+  },
+  "random_seeds_fixed": {
+    "torch_seed": 42,
+    "numpy_seed": 42,
+    "split_random_state": 42
+  },
+  "reproduction_commands": [
+    "pytest tests/test_phase9_split_and_audit.py -v",
+    "pytest tests/test_phase10_risk_baselines.py -v",
+    "python scripts/diagnostics_shortcut_baseline_v4.py",
+    "python scripts/evaluate_comparative_v3.py",
+    "python scripts/evaluate_realistic_robustness.py",
+    "python scripts/audit_image_quality_gate.py",
+    "python scripts/validate_phase10_rule_baselines.py",
+    "pytest -q"
+  ]
+}

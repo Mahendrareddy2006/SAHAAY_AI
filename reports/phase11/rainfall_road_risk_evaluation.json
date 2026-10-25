@@ -1,0 +1,26 @@
+{
+  "report_timestamp_utc": "2026-10-25T13:27:12.593143+00:00",
+  "phase": "Phase 11 Final Rainfall and Road-Risk Baseline Evaluation",
+  "reference_baseline": "Phase 10 independent rules-based validation (21/21 checks passed)",
+  "rainfall_risk_engine": {
+    "module": "src/sahaay/hyderabad_risk/rainfall_engine.py",
+    "intensity_rules": "IMD operational thresholds (7.5, 15.0, 35.0, 100.0 mm/hr)",
+    "multi_window_escalation": "3h surge >= 40mm -> HIGH; 24h extreme >= 115.5mm -> CRITICAL",
+    "missing_data_semantics": "rain_1h_mm=None strictly returns UNKNOWN with confidence 0.10 and score 0.0. Missing data is NEVER silently assumed to be 0.0mm.",
+    "confidence_penalties": "Distance penalty (-0.01/km >15km, max -0.35); Staleness penalty (-0.08/h >1.5h, max -0.40); Missing window penalty (-0.08 per window).",
+    "validation_checks_passed": 12
+  },
+  "road_vulnerability_engine": {
+    "module": "src/sahaay/hyderabad_risk/vulnerability_engine.py",
+    "formula": "v = 0.45*s_hotspot + 0.35*s_drain + 0.20*s_waterbody",
+    "category_tiers": "SEVERE (>=0.70), HIGH (>=0.45), MODERATE (>=0.20), LOW (<0.20)",
+    "semantic_invariant": "Represents static physical susceptibility, NOT active inundation.",
+    "validation_checks_passed": 9
+  },
+  "feasibility_decisions_retained": {
+    "task_a_rainfall_forecasting": "NOT_RUN (>90% missingness, 141-day gaps, 50.82% accumulators, 0 GHMC stations)",
+    "task_b_flood_occurrence_prediction": "NOT_RUN (0 timestamped flood outcomes; static KML placemarks are not event labels)",
+    "task_c_vulnerability_ranking": "RULE_BASELINE_ONLY (Fitting ML to heuristic weights is formula distillation, not predictive ML)",
+    "task_d_rainfall_risk_classification": "RULE_BASELINE_ONLY (Fitting ML to IMD step functions is rule imitation)"
+  }
+}

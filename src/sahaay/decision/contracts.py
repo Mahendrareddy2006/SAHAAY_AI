@@ -8,7 +8,7 @@ import time
 from datetime import datetime, timezone
 from enum import Enum
 from typing import Any, Dict, List, Optional
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
 
 
 class AlertLevel(str, Enum):
@@ -51,8 +51,42 @@ class DecisionInput(BaseModel):
     vision_is_ambiguous: bool = False
     
     # Component 2: Rainfall Evidence
-    rainfall_risk_category: str = Field("LOW", description="LOW, MEDIUM, HIGH, CRITICAL, or UNKNOWN")
+    rainfall_risk_category: str = Field("UNKNOWN", description="LOW, MEDIUM, HIGH, CRITICAL, or UNKNOWN")
     rainfall_risk_score: float = Field(0.0, ge=0.0, le=1.0)
+    
+    @field_validator("rainfall_risk_category")
+    @classmethod
+    def validate_rainfall_category(cls, v: str) -> str:
+        valid_cats = {"LOW", "MEDIUM", "HIGH", "CRITICAL", "UNKNOWN"}
+        if v not in valid_cats:
+            raise ValueError(f"rainfall_risk_category must be one of {valid_cats}, got {v}")
+        return v
+
+    @classmethod
+    def from_rainfall_result(
+        cls,
+        location_id: str,
+        road_name: str,
+        rainfall_result: Any,
+        **kwargs: Any
+    ) -> "DecisionInput":
+        """
+        Constructs DecisionInput from a RainfallRiskResult, preserving explicit UNKNOWN semantics.
+        Ensures missing telemetry is never silently imputed as safe zero rainfall.
+        """
+        cat = getattr(rainfall_result, "risk_category", "UNKNOWN")
+        score = getattr(rainfall_result, "risk_score", 0.0)
+        engine_missing = list(getattr(rainfall_result, "missing_inputs", []))
+        user_missing = list(kwargs.pop("missing_inputs", []))
+        combined_missing = sorted(list(set(engine_missing + user_missing)))
+        return cls(
+            location_id=location_id,
+            road_name=road_name,
+            rainfall_risk_category=cat,
+            rainfall_risk_score=score,
+            missing_inputs=combined_missing,
+            **kwargs
+        )
     
     # Component 3: Road Vulnerability Evidence
     vulnerability_category: str = Field("LOW", description="LOW, MODERATE, HIGH, SEVERE")

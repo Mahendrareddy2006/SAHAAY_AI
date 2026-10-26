@@ -14,6 +14,7 @@ import torch
 
 from sahaay.vision.model import create_flood_classifier
 from sahaay.vision.transforms import get_eval_transforms
+from sahaay.vision.policy import map_vision_probabilities_to_decision
 from sahaay.config import (
     DEFAULT_CHECKPOINT_PATH,
     DEFAULT_MODEL_NAME,
@@ -233,20 +234,20 @@ class FloodVisionInference:
         score_not_flooded = float(probs[0])
         score_flooded = float(probs[1])
         
-        pred_idx = int(torch.argmax(logits, dim=1).item())
-        predicted_class = LABEL_MAP[pred_idx]
-        confidence = float(probs[pred_idx])
-        
-        is_ambiguous = confidence < self.confidence_threshold
+        predicted_class, confidence, is_ambiguous, is_inconclusive_prob, prob_reasons = (
+            map_vision_probabilities_to_decision(score_flooded)
+        )
+        is_inconclusive = is_inconclusive or is_inconclusive_prob
+        inconclusive_reasons = (quality_reasons or []) + prob_reasons
         
         warnings = [
             "Experimental prototype: Visual evidence only. Does not constitute official emergency advice.",
             "A negative prediction does not guarantee road passability or absence of flood hazard.",
             "Advisory only: Do not generate emergency actions from unvalidated imagery."
         ]
-        if is_ambiguous:
+        if is_inconclusive:
             warnings.append(
-                f"Prediction confidence ({confidence:.2f}) is below threshold ({self.confidence_threshold:.2f}). "
+                f"Model evaluation is inconclusive (flood probability {score_flooded:.2f}). "
                 "Manual field verification recommended."
             )
             
@@ -259,7 +260,8 @@ class FloodVisionInference:
                 "flooded": round(score_flooded, 4)
             },
             "is_ambiguous": is_ambiguous,
-            "is_inconclusive": False,
+            "is_inconclusive": is_inconclusive,
+            "inconclusive_reasons": inconclusive_reasons if is_inconclusive else None,
             "quality_metrics": metrics,
             "model_name": self.model_name,
             "model_version": self.model_version,

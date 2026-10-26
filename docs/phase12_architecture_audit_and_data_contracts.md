@@ -56,12 +56,17 @@ Every finding in this audit is grounded directly in the inspected source code, c
 - **Class Index Mapping:**
   - Index `0` $\to$ `not_flooded` (Negative Class)
   - Index `1` $\to$ `flooded` (Positive Class)
-- **Calibrated Abstention Band ($[0.35, 0.65]$):**
+- **Calibrated Abstention Band (Inclusive $[0.35, 0.65]$):**
   - Continuous output $p = P(\text{flooded} \mid \text{image})$.
-  - If $p \ge 0.65$: Calibrated decision is `FLOOD_EVIDENCE_DETECTED` ($\text{confidence} = p$).
-  - If $p \le 0.35$: Calibrated decision is `NO_CURRENT_FLOOD_EVIDENCE` ($\text{confidence} = 1.0 - p$).
-  - If $0.35 < p < 0.65$: The model **strictly abstains**; decision is `INCONCLUSIVE` ($\text{confidence} = \max(p, 1-p)$, $\text{is\_ambiguous} = \text{True}$).
-- **Canonical Pure Policy Module:** Implemented in [`src/sahaay/vision/policy.py`](file:///C:/Users/MahendraReddy/.gemini/antigravity-ide/scratch/sahaay-ai/src/sahaay/vision/policy.py) to enable rigorous, dependency-free testing of the decision boundary and endpoints ($0.350$, $0.650$, $0.349$, $0.351$, $0.649$, $0.651$).
+  - If $p > 0.65$: Calibrated decision is `FLOOD_EVIDENCE_DETECTED` ($\text{confidence} = p$, $\text{is\_ambiguous} = \text{False}$).
+  - If $p < 0.35$: Calibrated decision is `NO_CURRENT_FLOOD_EVIDENCE` ($\text{confidence} = 1.0 - p$, $\text{is\_ambiguous} = \text{False}$).
+  - If $0.35 \le p \le 0.65$: The model **strictly abstains**; decision is `INCONCLUSIVE` ($\text{confidence} = \max(p, 1-p)$, $\text{is\_ambiguous} = \text{True}$). Specifically, the exact endpoints $0.350$ and $0.650$ abstain.
+  - Rejection of Non-Finite & Non-Numeric Inputs: Float `NaN`, positive/negative infinity, and Boolean inputs are explicitly rejected with `ValueError` and `TypeError`.
+  - Continuous probabilities reflect laboratory prototype models and are **not** claimed as calibrated for real-world Hyderabad conditions.
+- **Inference Integration & Status:**
+  - Implemented in [`src/sahaay/vision/policy.py`](file:///C:/Users/MahendraReddy/.gemini/antigravity-ide/scratch/sahaay-ai/src/sahaay/vision/policy.py) via `evaluate_vision_abstention_boundary` and `map_vision_probabilities_to_decision`.
+  - Integrated into [`src/sahaay/vision/inference.py:L236-245`](file:///C:/Users/MahendraReddy/.gemini/antigravity-ide/scratch/sahaay-ai/src/sahaay/vision/inference.py#L236-L245) inside `FloodVisionInference.predict`, ensuring probabilities in $[0.35, 0.65]$ produce `predicted_class="inconclusive"` and `is_inconclusive=True`.
+  - **Environment Blocker:** Runtime forward-pass verification of `FloodVisionInference.predict` with real weights is blocked because `torch` and `PIL` are not installed in the Python 3.14 environment. The integration logic is unit-tested without loading PyTorch weights.
 
 #### 1.3 Mandatory Safety Invariants
 1. **`NO_CURRENT_FLOOD_EVIDENCE` is NOT Safe Passage:** A negative optical prediction indicates solely that standing water is not visible in that specific frame at that timestamp. It does not establish road passability, structural integrity, absence of submerged debris, or upstream safety.
@@ -126,6 +131,13 @@ Calibrated strictly against India Meteorological Department (IMD) Standard Opera
   - `confidence` $\to$ `0.10`
   - `reason_codes` $\to$ `["INSUFFICIENT_TELEMETRY_DATA"]`
   - **NON-NEGOTIABLE RULE:** Missing rainfall telemetry must **NEVER** be silently imputed as $0.0\text{ mm}$ or classified as `LOW` risk.
+- **Decision Engine Integration:**
+  - `DecisionInput.rainfall_risk_category` defaults strictly to `"UNKNOWN"`. If telemetry is omitted, the input automatically triggers `DecisionStatus.INSUFFICIENT_DATA` and `AlertLevel.ADVISORY`.
+  - Pydantic validator enforces `rainfall_risk_category in {"LOW", "MEDIUM", "HIGH", "CRITICAL", "UNKNOWN"}`.
+  - Provided `DecisionInput.from_rainfall_result` factory method to guarantee that missing telemetry flags and categories are reliably mapped.
+- **Documented Downstream Consumer Risk:**
+  - In `RainfallRiskResult`, `risk_score` is defined as a non-nullable `float = Field(..., ge=0.0, le=1.0)` to maintain backward API compatibility.
+  - **WARNING TO DOWNSTREAM CLIENTS:** Any frontend widget, map color gradient, or external system that binds solely to the numeric `risk_score` field without inspecting `risk_category == "UNKNOWN"` or `confidence == 0.10` risks displaying missing telemetry as "Zero Risk" (green). Downstream consumers must check the category enum first.
 
 #### 3.4 Confidence Discounting Equations
 - **Station Distance Decay:** If gauge distance $d > 15.0\text{ km}$:
@@ -175,13 +187,13 @@ $$V = 0.45 \cdot S_{\text{hotspot}} + 0.35 \cdot S_{\text{drain}} + 0.20 \cdot S
 
 #### 5.2 Canonical Routing Contracts & Schemas
 - **`EmergencyDestination`:**
-  - `facility_id`: Regex `^(HOSP|SHELTER)-[A-Z0-9]{4,10}$`
+  - `facility_id`: Regex `^(HOSP|SHELTER)-[A-Z0-9\-]{3,25}$`
   - `destination_type`: `HOSPITAL` | `OFFICIAL_SHELTER`
   - `operational_status`: `OPERATIONAL_VERIFIED`, `OPERATIONAL_CAPACITY_CONSTRAINED`, `INUNDATED_ACCESS_RESTRICTED`, `UNVERIFIED`
   - `verified_access_road_status`: `CurrentFloodEvidenceStatus`
   - `emergency_contact_masked`: str
 - **`RouteRequest`:**
-  - `origin_latitude`, `origin_longitude`, `destination_latitude`, `destination_longitude`
+  - `origin_latitude`, `origin_longitude`, `destination_latitude`, `destination_longitude` (strictly validated within Hyderabad bounding box $[17.0, 17.8]^\circ\text{N}$, $[78.1, 78.8]^\circ\text{E}$)
   - `vehicle_type`: `TWO_WHEELER`, `THREE_WHEELER_AUTO`, `LIGHT_MOTOR_VEHICLE`, `HIGH_CLEARANCE_SUV`, `HEAVY_COMMERCIAL`
   - `avoid_high_susceptibility`: bool
 - **`RouteResponse`:**
@@ -195,9 +207,11 @@ $$V = 0.45 \cdot S_{\text{hotspot}} + 0.35 \cdot S_{\text{drain}} + 0.20 \cdot S
   - `engine_status`: `"SPECIFICATION_CONTRACT_ONLY_NOT_IMPLEMENTED"`.
 
 #### 5.3 Non-Negotiable Safety Invariants for Routing
-1. **Never Claim a Route is Guaranteed Safe:** Pydantic validators in [`src/sahaay/routing/contracts.py`](file:///C:/Users/MahendraReddy/.gemini/antigravity-ide/scratch/sahaay-ai/src/sahaay/routing/contracts.py) enforce that any payload claiming "guaranteed safe" or omitting the disclaimer fails validation.
-2. **Surface Unmonitored Segments:** If a route traverses segments where rainfall or road observations are `UNKNOWN`, `has_unmonitored_segments` must be set to `True` with an explicit warning.
-3. **No Autonomous Dispatch:** Routes provided to emergency ambulances or relief vehicles are advisory; human dispatch officers must confirm road conditions.
+1. **Never Claim a Route is Guaranteed Safe:** Pydantic validators in [`src/sahaay/routing/contracts.py`](file:///C:/Users/MahendraReddy/.gemini/antigravity-ide/scratch/sahaay-ai/src/sahaay/routing/contracts.py) enforce that any payload claiming "guaranteed safe", "100% safe", "completely safe", or "passable with zero risk" fails validation across warnings and segment notices. *(Limitation: Heuristic phrase matching mitigates overt misleading safety declarations but cannot detect every possible linguistically subtle claim of guaranteed safety).*
+2. **Cross-Field Unmonitored Segments Consistency:** If a route traverses segments where rainfall or road observations are `UNKNOWN` or stale, `has_unmonitored_segments` is strictly required to be `True`, and `unmonitored_segments_count` must match the segment count.
+3. **Cross-Field Emergency / Impassable Risk Consistency:** If any segment on the route has `current_alert_level == EMERGENCY` or `is_passable_for_vehicle == False`, `aggregate_risk_score` cannot be set to 0.0.
+4. **Inundated Emergency Destination Warning:** If the target facility has `INUNDATED_ACCESS_RESTRICTED` status or an inundated access road, `warnings` must contain an explicit access restriction warning.
+5. **No Autonomous Dispatch:** Routes provided to emergency ambulances or relief vehicles are strictly advisory; human dispatch officers must confirm road passability.
 
 ---
 
@@ -234,7 +248,11 @@ $$V = 0.45 \cdot S_{\text{hotspot}} + 0.35 \cdot S_{\text{drain}} + 0.20 \cdot S
 | Item | Handbook / Assumption | Actual Repository State | Architectural Resolution / Policy |
 | :--- | :--- | :--- | :--- |
 | **Quality Gate Module Path** | Cited as `src/sahaay/data_collection_v4/quality.py` | Embedded inside [`src/sahaay/vision/inference.py`](file:///C:/Users/MahendraReddy/.gemini/antigravity-ide/scratch/sahaay-ai/src/sahaay/vision/inference.py) | Documented actual path; isolated pure policy in [`src/sahaay/vision/policy.py`](file:///C:/Users/MahendraReddy/.gemini/antigravity-ide/scratch/sahaay-ai/src/sahaay/vision/policy.py) |
-| **Vision Decision Threshold** | Handover states $[0.35, 0.65]$ band | Decision engine used $\ge 0.70$ and $\ge 0.75$ | Aligned with canonical $[0.35, 0.65]$ abstention band |
+| **Vision Abstention Interval (F-01)** | Mandated inclusive $[0.35, 0.65]$ band | Previously open interval $(0.35, 0.65)$ | Corrected in `policy.py` to strict inclusive interval where $0.350$ and $0.650$ produce `INCONCLUSIVE` |
+| **Inference Integration (F-02)** | Handover mandated abstention in inference | Previously `inference.py` assigned argmax class | Integrated `map_vision_probabilities_to_decision` into `predict()`; documented `torch`/`PIL` test blocker |
+| **Rainfall UNKNOWN Default (F-03)** | Missing telemetry must mean `UNKNOWN` | `DecisionInput` previously defaulted to `LOW` | Corrected `DecisionInput` default to `UNKNOWN` with field validator; documented downstream client risk |
+| **Non-Finite & Bool Inputs (F-04)** | Valid probabilities in $[0.0, 1.0]$ | NaN and Booleans previously bypassed validation | Added explicit rejection for `NaN`, $\pm\infty$, and `bool` in `policy.py` |
+| **Routing Consistency (F-05)** | Safety invariants across routes | `RouteResponse` lacked cross-field consistency checks | Added cross-field validators for unmonitored segments, emergency risks, and inundated destination warnings |
 | **Deep Vision Test Environment** | Assumed PyTorch & Pillow present | Python 3.14 lacks `torch` and `PIL` | Pure-Python policy tests added; deep inference marked `BLOCKED_BY_ENVIRONMENT` |
 | **Routing Engine** | Assumed active risk-aware routing | Zero routing code exists in repo | Established formal Pydantic contracts in [`src/sahaay/routing/contracts.py`](file:///C:/Users/MahendraReddy/.gemini/antigravity-ide/scratch/sahaay-ai/src/sahaay/routing/contracts.py) |
 | **IMD Feed Ingestion** | Assumed live weather feed | Static CSV and manual parameters only | Formally classified as `NOT_IMPLEMENTED` |

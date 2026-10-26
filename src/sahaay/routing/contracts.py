@@ -122,9 +122,74 @@ class RouteResponse(BaseModel):
         return v
 
     @model_validator(mode="after")
-    def verify_no_guaranteed_safety(self) -> "RouteResponse":
-        # Check that no warnings or fields claim 100% safety
+    def verify_safety_and_cross_field_invariants(self) -> "RouteResponse":
+        # 1. Check for misleading guaranteed-safety phrasing across warnings and segment notices
+        # NOTE: Heuristic phrase matching mitigates overt misleading safety declarations,
+        # but cannot detect every possible linguistically subtle claim of guaranteed safety.
+        prohibited_safety_phrases = [
+            "guaranteed safe",
+            "100% safe",
+            "completely safe",
+            "passable with zero risk",
+            "zero risk route",
+            "flood-free route",
+            "certified safe passage",
+        ]
+        
         for w in self.warnings:
-            if "guaranteed safe" in w.lower() or "100% safe" in w.lower():
-                raise ValueError("Routing response must NEVER claim a route is guaranteed safe.")
+            w_lower = w.lower()
+            for phrase in prohibited_safety_phrases:
+                if phrase in w_lower:
+                    raise ValueError(f"Routing response must NEVER claim a route is guaranteed safe (found: '{phrase}').")
+
+        for seg in self.segments:
+            if seg.advisory_notice:
+                notice_lower = seg.advisory_notice.lower()
+                for phrase in prohibited_safety_phrases:
+                    if phrase in notice_lower:
+                        raise ValueError(f"Segment advisory notice must NEVER claim guaranteed safety (found: '{phrase}').")
+
+        # 2. Cross-field unmonitored segments consistency
+        unmonitored = [
+            s for s in self.segments
+            if s.current_evidence_status == CurrentFloodEvidenceStatus.INSUFFICIENT_OR_STALE_DATA
+            or s.rainfall_risk_category == "UNKNOWN"
+        ]
+        if unmonitored and not self.has_unmonitored_segments:
+            raise ValueError(
+                "has_unmonitored_segments must be True when route contains segments with UNKNOWN or stale evidence."
+            )
+        if len(unmonitored) != self.unmonitored_segments_count:
+            if self.unmonitored_segments_count == 0 and unmonitored:
+                raise ValueError(
+                    f"unmonitored_segments_count must match count of unmonitored segments ({len(unmonitored)})."
+                )
+
+        # 3. Cross-field emergency / impassable segment consistency
+        has_emergency_segment = any(
+            s.current_alert_level == AlertLevel.EMERGENCY or not s.is_passable_for_vehicle
+            for s in self.segments
+        )
+        if has_emergency_segment and self.aggregate_risk_score == 0.0:
+            raise ValueError(
+                "aggregate_risk_score cannot be 0.0 when route traverses EMERGENCY or impassable segments."
+            )
+
+        # 4. Target facility access restriction check
+        if self.target_facility is not None:
+            is_facility_restricted = (
+                self.target_facility.operational_status == FacilityOperationalStatus.INUNDATED_ACCESS_RESTRICTED
+                or self.target_facility.verified_access_road_status == CurrentFloodEvidenceStatus.OBSERVED_FLOOD_EVIDENCE
+            )
+            if is_facility_restricted:
+                has_access_warning = any(
+                    "restricted" in w.lower() or "inundated" in w.lower() or "access" in w.lower()
+                    for w in self.warnings
+                )
+                if not has_access_warning:
+                    raise ValueError(
+                        "Target emergency facility has restricted or inundated access; "
+                        "route response must include an explicit access restriction warning in warnings."
+                    )
+
         return self

@@ -34,6 +34,10 @@ class LiveDataAdapterRegistry:
     def get_adapter(self, source_id: str) -> Optional[BaseLiveAdapter]:
         return self._adapters.get(source_id)
 
+    def register_adapter(self, source_id: str, adapter: BaseLiveAdapter) -> None:
+        """Dynamically registers or updates an adapter in the registry."""
+        self._adapters[source_id] = adapter
+
     def fetch_all(
         self,
         location_id: str,

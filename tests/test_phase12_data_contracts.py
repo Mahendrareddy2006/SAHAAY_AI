@@ -274,6 +274,7 @@ def test_heavy_rainfall_on_vulnerable_road_is_predicted_not_observed():
         road_name="Shaikpet Flyover Junction",
         rainfall_risk_category="CRITICAL",
         rainfall_risk_score=0.90,
+        rainfall_proximity_tier="LOCAL_URBAN",
         vulnerability_category="SEVERE",
         vulnerability_index=0.85,
     )

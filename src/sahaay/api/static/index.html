@@ -743,14 +743,23 @@
         const data = await res.json();
         corridors = data.corridors.map(c => {
           const isMissingTelemetry = (c.rain_1h_mm == null || c.rainfall_risk_category === 'UNKNOWN');
+          const isStale = Boolean(c.telemetry_freshness_hours > 3.0 || c.is_stale);
+          const isRegionalCatchment = (c.nearest_station_dist_km > 35.0 || c.rainfall_proximity_tier === 'REGIONAL_CATCHMENT');
+          const isUnknownProximity = (c.rainfall_proximity_tier === 'UNKNOWN');
           
           let alertLevel, floodEvidenceStatus, decisionStatus, confidence;
-          if (isMissingTelemetry) {
+          if (isMissingTelemetry || isStale) {
             // Missing/stale rainfall telemetry MUST NOT be interpreted as zero risk or CLEAR
             alertLevel = 'UNKNOWN';
-            decisionStatus = 'INSUFFICIENT_DATA';
+            decisionStatus = isStale ? 'STALE_DATA' : 'INSUFFICIENT_DATA';
             floodEvidenceStatus = 'INSUFFICIENT_OR_STALE_DATA';
-            confidence = 0.15;
+            confidence = isStale ? 0.25 : 0.15;
+          } else if (isRegionalCatchment || isUnknownProximity) {
+            // Regional catchment (>35km) or UNKNOWN proximity: withhold actionable WATCH alert
+            alertLevel = 'ADVISORY';
+            decisionStatus = 'EVALUATED';
+            floodEvidenceStatus = 'NO_CURRENT_EVIDENCE_AVAILABLE';
+            confidence = 0.35;
           } else if (c.vulnerability_category === 'HIGH' && c.rain_1h_mm > 15) {
             alertLevel = 'WATCH';
             decisionStatus = 'EVALUATED';
@@ -862,8 +871,10 @@
             </div>
             <div class="status-banner-desc">
               Status: <strong>${c.current_flood_evidence_status.replace(/_/g, ' ')}</strong>.
-              ${c.alert_level === 'UNKNOWN' ? 'Primary rainfall telemetry is missing or stale. Missing telemetry must NOT be interpreted as safe zero rainfall; normal caution advised.' :
-                c.alert_level === 'WATCH' ? 'Anticipated waterlogging surge due to heavy precipitation on chronically vulnerable catchment.' :
+              ${c.alert_level === 'UNKNOWN' ? (c.decision_status === 'STALE_DATA' ? 'Primary rainfall telemetry is stale (>3h). Stale telemetry must NOT be interpreted as dry weather; normal caution advised.' : 'Primary rainfall telemetry is missing or unavailable. Missing telemetry must NOT be interpreted as safe zero rainfall; normal caution advised.') :
+                (c.rainfall_proximity_tier === 'REGIONAL_CATCHMENT' || c.nearest_station_dist_km > 35.0) ? 'Regional catchment telemetry discounted (>35km watershed). Actionable WATCH alert withheld; normal traffic caution advised.' :
+                (c.rainfall_proximity_tier === 'UNKNOWN') ? 'Station proximity tier is UNKNOWN (distance unestablished). Actionable WATCH alert withheld; normal traffic caution advised.' :
+                c.alert_level === 'WATCH' ? 'Anticipated waterlogging surge due to heavy precipitation on chronically vulnerable corridor.' :
                 c.alert_level === 'ADVISORY' ? 'Heightened vigilance advised. Unverified community submissions or moderate vulnerability under review.' :
                 'Normal dry baseline. Zero active flood evidence or elevated precipitation risk.'}
             </div>

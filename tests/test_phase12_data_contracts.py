@@ -8,6 +8,8 @@ import math
 import pytest
 from pydantic import ValidationError
 
+from sahaay.api.schemas import VisionPredictionResponse
+
 from sahaay.decision.contracts import (
     AlertLevel,
     CurrentFloodEvidenceStatus,
@@ -567,3 +569,132 @@ def test_route_response_cross_field_consistency():
         warnings=["WARNING: Target facility has inundated, restricted access roads. Approach with caution."],
     )
     assert valid_restricted_resp.target_facility.operational_status == FacilityOperationalStatus.INUNDATED_ACCESS_RESTRICTED
+
+
+def test_route_response_unmonitored_count_invariant():
+    """Verify unmonitored_segments_count must equal computed count for all cases (rejecting undercounts & overcounts)."""
+    unmon_seg_1 = RouteSegmentRisk(
+        segment_id="SEG-UNMON-01",
+        road_name="Unmonitored Link A",
+        length_meters=400.0,
+        current_alert_level=AlertLevel.ADVISORY,
+        current_evidence_status=CurrentFloodEvidenceStatus.INSUFFICIENT_OR_STALE_DATA,
+        rainfall_risk_category="UNKNOWN",
+        vulnerability_category="LOW",
+        segment_risk_score=0.20,
+    )
+    unmon_seg_2 = RouteSegmentRisk(
+        segment_id="SEG-UNMON-02",
+        road_name="Unmonitored Link B",
+        length_meters=600.0,
+        current_alert_level=AlertLevel.ADVISORY,
+        current_evidence_status=CurrentFloodEvidenceStatus.INSUFFICIENT_OR_STALE_DATA,
+        rainfall_risk_category="UNKNOWN",
+        vulnerability_category="LOW",
+        segment_risk_score=0.20,
+    )
+
+    # Undercount Case 1: 2 actual unmonitored segments with reported count 1 -> rejected
+    with pytest.raises(ValidationError, match=r"unmonitored_segments_count \(1\) must match count of unmonitored segments \(2\)"):
+        RouteResponse(
+            route_id="RTE-COUNT-01",
+            origin={"lat": 17.3850, "lon": 78.4867},
+            destination={"lat": 17.4399, "lon": 78.3908},
+            vehicle_type=VehicleType.LIGHT_MOTOR_VEHICLE,
+            total_distance_meters=1000.0,
+            estimated_duration_seconds=300.0,
+            aggregate_risk_score=0.20,
+            segments=[unmon_seg_1, unmon_seg_2],
+            has_unmonitored_segments=True,
+            unmonitored_segments_count=1,  # Undercount!
+        )
+
+    # Undercount Case 2: 1 actual unmonitored segment with reported count 0 -> rejected
+    with pytest.raises(ValidationError, match=r"unmonitored_segments_count \(0\) must match count of unmonitored segments \(1\)"):
+        RouteResponse(
+            route_id="RTE-COUNT-02",
+            origin={"lat": 17.3850, "lon": 78.4867},
+            destination={"lat": 17.4399, "lon": 78.3908},
+            vehicle_type=VehicleType.LIGHT_MOTOR_VEHICLE,
+            total_distance_meters=1000.0,
+            estimated_duration_seconds=300.0,
+            aggregate_risk_score=0.20,
+            segments=[unmon_seg_1],
+            has_unmonitored_segments=True,
+            unmonitored_segments_count=0,  # Undercount!
+        )
+
+    # Overcount Case 1: 0 actual unmonitored segments with reported count 1 -> rejected
+    with pytest.raises(ValidationError, match=r"unmonitored_segments_count \(1\) must match count of unmonitored segments \(0\)"):
+        RouteResponse(
+            route_id="RTE-COUNT-03",
+            origin={"lat": 17.3850, "lon": 78.4867},
+            destination={"lat": 17.4399, "lon": 78.3908},
+            vehicle_type=VehicleType.LIGHT_MOTOR_VEHICLE,
+            total_distance_meters=1000.0,
+            estimated_duration_seconds=300.0,
+            aggregate_risk_score=0.10,
+            segments=[],
+            has_unmonitored_segments=False,
+            unmonitored_segments_count=1,  # Overcount!
+        )
+
+    # Overcount Case 2: 2 actual unmonitored segments with reported count 3 -> rejected
+    with pytest.raises(ValidationError, match=r"unmonitored_segments_count \(3\) must match count of unmonitored segments \(2\)"):
+        RouteResponse(
+            route_id="RTE-COUNT-04",
+            origin={"lat": 17.3850, "lon": 78.4867},
+            destination={"lat": 17.4399, "lon": 78.3908},
+            vehicle_type=VehicleType.LIGHT_MOTOR_VEHICLE,
+            total_distance_meters=1000.0,
+            estimated_duration_seconds=300.0,
+            aggregate_risk_score=0.20,
+            segments=[unmon_seg_1, unmon_seg_2],
+            has_unmonitored_segments=True,
+            unmonitored_segments_count=3,  # Overcount!
+        )
+
+    # Exact Count Case: 2 actual unmonitored segments with reported count 2 and has_unmonitored_segments=True -> passes
+    valid_resp = RouteResponse(
+        route_id="RTE-COUNT-VALID",
+        origin={"lat": 17.3850, "lon": 78.4867},
+        destination={"lat": 17.4399, "lon": 78.3908},
+        vehicle_type=VehicleType.LIGHT_MOTOR_VEHICLE,
+        total_distance_meters=1000.0,
+        estimated_duration_seconds=300.0,
+        aggregate_risk_score=0.20,
+        segments=[unmon_seg_1, unmon_seg_2],
+        has_unmonitored_segments=True,
+        unmonitored_segments_count=2,
+    )
+    assert valid_resp.unmonitored_segments_count == 2
+    assert valid_resp.has_unmonitored_segments is True
+
+
+def test_vision_prediction_response_schema_inconclusive():
+    """Verify VisionPredictionResponse schema serializes inconclusive results without forcing binary labels."""
+    resp = VisionPredictionResponse(
+        prediction_id="pred_inconclusive_contract_01",
+        predicted_class="inconclusive",
+        confidence=0.65,
+        class_scores={"not_flooded": 0.50, "flooded": 0.50},
+        is_ambiguous=True,
+        is_inconclusive=True,
+        inconclusive_reasons=["Score 0.500 in [0.35, 0.65] ambiguity band"],
+        model_name="mobilenetv3_large_baseline",
+        model_version="v3.0.0",
+        device="cpu",
+        inference_latency_ms=10.2,
+        created_at="2026-10-26T12:00:00Z",
+        warnings=["Model evaluation is inconclusive. Manual field verification recommended."]
+    )
+    assert resp.predicted_class == "inconclusive"
+    assert resp.is_inconclusive is True
+    assert resp.is_ambiguous is True
+    assert resp.confidence == 0.65
+    assert len(resp.inconclusive_reasons) == 1
+    # Verify serialization to dict and JSON roundtrip
+    dumped = resp.model_dump()
+    assert dumped["predicted_class"] == "inconclusive"
+    assert dumped["is_inconclusive"] is True
+

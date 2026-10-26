@@ -51,7 +51,9 @@
     "src/sahaay/decision/contracts.py",
     "src/sahaay/routing/__init__.py",
     "src/sahaay/routing/contracts.py",
+    "src/sahaay/api/static/index.html",
     "tests/test_phase12_data_contracts.py",
+    "tests/test_api_contract.py",
     "reports/phase12/phase12_audit_report.json"
   ],
   "review_corrections_applied": {
@@ -82,12 +84,24 @@
     "F-07_environment_limitation_reporting": {
       "finding": "Python 3.14 environment lacks torch and Pillow, blocking full deep vision inference tests during automated collection.",
       "resolution": "Documented exact environment blocker. Runtime pure-Python policy and contract integration verified; model weights execution marked as blocked until PyTorch/Pillow environment is provisioned."
+    },
+    "F-08_dashboard_rainfall_missingness_mapping": {
+      "finding": "Frontend dashboard corridor mapping evaluated null rain_1h_mm on low-vulnerability roads to CLEAR (green zero risk).",
+      "resolution": "Updated src/sahaay/api/static/index.html to ensure missing/null rain_1h_mm or UNKNOWN rainfall_risk_category maps to alert_level: UNKNOWN, decision_status: INSUFFICIENT_DATA, current_flood_evidence_status: INSUFFICIENT_OR_STALE_DATA, and neutral slate styling. Added UNKNOWN legend and filter chip."
+    },
+    "F-09_routing_unmonitored_segments_count_exact_invariant": {
+      "finding": "RouteResponse unmonitored count validation contained an inner if condition that allowed non-zero count mismatches (e.g. 2 unmonitored segments with count=1) to bypass validation.",
+      "resolution": "Updated src/sahaay/routing/contracts.py to strictly require unmonitored_segments_count to equal len(unmonitored) for all cases, rejecting both undercounts and overcounts with ValueError. Added regression tests in tests/test_phase12_data_contracts.py."
+    },
+    "F-10_api_contract_vision_inconclusive_support": {
+      "finding": "Legacy test in tests/test_api_contract.py asserted predicted_class in ['flooded', 'not_flooded'], lacking inconclusive support.",
+      "resolution": "Updated assertion in tests/test_api_contract.py to allow 'inconclusive' and added test_vision_predict_inconclusive_serialization verifying non-binary serialization."
     }
   },
   "capability_statuses": {
     "photo_intake_and_image_quality_gating": {
       "status": "IMPLEMENTED_AND_TESTED",
-      "evidence": "src/sahaay/vision/inference.py (lines 91-136, evaluate_image_quality) and src/sahaay/vision/policy.py (evaluate_vision_abstention_boundary)"
+      "evidence": "src/sahaay/vision/inference.py (lines 92-137, evaluate_image_quality) and src/sahaay/vision/policy.py (evaluate_vision_abstention_boundary)"
     },
     "deep_vision_inference": {
       "status": "BLOCKED_BY_ENVIRONMENT_OR_DATA",
@@ -95,7 +109,7 @@
     },
     "current_road_status_and_observed_flood_evidence": {
       "status": "IMPLEMENTED_AND_TESTED",
-      "evidence": "src/sahaay/decision/contracts.py (lines 102-376, evaluate_decision, CurrentFloodEvidenceStatus)"
+      "evidence": "src/sahaay/decision/contracts.py (lines 136-410, evaluate_decision, CurrentFloodEvidenceStatus)"
     },
     "rainfall_risk_baseline_engine": {
       "status": "IMPLEMENTED_AND_TESTED",
@@ -134,18 +148,18 @@
     {
       "command": "$env:PYTHONPATH=\"src;scripts\"; & \"C:\\Users\\MahendraReddy\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe\" -m pytest tests/test_phase12_data_contracts.py -v",
       "test_suite": "tests/test_phase12_data_contracts.py",
-      "tests_passed": 37,
+      "tests_passed": 39,
       "tests_failed": 0,
       "exit_code": 0,
-      "duration_seconds": 0.45
+      "duration_seconds": 0.87
     },
     {
       "command": "$env:PYTHONPATH=\"src;scripts\"; & \"C:\\Users\\MahendraReddy\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe\" -m pytest tests/test_phase12_data_contracts.py tests/test_phase10_risk_baselines.py tests/test_phase8_blockers_and_intake.py tests/test_external_provenance_reconciliation.py",
       "test_suite": "Focused Regression Suite (4 modules)",
-      "tests_passed": 69,
+      "tests_passed": 71,
       "tests_failed": 0,
       "exit_code": 0,
-      "duration_seconds": 2.00
+      "duration_seconds": 2.50
     }
   ],
   "tests_blocked_by_dependencies": [
@@ -173,5 +187,5 @@
     "GAP 5: Institutional permissions and data-sharing agreements with GHMC/HTP remain unexecuted; Pilot Activation Gate remains locked in BLOCKED_NOT_READY_FOR_LIVE_PILOT.",
     "GAP 6: In RainfallRiskResult, risk_score is non-nullable float (0.0 on UNKNOWN telemetry). Upstream callers must check risk_category == 'UNKNOWN' rather than numeric score."
   ],
-  "pilot_readiness_statement": "CRITICAL GOVERNANCE STATEMENT: The completion of this architecture audit and successful passage of the 69 data-contract and regression unit tests DO NOT establish or claim pilot readiness. Live pilot activation remains strictly locked in BLOCKED_NOT_READY_FOR_LIVE_PILOT pending authorized institutional agreements, field lead designations, and on-site safety verification."
+  "pilot_readiness_statement": "CRITICAL GOVERNANCE STATEMENT: The completion of this architecture audit and successful passage of the 71 data-contract and regression unit tests DO NOT establish or claim pilot readiness. Live pilot activation remains strictly locked in BLOCKED_NOT_READY_FOR_LIVE_PILOT pending authorized institutional agreements, field lead designations, and on-site safety verification."
 }

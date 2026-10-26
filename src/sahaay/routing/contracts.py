@@ -160,10 +160,10 @@ class RouteResponse(BaseModel):
                 "has_unmonitored_segments must be True when route contains segments with UNKNOWN or stale evidence."
             )
         if len(unmonitored) != self.unmonitored_segments_count:
-            if self.unmonitored_segments_count == 0 and unmonitored:
-                raise ValueError(
-                    f"unmonitored_segments_count must match count of unmonitored segments ({len(unmonitored)})."
-                )
+            raise ValueError(
+                f"unmonitored_segments_count ({self.unmonitored_segments_count}) must match "
+                f"count of unmonitored segments ({len(unmonitored)})."
+            )
 
         # 3. Cross-field emergency / impassable segment consistency
         has_emergency_segment = any(

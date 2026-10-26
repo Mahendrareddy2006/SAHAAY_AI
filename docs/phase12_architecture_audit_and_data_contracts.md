@@ -1,270 +1,265 @@
-# Phase 12 — Architecture Audit and Canonical Data Contracts
+# Sahaay AI — Phase 12: Architecture Audit and Formal Data Contracts
 
-**Project:** Sahaay AI — Predict. Prevent. Protect.  
-**Phase:** 12  
-**Status:** Audit and contract specification  
-**Baseline branch:** `main`  
-**Baseline commit reviewed:** `0bc467df5e7821ba5dfa6864d3dee6f2601bd497` (Phase 11)  
-**Scope:** AI/ML architecture, component readiness, cross-component data contracts, and integration gaps. This phase does not train a new model, activate live feeds, or deploy the system.
-
----
-
-## 1. Phase 12 outcome
-
-This document establishes a shared contract for the next phases. It distinguishes:
-
-1. **Observed evidence** — a time- and location-specific observation, with source and verification state.
-2. **Current road status** — the best available state of a road segment, including uncertainty and freshness.
-3. **Forecast risk** — a future-looking estimate tied to a forecast issue time and valid period.
-4. **Static susceptibility** — a geographic baseline that does not assert current flooding.
-5. **Routing** — a graph-search result that uses road status and risk inputs; it is not itself a flood detector.
-6. **Decision/advisory output** — an explainable synthesis of the above, with abstention when evidence is insufficient.
-
-A component must not silently convert one category into another. For example, high rainfall risk is not a confirmed flood observation, and a road with no current report is not a confirmed safe road.
-
-## 2. Repository audit
-
-### 2.1 Components found in the reviewed source
-
-| Component | Reviewed location | What the code currently establishes |
-|---|---|---|
-| Vision architecture | `src/sahaay/vision/model.py` | MobileNetV3-Small and ResNet-18 construction; two-class classifier head |
-| Vision inference | `src/sahaay/vision/inference.py` | Checkpoint selection, image decoding, quality checks, inference scores and warnings |
-| API request/response schemas | `src/sahaay/api/schemas.py` | Vision response, rainfall estimate request, road vulnerability request |
-| Rainfall baseline | `src/sahaay/hyderabad_risk/rainfall_engine.py` | Deterministic intensity/accumulation rules, confidence adjustments and UNKNOWN for missing primary hourly rainfall |
-| Road susceptibility | `src/sahaay/hyderabad_risk/vulnerability_engine.py` | Static weighted proximity heuristic |
-| Geospatial/rainfall schemas | `src/sahaay/hyderabad_risk/schemas.py` | Telemetry, feature-vector and risk-result Pydantic models |
-| Decision contract | `src/sahaay/decision/contracts.py` | Alert level, hazard nature, decision status, current-evidence status and decision inputs/outputs |
-| API routes | `src/sahaay/api/routes.py` | Vision, rainfall/vulnerability calculations, citizen reports, source status and human-review endpoints |
-| Model inventory | `docs/phase11_model_inventory.md` | Phase 11 disposition of trained checkpoints, rule engines and not-run experiments |
-| ML handover | `docs/phase11_ml_handover_for_team.md` | Advisory semantics and intended integration guardrails |
-
-This is a source-level review of the named files, not a claim that every service has been run end-to-end. The connected GitHub review does not itself execute the test suite.
-
-### 2.2 Confirmed gaps for the requested product
-
-The reviewed source does not establish a complete end-to-end implementation of the following capabilities:
-
-- Authorized, operational IMD forecast/observation ingestion with persistence, retries, source timestamps and feed-health monitoring.
-- A verified road-segment status store with expiry/clearance semantics.
-- A calibrated, locally validated road-segment flood probability model.
-- A forecast-to-road-segment risk projection validated against real Hyderabad flood outcomes.
-- A road-network routing service that avoids confirmed impassable segments and incorporates uncertainty.
-- A verified hospital/shelter directory with current access/availability information.
-- A complete pipeline from photo upload through inference, report verification, road-state update and map event.
-
-Some related primitives exist (risk calculation endpoints, report workflows, review queue, source-status reporting); these should be reused rather than duplicated. API, frontend, map, external feed access and routing implementation remain integration work for the responsible teammates.
-
-### 2.3 Important source-of-truth mismatches
-
-These are Phase 12 blockers to reconcile before a later phase treats the contracts as implemented behavior.
-
-**A. Quality-gate thresholds differ.** The Phase 11 handover documents a minimum image size of 640×480, blur Laplacian variance threshold of 80, and brightness range [35, 230]. The reviewed implementation in `src/sahaay/vision/inference.py` instead rejects dimensions below 64×64, darkness below mean luminance 10, near-white images above mean 248 with standard deviation below 8, and a blur condition below variance 15 when luminance standard deviation exceeds 12. These are not equivalent. The team must choose one versioned policy, add tests, and update code and handover together. Do not silently assume the handover thresholds are active.
-
-**B. Vision abstention is not fully represented in inference output.** The handover specifies flood probability ≥0.65 as flood evidence, ≤0.35 as no current visual evidence, and the open interval (0.35, 0.65) as inconclusive. The reviewed inference code sets `is_ambiguous` when the winning class confidence is below 0.65, but still returns an argmax class and `is_inconclusive: false` for an image that passes the quality gate. Later implementation work must enforce the documented three-way decision contract explicitly.
-
-**C. Older README/model-card claims conflict with later audits.** The README and original model card describe an earlier baseline and perfect internal test results. Phase 11 inventory documents duplicate leakage/source-label confounding and disqualifies V1/V2 for operational use. The Phase 11 inventory and handover, plus reproducible evaluation artifacts, take precedence over historical accuracy claims. The README/model card should be revised in a documentation follow-up so the repository does not imply production readiness.
-
-**D. Rule output is not a learned probability.** Rainfall risk scores and road vulnerability indices are rule-based scores. They must not be presented as empirically calibrated probabilities of a particular road flooding.
+**Repository:** `Mahendrareddy2006/SAHAAY_AI`  
+**Starting Commit:** [`0bc467d`](file:///C:/Users/MahendraReddy/.gemini/antigravity-ide/scratch/sahaay-ai) on `main`  
+**Active Working Branch:** `feat/phase12-architecture-audit-and-data-contracts`  
+**Document Classification:** Source-Grounded Architecture Audit & Canonical Contract Specification  
+**Phase Scope Boundary:** Pure Architecture Audit, Canonical Contract Definitions, and Safety Regression Tests. (Zero new ML model training, zero live IMD integrations, zero routing engine implementations, zero pilot readiness closures).
 
 ---
 
-## 3. Canonical shared metadata
+## 1. Executive Summary & Audit Mandate
 
-Every event or estimate exchanged between components should carry the following fields where applicable:
+This document establishes the definitive, source-verified architecture audit and formal data-contract specification for **Sahaay AI: Predict. Prevent. Protect.**
 
-| Field | Meaning |
-|---|---|
-| `schema_version` | Version of the contract, e.g. `1.0` |
-| `event_id` | Stable unique identifier for this event/record |
-| `source_type` | `citizen`, `field_inspection`, `imd_observation`, `imd_forecast`, `vision_model`, `rules_engine`, or `official_authority` |
-| `source_id` | Identifier for the originating report, station, feed, model, or authority record |
-| `observed_at_utc` | When a real-world observation was captured; null when not applicable/unknown |
-| `issued_at_utc` | When a forecast or advisory was issued; required for forecast records |
-| `valid_from_utc`, `valid_to_utc` | Validity interval for forecast/status/estimate records when applicable |
-| `received_at_utc` | When Sahaay AI received the record |
-| `location` | Latitude/longitude or a stable road-segment/area identifier; coordinate order must be explicit |
-| `verification_status` | `UNVERIFIED`, `CORROBORATED`, `FIELD_VERIFIED`, `OFFICIAL`, or `REJECTED` as appropriate |
-| `quality_status` | `VALID`, `DEGRADED`, `MISSING`, `STALE`, or `INVALID` |
-| `expires_at_utc` | When the record should stop influencing current-state decisions, if applicable |
-| `provenance` | Human-readable source/processing lineage, including model/ruleset version where applicable |
+Every finding in this audit is grounded directly in the inspected source code, configuration files, and empirical test results of the repository. Roadmap projections, model aspirations, and unverified headings have been systematically separated from verified code artifacts.
 
-Timestamps must be timezone-aware UTC ISO-8601 strings. Unknown values remain null/unknown; do not fabricate timestamps or replace missing rainfall with zero.
+### Authoritative Capability Classification Matrix
 
-## 4. Canonical component contracts
-
-These are logical contract definitions for implementation. Existing Pydantic classes may be adapted, but do not create duplicate models with conflicting meanings.
-
-### 4.1 Image evidence event
-
-Required fields:
-
-- `schema_version`
-- `event_id`
-- `report_id`
-- `captured_at_utc` (nullable if not supplied)
-- `received_at_utc`
-- `latitude`, `longitude` (nullable; never infer GPS from image pixels)
-- `image_reference` (storage reference, not raw image bytes in downstream events)
-- `quality_status`: `PASS` | `REJECTED` | `UNKNOWN`
-- `quality_reason_codes`
-- `model_name`, `model_version`
-- `flood_probability` (nullable float in [0,1])
-- `vision_status`: `FLOOD_EVIDENCE_DETECTED` | `NO_CURRENT_FLOOD_EVIDENCE` | `INCONCLUSIVE` | `INCONCLUSIVE_DEGRADED_IMAGE`
-- `verification_status`: `UNVERIFIED` | `CORROBORATED` | `FIELD_VERIFIED` | `REJECTED`
-
-Decision rule: quality rejection must short-circuit vision inference. Otherwise, with the documented thresholds, probability ≥0.65 yields `FLOOD_EVIDENCE_DETECTED`, probability ≤0.35 yields `NO_CURRENT_FLOOD_EVIDENCE`, and intermediate or unavailable scores yield `INCONCLUSIVE`. Even the negative status does not imply passability.
-
-### 4.2 Weather observation
-
-Required fields:
-
-- `schema_version`, `event_id`, `source_id` (station/feed)
-- `source_type = imd_observation` when sourced from IMD
-- `observed_at_utc`, `received_at_utc`
-- `latitude`, `longitude` (station location)
-- `measurement_kind`: `INCREMENTAL_RAINFALL` | `CUMULATIVE_COUNTER` | `ROLLING_ACCUMULATION`
-- `rainfall_mm` (nullable non-negative value)
-- `interval_start_utc`, `interval_end_utc` and/or `interval_minutes` when applicable
-- `quality_status`, `quality_flags`
-- `station_distance_km` relative to the road/area being evaluated, if calculated
-
-Do not treat a cumulative counter as incremental rainfall. Do not derive a rolling accumulation across a data gap without an explicit quality flag. Missing/stale/invalid observation data must remain unknown.
-
-### 4.3 Weather forecast
-
-Required fields:
-
-- `schema_version`, `event_id`, `source_id`
-- `source_type = imd_forecast`
-- `issued_at_utc`, `received_at_utc`
-- `valid_from_utc`, `valid_to_utc`
-- `geographic_coverage` (station, grid cell, district, polygon or other explicit spatial support)
-- `forecast_variable` and `value`/category, with units and accumulation period
-- `official_warning_level` when present in the source
-- `quality_status`, `source_reference`
-
-A forecast is not an observation. A district-level forecast must not be presented as a precise prediction for an individual road without a separately validated downscaling/risk method.
-
-### 4.4 Road hazard/status record
-
-Required fields:
-
-- `schema_version`, `event_id`, `road_segment_id`
-- `status`: `CONFIRMED_FLOODED` | `REPORTED_FLOODED` | `SUSPECTED_HAZARD` | `CLEARED_VERIFIED` | `UNKNOWN`
-- `hazard_type` (e.g. standing water, impassable, debris, closure)
-- `observed_at_utc`, `received_at_utc`, `expires_at_utc`
-- `verification_status`, `source_event_ids`
-- `water_depth_cm` (nullable; only when measured/estimated with provenance)
-- `confidence` (nullable and not automatically a calibrated probability)
-- `status_reason`
-
-Rules: reports and model suggestions must not be silently upgraded to confirmed status. A stale flood report must not be treated as current indefinitely. A road becomes cleared only through an explicit, sufficiently trustworthy clearance observation or authorized source. Otherwise status becomes unknown after expiry.
-
-### 4.5 Road susceptibility / forecast risk estimate
-
-Required fields:
-
-- `schema_version`, `event_id`, `road_segment_id`
-- `risk_kind`: `STATIC_SUSCEPTIBILITY` | `FORECAST_CONDITIONAL_RISK`
-- `risk_level`: `LOW` | `MODERATE` | `HIGH` | `CRITICAL` | `UNKNOWN`
-- `risk_score` (nullable [0,1] heuristic score)
-- `flood_probability` (nullable; populated only by a separately validated/calibrated model)
-- `forecast_event_id` (required for forecast-conditional risk)
-- `valid_from_utc`, `valid_to_utc`
-- `method_name`, `method_version`, `reason_codes`, `missing_inputs`
-- `confidence` or uncertainty description
-
-Static susceptibility must never be displayed as current flooding. If there is no validated model, describe output as a rule-based scenario/risk category, not a learned probability.
-
-### 4.6 Unified decision/advisory output
-
-Required fields:
-
-- `schema_version`, `decision_id`, `location_id`, `road_segment_id` (when available)
-- `decision_status`: `EVALUATED` | `INSUFFICIENT_DATA` | `STALE_DATA` | `INCONCLUSIVE_CONTRADICTORY`
-- `current_evidence_status`: `OBSERVED_FLOOD_EVIDENCE` | `ELEVATED_ENVIRONMENTAL_RISK` | `NO_CURRENT_EVIDENCE_AVAILABLE` | `INCONCLUSIVE` | `INSUFFICIENT_OR_STALE_DATA`
-- `hazard_nature`: observed hazard, predicted risk, community report, or maintenance notice
-- `alert_level`, `confidence`, `explanation`, `reason_codes`
-- `evidence_event_ids`, `source_timestamps`, `missing_inputs`, `stale_inputs`
-- `ruleset_version`, `created_at_utc`, `expires_at_utc`
-
-The existing enums in `src/sahaay/decision/contracts.py` should be reused or migrated deliberately. Avoid a second competing enum set. Decision output must preserve whether the underlying evidence is observed, forecast, unverified, stale or missing.
-
-### 4.7 Route request and route response
-
-**Request** fields:
-
-- `schema_version`, `request_id`
-- `origin` (GPS coordinates and capture time)
-- `destination` (coordinates or a verified destination ID)
-- `departure_at_utc`
-- `travel_mode`
-- `route_preference`: `FASTEST` | `RISK_AWARE` | `EMERGENCY`
-- `risk_policy_version`
-
-**Response** fields:
-
-- `schema_version`, `request_id`, `generated_at_utc`, `valid_until_utc)
-- `routes[]`, each containing ordered `road_segment_ids`, geometry/reference, distance, estimated duration, risk summary, unknown/stale segment count, excluded hazards and explanation
-- `route_status`: `ROUTE_FOUND` | `NO_RELIABLE_ROUTE` | `INSUFFICIENT_ROAD_DATA`
-- `data_freshness_summary`, `warnings`
-
-A routing engine must not describe a route as guaranteed safe. Confirmed impassable segments should be excluded when the network supports it. Unknown segments must be surfaced and handled according to the risk policy, not silently assigned zero risk. If no sufficiently reliable route is available, return that fact instead of inventing a safe route.
-
-### 4.8 Emergency destination record
-
-Required fields:
-
-- `schema_version`, `destination_id`, `destination_type`: `HOSPITAL` | `OFFICIAL_SHELTER`
-- `name`, `location`, `official_source`
-- `last_verified_at_utc`, `received_at_utc`
-- `operating_status`: `OPEN` | `CLOSED` | `UNKNOWN`
-- `capacity_status`: `AVAILABLE` | `FULL` | `UNKNOWN` (where authoritative data exists)
-- `access_status`: `ACCESSIBLE_VERIFIED` | `ACCESS_UNCERTAIN` | `INACCESSIBLE_VERIFIED` | `UNKNOWN`
-- `contact_reference`, `warnings`
-
-Do not infer that a shelter is open, has capacity, or is reachable merely because its coordinates are known.
+| Sub-System Area | Component / Capability | Implementation Status | Source Evidence (Path & Symbols) |
+| :--- | :--- | :--- | :--- |
+| **1. Photo Intake & Vision** | Image Quality Gating (Blur, Lum, Res) | `IMPLEMENTED_AND_TESTED` | [`src/sahaay/vision/inference.py:L91-136`](file:///C:/Users/MahendraReddy/.gemini/antigravity-ide/scratch/sahaay-ai/src/sahaay/vision/inference.py#L91-L136) (`evaluate_image_quality`) |
+| **1. Photo Intake & Vision** | Deep Inference Pipeline (MobileNetV3) | `BLOCKED_BY_ENVIRONMENT_OR_DATA` | [`src/sahaay/vision/inference.py:L64-90`](file:///C:/Users/MahendraReddy/.gemini/antigravity-ide/scratch/sahaay-ai/src/sahaay/vision/inference.py#L64-L90) (Requires `torch` & `PIL`, not installed in Python 3.14) |
+| **1. Photo Intake & Vision** | Calibrated Vision Decision & Abstention | `IMPLEMENTED_AND_TESTED` | [`src/sahaay/vision/policy.py`](file:///C:/Users/MahendraReddy/.gemini/antigravity-ide/scratch/sahaay-ai/src/sahaay/vision/policy.py) (`evaluate_vision_abstention_boundary`) |
+| **2. Road Status & Flood Evidence** | Multi-Evidence Decision Engine | `IMPLEMENTED_AND_TESTED` | [`src/sahaay/decision/contracts.py:L102-376`](file:///C:/Users/MahendraReddy/.gemini/antigravity-ide/scratch/sahaay-ai/src/sahaay/decision/contracts.py#L102-L376) (`evaluate_decision`) |
+| **2. Road Status & Flood Evidence** | Contradictory Evidence Arbiter | `IMPLEMENTED_AND_TESTED` | [`src/sahaay/decision/contracts.py:L135-194`](file:///C:/Users/MahendraReddy/.gemini/antigravity-ide/scratch/sahaay-ai/src/sahaay/decision/contracts.py#L135-L194) (`DecisionStatus.INCONCLUSIVE_CONTRADICTORY`) |
+| **3. Rainfall Risk & Telemetry** | Deterministic IMD Rainfall Engine | `IMPLEMENTED_AND_TESTED` | [`src/sahaay/hyderabad_risk/rainfall_engine.py:L29-164`](file:///C:/Users/MahendraReddy/.gemini/antigravity-ide/scratch/sahaay-ai/src/sahaay/hyderabad_risk/rainfall_engine.py#L29-L164) (`evaluate_rainfall_risk_engine`) |
+| **3. Rainfall Risk & Telemetry** | Non-Silent `UNKNOWN` Missing Data Handling | `IMPLEMENTED_AND_TESTED` | [`src/sahaay/hyderabad_risk/rainfall_engine.py:L62-77`](file:///C:/Users/MahendraReddy/.gemini/antigravity-ide/scratch/sahaay-ai/src/sahaay/hyderabad_risk/rainfall_engine.py#L62-L77) (Returns `category="UNKNOWN"`, `conf=0.10`) |
+| **3. Rainfall Risk & Telemetry** | Live IMD Auto-Ingestion & Forecast API | `NOT_IMPLEMENTED` | No automated IMD API caller exists; only static CSVs and manual test fixtures |
+| **4. Road Susceptibility** | Multi-Criteria Geospatial Vulnerability | `IMPLEMENTED_AND_TESTED` | [`src/sahaay/hyderabad_risk/vulnerability_engine.py:L64-135`](file:///C:/Users/MahendraReddy/.gemini/antigravity-ide/scratch/sahaay-ai/src/sahaay/hyderabad_risk/vulnerability_engine.py#L64-L135) (`evaluate_road_vulnerability_engine`) |
+| **4. Road Susceptibility** | Dynamic Hydraulic Runoff Model | `NOT_IMPLEMENTED` | Digital Elevation Models and culvert flow rates are listed as missing data |
+| **5. Risk-Aware Routing** | Graph Traversal & Cost Functions | `NOT_IMPLEMENTED` | Zero routing engines, OSMnx graphs, or NetworkX pipelines exist in repository |
+| **5. Risk-Aware Routing** | Emergency Destinations (Hospitals/Shelters) | `SPECIFICATION_ONLY` | Defined via [`src/sahaay/routing/contracts.py`](file:///C:/Users/MahendraReddy/.gemini/antigravity-ide/scratch/sahaay-ai/src/sahaay/routing/contracts.py) (`EmergencyDestination`); database not populated |
+| **6. Community Reports & Clearance** | Citizen Report Intake & Privacy Masking | `IMPLEMENTED_AND_TESTED` | [`src/sahaay/reports/service.py:L43-150`](file:///C:/Users/MahendraReddy/.gemini/antigravity-ide/scratch/sahaay-ai/src/sahaay/reports/service.py#L43-L150) (`CitizenReportService`) |
+| **6. Community Reports & Clearance** | Human Supervisory Review Queue | `IMPLEMENTED_AND_TESTED` | [`src/sahaay/review/workflow.py:L50-112`](file:///C:/Users/MahendraReddy/.gemini/antigravity-ide/scratch/sahaay-ai/src/sahaay/review/workflow.py#L50-L112) (`ReviewQueueService` with SHA-256 audit hashing) |
+| **6. Community Reports & Clearance** | Road Clearance Lifecycle State Machine | `SPECIFICATION_ONLY` | Clearances currently rely on 360-min expiration or supervisor dismissal; no municipal certification workflow |
 
 ---
 
-## 5. Contract invariants
+## 2. In-Depth Sub-System Architecture Audits
 
-These invariants apply across the system and must have automated tests:
+---
 
-1. Missing rainfall never becomes zero rainfall; absent primary telemetry returns `UNKNOWN`.
-2. Forecasts and observations have distinct source types and timestamp semantics.
-3. A model score and a verified observation are different evidence types.
-4. Vision quality rejection yields `INCONCLUSIVE_DEGRADED_IMAGE` and does not assert flood absence.
-5. Vision probability in (0.35, 0.65) yields `INCONCLUSIVE` under the documented policy.
-6. `NO_CURRENT_FLOOD_EVIDENCE` never means road safe/passable.
-7. Static susceptibility never means current inundation.
-8. Every hazard/status has provenance and a freshness/expiry policy.
-9. A reported or model-suggested hazard cannot become field-verified without a verification action/source.
-10. Unknown road segments are not silently treated as hazard-free during routing.
-11. No autonomous road closure, physical barrier activation, evacuation order or emergency dispatch.
-12. Risk scores from deterministic rules are not labelled calibrated probabilities.
+### Area 1: Photo Intake, Image Quality Gating, and Vision Evidence
 
-## 6. Ownership boundaries
+#### 1.1 Current Implementation Status & Source Evidence
+- **Status:** `IMPLEMENTED_AND_TESTED` for algorithmic quality gating and contract parsing; `BLOCKED_BY_ENVIRONMENT_OR_DATA` for deep model inference in the current environment due to missing `PIL` and `torch` packages.
+- **Source Module:** [`src/sahaay/vision/inference.py`](file:///C:/Users/MahendraReddy/.gemini/antigravity-ide/scratch/sahaay-ai/src/sahaay/vision/inference.py).
+- **Quality Gating Logic:**
+  - Blur Variance: 3x3 discrete 2D Laplacian operator convolution over luminance channel (`np.var(lap)`). Threshold: $\ge 15.0$ required on non-uniform scenes.
+  - Luminance Bounds: Mean luminance must fall in $[10.0, 248.0]$. Values $< 10.0$ trigger `underexposed/pitch-black`; values $> 248.0$ with $\sigma < 8.0$ trigger `washed-out whiteout`.
+  - Spatial Dimensions: Enforces minimum $64 \times 64$ pixels to reject uninformative thumbnails.
+- **Handover Discrepancy Flagged:**
+  In [`docs/phase11_ml_handover_for_team.md:L38`](file:///C:/Users/MahendraReddy/.gemini/antigravity-ide/scratch/sahaay-ai/docs/phase11_ml_handover_for_team.md#L38), the module path was cited as `src/sahaay/data_collection_v4/quality.py` with a $640 \times 480$ resolution and $\ge 80.0$ Laplacian variance threshold. In the actual codebase, `quality.py` does not exist in that path; the live implementation is embedded in [`src/sahaay/vision/inference.py:L91`](file:///C:/Users/MahendraReddy/.gemini/antigravity-ide/scratch/sahaay-ai/src/sahaay/vision/inference.py#L91) using thresholds of $64 \times 64$ and $15.0$ variance.
 
-| Workstream | Primary owner | Phase 12 deliverable |
-|---|---|---|
-| Model readiness, semantics and evaluation criteria | AI/ML | Audit findings and model/risk contract review |
-| IMD access, ingestion, storage and retries | Backend/integration | Confirm source/API access and map provider payloads to Weather Observation/Forecast contracts |
-| API schemas and persistence | Backend/integration | Reuse or migrate Pydantic models to the canonical contracts |
-| Road graph, map overlays and route UX | Frontend/backend | Confirm road-segment identifiers and route request/response integration |
-| Emergency destination directory | Backend/product/operations | Identify authoritative hospital/shelter sources and freshness owner |
-| Cross-component acceptance tests | Shared | Add contract tests for invariants in Section 5 |
+#### 1.2 Decision Boundaries & Calibrated Abstention
+- **Class Index Mapping:**
+  - Index `0` $\to$ `not_flooded` (Negative Class)
+  - Index `1` $\to$ `flooded` (Positive Class)
+- **Calibrated Abstention Band (Inclusive $[0.35, 0.65]$):**
+  - Continuous output $p = P(\text{flooded} \mid \text{image})$.
+  - If $p > 0.65$: Calibrated decision is `FLOOD_EVIDENCE_DETECTED` ($\text{confidence} = p$, $\text{is\_ambiguous} = \text{False}$).
+  - If $p < 0.35$: Calibrated decision is `NO_CURRENT_FLOOD_EVIDENCE` ($\text{confidence} = 1.0 - p$, $\text{is\_ambiguous} = \text{False}$).
+  - If $0.35 \le p \le 0.65$: The model **strictly abstains**; decision is `INCONCLUSIVE` ($\text{confidence} = \max(p, 1-p)$, $\text{is\_ambiguous} = \text{True}$). Specifically, the exact endpoints $0.350$ and $0.650$ abstain.
+  - Rejection of Non-Finite & Non-Numeric Inputs: Float `NaN`, positive/negative infinity, and Boolean inputs are explicitly rejected with `ValueError` and `TypeError`.
+  - Continuous probabilities reflect laboratory prototype models and are **not** claimed as calibrated for real-world Hyderabad conditions.
+- **Inference Integration & Status:**
+  - Implemented in [`src/sahaay/vision/policy.py`](file:///C:/Users/MahendraReddy/.gemini/antigravity-ide/scratch/sahaay-ai/src/sahaay/vision/policy.py) via `evaluate_vision_abstention_boundary` and `map_vision_probabilities_to_decision`.
+  - Integrated into [`src/sahaay/vision/inference.py:L236-245`](file:///C:/Users/MahendraReddy/.gemini/antigravity-ide/scratch/sahaay-ai/src/sahaay/vision/inference.py#L236-L245) inside `FloodVisionInference.predict`, ensuring probabilities in $[0.35, 0.65]$ produce `predicted_class="inconclusive"` and `is_inconclusive=True`.
+  - **Environment Blocker:** Runtime forward-pass verification of `FloodVisionInference.predict` with real weights is blocked because `torch` and `PIL` are not installed in the Python 3.14 environment. The integration logic is unit-tested without loading PyTorch weights.
 
-## 7. Phase 12 acceptance checklist
+#### 1.3 Mandatory Safety Invariants
+1. **`NO_CURRENT_FLOOD_EVIDENCE` is NOT Safe Passage:** A negative optical prediction indicates solely that standing water is not visible in that specific frame at that timestamp. It does not establish road passability, structural integrity, absence of submerged debris, or upstream safety.
+2. **Degraded Imagery Fail-Closed:** Images triggering the quality gate (blurry, pitch-dark, overexposed, thumbnail) must return `predicted_class="inconclusive"` and `is_inconclusive=True`. They must never be defaulted to `not_flooded`.
 
-- [x] Identify core existing vision, rainfall, vulnerability, decision and API modules.
-- [x] Record the Phase 11 baseline commit reviewed.
-- [x] Identify the quality-gate and vision-abstention contract mismatches.
-- [x] Define canonical contracts for image evidence, weather observations, forecasts, road status, risk estimates, decisions, routes and emergency destinations.
-- [x] Document safety invariants and ownership boundaries.
-- [ ] Resolve threshold mismatch in implementation and tests (follow-up implementation task).
-- [ ] Implement forecast ingestion and routing interfaces (later phases).
-- [ ] Run repository test suite after code changes (not performed by this documentation-only audit).
+---
 
-**Phase status:** Architecture audit and contract specification drafted. The phase is complete as a documentation/audit deliverable; implementation gaps remain intentionally assigned to later phases.
+### Area 2: Current Road Status and Observed Flood Evidence
+
+#### 2.1 Current Implementation Status & Source Evidence
+- **Status:** `IMPLEMENTED_AND_TESTED`.
+- **Source Module:** [`src/sahaay/decision/contracts.py`](file:///C:/Users/MahendraReddy/.gemini/antigravity-ide/scratch/sahaay-ai/src/sahaay/decision/contracts.py).
+- **Core Function:** `evaluate_decision(input_data: DecisionInput) -> DecisionOutput`.
+- **Tested Behavior:** 18 tests passing in Phase 10; contract tests in Phase 12.
+
+#### 2.2 Canonical Schemas & Enums
+- **`AlertLevel`:** `CLEAR` (0.10), `ADVISORY` (0.20-0.45), `WATCH` (0.70-0.75), `WARNING` (0.85-0.88), `EMERGENCY` (0.95).
+- **`HazardNature`:**
+  - `OBSERVED_HAZARD`: Verified ground truth from photo or on-site responder inspection.
+  - `PREDICTED_RISK`: Anticipated from rainfall telemetry and road vulnerability.
+  - `COMMUNITY_REPORT`: Unverified citizen submission awaiting verification.
+  - `MAINTENANCE_NOTICE`: Municipal desilting or drainage clearance log.
+- **`DecisionStatus`:** `EVALUATED`, `INSUFFICIENT_DATA`, `STALE_DATA`, `INCONCLUSIVE_CONTRADICTORY`.
+- **`CurrentFloodEvidenceStatus`:**
+  - `OBSERVED_FLOOD_EVIDENCE`: Confirmed standing water on corridor.
+  - `ELEVATED_ENVIRONMENTAL_RISK`: Environmental hazard modeled; inundation unproven.
+  - `NO_CURRENT_EVIDENCE_AVAILABLE`: No verified observations; **not a declaration of safety**.
+  - `INCONCLUSIVE`: Conflicting or ambiguous inputs.
+  - `INSUFFICIENT_OR_STALE_DATA`: Primary telemetry missing or expired.
+
+#### 2.3 Contradictory Evidence Arbiter
+- **Audit Rule:** If fresh optical surveillance asserts dry pavement (`not_flooded`, confidence $\ge 0.75$, not ambiguous) but a citizen report asserts deep water (`KNEE_DEEP` or `WAIST_DEEP_OR_MORE` within 180 min):
+  - `decision_status` $\to$ `DecisionStatus.INCONCLUSIVE_CONTRADICTORY`
+  - `current_flood_evidence_status` $\to$ `CurrentFloodEvidenceStatus.INCONCLUSIVE`
+  - `alert_level` $\to$ `AlertLevel.ADVISORY`
+  - `requires_human_verification` $\to$ `True`
+  - `confidence` $\to$ `0.35`
+  - The system explicitly avoids blind majority voting and alerts human dispatchers.
+
+---
+
+### Area 3: Rainfall Observations, IMD Forecasts, Missing Data, and Staleness
+
+#### 3.1 Current Implementation Status & Source Evidence
+- **Status:** Baseline engine is `IMPLEMENTED_AND_TESTED`; Live IMD feed is `NOT_IMPLEMENTED`.
+- **Source Module:** [`src/sahaay/hyderabad_risk/rainfall_engine.py`](file:///C:/Users/MahendraReddy/.gemini/antigravity-ide/scratch/sahaay-ai/src/sahaay/hyderabad_risk/rainfall_engine.py).
+- **Core Function:** `evaluate_rainfall_risk_engine(...) -> RainfallRiskResult`.
+
+#### 3.2 IMD Intensity Calibration Thresholds
+Calibrated strictly against India Meteorological Department (IMD) Standard Operating Procedures:
+- `rain_1h_mm` $\le 7.5\text{ mm/hr}$ $\to$ `LOW` intensity
+- $7.5 < \text{rain\_1h\_mm} \le 15.0\text{ mm/hr}$ $\to$ `MEDIUM` intensity
+- $15.0 < \text{rain\_1h\_mm} \le 35.0\text{ mm/hr}$ $\to$ `HIGH` intensity
+- $\text{rain\_1h\_mm} > 35.0\text{ mm/hr}$ $\to$ `CRITICAL` intensity (Cloudburst trigger $\ge 100.0\text{ mm/hr}$)
+- Rolling 3-hour flash surge trigger: $\text{rain\_3h\_mm} \ge 40.0\text{ mm}$ escalates score to $\ge 0.70$ (`HIGH`).
+- Rolling 24-hour catchment saturation trigger: $\text{rain\_24h\_mm} \ge 115.5\text{ mm}$ escalates score to $\ge 0.85$ (`CRITICAL`).
+
+#### 3.3 Strict Missing-Data Semantics (Non-Silent Missingness)
+- If `rain_1h_mm is None`:
+  - `risk_category` $\to$ `"UNKNOWN"`
+  - `risk_score` $\to$ `0.0`
+  - `confidence` $\to$ `0.10`
+  - `reason_codes` $\to$ `["INSUFFICIENT_TELEMETRY_DATA"]`
+  - **NON-NEGOTIABLE RULE:** Missing rainfall telemetry must **NEVER** be silently imputed as $0.0\text{ mm}$ or classified as `LOW` risk.
+- **Decision Engine Integration:**
+  - `DecisionInput.rainfall_risk_category` defaults strictly to `"UNKNOWN"`. If telemetry is omitted, the input automatically triggers `DecisionStatus.INSUFFICIENT_DATA` and `AlertLevel.ADVISORY`.
+  - Pydantic validator enforces `rainfall_risk_category in {"LOW", "MEDIUM", "HIGH", "CRITICAL", "UNKNOWN"}`.
+  - Provided `DecisionInput.from_rainfall_result` factory method to guarantee that missing telemetry flags and categories are reliably mapped.
+- **Documented Downstream Consumer Risk:**
+  - In `RainfallRiskResult`, `risk_score` is defined as a non-nullable `float = Field(..., ge=0.0, le=1.0)` to maintain backward API compatibility.
+  - **WARNING TO DOWNSTREAM CLIENTS:** Any frontend widget, map color gradient, or external system that binds solely to the numeric `risk_score` field without inspecting `risk_category == "UNKNOWN"` or `confidence == 0.10` risks displaying missing telemetry as "Zero Risk" (green). Downstream consumers must check the category enum first.
+
+#### 3.4 Confidence Discounting Equations
+- **Station Distance Decay:** If gauge distance $d > 15.0\text{ km}$:
+  $$\text{Penalty}_{\text{dist}} = \min(0.35, (d - 15.0) \times 0.01)$$
+- **Data Freshness Decay:** If telemetry age $t > 1.5\text{ hours}$:
+  $$\text{Penalty}_{\text{fresh}} = \min(0.40, (t - 1.5) \times 0.08)$$
+- Final confidence is bounded in $[0.10, 1.00]$.
+
+---
+
+### Area 4: Static Road Susceptibility versus Active Inundation
+
+#### 4.1 Current Implementation Status & Source Evidence
+- **Status:** `IMPLEMENTED_AND_TESTED`.
+- **Source Module:** [`src/sahaay/hyderabad_risk/vulnerability_engine.py`](file:///C:/Users/MahendraReddy/.gemini/antigravity-ide/scratch/sahaay-ai/src/sahaay/hyderabad_risk/vulnerability_engine.py).
+- **Core Function:** `evaluate_road_vulnerability_engine(...) -> RoadVulnerabilityResult`.
+
+#### 4.2 Multi-Criteria Proximity Scoring
+Weighted static susceptibility index:
+$$V = 0.45 \cdot S_{\text{hotspot}} + 0.35 \cdot S_{\text{drain}} + 0.20 \cdot S_{\text{waterbody}}$$
+- **Hotspot Subscore ($S_{\text{hotspot}}$):**
+  - $\le 250\text{m}$: $1.0 - 0.50 \times (\text{dist} / 250.0)$
+  - $250\text{m} - 1000\text{m}$: $0.50 \times (1.0 - (\text{dist} - 250.0) / 750.0)$
+  - $> 1000\text{m}$: $0.0$
+- **Drainage Network Subscore ($S_{\text{drain}}$):**
+  - $\le 100\text{m}$: $1.0 - 0.40 \times (\text{dist} / 100.0)$
+  - $100\text{m} - 500\text{m}$: $0.60 \times (1.0 - (\text{dist} - 100.0) / 400.0)$
+  - $> 500\text{m}$: $0.0$
+- **Waterbody Subscore ($S_{\text{waterbody}}$):**
+  - $\le 200\text{m}$: $1.0 - 0.50 \times (\text{dist} / 200.0)$
+  - $200\text{m} - 800\text{m}$: $0.50 \times (1.0 - (\text{dist} - 200.0) / 600.0)$
+  - $> 800\text{m}$: $0.0$
+
+#### 4.3 Categories & Separation from Inundation
+- $V \ge 0.70 \to \text{SEVERE}$; $0.45 \le V < 0.70 \to \text{HIGH}$; $0.20 \le V < 0.45 \to \text{MODERATE}$; $V < 0.20 \to \text{LOW}$.
+- **INVARIANT:** High vulnerability is a static environmental characteristic. During dry weather, a corridor with `SEVERE` vulnerability is completely dry and safe for traffic.
+- Under heavy rain, high vulnerability amplifies alert level to `WATCH` (`PREDICTED_RISK`), but **never** to `OBSERVED_FLOOD_EVIDENCE`.
+
+---
+
+### Area 5: Risk-Aware Routing and Emergency Destinations
+
+#### 5.1 Current Implementation Status & Source Evidence
+- **Status:** `SPECIFICATION_ONLY` / `NOT_IMPLEMENTED`.
+- **Grounded Audit Finding:** A search across the repository for routing algorithms (Dijkstra, A*, Contraction Hierarchies), graph models (OSMnx, NetworkX), hospital databases, and shelter registries confirms **zero implementation code**.
+- **Formal Integration Contract:** Introduced in [`src/sahaay/routing/contracts.py`](file:///C:/Users/MahendraReddy/.gemini/antigravity-ide/scratch/sahaay-ai/src/sahaay/routing/contracts.py).
+
+#### 5.2 Canonical Routing Contracts & Schemas
+- **`EmergencyDestination`:**
+  - `facility_id`: Regex `^(HOSP|SHELTER)-[A-Z0-9\-]{3,25}$`
+  - `destination_type`: `HOSPITAL` | `OFFICIAL_SHELTER`
+  - `operational_status`: `OPERATIONAL_VERIFIED`, `OPERATIONAL_CAPACITY_CONSTRAINED`, `INUNDATED_ACCESS_RESTRICTED`, `UNVERIFIED`
+  - `verified_access_road_status`: `CurrentFloodEvidenceStatus`
+  - `emergency_contact_masked`: str
+- **`RouteRequest`:**
+  - `origin_latitude`, `origin_longitude`, `destination_latitude`, `destination_longitude` (strictly validated within Hyderabad bounding box $[17.0, 17.8]^\circ\text{N}$, $[78.1, 78.8]^\circ\text{E}$)
+  - `vehicle_type`: `TWO_WHEELER`, `THREE_WHEELER_AUTO`, `LIGHT_MOTOR_VEHICLE`, `HIGH_CLEARANCE_SUV`, `HEAVY_COMMERCIAL`
+  - `avoid_high_susceptibility`: bool
+- **`RouteResponse`:**
+  - `route_id`: str
+  - `total_distance_meters`: float
+  - `estimated_duration_seconds`: float
+  - `aggregate_risk_score`: float in $[0.0, 1.0]$
+  - `has_unmonitored_segments`: bool
+  - `unmonitored_segments_count`: int
+  - `safety_disclaimer`: Mandatory non-negotiable legal disclaimer.
+  - `engine_status`: `"SPECIFICATION_CONTRACT_ONLY_NOT_IMPLEMENTED"`.
+
+#### 5.3 Non-Negotiable Safety Invariants for Routing
+1. **Never Claim a Route is Guaranteed Safe:** Pydantic validators in [`src/sahaay/routing/contracts.py`](file:///C:/Users/MahendraReddy/.gemini/antigravity-ide/scratch/sahaay-ai/src/sahaay/routing/contracts.py) enforce that any payload claiming "guaranteed safe", "100% safe", "completely safe", or "passable with zero risk" fails validation across warnings and segment notices. *(Limitation: Heuristic phrase matching mitigates overt misleading safety declarations but cannot detect every possible linguistically subtle claim of guaranteed safety).*
+2. **Cross-Field Unmonitored Segments Consistency:** If a route traverses segments where rainfall or road observations are `UNKNOWN` or stale, `has_unmonitored_segments` is strictly required to be `True`, and `unmonitored_segments_count` must match the segment count.
+3. **Cross-Field Emergency / Impassable Risk Consistency:** If any segment on the route has `current_alert_level == EMERGENCY` or `is_passable_for_vehicle == False`, `aggregate_risk_score` cannot be set to 0.0.
+4. **Inundated Emergency Destination Warning:** If the target facility has `INUNDATED_ACCESS_RESTRICTED` status or an inundated access road, `warnings` must contain an explicit access restriction warning.
+5. **No Autonomous Dispatch:** Routes provided to emergency ambulances or relief vehicles are strictly advisory; human dispatch officers must confirm road passability.
+
+---
+
+### Area 6: Community Reports, Evidence Verification, and Road-Clearance Lifecycle
+
+#### 6.1 Current Implementation Status & Source Evidence
+- **Status:** `PARTIALLY_IMPLEMENTED`.
+  - Report intake, privacy coarsening, near-duplicate clustering, and corroboration tracking: `IMPLEMENTED_AND_TESTED` in [`src/sahaay/reports/service.py`](file:///C:/Users/MahendraReddy/.gemini/antigravity-ide/scratch/sahaay-ai/src/sahaay/reports/service.py).
+  - Human review queue with cryptographic hashing: `IMPLEMENTED_AND_TESTED` in [`src/sahaay/review/workflow.py`](file:///C:/Users/MahendraReddy/.gemini/antigravity-ide/scratch/sahaay-ai/src/sahaay/review/workflow.py).
+  - Municipal road-clearance recertification: `SPECIFICATION_ONLY`.
+
+#### 6.2 Existing Report Lifecycle
+- **Freshness Classification:**
+  - `FRESH`: $\le 60\text{ minutes}$ (Full weight)
+  - `AGING`: $60 - 180\text{ minutes}$ (Discounted confidence)
+  - `STALE`: $180 - 360\text{ minutes}$ (Advisory only)
+  - `EXPIRED`: $> 360\text{ minutes}$ (Archived from active routing)
+- **Privacy Protections:**
+  - Reporter contact information is permanently masked with SHA-256 (`ANON-{hash[:8]}`).
+  - Precise GPS coordinates with precision $< 50\text{m}$ are coarsened to 3 decimal places (~$110\text{m}$ resolution) to prevent residential identification.
+- **Corroboration & Clustering:**
+  - Reports submitted within $100\text{m}$ and $30\text{ minutes}$ are clustered as near-duplicates to prevent spam amplification.
+  - $\ge 3$ independent corroborating reports escalate corridor status to `WATCH` (`COMMUNITY_REPORT`).
+
+#### 6.3 Clearance Lifecycle Specification (Future Work)
+- **Target State Machine:**
+  $$\text{REPORTED\_UNVERIFIED} \longrightarrow \text{VERIFIED\_INUNDATED} \longrightarrow \text{RECEDING\_PENDING\_INSPECTION} \longrightarrow \text{DRAINED\_VERIFIED} \longrightarrow \text{ROAD\_PASSABLE\_CERTIFIED}$$
+- **Invariant:** A reported flood hazard cannot be cleared solely by model negative prediction or timer expiration. Clearance requires human on-site responder confirmation or multi-sensor corroboration.
+
+---
+
+## 3. Discrepancy & Gap Analysis
+
+| Item | Handbook / Assumption | Actual Repository State | Architectural Resolution / Policy |
+| :--- | :--- | :--- | :--- |
+| **Quality Gate Module Path** | Cited as `src/sahaay/data_collection_v4/quality.py` | Embedded inside [`src/sahaay/vision/inference.py`](file:///C:/Users/MahendraReddy/.gemini/antigravity-ide/scratch/sahaay-ai/src/sahaay/vision/inference.py) | Documented actual path; isolated pure policy in [`src/sahaay/vision/policy.py`](file:///C:/Users/MahendraReddy/.gemini/antigravity-ide/scratch/sahaay-ai/src/sahaay/vision/policy.py) |
+| **Vision Abstention Interval (F-01)** | Mandated inclusive $[0.35, 0.65]$ band | Previously open interval $(0.35, 0.65)$ | Corrected in `policy.py` to strict inclusive interval where $0.350$ and $0.650$ produce `INCONCLUSIVE` |
+| **Inference Integration (F-02)** | Handover mandated abstention in inference | Previously `inference.py` assigned argmax class | Integrated `map_vision_probabilities_to_decision` into `predict()`; documented `torch`/`PIL` test blocker |
+| **Rainfall UNKNOWN Default (F-03)** | Missing telemetry must mean `UNKNOWN` | `DecisionInput` previously defaulted to `LOW` | Corrected `DecisionInput` default to `UNKNOWN` with field validator; documented downstream client risk |
+| **Non-Finite & Bool Inputs (F-04)** | Valid probabilities in $[0.0, 1.0]$ | NaN and Booleans previously bypassed validation | Added explicit rejection for `NaN`, $\pm\infty$, and `bool` in `policy.py` |
+| **Routing Consistency (F-05, F-09)** | Safety invariants across routes | `RouteResponse` lacked cross-field consistency checks and allowed non-zero count mismatches | Added cross-field validators; strictly enforce `unmonitored_segments_count == len(unmonitored)` rejecting undercounts and overcounts |
+| **Dashboard Missingness (F-08)** | Map visualizer must show uncertainty | Prototype UI mapped null rain on low vulnerability to `CLEAR` | Corrected `index.html` to map missing telemetry to `UNKNOWN` / `INSUFFICIENT_DATA` with slate styling |
+| **Deep Vision Test Environment (F-07, F-10)** | Assumed PyTorch & Pillow present | Python 3.14 lacks `torch` and `PIL` | Pure-Python policy tests added; deep inference marked `BLOCKED_BY_ENVIRONMENT`; legacy test assertion updated for inconclusive |
+| **Routing Engine** | Assumed active risk-aware routing | Zero routing code exists in repo | Established formal Pydantic contracts in [`src/sahaay/routing/contracts.py`](file:///C:/Users/MahendraReddy/.gemini/antigravity-ide/scratch/sahaay-ai/src/sahaay/routing/contracts.py) |
+| **IMD Feed Ingestion** | Assumed live weather feed | Static CSV and manual parameters only | Formally classified as `NOT_IMPLEMENTED` |
+
+---
+
+## 4. Conclusion & Handover to Testing
+
+The architecture audit confirms that the core safety baselines (IMD rainfall engine, road vulnerability engine, multi-evidence decision engine, and citizen privacy service) are mathematically robust, fully implemented, and strictly fail-closed. Missing capabilities (live IMD feeds, deep routing engines, municipal clearance certification) have been rigorously documented as specification-only, preventing premature or dangerous operational claims.

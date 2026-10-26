@@ -605,6 +605,7 @@
           <button class="filter-chip" onclick="setFilter('WATCH')">Watch</button>
           <button class="filter-chip" onclick="setFilter('ADVISORY')">Advisory</button>
           <button class="filter-chip" onclick="setFilter('CLEAR')">Clear</button>
+          <button class="filter-chip" onclick="setFilter('UNKNOWN')">Unknown</button>
         </div>
       </div>
 
@@ -635,6 +636,7 @@
         <div class="legend-item"><div class="legend-color" style="background: var(--color-watch);"></div><span>Watch (Predicted Risk)</span></div>
         <div class="legend-item"><div class="legend-color" style="background: var(--color-advisory);"></div><span>Advisory (Vigilance / Unverified)</span></div>
         <div class="legend-item"><div class="legend-color" style="background: var(--color-clear);"></div><span>Clear (Normal Dry Baseline)</span></div>
+        <div class="legend-item"><div class="legend-color" style="background: var(--color-unknown);"></div><span>Unknown (Insufficient Telemetry)</span></div>
       </div>
     </div>
 
@@ -739,15 +741,50 @@
       try {
         const res = await fetch('/api/v1/risk/corridors');
         const data = await res.json();
-        corridors = data.corridors.map(c => ({
-          ...c,
-          alert_level: c.vulnerability_category === 'HIGH' && c.rain_1h_mm > 15 ? 'WATCH' : 
-                      c.vulnerability_category === 'HIGH' ? 'ADVISORY' :
-                      c.vulnerability_category === 'MODERATE' ? 'ADVISORY' : 'CLEAR',
-          decision_status: 'EVALUATED',
-          current_flood_evidence_status: (c.rain_1h_mm > 15) ? 'ELEVATED_ENVIRONMENTAL_RISK' : 'NO_CURRENT_EVIDENCE_AVAILABLE',
-          confidence: c.confidence_score || 0.65
-        }));
+        corridors = data.corridors.map(c => {
+          const isMissingTelemetry = (c.rain_1h_mm == null || c.rainfall_risk_category === 'UNKNOWN');
+          const isStale = Boolean(c.telemetry_freshness_hours > 3.0 || c.is_stale);
+          const isRegionalCatchment = (c.nearest_station_dist_km > 35.0 || c.rainfall_proximity_tier === 'REGIONAL_CATCHMENT');
+          const isUnknownProximity = (c.rainfall_proximity_tier === 'UNKNOWN');
+          
+          let alertLevel, floodEvidenceStatus, decisionStatus, confidence;
+          if (isMissingTelemetry || isStale) {
+            // Missing/stale rainfall telemetry MUST NOT be interpreted as zero risk or CLEAR
+            alertLevel = 'UNKNOWN';
+            decisionStatus = isStale ? 'STALE_DATA' : 'INSUFFICIENT_DATA';
+            floodEvidenceStatus = 'INSUFFICIENT_OR_STALE_DATA';
+            confidence = isStale ? 0.25 : 0.15;
+          } else if (isRegionalCatchment || isUnknownProximity) {
+            // Regional catchment (>35km) or UNKNOWN proximity: withhold actionable WATCH alert
+            alertLevel = 'ADVISORY';
+            decisionStatus = 'EVALUATED';
+            floodEvidenceStatus = 'NO_CURRENT_EVIDENCE_AVAILABLE';
+            confidence = 0.35;
+          } else if (c.vulnerability_category === 'HIGH' && c.rain_1h_mm > 15) {
+            alertLevel = 'WATCH';
+            decisionStatus = 'EVALUATED';
+            floodEvidenceStatus = 'ELEVATED_ENVIRONMENTAL_RISK';
+            confidence = c.confidence_score || 0.65;
+          } else if (c.vulnerability_category === 'HIGH' || c.vulnerability_category === 'MODERATE') {
+            alertLevel = 'ADVISORY';
+            decisionStatus = 'EVALUATED';
+            floodEvidenceStatus = (c.rain_1h_mm > 15) ? 'ELEVATED_ENVIRONMENTAL_RISK' : 'NO_CURRENT_EVIDENCE_AVAILABLE';
+            confidence = c.confidence_score || 0.65;
+          } else {
+            alertLevel = 'CLEAR';
+            decisionStatus = 'EVALUATED';
+            floodEvidenceStatus = 'NO_CURRENT_EVIDENCE_AVAILABLE';
+            confidence = c.confidence_score || 0.70;
+          }
+
+          return {
+            ...c,
+            alert_level: alertLevel,
+            decision_status: decisionStatus,
+            current_flood_evidence_status: floodEvidenceStatus,
+            confidence: confidence
+          };
+        });
         renderCorridorList();
         renderMapMarkers();
         selectCorridor(selectedCorridorId);
@@ -834,9 +871,12 @@
             </div>
             <div class="status-banner-desc">
               Status: <strong>${c.current_flood_evidence_status.replace(/_/g, ' ')}</strong>.
-              ${c.alert_level === 'WATCH' ? 'Anticipated waterlogging surge due to heavy precipitation on chronically vulnerable catchment.' :
-                c.alert_level === 'ADVISORY' ? 'Heightened vigilance advised. Unverified community submissions under review.' :
-                'Normal conditions. Zero verified street inundation detected.'}
+              ${c.alert_level === 'UNKNOWN' ? (c.decision_status === 'STALE_DATA' ? 'Primary rainfall telemetry is stale (>3h). Stale telemetry must NOT be interpreted as dry weather; normal caution advised.' : 'Primary rainfall telemetry is missing or unavailable. Missing telemetry must NOT be interpreted as safe zero rainfall; normal caution advised.') :
+                (c.rainfall_proximity_tier === 'REGIONAL_CATCHMENT' || c.nearest_station_dist_km > 35.0) ? 'Regional catchment telemetry discounted (>35km watershed). Actionable WATCH alert withheld; normal traffic caution advised.' :
+                (c.rainfall_proximity_tier === 'UNKNOWN') ? 'Station proximity tier is UNKNOWN (distance unestablished). Actionable WATCH alert withheld; normal traffic caution advised.' :
+                c.alert_level === 'WATCH' ? 'Anticipated waterlogging surge due to heavy precipitation on chronically vulnerable corridor.' :
+                c.alert_level === 'ADVISORY' ? 'Heightened vigilance advised. Unverified community submissions or moderate vulnerability under review.' :
+                'Normal dry baseline. Zero active flood evidence or elevated precipitation risk.'}
             </div>
           </div>
 
@@ -985,6 +1025,17 @@
           c.alert_level = 'WARNING';
           c.current_flood_evidence_status = 'OBSERVED_FLOOD_EVIDENCE';
           selectCorridor('HYD-LOC-005');
+        }
+      } else if (scenario === 'stale_telemetry') {
+        const c = corridors.find(item => item.location_id === 'HYD-LOC-003');
+        if (c) {
+          c.rain_1h_mm = null;
+          c.rainfall_risk_category = 'UNKNOWN';
+          c.alert_level = 'UNKNOWN';
+          c.decision_status = 'INSUFFICIENT_DATA';
+          c.current_flood_evidence_status = 'INSUFFICIENT_OR_STALE_DATA';
+          c.confidence = 0.15;
+          selectCorridor('HYD-LOC-003');
         }
       } else if (scenario === 'contradictory') {
         const c = corridors.find(item => item.location_id === 'HYD-LOC-008');

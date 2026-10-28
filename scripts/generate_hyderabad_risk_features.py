@@ -137,7 +137,7 @@ def generate_corridor_features(
             rain_6h_mm=rolling.get("rain_6h_mm"),
             rain_24h_mm=rolling.get("rain_24h_mm"),
             station_dist_km=st_dist_km,
-            data_freshness_hours=rolling.get("freshness_hours") or 0.0,
+            data_freshness_hours=rolling.get("freshness_hours") if rolling.get("freshness_hours") is not None else 99.0,
             data_timestamp=target_dt.isoformat() + "Z",
             historical_month_p90_mm=hist_p90_mm,
         )

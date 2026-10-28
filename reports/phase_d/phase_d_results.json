@@ -1,0 +1,145 @@
+{
+  "milestone": "Phase D: Evidence-to-Map and Flood-Risk Integration",
+  "audit_timestamp_utc": "2026-10-28T06:35:23.157400Z",
+  "audit_verdict": "ACCEPTED",
+  "branch": "feat/phase12-architecture-audit-and-data-contracts",
+  "reused_components_count": 9,
+  "reused_components": [
+    {
+      "component_id": "ROAD_NETWORK_STORE_PHASE_A",
+      "source_module": "sahaay.road_network.store",
+      "original_phase": "Phase A",
+      "reused_for": "Segment geometries, static vulnerability, seed road network, and GeoJSON map features",
+      "status": "REUSED_AND_EXTENDED",
+      "duplication_detected": false
+    },
+    {
+      "component_id": "TOPOLOGICAL_GRAPH_ROUTER_PHASE_B",
+      "source_module": "sahaay.routing.graph_router",
+      "original_phase": "Phase B",
+      "reused_for": "Topological connectivity, component graph partitioning, impassable edge pruning",
+      "status": "REUSED_UNCHANGED",
+      "duplication_detected": false
+    },
+    {
+      "component_id": "WEATHER_INGESTION_PIPELINE_PHASE_C",
+      "source_module": "sahaay.hyderabad_risk.weather_pipeline",
+      "original_phase": "Phase C / Phase 13",
+      "reused_for": "IMD telemetry observations, counter conversions, missingness QC, and NWP forecast risk",
+      "status": "REUSED_UNCHANGED",
+      "duplication_detected": false
+    },
+    {
+      "component_id": "COMMUNITY_VERIFICATION_ENGINE_PHASE_15",
+      "source_module": "sahaay.reports.schemas",
+      "original_phase": "Phase 15",
+      "reused_for": "Citizen report corroboration, sender masking, and contradictory submission detection",
+      "status": "REUSED_UNCHANGED",
+      "duplication_detected": false
+    },
+    {
+      "component_id": "ROAD_STATUS_SNAPSHOTS_PHASE_16",
+      "source_module": "sahaay.road_status.schemas",
+      "original_phase": "Phase 16",
+      "reused_for": "Live road conditions, freshness decay categories, and official responder verifications",
+      "status": "REUSED_UNCHANGED",
+      "duplication_detected": false
+    },
+    {
+      "component_id": "STATIC_ROAD_VULNERABILITY_PHASE_17",
+      "source_module": "sahaay.hyderabad_risk.vulnerability_index",
+      "original_phase": "Phase 17",
+      "reused_for": "Static physical susceptibility heuristics (elevation, drainage, land cover)",
+      "status": "REUSED_UNCHANGED",
+      "duplication_detected": false
+    },
+    {
+      "component_id": "FORECAST_PRECIPITATION_RISK_PHASE_18",
+      "source_module": "sahaay.forecast_risk.service",
+      "original_phase": "Phase 18",
+      "reused_for": "Advisory NWP precipitation horizons and convective risk bands",
+      "status": "REUSED_UNCHANGED",
+      "duplication_detected": false
+    },
+    {
+      "component_id": "RISK_AWARE_ROUTING_SERVICE_PHASE_19",
+      "source_module": "sahaay.routing.service",
+      "original_phase": "Phase 19",
+      "reused_for": "Dynamic penalty application, route risk estimation, and uncertainty surfacing",
+      "status": "REUSED_UNCHANGED",
+      "duplication_detected": false
+    },
+    {
+      "component_id": "SAFETY_CONTRACTS_AND_BOUNDARIES_PHASE_21",
+      "source_module": "sahaay.routing.contracts",
+      "original_phase": "Phase 21",
+      "reused_for": "Forbidden phrase enforcement, disarmed emergency action flags, non-zero missingness",
+      "status": "REUSED_UNCHANGED",
+      "duplication_detected": false
+    }
+  ],
+  "corridor_contracts_audit": {
+    "contract_checks": {
+      "corridor_id_present": true,
+      "evidence_state_present": true,
+      "evidence_sufficiency_present": true,
+      "road_status_section_present": true,
+      "community_reports_section_present": true,
+      "observed_rainfall_section_present": true,
+      "forecast_rainfall_section_present": true,
+      "static_susceptibility_section_present": true,
+      "vision_evidence_section_present": true,
+      "historical_inundation_section_present": true,
+      "compact_explanation_present": true,
+      "explanation_codes_present": true,
+      "source_timestamps_decoupled": true
+    },
+    "timestamps_decoupled_valid": true,
+    "default_state_when_no_data": "NO_CURRENT_EVIDENCE",
+    "default_sufficiency_when_no_data": "INSUFFICIENT_DATA"
+  },
+  "safety_invariants_audit": {
+    "missing_telemetry_not_zero": true,
+    "valid_measured_zero_distinguished": true,
+    "forecast_alone_never_impassable": true,
+    "static_susceptibility_is_heuristic": true,
+    "vision_abstention_strictly_inconclusive": true,
+    "citizen_reports_alone_cannot_close_roads": true,
+    "conflicting_citizen_reports_handling": true,
+    "official_responder_verifies_impassable": true,
+    "forbidden_safety_phrases_absent": true
+  },
+  "map_and_routing_audit": {
+    "map_checks": {
+      "features_count": 22,
+      "evidence_state_present": true,
+      "evidence_explanation_present": true,
+      "evidence_sufficiency_present": true,
+      "coverage_warning_present": true,
+      "sparse_network_warning_preserved": true,
+      "graceful_degradation_during_outage": true
+    },
+    "routing_checks": {
+      "verified_impassable_excluded": true,
+      "bypass_route_selected": true,
+      "optimality_unclaimed": true,
+      "guaranteed_safety_unclaimed": true,
+      "operational_action_blocked": true,
+      "disconnected_components_unsupported": true
+    }
+  },
+  "security_and_operational_boundaries": {
+    "role_spoofing_denied_with_403": true,
+    "standard_advisory_allowed_with_200": true,
+    "autonomous_action_disarmed": true,
+    "live_telemetry_feeds_status": "BLOCKED_PENDING_INSTITUTIONAL_APPROVAL"
+  },
+  "verification_metrics": {
+    "all_safety_invariants_satisfied": true,
+    "all_corridor_contracts_satisfied": true,
+    "all_map_geojson_checks_satisfied": true,
+    "all_topological_routing_checks_satisfied": true,
+    "all_security_boundaries_satisfied": true,
+    "focused_test_suite_status": "25_OF_25_PASSED"
+  }
+}

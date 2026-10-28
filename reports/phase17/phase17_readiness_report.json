@@ -1,0 +1,101 @@
+{
+  "report_phase": "Phase 17",
+  "title": "Local Flood-Risk Modeling Feasibility & Outcome Data Readiness Report",
+  "timestamp_utc": "2026-10-27T12:00:00Z",
+  "operational_mode": "OFFLINE_ENGINEERING_ADVISORY",
+  "live_telemetry_active": false,
+  "target_specification": {
+    "target_name": "localized_road_inundation_event",
+    "definition": "Occurrence of standing floodwater on a designated road corridor segment with measured or verified water depth >= 10.0 cm covering >= 1 traffic lane during the forecast horizon.",
+    "spatial_unit": "Road corridor segment (length <= 1000m, bounded within GHMC metropolitan limits)",
+    "temporal_prediction_horizon": "1 to 3 hours forward-looking from observation time t0",
+    "depth_threshold_cm": 10.0,
+    "lane_submersion_minimum": 1,
+    "decision_boundary_threshold": 0.5,
+    "intended_users": [
+      "GHMC Disaster Response Force (DRF) Dispatchers",
+      "Hyderabad Traffic Police (HTP) Field Commanders",
+      "Emergency Ambulance Fleet Routing Advisory",
+      "Citizen Public Situational Awareness Portal"
+    ],
+    "operational_actionability": "Non-autonomous decision support: alerts human supervisors to deploy desilting crews, stage rescue tenders, and adjust dynamic traffic advisories."
+  },
+  "outcome_data_readiness": {
+    "candidate_road_segments_count": 20,
+    "verified_flood_outcome_records_count": 0,
+    "verified_non_flood_outcome_records_count": 0,
+    "independent_storm_events_count": 0,
+    "static_hotspot_placemarks_count": 23,
+    "synthetic_fixtures_count": 8,
+    "unverified_community_reports_count": 0,
+    "climatological_summary_years": 121,
+    "verdict": "INSUFFICIENT_DATA_NO_GO",
+    "supervised_training_authorized": false,
+    "predictive_claims_authorized": false,
+    "unresolved_blockers": [
+      "Zero verified positive flood inundation event episodes (water depth >= 10.0 cm) on disk.",
+      "Zero verified negative non-flood / wet-but-not-flooded control episodes on disk.",
+      "Zero linked multi-corridor storm event records available for temporal evaluation.",
+      "Regional telemetry stations located 35-50 km outside GHMC urban core with >90% transmission missingness.",
+      "Zero legally executed municipal data-sharing agreements (GHMC DRF incident logs, TSDPS API).",
+      "Static placemarks (flooding_locations.kml) lack timestamps, dates, and depths; using them as targets causes 100% spatial target leakage."
+    ],
+    "prerequisites_to_reopen_gate": [
+      "Execute formal bilateral data-sharing MOU with GHMC Disaster Management Wing for DRF waterlogging dispatch logs.",
+      "Acquire at least 50 verified flood inundation episodes (depth >= 10.0 cm) and 100 verified wet-not-flooded episodes.",
+      "Ensure observation records span at least 4 independent storm events across at least 3 distinct spatial corridor clusters.",
+      "Deploy or connect urban rain gauge telemetry within 10 km of monitored corridors with < 15-minute transmission latency.",
+      "Pre-register an untouched independent evaluation set partitioned strictly by storm event date and spatial corridor."
+    ]
+  },
+  "baseline_scenarios_evaluated": {
+    "missing_telemetry": {
+      "predicted_risk_category": "UNKNOWN",
+      "confidence_score": 0.1,
+      "current_observed_condition": "NO_CURRENT_EVIDENCE",
+      "missing_inputs": [
+        "rainfall_telemetry"
+      ]
+    },
+    "heavy_surge_vulnerable_corridor": {
+      "predicted_risk_category": "HIGH",
+      "predicted_risk_score": 0.634,
+      "confidence_score": 0.85,
+      "is_actionable_for_dispatch": true,
+      "current_observed_condition": "NO_CURRENT_EVIDENCE"
+    },
+    "dry_weather_severe_vulnerability": {
+      "predicted_risk_category": "CLEAR",
+      "predicted_risk_score": 0.0,
+      "static_vulnerability_category": "SEVERE",
+      "current_observed_condition": "NO_CURRENT_EVIDENCE"
+    }
+  },
+  "evaluation_protocol": {
+    "splitter_protocol": "independent_storm_event_and_spatial_corridor",
+    "is_leakage_free": true,
+    "train_events": [
+      "STORM-2023-07",
+      "STORM-2023-09",
+      "STORM-2024-08"
+    ],
+    "eval_events": [
+      "STORM-2024-10"
+    ],
+    "train_segments": [
+      "HYD-LOC-001",
+      "HYD-LOC-002",
+      "HYD-LOC-003"
+    ],
+    "eval_segments": [
+      "HYD-LOC-004"
+    ],
+    "sealed_vision_test_partition_guarded": true
+  },
+  "final_gate_decision": {
+    "engineering_implementation_status": "COMPLETE",
+    "empirical_readiness_status": "NO-GO (LOCKED)",
+    "supervised_model_training_status": "NO-GO (LOCKED)",
+    "predictive_performance_claims": "PROHIBITED_UNEARNED"
+  }
+}

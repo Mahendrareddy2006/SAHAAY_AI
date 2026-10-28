@@ -1,0 +1,311 @@
+{
+  "validation_phase": "Phase 16",
+  "capability": "Live Road Status",
+  "timestamp_utc": "2026-10-27T12:00:00+00:00",
+  "operational_mode": "OFFLINE_ENGINEERING_ADVISORY",
+  "live_feeds_activated": false,
+  "scenarios": {
+    "fresh_verified_observation": {
+      "status": "PASS",
+      "condition_state": "VERIFIED_WATERLOGGED",
+      "uncertainty_level": "LOW",
+      "measured_depth_cm": 20.0
+    },
+    "fresh_unverified_report": {
+      "status": "PASS",
+      "condition_state": "UNVERIFIED",
+      "measured_depth_cm": null,
+      "verified_passability": "unverified_unknown"
+    },
+    "stale_observation": {
+      "status": "PASS",
+      "condition_state": "STALE",
+      "freshness": "STALE"
+    },
+    "missing_evidence": {
+      "status": "PASS",
+      "condition_state": "NO_CURRENT_EVIDENCE",
+      "confidence_score": 0.1
+    },
+    "conflicting_reports": {
+      "status": "PASS",
+      "condition_state": "CONFLICTING",
+      "has_conflicting_evidence": true
+    },
+    "delayed_submission": {
+      "status": "PASS",
+      "evidence_age_minutes": 200.0,
+      "freshness": "STALE"
+    },
+    "future_timestamp": {
+      "status": "PASS",
+      "reason_codes": [
+        "FUTURE_TIMESTAMP_REJECTED",
+        "NO_OBSERVATIONS_AVAILABLE"
+      ]
+    },
+    "rainfall_without_road_evidence": {
+      "status": "PASS",
+      "condition_state": "NO_CURRENT_EVIDENCE",
+      "rainfall_category": "CRITICAL"
+    },
+    "static_vulnerability_without_observations": {
+      "status": "PASS",
+      "condition_state": "NO_CURRENT_EVIDENCE",
+      "vulnerability_category": "SEVERE"
+    },
+    "same_source_not_independent": {
+      "status": "PASS",
+      "condition_state": "UNVERIFIED"
+    },
+    "independent_sources_promoted": {
+      "status": "PASS",
+      "condition_state": "CORROBORATED"
+    },
+    "expired_evidence": {
+      "status": "PASS",
+      "condition_state": "EXPIRED"
+    }
+  },
+  "corridor_evaluations": [
+    {
+      "segment_id": "HYD-LOC-001",
+      "road_name": "Tolichowki Flyover Underpass",
+      "zone": "West Zone",
+      "condition_state": "NO_CURRENT_EVIDENCE",
+      "freshness": "UNKNOWN",
+      "uncertainty": "HIGH",
+      "confidence_score": 0.1,
+      "rainfall_risk_category": "UNKNOWN",
+      "vulnerability_category": "UNKNOWN"
+    },
+    {
+      "segment_id": "HYD-LOC-002",
+      "road_name": "Shaikpet Nala Road",
+      "zone": "West Zone",
+      "condition_state": "NO_CURRENT_EVIDENCE",
+      "freshness": "UNKNOWN",
+      "uncertainty": "HIGH",
+      "confidence_score": 0.1,
+      "rainfall_risk_category": "UNKNOWN",
+      "vulnerability_category": "UNKNOWN"
+    },
+    {
+      "segment_id": "HYD-LOC-003",
+      "road_name": "Begumpet Rasoolpura Underpass",
+      "zone": "North Zone",
+      "condition_state": "NO_CURRENT_EVIDENCE",
+      "freshness": "UNKNOWN",
+      "uncertainty": "HIGH",
+      "confidence_score": 0.1,
+      "rainfall_risk_category": "UNKNOWN",
+      "vulnerability_category": "UNKNOWN"
+    },
+    {
+      "segment_id": "HYD-LOC-004",
+      "road_name": "Khairatabad Flyover Junction",
+      "zone": "Central Zone",
+      "condition_state": "NO_CURRENT_EVIDENCE",
+      "freshness": "UNKNOWN",
+      "uncertainty": "HIGH",
+      "confidence_score": 0.1,
+      "rainfall_risk_category": "UNKNOWN",
+      "vulnerability_category": "UNKNOWN"
+    },
+    {
+      "segment_id": "HYD-LOC-005",
+      "road_name": "Malakpet Railway Underbridge",
+      "zone": "South Zone",
+      "condition_state": "NO_CURRENT_EVIDENCE",
+      "freshness": "UNKNOWN",
+      "uncertainty": "HIGH",
+      "confidence_score": 0.1,
+      "rainfall_risk_category": "UNKNOWN",
+      "vulnerability_category": "UNKNOWN"
+    },
+    {
+      "segment_id": "HYD-LOC-006",
+      "road_name": "Panjagutta Underpass & Nagarjuna Circle",
+      "zone": "Central Zone",
+      "condition_state": "NO_CURRENT_EVIDENCE",
+      "freshness": "UNKNOWN",
+      "uncertainty": "HIGH",
+      "confidence_score": 0.1,
+      "rainfall_risk_category": "UNKNOWN",
+      "vulnerability_category": "UNKNOWN"
+    },
+    {
+      "segment_id": "HYD-LOC-007",
+      "road_name": "Gachibowli Bio-Diversity Junction",
+      "zone": "West Zone",
+      "condition_state": "NO_CURRENT_EVIDENCE",
+      "freshness": "UNKNOWN",
+      "uncertainty": "HIGH",
+      "confidence_score": 0.1,
+      "rainfall_risk_category": "UNKNOWN",
+      "vulnerability_category": "UNKNOWN"
+    },
+    {
+      "segment_id": "HYD-LOC-008",
+      "road_name": "Lakdikapul Junction & Railway Bridge",
+      "zone": "Central Zone",
+      "condition_state": "NO_CURRENT_EVIDENCE",
+      "freshness": "UNKNOWN",
+      "uncertainty": "HIGH",
+      "confidence_score": 0.1,
+      "rainfall_risk_category": "UNKNOWN",
+      "vulnerability_category": "UNKNOWN"
+    },
+    {
+      "segment_id": "HYD-LOC-009",
+      "road_name": "Secunderabad Clock Tower Subway",
+      "zone": "North Zone",
+      "condition_state": "NO_CURRENT_EVIDENCE",
+      "freshness": "UNKNOWN",
+      "uncertainty": "HIGH",
+      "confidence_score": 0.1,
+      "rainfall_risk_category": "UNKNOWN",
+      "vulnerability_category": "UNKNOWN"
+    },
+    {
+      "segment_id": "HYD-LOC-010",
+      "road_name": "Musarambagh Bridge Causeway",
+      "zone": "East Zone",
+      "condition_state": "NO_CURRENT_EVIDENCE",
+      "freshness": "UNKNOWN",
+      "uncertainty": "HIGH",
+      "confidence_score": 0.1,
+      "rainfall_risk_category": "UNKNOWN",
+      "vulnerability_category": "UNKNOWN"
+    },
+    {
+      "segment_id": "HYD-LOC-011",
+      "road_name": "Madhapur Cyber Towers Corridor",
+      "zone": "West Zone",
+      "condition_state": "NO_CURRENT_EVIDENCE",
+      "freshness": "UNKNOWN",
+      "uncertainty": "HIGH",
+      "confidence_score": 0.1,
+      "rainfall_risk_category": "UNKNOWN",
+      "vulnerability_category": "UNKNOWN"
+    },
+    {
+      "segment_id": "HYD-LOC-012",
+      "road_name": "Dilsukhnagar Bus Depot Main Road",
+      "zone": "East Zone",
+      "condition_state": "NO_CURRENT_EVIDENCE",
+      "freshness": "UNKNOWN",
+      "uncertainty": "HIGH",
+      "confidence_score": 0.1,
+      "rainfall_risk_category": "UNKNOWN",
+      "vulnerability_category": "UNKNOWN"
+    },
+    {
+      "segment_id": "HYD-LOC-013",
+      "road_name": "Ameerpet Metro Junction",
+      "zone": "Central Zone",
+      "condition_state": "NO_CURRENT_EVIDENCE",
+      "freshness": "UNKNOWN",
+      "uncertainty": "HIGH",
+      "confidence_score": 0.1,
+      "rainfall_risk_category": "UNKNOWN",
+      "vulnerability_category": "UNKNOWN"
+    },
+    {
+      "segment_id": "HYD-LOC-014",
+      "road_name": "Moosarambagh to Amberpet Nala Link",
+      "zone": "Central Zone",
+      "condition_state": "NO_CURRENT_EVIDENCE",
+      "freshness": "UNKNOWN",
+      "uncertainty": "HIGH",
+      "confidence_score": 0.1,
+      "rainfall_risk_category": "UNKNOWN",
+      "vulnerability_category": "UNKNOWN"
+    },
+    {
+      "segment_id": "HYD-LOC-015",
+      "road_name": "Miyapur Allwyn Junction",
+      "zone": "West Zone",
+      "condition_state": "NO_CURRENT_EVIDENCE",
+      "freshness": "UNKNOWN",
+      "uncertainty": "HIGH",
+      "confidence_score": 0.1,
+      "rainfall_risk_category": "UNKNOWN",
+      "vulnerability_category": "UNKNOWN"
+    },
+    {
+      "segment_id": "HYD-LOC-016",
+      "road_name": "Uppal Ring Road Junction",
+      "zone": "East Zone",
+      "condition_state": "NO_CURRENT_EVIDENCE",
+      "freshness": "UNKNOWN",
+      "uncertainty": "HIGH",
+      "confidence_score": 0.1,
+      "rainfall_risk_category": "UNKNOWN",
+      "vulnerability_category": "UNKNOWN"
+    },
+    {
+      "segment_id": "HYD-LOC-017",
+      "road_name": "Bowenpally Check Post",
+      "zone": "North Zone",
+      "condition_state": "NO_CURRENT_EVIDENCE",
+      "freshness": "UNKNOWN",
+      "uncertainty": "HIGH",
+      "confidence_score": 0.1,
+      "rainfall_risk_category": "UNKNOWN",
+      "vulnerability_category": "UNKNOWN"
+    },
+    {
+      "segment_id": "HYD-LOC-018",
+      "road_name": "Mehdipatnam Rythu Bazaar Road",
+      "zone": "Central Zone",
+      "condition_state": "NO_CURRENT_EVIDENCE",
+      "freshness": "UNKNOWN",
+      "uncertainty": "HIGH",
+      "confidence_score": 0.1,
+      "rainfall_risk_category": "UNKNOWN",
+      "vulnerability_category": "UNKNOWN"
+    },
+    {
+      "segment_id": "HYD-LOC-019",
+      "road_name": "Balanagar Narasapur Cross Road",
+      "zone": "North Zone",
+      "condition_state": "NO_CURRENT_EVIDENCE",
+      "freshness": "UNKNOWN",
+      "uncertainty": "HIGH",
+      "confidence_score": 0.1,
+      "rainfall_risk_category": "UNKNOWN",
+      "vulnerability_category": "UNKNOWN"
+    },
+    {
+      "segment_id": "HYD-LOC-020",
+      "road_name": "Alwal Rythu Bazaar Low-Lying Area",
+      "zone": "North Zone",
+      "condition_state": "NO_CURRENT_EVIDENCE",
+      "freshness": "UNKNOWN",
+      "uncertainty": "HIGH",
+      "confidence_score": 0.1,
+      "rainfall_risk_category": "UNKNOWN",
+      "vulnerability_category": "UNKNOWN"
+    }
+  ],
+  "safety_invariants": {},
+  "freshness_policy_proposal": {
+    "community_reports": {
+      "fresh_window_minutes": 60.0,
+      "stale_threshold_minutes": 360.0,
+      "max_retention_minutes": 360.0
+    },
+    "responder_verifications": {
+      "fresh_window_minutes": 120.0,
+      "max_retention_minutes": 480.0
+    },
+    "requires_institutional_approval": true
+  },
+  "summary": {
+    "total_scenarios_evaluated": 12,
+    "passed_scenarios": 12,
+    "failed_scenarios": 0,
+    "status": "PASS"
+  }
+}

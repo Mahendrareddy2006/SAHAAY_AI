@@ -30,6 +30,11 @@ class VisionPredictionResponse(BaseModel):
     created_at: str
     report_id: Optional[str] = None
     location: Optional[LocationCoords] = None
+    corridor_id: Optional[str] = None
+    is_provisional_evidence: bool = True
+    evidence_registered: bool = False
+    verification_status: str = "PROVISIONAL_UNVERIFIED"
+    deduplication_status: Optional[str] = None
     warnings: List[str] = Field(default_factory=list)
 
 class VisionHealthResponse(BaseModel):
@@ -51,7 +56,7 @@ class RainfallEstimateRequest(BaseModel):
     rain_3h_mm: Optional[float] = None
     rain_6h_mm: Optional[float] = None
     rain_24h_mm: Optional[float] = None
-    station_dist_km: float = Field(0.0, ge=0.0)
+    station_dist_km: Optional[float] = Field(None, ge=0.0)
     data_freshness_hours: float = Field(0.0, ge=0.0)
     data_timestamp: Optional[str] = None
     historical_month_p90_mm: Optional[float] = None

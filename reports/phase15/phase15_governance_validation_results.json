@@ -1,0 +1,69 @@
+{
+  "audit_phase": "Phase 15",
+  "title": "Vision Acquisition and Label Governance Verification",
+  "checks": {
+    "metadata_integrity": {
+      "is_valid": false,
+      "total_records": 3,
+      "valid_records": 2,
+      "excluded_records": 1,
+      "issues_summary": {
+        "unapproved_permission": 1,
+        "privacy_unverified": 1
+      },
+      "exclusion_details": [
+        {
+          "acquisition_id": "SYNTHETIC-EX-003",
+          "reasons": [
+            "unapproved_permission: status is 'pending'",
+            "privacy_unverified: status is 'unprocessed'"
+          ]
+        }
+      ]
+    },
+    "annotation_governance": {
+      "is_valid": true,
+      "total_records": 5,
+      "valid_records": 5,
+      "violation_count": 0,
+      "issues_summary": {},
+      "violation_details": []
+    },
+    "source_class_balance_manifest_v4": {
+      "total_samples": 1478,
+      "contingency_table": {
+        "0": {
+          "clemson_flood": 0,
+          "virenbr11_plain": 374,
+          "virenbr11_pothole": 365
+        },
+        "1": {
+          "clemson_flood": 739,
+          "virenbr11_plain": 0,
+          "virenbr11_pothole": 0
+        }
+      },
+      "cramers_v": 1.0,
+      "mutual_information_bits": 1.0,
+      "label_entropy_bits": 1.0,
+      "sources_with_both_classes_count": 0,
+      "sources_with_both_classes": [],
+      "is_confounded": "True",
+      "gates": {
+        "cramers_v_passed": false,
+        "mutual_information_passed": false,
+        "multi_source_cross_representation_passed": false
+      }
+    },
+    "partition_isolation": {
+      "is_isolated": true,
+      "partition_sizes": {
+        "train": 35,
+        "validation": 5,
+        "independent_evaluation": 10
+      },
+      "violations_count": 0,
+      "violations": []
+    }
+  }
+}

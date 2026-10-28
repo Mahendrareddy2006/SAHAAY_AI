@@ -96,9 +96,15 @@ class RainfallRiskResult(BaseModel):
     model_version: str = "hyderabad_rainfall_risk_v1.0"
     warnings: List[str]
     station_id: Optional[str] = None
+    station_name: Optional[str] = None
     provider: Optional[str] = None
     station_dist_km: Optional[float] = None
     station_proximity_tier: Optional[str] = None
+    rain_1h_mm: Optional[float] = None
+    rain_3h_mm: Optional[float] = None
+    rain_6h_mm: Optional[float] = None
+    rain_24h_mm: Optional[float] = None
+    instantaneous_rate_mm_hr: Optional[float] = None
     observation_provenance: Dict[str, Any] = Field(default_factory=dict)
     qc_flags: List[str] = Field(default_factory=list)
 
@@ -131,6 +137,7 @@ class IMDStationType(str, Enum):
 class MeasurementMode(str, Enum):
     INTERVAL_ACCUMULATION = "INTERVAL_ACCUMULATION"        # Direct interval rainfall (e.g., mm in 15m or 1h)
     CUMULATIVE_GAUGE_COUNTER = "CUMULATIVE_GAUGE_COUNTER"  # Monotonic gauge counter register (Ct)
+    INSTANTANEOUS_RATE = "INSTANTANEOUS_RATE"              # Instantaneous rain rate (mm/hr)
 
 
 class ObservationQCFlag(str, Enum):
@@ -149,7 +156,7 @@ class ObservationQCFlag(str, Enum):
 class IMDRainfallObservation(BaseModel):
     """
     Validated rainfall observation data contract compatible with IMD / state telemetry standards.
-    Supports both direct interval accumulations and raw cumulative gauge counters.
+    Supports direct interval accumulations, raw cumulative gauge counters, and instantaneous rain rates.
     Enforces timezone awareness, coordinate bounds, and physical validity.
     """
     # 1. Provenance & Identification
@@ -171,6 +178,7 @@ class IMDRainfallObservation(BaseModel):
     measurement_mode: MeasurementMode = Field(..., description="Measurement representation mode")
     raw_counter_value_mm: Optional[float] = Field(None, ge=0.0, description="Raw cumulative gauge counter Ct (mm)")
     interval_rainfall_mm: Optional[float] = Field(None, ge=0.0, description="Derived or reported interval rainfall (mm)")
+    instantaneous_rate_mm_hr: Optional[float] = Field(None, ge=0.0, description="Instantaneous rainfall rate (mm/hr)")
 
     # 5. Quality & Validity
     qc_flag: ObservationQCFlag = Field(default=ObservationQCFlag.VALID, description="Quality control classification")
@@ -204,7 +212,7 @@ class IMDRainfallObservation(BaseModel):
             raise ValueError("Timestamps must be timezone-aware (UTC). Naive datetimes are strictly rejected.")
         return v
 
-    @field_validator("raw_counter_value_mm", "interval_rainfall_mm")
+    @field_validator("raw_counter_value_mm", "interval_rainfall_mm", "instantaneous_rate_mm_hr")
     @classmethod
     def validate_finite_and_non_negative(cls, v: Optional[float]) -> Optional[float]:
         if v is not None:
@@ -217,7 +225,7 @@ class IMDRainfallObservation(BaseModel):
     @model_validator(mode="after")
     def validate_consistency(self) -> "IMDRainfallObservation":
         # At least one reading must be present
-        if self.raw_counter_value_mm is None and self.interval_rainfall_mm is None:
+        if self.raw_counter_value_mm is None and self.interval_rainfall_mm is None and self.instantaneous_rate_mm_hr is None:
             if self.is_valid:
                 raise ValueError("An observation marked is_valid=True must supply raw_counter_value_mm or interval_rainfall_mm.")
 

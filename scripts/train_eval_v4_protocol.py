@@ -176,6 +176,12 @@ def main():
     print(f"\n[Manifest V4 Loaded]")
     print(f"  Train: {len(df_train)} images | Val: {len(df_val)} images | Test (LOCKED): {len(df_test)} images")
 
+    # Phase 16: Independent Evaluation Protection Guard Check
+    from sahaay.data_collection_v4.operations import EvaluationSetProtectionGuard
+    EvaluationSetProtectionGuard.assert_no_locked_eval_leakage(df_train, df_test, workflow_name="v4-training")
+    EvaluationSetProtectionGuard.assert_no_locked_eval_leakage(df_val, df_test, workflow_name="v4-validation")
+    print("  [Evaluation Protection Guard]: Verified zero contamination between train/val and locked test set.")
+
     # Step 2: Source Confounding Diagnostic Check
     diag_path = os.path.join("reports", "vision_integrity", "shortcut_diagnosis_v4.json")
     if os.path.exists(diag_path):

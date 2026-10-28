@@ -17,8 +17,12 @@ class ReportValidationStatus(str, Enum):
 
 class ReportVerificationStatus(str, Enum):
     UNVERIFIED = "UNVERIFIED"
+    UNDER_REVIEW = "UNDER_REVIEW"
+    CORROBORATED = "CORROBORATED"
     VERIFIED_BY_RESPONDER = "VERIFIED_BY_RESPONDER"
     REJECTED_FALSE_ALARM = "REJECTED_FALSE_ALARM"
+    REJECTED_INVALID = "REJECTED_INVALID"
+    EXPIRED = "EXPIRED"
 
 
 class ReportFreshness(str, Enum):
@@ -35,6 +39,42 @@ class WaterDepthEstimate(str, Enum):
     WAIST_DEEP_OR_MORE = "WAIST_DEEP_OR_MORE"      # > 50 cm, emergency inundation
 
 
+class ReportCondition(str, Enum):
+    FLOODED_ROAD = "FLOODED_ROAD"
+    WATERLOGGED_PASSABLE = "WATERLOGGED_PASSABLE"
+    WET_ROAD_NO_FLOOD = "WET_ROAD_NO_FLOOD"
+    DRY_ROAD_CLEAR = "DRY_ROAD_CLEAR"
+    BLOCKED_DRAIN_SURCHARGE = "BLOCKED_DRAIN_SURCHARGE"
+    UNCERTAIN_AMBIGUOUS = "UNCERTAIN_AMBIGUOUS"
+
+
+class SubmissionChannel(str, Enum):
+    WEB_PORTAL = "WEB_PORTAL"
+    MOBILE_APP = "MOBILE_APP"
+    FIELD_KIOSK = "FIELD_KIOSK"
+    SMS_GATEWAY = "SMS_GATEWAY"
+    OFFLINE_TEST_FIXTURE = "OFFLINE_TEST_FIXTURE"
+
+
+class ConflictStatus(str, Enum):
+    NO_CONFLICT = "NO_CONFLICT"
+    CONFLICTING_COMMUNITY_REPORTS = "CONFLICTING_COMMUNITY_REPORTS"
+    CONFLICTING_PHYSICAL_TELEMETRY = "CONFLICTING_PHYSICAL_TELEMETRY"
+
+
+class StatusTransitionEvent(BaseModel):
+    """
+    Auditable log of a verification status transition.
+    """
+    from_status: ReportVerificationStatus
+    to_status: ReportVerificationStatus
+    transitioned_at_utc: str
+    actor_id: str
+    actor_role: str
+    rationale: str
+    evidence_reference: Optional[str] = None
+
+
 class CitizenReportSubmission(BaseModel):
     """
     Inbound payload from citizen report web/mobile interface.
@@ -49,21 +89,39 @@ class CitizenReportSubmission(BaseModel):
     reporter_contact_raw: Optional[str] = Field(None, description="Phone/Email to be masked")
     consent_given: bool = Field(..., description="Explicit user consent to share report data for public safety")
 
+    # Phase 15 Community Verification extensions:
+    observation_time_utc: Optional[str] = Field(
+        None, description="ISO 8601 UTC timestamp when condition was physically observed"
+    )
+    reported_condition: ReportCondition = Field(
+        ReportCondition.FLOODED_ROAD, description="Categorical condition observed by citizen"
+    )
+    submission_channel: SubmissionChannel = Field(
+        SubmissionChannel.WEB_PORTAL, description="Channel through which report was submitted"
+    )
+    evidence_reference: Optional[str] = Field(
+        None, description="External reference (e.g. photo URL or dispatch ID)"
+    )
+
 
 class CitizenReportRecord(BaseModel):
     """
-    Stored citizen report record with privacy masking, deduplication, and corroboration status.
+    Stored citizen report record with privacy masking, deduplication, corroboration, and auditable history.
     """
     report_id: str
     corridor_id: str
     submission_timestamp_utc: str
+    observation_timestamp_utc: str = Field("", description="Physically observed time, distinct from submission time")
     latitude_coarsened: float
     longitude_coarsened: float
     location_precision_m: float
     description_sanitized: str
     estimated_depth: WaterDepthEstimate
+    reported_condition: ReportCondition = ReportCondition.FLOODED_ROAD
+    submission_channel: SubmissionChannel = SubmissionChannel.WEB_PORTAL
     image_reference: Optional[str] = None
     image_hash_dhash: Optional[str] = None
+    evidence_reference: Optional[str] = None
     
     # Privacy protection
     reporter_id_masked: str
@@ -76,15 +134,23 @@ class CitizenReportRecord(BaseModel):
     
     # Corroboration & Verification
     corroboration_count: int = 1
+    independent_sources_count: int = 1  # Distinguishes multi-report volume from independent sources
     linked_report_ids: List[str] = Field(default_factory=list)
     verification_status: ReportVerificationStatus = ReportVerificationStatus.UNVERIFIED
     verified_by_entity: Optional[str] = None
     verification_timestamp_utc: Optional[str] = None
+    verification_rationale: Optional[str] = None
+    evidence_provenance: Optional[str] = None
     
     # Freshness
     freshness: ReportFreshness = ReportFreshness.FRESH
     age_minutes: float = 0.0
     reason_codes: List[str] = Field(default_factory=list)
+
+    # Conflict & Auditability
+    conflict_status: ConflictStatus = ConflictStatus.NO_CONFLICT
+    conflict_details: Optional[str] = None
+    status_history: List[StatusTransitionEvent] = Field(default_factory=list)
 
 
 class ReportVerificationRequest(BaseModel):
@@ -96,3 +162,4 @@ class ReportVerificationRequest(BaseModel):
     verification_status: ReportVerificationStatus
     observed_depth_cm: Optional[float] = None
     verification_notes: str
+    evidence_reference: Optional[str] = None

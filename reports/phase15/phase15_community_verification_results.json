@@ -1,0 +1,60 @@
+{
+  "audit_phase": "Phase 15",
+  "title": "Community Verification Offline Governance Audit",
+  "timestamp_utc": "2026-10-27T06:13:36.613315+00:00",
+  "operational_status": "ADVISORY_ONLY_OFFLINE",
+  "live_public_intake_active": false,
+  "gates": {
+    "structured_intake_and_privacy": {
+      "status": "PASS",
+      "sample_report_id": "REP-790ecad0",
+      "reporter_masked": "ANON-6dddc8f1",
+      "coarsened_coordinates": [
+        17.398,
+        78.415
+      ],
+      "observation_vs_submission_distinguished": true
+    },
+    "corroboration_vs_volume": {
+      "status": "PASS",
+      "duplicate_raw_volume": 3,
+      "independent_sources_count": 2,
+      "status_after_corroboration": "CORROBORATED"
+    },
+    "role_based_verification_access_control": {
+      "status": "PASS",
+      "unauthorized_role_rejected": true,
+      "authorized_role_accepted": true,
+      "audit_history_events_count": 3
+    },
+    "conflict_detection_and_safety": {
+      "status": "PASS",
+      "conflict_detected": true,
+      "corridor_evidence_status": "INCONCLUSIVE_CONTRADICTORY",
+      "requires_human_verification": true
+    },
+    "missing_reports_fail_safe": {
+      "status": "PASS",
+      "is_safe_declaration": false,
+      "safety_notice": "Absence of community reports does not indicate safe road conditions. Unmonitored corridor."
+    }
+  },
+  "traceability": {
+    "test_scenarios_evaluated": [],
+    "records_generated": [
+      "REP-790ecad0",
+      "REP-23ff75fd"
+    ]
+  },
+  "safety_invariants_verified": [
+    "Community reports are inputs, never automatic proof of flooding.",
+    "Observation time is distinguished from submission time and strictly ordered (T_obs <= T_sub).",
+    "Report volume alone does not establish ground truth; independent sources required for corroboration.",
+    "Verification requires authorized municipal or field responder credentials with recorded rationale.",
+    "Conflicting conditions within active corridors trigger INCONCLUSIVE_CONTRADICTORY and mandate human review.",
+    "Absence of community reports is explicitly non-declarative of road safety (unmonitored).",
+    "Water depth estimates are subjective citizen impressions; never treated as measured ground truth depth.",
+    "System operational posture remains NON-AUTONOMOUS / ADVISORY ONLY."
+  ],
+  "overall_status": "PASS"
+}

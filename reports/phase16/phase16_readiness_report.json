@@ -1,0 +1,167 @@
+{
+  "audit_phase": "Phase 16",
+  "title": "Acquisition Operations & Evaluation Controls Readiness Audit",
+  "timestamp_utc": "2026-10-27T05:55:51.434081+00:00",
+  "overall_status": "NO-GO",
+  "gates": {
+    "stream_permissions": {
+      "status": "NOT_READY",
+      "total_streams": 4,
+      "approved_streams_count": 0,
+      "approved_streams": [],
+      "unapproved_streams_count": 4,
+      "unapproved_streams": [
+        "STREAM-01-MUNICIPAL-CCTV",
+        "STREAM-02-CITIZEN-UPLOAD",
+        "STREAM-03-FIELD-VANTAGE",
+        "STREAM-04-COMMERCIAL-DASHCAM"
+      ],
+      "stream_details": {
+        "STREAM-01-MUNICIPAL-CCTV": {
+          "acquisition_stream_name": "GHMC / Hyderabad Traffic Police CCTV",
+          "responsible_organization": "Greater Hyderabad Municipal Corporation (GHMC) / Hyderabad Traffic Police (HTP)",
+          "request_status": "pending",
+          "evidence_reference": "DRAFT-DOC-MUNICIPAL-MOU-v1.0",
+          "evidence_valid": false,
+          "is_approved_for_training": false,
+          "reasons": [
+            "tentative_or_draft_evidence: reference 'DRAFT-DOC-MUNICIPAL-MOU-v1.0' contains prohibited draft marker"
+          ],
+          "outstanding_blockers": "Awaiting human project owner formal submission to GHMC Commissioner & Traffic Police DCP",
+          "next_action": "Submit formal municipal data-access request packet to GHMC/HTP"
+        },
+        "STREAM-02-CITIZEN-UPLOAD": {
+          "acquisition_stream_name": "Citizen-Submitted Imagery",
+          "responsible_organization": "Sahaay Community Contributors / Registered Hyderabad Residents",
+          "request_status": "not_started",
+          "evidence_reference": "DRAFT-DOC-CITIZEN-CONSENT-v1.0",
+          "evidence_valid": false,
+          "is_approved_for_training": false,
+          "reasons": [
+            "tentative_or_draft_evidence: reference 'DRAFT-DOC-CITIZEN-CONSENT-v1.0' contains prohibited draft marker"
+          ],
+          "outstanding_blockers": "Frontend upload portal and terms acceptance flow undergoing legal review before deployment",
+          "next_action": "Deploy citizen consent form on public web portal following legal sign-off"
+        },
+        "STREAM-03-FIELD-VANTAGE": {
+          "acquisition_stream_name": "Field-Team Photography",
+          "responsible_organization": "Sahaay AI Research & Field Engineering Team",
+          "request_status": "pending",
+          "evidence_reference": "DRAFT-DOC-FIELD-SAFETY-v1.0",
+          "evidence_valid": false,
+          "is_approved_for_training": false,
+          "reasons": [
+            "tentative_or_draft_evidence: reference 'DRAFT-DOC-FIELD-SAFETY-v1.0' contains prohibited draft marker"
+          ],
+          "outstanding_blockers": "Pre-collection physical site inspection at 4 pilot corridors and PPE gear procurement",
+          "next_action": "Verify pedestrian sightlines and safety clearances at pilot corridors"
+        },
+        "STREAM-04-COMMERCIAL-DASHCAM": {
+          "acquisition_stream_name": "Commercial Dashcam Partners",
+          "responsible_organization": "Commercial Logistics & Public Transit Fleet Operators",
+          "request_status": "not_started",
+          "evidence_reference": "DRAFT-DOC-DASHCAM-AGREEMENT-v1.0",
+          "evidence_valid": false,
+          "is_approved_for_training": false,
+          "reasons": [
+            "tentative_or_draft_evidence: reference 'DRAFT-DOC-DASHCAM-AGREEMENT-v1.0' contains prohibited draft marker"
+          ],
+          "outstanding_blockers": "Partner fleet identification and legal review of commercial telemetry data-sharing",
+          "next_action": "Identify and engage 2 candidate fleet operators operating in Hyderabad"
+        }
+      },
+      "violations": []
+    },
+    "acquisition_provenance": {
+      "status": "NOT_READY",
+      "accepted_real_world_records_count": 0,
+      "synthetic_fixtures_excluded_count": 3,
+      "unverified_real_records_count": 0,
+      "permissioned_real_records_count": 0,
+      "contradictory_provenance_count": 0,
+      "counts_by_category": {
+        "synthetic_fixture": 3,
+        "contradictory_provenance": 0,
+        "unknown_provenance": 0,
+        "unverified_real": 0,
+        "permissioned_real": 0,
+        "accepted_real": 0
+      },
+      "traceability": {
+        "accepted_real_ids": [],
+        "synthetic_ids": [
+          "SYNTHETIC-EX-001",
+          "SYNTHETIC-EX-002",
+          "SYNTHETIC-EX-003"
+        ],
+        "unverified_ids": [],
+        "contradictory_ids": []
+      }
+    },
+    "annotation_decoupling": {
+      "status": "READY",
+      "total_records_audited": 5,
+      "valid_records": 5,
+      "violation_count": 0,
+      "issues_summary": {}
+    },
+    "source_class_balance": {
+      "status": "BLOCKED",
+      "total_samples": 1478,
+      "cramers_v": 1.0,
+      "cramers_v_passed": false,
+      "mutual_information_bits": 1.0,
+      "mutual_information_passed": false,
+      "sources_with_both_classes_count": 0,
+      "sources_with_both_classes": [],
+      "is_confounded": true
+    },
+    "independent_evaluation_controls": {
+      "status": "READY",
+      "guard_implemented": true,
+      "runtime_protection_class": "EvaluationSetProtectionGuard",
+      "supported_checks": [
+        "in_band_lock_flag_rejection",
+        "partition_name_leak_detection",
+        "image_and_acquisition_id_disjointness",
+        "capture_session_id_disjointness",
+        "exact_md5_collision_rejection",
+        "perceptual_dhash_near_duplicate_rejection"
+      ],
+      "metadata_lockfile_exists": true,
+      "metadata_lockfile_path": "reports/phase16/evaluation_set_metadata.json",
+      "operational_limitations_acknowledged": [
+        "File-system access controls (OS DAC/MAC) not active in standard git repo.",
+        "Pipeline-level runtime assertions intercept and abort all development workflows if eval data is loaded."
+      ]
+    }
+  },
+  "traceability": {
+    "streams": [
+      "STREAM-01-MUNICIPAL-CCTV",
+      "STREAM-02-CITIZEN-UPLOAD",
+      "STREAM-03-FIELD-VANTAGE",
+      "STREAM-04-COMMERCIAL-DASHCAM"
+    ],
+    "acquisition_records": [
+      "SYNTHETIC-EX-001",
+      "SYNTHETIC-EX-002",
+      "SYNTHETIC-EX-003"
+    ],
+    "annotation_image_ids": [
+      "SYNTHETIC-EX-001",
+      "SYNTHETIC-EX-001",
+      "SYNTHETIC-EX-002",
+      "SYNTHETIC-EX-002",
+      "SYNTHETIC-EX-003"
+    ],
+    "manifest_sample_count": 1478
+  },
+  "blocking_reasons": [
+    "Stream approval gate failed: 0 stream(s) approved (minimum 2 required). Unapproved streams: ['STREAM-01-MUNICIPAL-CCTV', 'STREAM-02-CITIZEN-UPLOAD', 'STREAM-03-FIELD-VANTAGE', 'STREAM-04-COMMERCIAL-DASHCAM'].",
+    "Acquisition register contains 0 accepted real-world records (3 synthetic fixtures excluded). Real-world data intake has not commenced.",
+    "Source-label confounding actively blocks V4: Cram\u00e9r's V=1.0 (requires <= 0.30), balanced sources=0 (requires >= 2)."
+  ],
+  "advisories": [],
+  "v4_training_verdict": "NO-GO (Gate Strictly Locked: Empirical data prerequisites unfulfilled)"
+}

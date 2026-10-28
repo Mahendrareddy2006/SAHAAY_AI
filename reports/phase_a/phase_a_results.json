@@ -1,0 +1,52 @@
+{
+  "milestone": "Phase A",
+  "title": "Sahaay AI Phase A: Live Map & Road Network Foundation Report",
+  "timestamp_utc": "2026-10-27T13:30:50.342040Z",
+  "operational_mode": "FOUNDATIONAL_GEOSPATIAL_LAYER",
+  "operational_readiness_verdict": "GEOSPATIAL_FOUNDATION_READY_ROUTING_ENGINE_PENDING",
+  "summary": "Phase A successfully establishes the canonical geospatial road network data model, GeoJSON feature collection endpoints, OpenStreetMap ingestion and normalization pipeline, and Leaflet map visualization for Greater Hyderabad corridors without conflating unknown status with safe passage.",
+  "map_coverage": {
+    "total_segments_mapped": 22,
+    "monitored_corridors_count": 20,
+    "unmonitored_segments_count": 2,
+    "total_centerline_length_km": 25.64,
+    "bounding_box": {
+      "min_lat": 17.0,
+      "max_lat": 17.8,
+      "min_lon": 78.1,
+      "max_lon": 78.8
+    },
+    "source_attribution": "\u00a9 OpenStreetMap contributors, ODbL 1.0; Sahaay AI Project",
+    "source_license": "ODbL-1.0",
+    "coverage_status": "BASELINE_CANDIDATE_CORRIDORS_MAPPED",
+    "data_freshness_summary": {
+      "UNKNOWN": 22
+    },
+    "condition_state_summary": {
+      "NO_CURRENT_EVIDENCE": 20,
+      "UNKNOWN": 2
+    }
+  },
+  "geojson_export": {
+    "total_features": 22,
+    "crs": "EPSG:4326 (WGS84)",
+    "disclaimer": "MAP ADVISORY NOTICE: Sahaay AI road geometries and condition markers are advisory indicators. Absence of reported waterlogging on a corridor DOES NOT imply safe passage or dry pavement. Drivers must exercise discretion and comply with on-ground Hyderabad Traffic Police directives."
+  },
+  "osm_importer_verification": {
+    "sample_import_status": "SUCCESS",
+    "records_processed": 1,
+    "valid_imported": 1,
+    "license": "ODbL-1.0",
+    "attribution": "\u00a9 OpenStreetMap contributors, ODbL 1.0"
+  },
+  "regression_accounting": {
+    "total_tests_collected": 452,
+    "tests_passed": 448,
+    "tests_failed": 4,
+    "historical_failures_accounted": 4,
+    "new_failures": 0,
+    "phase_a_new_tests_count": 18,
+    "phase_a_test_pass_rate_pct": 100.0
+  },
+  "mandatory_safety_disclaimer": "MAP ADVISORY NOTICE: Sahaay AI road geometries and condition markers are advisory indicators. Absence of reported waterlogging on a corridor DOES NOT imply safe passage or dry pavement. Drivers must exercise discretion and comply with on-ground Hyderabad Traffic Police directives."
+}

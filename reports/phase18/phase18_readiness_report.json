@@ -1,0 +1,174 @@
+{
+  "report_phase": "Phase 18",
+  "title": "Sahaay AI Phase 18: Forecast-Source Readiness & Forecast-Risk Audit Report",
+  "timestamp_utc": "2026-10-27T07:00:00Z",
+  "operational_mode": "OFFLINE_ENGINEERING_ADVISORY",
+  "live_telemetry_active": false,
+  "forecast_source_readiness": {
+    "total_candidate_sources_audited": 4,
+    "authorized_sources_count": 0,
+    "connected_live_sources_count": 0,
+    "readiness_verdict": "BLOCKED_NO_AUTHORIZED_SOURCE",
+    "operational_readiness_status": "BLOCKED_PENDING_INSTITUTIONAL_DATA",
+    "engineering_readiness_status": "OFFLINE_CONTRACTS_COMPLETE",
+    "candidate_sources": [
+      {
+        "source_id": "SRC-FC-01-IMD-NWP",
+        "provider_name": "India Meteorological Department (IMD) / MoES",
+        "provenance_type": "Numerical Weather Prediction (GFS / WRF Regional Models)",
+        "forecast_horizon_hours": "24 to 72 hours (3-hourly intervals)",
+        "update_cadence": "6-hourly (00, 06, 12, 18 UTC cycles)",
+        "spatial_coverage_and_resolution": "Regional gridded mesh ~0.125\u00b0 x 0.125\u00b0 (~12-14 km)",
+        "units_and_accumulation_period": "Cumulative accumulation in millimeters (mm) over 3h / 24h",
+        "missingness_and_staleness_characteristics": "Model processing and dissemination latency of 3-5 hours post-cycle issue time",
+        "licensing_and_access_authorization": "Public research portal available; zero institutional enterprise API agreement executed",
+        "operational_constraints": "Resolution (~12 km) too coarse for localized micro-catchment / underpass waterlogging",
+        "is_live_stream_connected": false,
+        "is_authorized_for_operations": false,
+        "integration_verdict": "BLOCKED_NO_EXECUTED_AGREEMENT"
+      },
+      {
+        "source_id": "SRC-FC-02-TSDPS-MESO",
+        "provider_name": "Telangana State Development Planning Society (TSDPS)",
+        "provenance_type": "Regional Mesoscale WRF Model & Automatic Weather Advisory",
+        "forecast_horizon_hours": "24 to 48 hours (hourly/3-hourly intervals)",
+        "update_cadence": "Daily / 12-hourly",
+        "spatial_coverage_and_resolution": "Telangana state coverage at ~3-9 km resolution",
+        "units_and_accumulation_period": "Quantitative forecast in mm over 1h / 24h accumulation intervals",
+        "missingness_and_staleness_characteristics": "Advisories issued once or twice daily; latency precludes rapid flash flood nowcasting",
+        "licensing_and_access_authorization": "MoU request pending institutional approval (tracked since Phase 6)",
+        "operational_constraints": "Pending formal sign-off from TSDPS executive director",
+        "is_live_stream_connected": false,
+        "is_authorized_for_operations": false,
+        "integration_verdict": "BLOCKED_PENDING_INSTITUTIONAL_APPROVAL"
+      },
+      {
+        "source_id": "SRC-FC-03-DWR-BEGUMPET",
+        "provider_name": "IMD Begumpet Doppler Weather Radar (DWR)",
+        "provenance_type": "S-Band Doppler Weather Radar Quantitative Precipitation Forecast (QPF)",
+        "forecast_horizon_hours": "0 to 3 hours (Nowcast / Convective Storm Tracking)",
+        "update_cadence": "10 to 15 minutes volume scans during active weather",
+        "spatial_coverage_and_resolution": "Radial coverage 100-250 km radius at ~1\u00b0 x 250m polar resolution",
+        "units_and_accumulation_period": "Instantaneous rain rate (mm/h) and 1h accumulated QPE/QPF (mm)",
+        "missingness_and_staleness_characteristics": "Radar ground clutter, beam blockage, and intermittent maintenance outages during pre-monsoon",
+        "licensing_and_access_authorization": "Public web portal displays raster images only; zero programmatic raw telemetry API access",
+        "operational_constraints": "Requires dedicated bilateral radar data ingestion protocol with IMD Begumpet",
+        "is_live_stream_connected": false,
+        "is_authorized_for_operations": false,
+        "integration_verdict": "BLOCKED_NO_API_ACCESS_IDENTIFIED"
+      },
+      {
+        "source_id": "SRC-FC-04-GLOBAL-NWP",
+        "provider_name": "Commercial / Global NWP (ECMWF / Open-Meteo / GFS)",
+        "provenance_type": "Global Numerical Weather Prediction API Aggregators",
+        "forecast_horizon_hours": "1 to 168 hours (hourly intervals)",
+        "update_cadence": "Hourly to 6-hourly depending on tier",
+        "spatial_coverage_and_resolution": "Global interpolated grid ~4-9 km",
+        "units_and_accumulation_period": "1h precipitation accumulation in mm",
+        "missingness_and_staleness_characteristics": "Dependent on external cloud API uptime and global model assimilation cycles",
+        "licensing_and_access_authorization": "Zero commercial or research API credentials configured in repository",
+        "operational_constraints": "External internet calls prohibited in offline engineering phase; unverified against local Hyderabad microclimate",
+        "is_live_stream_connected": false,
+        "is_authorized_for_operations": false,
+        "integration_verdict": "BLOCKED_ZERO_CREDENTIALS_CONFIGURED"
+      }
+    ],
+    "unresolved_blockers": [
+      "Zero legally authorized operational forecast API connections exist in the repository.",
+      "Zero Doppler Weather Radar (DWR) quantitative nowcast API agreements executed with IMD Begumpet.",
+      "Regional NWP forecast resolution (~12 km) is spatially unsuited for localized corridor underpass waterlogging.",
+      "No independent, temporally appropriate forecast verification dataset has been established to validate forecast skill."
+    ],
+    "prerequisites_to_unblock": [
+      "Execute formal bilateral data-sharing agreement with IMD / MoES for high-resolution WRF nowcast data.",
+      "Establish programmatic radar telemetry stream with IMD Begumpet Observatory for sub-hourly convective cell tracking.",
+      "Compile an independent forecast verification benchmark comparing forecast rain with verified ground gauge telemetry across >= 4 storm events."
+    ]
+  },
+  "evidence_signal_separation": {
+    "distinct_signals_separated": [
+      "1. Forecast precipitation context (forward-looking)",
+      "2. Observed rain gauge telemetry (physical present)",
+      "3. Static physical susceptibility index (topography & drainage)",
+      "4. Current on-ground road condition (citizen / sensor reports)",
+      "5. Verified historical flood outcomes (ground truth outcomes)"
+    ],
+    "historical_outcomes_on_disk": 0,
+    "silent_imputation_prohibited": true,
+    "calibrated_probability_claims_prohibited": true,
+    "forecast_alone_infers_flooding_prohibited": true,
+    "absent_evidence_infers_safety_prohibited": true
+  },
+  "evaluation_scenarios": {
+    "scenario_a_missing_forecast_data": {
+      "assessment_status": "INSUFFICIENT_DATA",
+      "forecast_risk_category": "INSUFFICIENT_DATA",
+      "heuristic_risk_score": null,
+      "confidence_score": 0.1,
+      "uncertainty_level": "HIGH",
+      "missing_inputs": [
+        "static_vulnerability",
+        "forecast_rainfall_input"
+      ],
+      "reason_codes": [
+        "FORECAST_DATA_MISSING_MARKED_INSUFFICIENT"
+      ]
+    },
+    "scenario_b_valid_heavy_surge_vulnerable": {
+      "assessment_status": "AVAILABLE_VALID",
+      "forecast_risk_category": "HIGH",
+      "heuristic_risk_score": 0.576,
+      "confidence_score": 0.75,
+      "is_actionable_for_dispatch": true,
+      "current_observed_condition": "NO_CURRENT_EVIDENCE"
+    },
+    "scenario_c_dry_weather_severe_vulnerability": {
+      "assessment_status": "AVAILABLE_VALID",
+      "forecast_risk_category": "CLEAR",
+      "heuristic_risk_score": 0.05,
+      "static_vulnerability_category": "SEVERE",
+      "current_observed_condition": "NO_CURRENT_EVIDENCE"
+    },
+    "scenario_d_stale_forecast": {
+      "assessment_status": "STALE",
+      "forecast_risk_category": "MEDIUM",
+      "heuristic_risk_score": 0.36,
+      "confidence_score": 0.35,
+      "reason_codes": [
+        "FORECAST_ISSUE_STALE"
+      ]
+    },
+    "scenario_e_conflicting_forecasts": {
+      "assessment_status": "CONFLICTING",
+      "forecast_risk_category": "UNKNOWN",
+      "heuristic_risk_score": null,
+      "reason_codes": [
+        "CONFLICTING_FORECASTS_DETECTED"
+      ]
+    },
+    "scenario_f_spatially_unsuitable": {
+      "assessment_status": "SPATIALLY_UNSUITABLE",
+      "forecast_risk_category": "LOW",
+      "spatial_resolution_km": 28.0,
+      "reason_codes": [
+        "SPATIAL_RESOLUTION_TOO_COARSE_FOR_CORRIDOR"
+      ]
+    }
+  },
+  "test_suite_results": {
+    "test_suite_file": "tests/test_phase18_forecast_risk.py",
+    "tests_collected": 23,
+    "tests_passed": 23,
+    "tests_failed": 0,
+    "full_suite_collected": 392,
+    "full_suite_passed": 388,
+    "full_suite_historical_failures_preserved": 4
+  },
+  "final_gate_decision": {
+    "software_engineering_status": "OFFLINE_CONTRACTS_COMPLETE",
+    "forecast_data_readiness_status": "BLOCKED_NO_AUTHORIZED_SOURCE",
+    "operational_deployment_readiness": "BLOCKED_PENDING_INSTITUTIONAL_DATA",
+    "supervised_ml_training": "PROHIBITED_NO_LABELED_DATA",
+    "predictive_performance_claims": "PROHIBITED_UNEARNED"
+  }
+}

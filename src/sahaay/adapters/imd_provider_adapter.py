@@ -87,20 +87,26 @@ class IMDTransportClient:
 
         # Use injected mock transport if provided
         if self._transport_callable is not None:
-            try:
-                status_code, data = self._transport_callable(full_url, headers, self.timeout_seconds)
-                if status_code != 200:
-                    q_flags = [f"HTTP_ERROR_{status_code}", "PROVIDER_UNAVAILABLE"]
-                    if status_code in (401, 403):
-                        q_flags.append("AUTHENTICATION_FAILED")
-                    return status_code, None, q_flags, f"Provider HTTP error {status_code}"
-                return status_code, data, [], None
-            except TimeoutError:
-                return 0, None, ["CONNECTION_TIMEOUT", "PROVIDER_UNAVAILABLE"], f"Query to {self._mask_url(full_url)} timed out ({self.timeout_seconds}s)."
-            except ConnectionError as e:
-                return 0, None, ["NETWORK_CONNECTION_ERROR", "PROVIDER_UNAVAILABLE"], f"Connection failed: {str(e)}"
-            except Exception as e:
-                return 0, None, ["TRANSPORT_EXCEPTION", "PROVIDER_UNAVAILABLE"], f"Transport error: {str(e)}"
+            attempts = 0
+            while attempts <= self.max_retries:
+                attempts += 1
+                try:
+                    status_code, data = self._transport_callable(full_url, headers, self.timeout_seconds)
+                    if status_code != 200:
+                        q_flags = [f"HTTP_ERROR_{status_code}", "PROVIDER_UNAVAILABLE"]
+                        if status_code in (401, 403):
+                            q_flags.append("AUTHENTICATION_FAILED")
+                        return status_code, None, q_flags, f"Provider HTTP error {status_code}"
+                    return status_code, data, [], None
+                except TimeoutError:
+                    if attempts > self.max_retries:
+                        return 0, None, ["CONNECTION_TIMEOUT", "PROVIDER_UNAVAILABLE"], f"Query to {self._mask_url(full_url)} timed out ({self.timeout_seconds}s)."
+                except ConnectionError as e:
+                    if attempts > self.max_retries:
+                        return 0, None, ["NETWORK_CONNECTION_ERROR", "PROVIDER_UNAVAILABLE"], f"Connection failed: {str(e)}"
+                except Exception as e:
+                    if attempts > self.max_retries:
+                        return 0, None, ["TRANSPORT_EXCEPTION", "PROVIDER_UNAVAILABLE"], f"Transport error: {str(e)}"
 
         # Default standard library urllib transport
         attempts = 0
@@ -213,6 +219,9 @@ class IMDRainfallProviderAdapter(BaseLiveAdapter):
 
         self._last_query_timestamp: Optional[str] = None
         self._last_fetch_successful: bool = False
+        self._last_successful_retrieval_utc: Optional[str] = None
+        self._consecutive_failures: int = 0
+        self._last_error_message: Optional[str] = None
 
     def parse_provider_payload(
         self,
@@ -317,23 +326,43 @@ class IMDRainfallProviderAdapter(BaseLiveAdapter):
                 qc_flag = ObservationQCFlag.VALID
                 is_valid = True
 
+            # Units conversion factor
+            units_factor = 1.0
+            raw_units = str(rec.get("units") or "mm").strip().lower()
+            if raw_units in ("cm", "centimeters"):
+                units_factor = 10.0
+            elif raw_units in ("in", "inch", "inches"):
+                units_factor = 25.4
+            elif raw_units in ("m", "meter", "meters"):
+                units_factor = 1000.0
+
             # Rainfall values
             interval_mm = rec.get("interval_rainfall_mm") if rec.get("interval_rainfall_mm") is not None else rec.get("rainfall_mm")
             raw_counter = rec.get("raw_counter_value_mm") if rec.get("raw_counter_value_mm") is not None else rec.get("cumulative_counter_mm")
+            raw_rate = rec.get("rainfall_rate_mm_per_hr") if rec.get("rainfall_rate_mm_per_hr") is not None else (
+                rec.get("rate_mm_h") if rec.get("rate_mm_h") is not None else rec.get("instantaneous_rate_mm_hr")
+            )
 
             parsed_interval: Optional[float] = None
             if interval_mm is not None:
                 try:
-                    parsed_interval = float(interval_mm)
+                    parsed_interval = float(interval_mm) * units_factor
                 except (ValueError, TypeError):
                     parsed_interval = None
 
             parsed_counter: Optional[float] = None
             if raw_counter is not None:
                 try:
-                    parsed_counter = float(raw_counter)
+                    parsed_counter = float(raw_counter) * units_factor
                 except (ValueError, TypeError):
                     parsed_counter = None
+
+            parsed_rate: Optional[float] = None
+            if raw_rate is not None:
+                try:
+                    parsed_rate = float(raw_rate) * units_factor
+                except (ValueError, TypeError):
+                    parsed_rate = None
 
             # Physical validity checks
             if parsed_interval is not None:
@@ -347,6 +376,17 @@ class IMDRainfallProviderAdapter(BaseLiveAdapter):
                     is_valid = False
                     warnings.append(f"Station {station_id} exceeds physical rainfall limit ({parsed_interval} mm); flagged invalid.")
 
+            if parsed_rate is not None:
+                if math.isnan(parsed_rate) or math.isinf(parsed_rate) or parsed_rate < 0.0:
+                    qc_flag = ObservationQCFlag.QC_NEGATIVE_VALUE
+                    is_valid = False
+                    warnings.append(f"Station {station_id} has negative/non-finite rate ({parsed_rate}); flagged invalid.")
+                    parsed_rate = None
+                elif parsed_rate > MAX_PHYSICAL_RATE_MM_PER_HR:
+                    qc_flag = ObservationQCFlag.QC_UNPHYSICAL_SPIKE
+                    is_valid = False
+                    warnings.append(f"Station {station_id} exceeds physical rainfall limit ({parsed_rate} mm/h); flagged invalid.")
+
             if parsed_counter is not None:
                 if math.isnan(parsed_counter) or math.isinf(parsed_counter) or parsed_counter < 0.0:
                     qc_flag = ObservationQCFlag.QC_NEGATIVE_VALUE
@@ -356,8 +396,10 @@ class IMDRainfallProviderAdapter(BaseLiveAdapter):
 
             # Measurement mode
             mode = MeasurementMode.INTERVAL_ACCUMULATION
-            if parsed_counter is not None and parsed_interval is None:
+            if parsed_counter is not None and parsed_interval is None and parsed_rate is None:
                 mode = MeasurementMode.CUMULATIVE_GAUGE_COUNTER
+            elif parsed_rate is not None and parsed_interval is None and parsed_counter is None:
+                mode = MeasurementMode.INSTANTANEOUS_RATE
 
             # Deduplication key: (station_id, observation_time_utc)
             dedup_key = (station_id, obs_dt.isoformat())
@@ -384,6 +426,7 @@ class IMDRainfallProviderAdapter(BaseLiveAdapter):
                     measurement_mode=mode,
                     raw_counter_value_mm=parsed_counter,
                     interval_rainfall_mm=parsed_interval,
+                    instantaneous_rate_mm_hr=parsed_rate,
                     qc_flag=qc_flag,
                     is_valid=is_valid,
                     provenance_metadata=rec.get("metadata", {}),
@@ -418,9 +461,14 @@ class IMDRainfallProviderAdapter(BaseLiveAdapter):
 
         if code != 200 or data is None:
             self._last_fetch_successful = False
+            self._consecutive_failures += 1
+            self._last_error_message = err or f"HTTP error {code}"
             return [], flags + ([err] if err else [])
 
         self._last_fetch_successful = True
+        self._last_successful_retrieval_utc = now_dt.isoformat().replace("+00:00", "Z")
+        self._consecutive_failures = 0
+        self._last_error_message = None
         observations, norm_warnings = self.parse_provider_payload(
             payload=data,
             ingestion_time=now_dt,
@@ -586,6 +634,14 @@ class IMDRainfallProviderAdapter(BaseLiveAdapter):
         if self.base_url:
             masked_endpoint = IMDTransportClient._mask_url(self.base_url)
 
+        data_age = None
+        if self._last_successful_retrieval_utc:
+            try:
+                last_dt = datetime.fromisoformat(self._last_successful_retrieval_utc.replace("Z", "+00:00"))
+                data_age = round(max(0.0, (datetime.now(timezone.utc) - last_dt).total_seconds()), 1)
+            except Exception:
+                pass
+
         return {
             "source_id": self.source_id,
             "source_name": self.source_name,
@@ -594,6 +650,10 @@ class IMDRainfallProviderAdapter(BaseLiveAdapter):
             "configured_endpoint": masked_endpoint,
             "has_credentials": bool(self.api_key),
             "primary_access_method": "HTTPS REST API (IMD / MoES Weather Telemetry Gateway)",
+            "last_successful_retrieval_utc": self._last_successful_retrieval_utc,
+            "consecutive_failures": self._consecutive_failures,
+            "last_error": self._last_error_message,
+            "data_age_seconds": data_age,
             "access_blockers": [
                 "Official provider API base URL and token must be configured in environment (SAHAAY_IMD_API_BASE_URL, SAHAAY_IMD_API_KEY).",
                 "Formal institutional data-sharing MOU required with IMD/GHMC for live operational dispatch.",

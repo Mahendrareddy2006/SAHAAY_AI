@@ -1,0 +1,139 @@
+{
+  "milestone": "Phase C: Authorized Live Weather and Rainfall Integration",
+  "repository": "Mahendrareddy2006/SAHAAY_AI",
+  "branch": "feat/phase12-architecture-audit-and-data-contracts",
+  "timestamp_utc": "2026-10-28T04:26:01.023923Z",
+  "overall_milestone_verdict": "CONDITIONALLY_ACCEPTED",
+  "overall_status_narrative": "Operational meteorological ingestion pipeline fully implemented, tested, and integrated. Zero synthetic dry rainfall baseline enforced; unit/timestamp normalization verified; five-signal forecast evidence separation maintained without inferring flooding from forecast alone; routing safety invariant verified; live external provider access remains BLOCKED pending institutional data-sharing MOUs and server-side cryptographic authentication.",
+  "candidate_providers_audit": [
+    {
+      "provider_id": "SRC-MET-01-IMD-AWS",
+      "provider_name": "India Meteorological Department (IMD) / MoES AWS Telemetry",
+      "authorization_status": "BLOCKED_NO_EXECUTED_AGREEMENT",
+      "operational_readiness": "BLOCKED",
+      "endpoint": "https://api.imd.gov.in/telemetry/rainfall (Documented REST gateway; unconfigured)",
+      "authentication_requirements": "Bearer token or API Key via Authorization header (SAHAAY_IMD_API_KEY)",
+      "data_types_and_units": "Cumulative gauge counter Ct (mm), interval rainfall (mm/h), air temp (\u00b0C)",
+      "station_metadata_coverage": "Primary IMD surface observatories across Greater Hyderabad & Telangana",
+      "timestamp_cadence": "Hourly / 15-minute telemetry packets; nominal UTC timestamps",
+      "rate_limits_and_outages": "Public gateway latency during severe convective events; fail-closed UNKNOWN fallback",
+      "licensing_permitted_uses": "Government of India / IMD data policy; operational dispatch requires executed MOU",
+      "access_blocker_reason": "No active API base URL or credential configured; institutional MOU pending."
+    },
+    {
+      "provider_id": "SRC-MET-02-TSDPS-AWS",
+      "provider_name": "Telangana State Development Planning Society Urban AWS Network",
+      "authorization_status": "BLOCKED_PENDING_INSTITUTIONAL_APPROVAL",
+      "operational_readiness": "BLOCKED",
+      "endpoint": "https://tsdps.telangana.gov.in/api/v1/weather (State portal gateway)",
+      "authentication_requirements": "IP Whitelist & Bearer Token issued by state planning directorate",
+      "data_types_and_units": "15-minute / 1-hour rainfall accumulation (mm), ambient temperature, humidity",
+      "station_metadata_coverage": "~100 urban telemetry stations within GHMC core zones",
+      "timestamp_cadence": "15-minute transmission cadence; 30-180 min storm lag",
+      "rate_limits_and_outages": "Tipping bucket under-catch during intense downpours; electrical disconnect negatives",
+      "licensing_permitted_uses": "Government of Telangana; non-commercial research use only",
+      "access_blocker_reason": "Bilateral data-sharing MOU pending state department executive sign-off."
+    },
+    {
+      "provider_id": "SRC-MET-03-DWR-BEGUMPET",
+      "provider_name": "IMD Begumpet Doppler Weather Radar (S-Band DWR)",
+      "authorization_status": "BLOCKED_NO_API_ACCESS_IDENTIFIED",
+      "operational_readiness": "BLOCKED",
+      "endpoint": "https://mausam.imd.gov.in/radar/ (Public web raster viewer only; zero machine API)",
+      "authentication_requirements": "None available for public telemetry; bilateral agreement needed for raw volume scans",
+      "data_types_and_units": "Radar reflectivity Z (dBZ), instantaneous QPE rate (mm/h), PAC accumulations",
+      "station_metadata_coverage": "Begumpet Airport (17.448\u00b0N, 78.468\u00b0E), 100-250 km radial mesh",
+      "timestamp_cadence": "10-15 minute volume scans",
+      "rate_limits_and_outages": "Beam blockage by urban high-rises, attenuation in heavy rain, maintenance downtime",
+      "licensing_permitted_uses": "MoES / IMD statutory weather data policy",
+      "access_blocker_reason": "No raw telemetry or digital QPE API exists; displays raster image products only."
+    },
+    {
+      "provider_id": "SRC-MET-04-IMD-NWP-WRF",
+      "provider_name": "IMD Regional Numerical Weather Prediction (Regional WRF / GFS)",
+      "authorization_status": "BLOCKED_NO_EXECUTED_AGREEMENT",
+      "operational_readiness": "BLOCKED",
+      "endpoint": "https://nwp.imd.gov.in (NWP portal / GRIB2 archives)",
+      "authentication_requirements": "SFTP/FTP credentials for research archives",
+      "data_types_and_units": "Quantitative precipitation forecast (QPF) in cumulative mm over 3h/24h intervals",
+      "station_metadata_coverage": "Regional grid ~0.125\u00b0 (~12-14 km resolution)",
+      "timestamp_cadence": "6-hourly cycles (00, 06, 12, 18 UTC); 24-72h forecast horizons",
+      "rate_limits_and_outages": "Grid resolution too coarse for street-level underpass waterlogging nowcasts",
+      "licensing_permitted_uses": "MoES non-commercial academic research only",
+      "access_blocker_reason": "Coarse spatial resolution and lack of programmatic JSON API for urban dispatch."
+    },
+    {
+      "provider_id": "SRC-MET-05-OPEN-METEO-GLOBAL",
+      "provider_name": "Commercial / Global Open NWP (Open-Meteo / ECMWF)",
+      "authorization_status": "BLOCKED_ZERO_CREDENTIALS_CONFIGURED",
+      "operational_readiness": "BLOCKED",
+      "endpoint": "https://api.open-meteo.com/v1/forecast",
+      "authentication_requirements": "API Key for enterprise SLA; open tier uncalibrated",
+      "data_types_and_units": "Hourly precipitation accumulation (mm), rain rate (mm/h)",
+      "station_metadata_coverage": "Global interpolated grid ~4-9 km",
+      "timestamp_cadence": "Hourly forecasts out to 168 hours; 4 runs daily",
+      "rate_limits_and_outages": "Cloud service dependency; uncalibrated against local Hyderabad microclimate",
+      "licensing_permitted_uses": "CC BY 4.0 (Open-Meteo); commercial enterprise agreement required for SLA",
+      "access_blocker_reason": "Live internet queries prohibited in offline engineering phase; uncalibrated locally."
+    }
+  ],
+  "pipeline_normalization_audit": {
+    "unit_normalization_cm_to_mm": "PASS",
+    "unit_normalization_inch_to_mm": "PASS",
+    "rate_vs_accumulation_distinction": "PASS",
+    "out_of_order_stream_chronological_sorting": "PASS"
+  },
+  "counter_conversion_audit": {
+    "monotonic_counter_delta_derivation": "PASS",
+    "verified_hardware_rollover_derivation": "PASS",
+    "unexplained_counter_decrease_withholding_never_zero": "PASS"
+  },
+  "missingness_and_outages_audit": {
+    "outage_reading_value_is_none": "PASS",
+    "outage_corridor_risk_is_unknown": "PASS",
+    "zero_rainfall_fabricated_during_outage": "FALSE_NO_ZERO_FABRICATED"
+  },
+  "forecast_evidence_separation_audit": {
+    "five_signals_strictly_separated": "PASS",
+    "forecast_alone_does_not_infer_flooded_road": "PASS",
+    "calibrated_probability_claims_prohibited": "PASS",
+    "historical_outcomes_documented_as_zero": "PASS"
+  },
+  "routing_safety_invariants_audit": {
+    "routing_engine_never_marks_impassable_from_rain_alone": "PASS",
+    "sparse_graph_unsupported_topology_honesty": "PASS"
+  },
+  "security_and_governance_audit": {
+    "privileged_live_feed_activation": "BLOCKED_PENDING_SERVER_SIDE_AUTHENTICATION",
+    "caller_supplied_role_strings_unauthenticated": "CONFIRMED_UNTRUSTED",
+    "security_authorization_mode": "SERVER_AUTHENTICATION_BLOCKED",
+    "governance_status": "PASS"
+  },
+  "station_gazetteer_coverage": {
+    "total_canonical_stations": 11,
+    "station_ids": [
+      "HYD-STN-BEGUMPET",
+      "HYD-STN-SHAMSHABAD",
+      "HYD-STN-GOLCONDA",
+      "HYD-STN-JUBILEE-HILLS",
+      "HYD-STN-KHAIRATABAD",
+      "HYD-STN-CHARMINAR",
+      "HYD-STN-MALKAJGIRI",
+      "HYD-STN-HAYATHNAGAR",
+      "HYD-STN-LINGAMPALLY",
+      "HYD-STN-HIMAYATSAGAR",
+      "HYD-STN-OSMANSAGAR"
+    ],
+    "geographic_bounds": "Telangana & Greater Hyderabad (15.0-20.5\u00b0N, 76.5-82.5\u00b0E)"
+  },
+  "regression_suite_tracking": {
+    "focused_phase_c_tests": "34 passed / 0 failed",
+    "full_test_suite_status": "495 passed / 4 historical failures preserved unchanged",
+    "historical_failures_tracked": [
+      "tests/test_hyderabad_risk_pipeline.py::test_decision_engine_synthesis",
+      "tests/test_image_quality_gate.py::test_borderline_darkness_rejection",
+      "tests/test_image_quality_gate.py::test_borderline_whiteout_rejection",
+      "tests/test_phase5_integration.py::test_decision_engine_modeled_risk_vs_observed_flooding"
+    ]
+  }
+}

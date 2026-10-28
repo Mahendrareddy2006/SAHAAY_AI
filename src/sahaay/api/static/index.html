@@ -166,6 +166,59 @@
       box-shadow: 0 6px 16px rgba(37, 99, 235, 0.5);
     }
 
+    .btn-refresh-map {
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text-primary);
+      border: 1px solid var(--border-subtle);
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .btn-refresh-map:hover {
+      background: rgba(255, 255, 255, 0.15);
+      border-color: var(--color-cyan);
+    }
+
+    .map-safety-banner {
+      position: absolute;
+      top: 14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(14, 22, 38, 0.94);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(245, 158, 11, 0.4);
+      border-radius: 8px;
+      padding: 8px 16px;
+      z-index: 500;
+      font-size: 0.75rem;
+      color: #fde68a;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.5);
+      pointer-events: none;
+      max-width: 90%;
+      text-align: center;
+    }
+
+    .legend-line {
+      width: 24px;
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+
+    .legend-line.dashed {
+      background: transparent !important;
+      height: 0 !important;
+    }
+
     /* Main Grid Layout */
     .app-container {
       flex: 1;
@@ -346,6 +399,39 @@
       width: 12px;
       height: 12px;
       border-radius: 3px;
+    }
+
+    .map-status-overlay {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(14, 22, 38, 0.94);
+      backdrop-filter: blur(14px);
+      border: 1px solid var(--border-accent);
+      border-radius: 10px;
+      padding: 14px 20px;
+      z-index: 600;
+      font-size: 0.85rem;
+      color: var(--text-primary);
+      display: none;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.6);
+      pointer-events: auto;
+    }
+
+    .map-status-spinner {
+      width: 16px;
+      height: 16px;
+      border: 2px solid rgba(56, 189, 248, 0.2);
+      border-top-color: var(--color-cyan);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
     }
 
     /* Right Panel: Corridor Intelligence Detail */
@@ -587,6 +673,9 @@
       <div class="metric-pill">
         <span>Vision V4 Gate: <strong style="color: var(--color-warning);">NO-GO Preserved</strong></span>
       </div>
+      <button class="btn-refresh-map" id="btnSyncMap" onclick="refreshLiveMap()">
+        <span id="syncIcon">↻</span> <span>Sync Live Map</span>
+      </button>
       <button class="btn-report" onclick="openReportModal()">
         <span>+ Submit Ground Report</span>
       </button>
@@ -628,15 +717,34 @@
     </div>
 
     <!-- Center: Interactive Map -->
-    <div class="map-container">
+    <div class="map-container" style="position: relative;">
       <div id="map"></div>
+      
+      <!-- Loading, Empty, and Error Status Overlay -->
+      <div id="mapStatusOverlay" class="map-status-overlay"></div>
+
+      <!-- Mandatory Advisory Banner -->
+      <div class="map-safety-banner">
+        <span>⚠</span>
+        <span><strong>ADVISORY ONLY:</strong> Absence of flood reports on a road segment does NOT imply safe passage or dry pavement. Comply with Traffic Police directives.</span>
+      </div>
+
+      <!-- Live Road Condition Symbology Legend -->
       <div class="map-legend">
-        <div class="legend-item"><div class="legend-color" style="background: var(--color-emergency);"></div><span>Emergency (Confirmed Deep Flood)</span></div>
-        <div class="legend-item"><div class="legend-color" style="background: var(--color-warning);"></div><span>Warning (Verified Inundation)</span></div>
-        <div class="legend-item"><div class="legend-color" style="background: var(--color-watch);"></div><span>Watch (Predicted Risk)</span></div>
-        <div class="legend-item"><div class="legend-color" style="background: var(--color-advisory);"></div><span>Advisory (Vigilance / Unverified)</span></div>
-        <div class="legend-item"><div class="legend-color" style="background: var(--color-clear);"></div><span>Clear (Normal Dry Baseline)</span></div>
-        <div class="legend-item"><div class="legend-color" style="background: var(--color-unknown);"></div><span>Unknown (Insufficient Telemetry)</span></div>
+        <div style="font-weight: 700; font-size: 0.72rem; text-transform: uppercase; color: var(--text-muted); margin-bottom: 2px;">
+          Live Road Status & Evidence Overlays
+        </div>
+        <div class="legend-item"><div class="legend-line" style="background: #e11d48; height: 5px;"></div><span>Verified Impassable (Responder Checked)</span></div>
+        <div class="legend-item"><div class="legend-line" style="background: #f97316; height: 4px;"></div><span>Verified Waterlogged (Responder Checked)</span></div>
+        <div class="legend-item"><div class="legend-line" style="background: #10b981; height: 3px;"></div><span>Verified Passable (Responder Checked)</span></div>
+        <div class="legend-item"><div class="legend-line dashed" style="border-top: 2px dashed #f97316;"></div><span>Corroborated Reports (≥2 Sources)</span></div>
+        <div class="legend-item"><div class="legend-line dashed" style="border-top: 2px dashed #f59e0b;"></div><span>Unverified Report (Single Source)</span></div>
+        <div class="legend-item"><div class="legend-line dashed" style="border-top: 2px dashed #a855f7;"></div><span>Conflicting Evidence (Under Review)</span></div>
+        <div class="legend-item"><div class="legend-line dashed" style="border-top: 2px dashed #78716c;"></div><span>Stale / Expired Data (>3h Old)</span></div>
+        <div class="legend-item"><div class="legend-line dashed" style="border-top: 2px dashed #64748b;"></div><span>Unknown / Unmonitored (No Telemetry)</span></div>
+        <div style="font-size: 0.65rem; color: var(--text-muted); margin-top: 4px; border-top: 1px solid var(--border-subtle); padding-top: 4px;">
+          Basemap &copy; OpenStreetMap contributors, ODbL 1.0
+        </div>
       </div>
     </div>
 
@@ -704,6 +812,7 @@
     let selectedCorridorId = 'HYD-LOC-001';
     let activeFilter = 'ALL';
     let map, markers = {};
+    let geoJsonLayer = null;
 
     // Color mapper
     const ALERT_COLORS = {
@@ -718,6 +827,7 @@
     // Initialize Application
     async function init() {
       initMap();
+      await fetchMapGeoJSON();
       await fetchCorridors();
       populateModalCorridors();
     }
@@ -735,6 +845,97 @@
       L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
         maxZoom: 19
       }).addTo(map);
+    }
+
+    async function fetchMapGeoJSON() {
+      const overlay = document.getElementById('mapStatusOverlay');
+      if (overlay) {
+        overlay.style.display = 'flex';
+        overlay.innerHTML = '<div class="map-status-spinner"></div><span>Loading Hyderabad road network & corridor telemetry...</span>';
+      }
+      try {
+        const res = await fetch('/api/v1/map/corridors/geojson');
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        const geoData = await res.json();
+        
+        if (geoJsonLayer) {
+          map.removeLayer(geoJsonLayer);
+        }
+
+        if (!geoData.features || geoData.features.length === 0) {
+          if (overlay) {
+            overlay.style.display = 'flex';
+            overlay.innerHTML = '<span style="color: #f59e0b;">⚠ No road network segments mapped in active coverage window (Empty Data).</span>';
+          }
+          return;
+        }
+
+        geoJsonLayer = L.geoJSON(geoData, {
+          style: function(feature) {
+            const props = feature.properties || {};
+            return {
+              color: props.marker_color || '#64748b',
+              weight: props.stroke_weight || 4,
+              dashArray: (props.stroke_style === 'dashed') ? '6, 6' : null,
+              opacity: 0.9,
+              lineCap: 'round',
+              lineJoin: 'round'
+            };
+          },
+          onEachFeature: function(feature, layer) {
+            const p = feature.properties || {};
+            layer.on('click', function() {
+              selectCorridor(p.corridor_id || p.segment_id);
+            });
+            const depthInfo = p.measured_water_depth_cm != null ? `<br>Measured Depth: <strong>${p.measured_water_depth_cm} cm</strong>` : '';
+            layer.bindTooltip(`
+              <div style="font-family: var(--font-main); font-size: 0.8rem;">
+                <strong>${p.road_name}</strong><br>
+                Status: <span style="color: ${p.marker_color}; font-weight: 700;">${p.condition_state}</span><br>
+                Verification: <strong>${p.verification_state}</strong>
+                ${depthInfo}
+              </div>
+            `, { sticky: true });
+          }
+        }).addTo(map);
+
+        if (overlay) {
+          overlay.style.display = 'none';
+        }
+
+      } catch (err) {
+        console.warn("Could not fetch GeoJSON road network:", err);
+        if (overlay) {
+          overlay.style.display = 'flex';
+          overlay.innerHTML = `
+            <div style="text-align: center;">
+              <div style="color: #f43f5e; font-weight: 700; margin-bottom: 4px;">⚠ Map Telemetry Unavailable</div>
+              <div style="font-size: 0.75rem; color: var(--text-secondary); margin-bottom: 8px;">Failed to connect to backend geospatial layer. Operating in offline advisory mode.</div>
+              <button onclick="fetchMapGeoJSON()" style="background: rgba(255,255,255,0.1); border: 1px solid var(--border-subtle); color: white; padding: 4px 10px; border-radius: 4px; cursor: pointer;">Retry</button>
+            </div>
+          `;
+        }
+      }
+    }
+
+    async function refreshLiveMap() {
+      const icon = document.getElementById('syncIcon');
+      if (icon) icon.style.display = 'inline-block';
+      try {
+        await fetch('/api/v1/map/corridors/refresh', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            caller_role: 'DASHBOARD_OPERATOR',
+            caller_id: 'WEB-CLIENT-01',
+            reason: 'USER_CLICKED_SYNC_LIVE_MAP'
+          })
+        });
+        await fetchMapGeoJSON();
+        await fetchCorridors();
+      } catch (err) {
+        console.error("Map refresh failed:", err);
+      }
     }
 
     async function fetchCorridors() {

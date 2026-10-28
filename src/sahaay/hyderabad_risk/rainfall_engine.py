@@ -42,6 +42,7 @@ def evaluate_rainfall_risk_engine(
     qc_flags: Optional[List[str]] = None,
     observation_provenance: Optional[Dict[str, Any]] = None,
     warnings: Optional[List[str]] = None,
+    instantaneous_rate_mm_hr: Optional[float] = None,
 ) -> RainfallRiskResult:
     """
     Evaluates explainable rainfall risk for a specific road corridor.
@@ -55,6 +56,8 @@ def evaluate_rainfall_risk_engine(
     reason_codes: List[str] = []
     missing_inputs: List[str] = []
     warnings: List[str] = list(warnings) if warnings is not None else []
+    if instantaneous_rate_mm_hr is None and observation_provenance:
+        instantaneous_rate_mm_hr = observation_provenance.get("instantaneous_rate_mm_hr")
 
     # Proximity tier classification (local urban vs peri-urban vs regional catchment vs unknown)
     if station_dist_km is None:
@@ -102,9 +105,15 @@ def evaluate_rainfall_risk_engine(
             model_version="hyderabad_rainfall_risk_v1.0",
             warnings=warnings,
             station_id=station_id,
+            station_name=observation_provenance.get("station_name") if observation_provenance else None,
             provider=provider,
             station_dist_km=round(station_dist_km, 2) if station_dist_km is not None else None,
             station_proximity_tier=proximity_tier,
+            rain_1h_mm=rain_1h_mm,
+            rain_3h_mm=rain_3h_mm,
+            rain_6h_mm=rain_6h_mm,
+            rain_24h_mm=rain_24h_mm,
+            instantaneous_rate_mm_hr=instantaneous_rate_mm_hr,
             observation_provenance=observation_provenance or {},
             qc_flags=qc_flags or [],
         )
@@ -126,9 +135,15 @@ def evaluate_rainfall_risk_engine(
             model_version="hyderabad_rainfall_risk_v1.0",
             warnings=warnings,
             station_id=station_id,
+            station_name=observation_provenance.get("station_name") if observation_provenance else None,
             provider=provider,
             station_dist_km=round(station_dist_km, 2) if station_dist_km is not None else None,
             station_proximity_tier=proximity_tier,
+            rain_1h_mm=rain_1h_mm,
+            rain_3h_mm=rain_3h_mm,
+            rain_6h_mm=rain_6h_mm,
+            rain_24h_mm=rain_24h_mm,
+            instantaneous_rate_mm_hr=instantaneous_rate_mm_hr,
             observation_provenance=observation_provenance or {},
             qc_flags=qc_flags or [],
         )
@@ -247,9 +262,15 @@ def evaluate_rainfall_risk_engine(
         model_version="hyderabad_rainfall_risk_v1.0",
         warnings=warnings,
         station_id=station_id,
+        station_name=observation_provenance.get("station_name") if observation_provenance else None,
         provider=provider,
         station_dist_km=round(station_dist_km, 2) if station_dist_km is not None else None,
         station_proximity_tier=proximity_tier,
+        rain_1h_mm=rain_1h_mm,
+        rain_3h_mm=rain_3h_mm,
+        rain_6h_mm=rain_6h_mm,
+        rain_24h_mm=rain_24h_mm,
+        instantaneous_rate_mm_hr=instantaneous_rate_mm_hr,
         observation_provenance=observation_provenance or {},
         qc_flags=qc_flags or [],
     )

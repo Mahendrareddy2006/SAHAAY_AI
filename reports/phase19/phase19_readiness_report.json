@@ -1,0 +1,143 @@
+{
+  "report_phase": "Phase 19",
+  "title": "Sahaay AI Phase 19: Risk-Aware Routing Feasibility & Readiness Audit Report",
+  "timestamp_utc": "2026-10-27T12:00:00Z",
+  "operational_mode": "OFFLINE_ENGINEERING_ADVISORY",
+  "live_navigation_active": false,
+  "road_network_readiness": {
+    "candidate_corridors_count": 20,
+    "routable_network_edges_count": 0,
+    "live_closure_feeds_count": 0,
+    "real_time_traffic_feeds_count": 0,
+    "routing_data_readiness_verdict": "INSUFFICIENT_DATA_ROUTING_UNSUPPORTED",
+    "operational_deployment_readiness": "BLOCKED_NO_ROUTABLE_NETWORK",
+    "engineering_readiness_status": "OFFLINE_ASSESSMENT_LAYER_COMPLETE",
+    "road_network_layers": [
+      {
+        "layer_id": "LAYER-RN-01-CORRIDORS",
+        "layer_name": "Hyderabad Risk Candidate Corridors",
+        "physical_path": "data/hyderabad_risk/derived/hyderabad_risk_features.csv",
+        "records_count": 20,
+        "is_routable_graph": false,
+        "has_live_closure_telemetry": false,
+        "has_real_time_speeds": false,
+        "operational_limitations": "20 discrete point placemarks with vulnerability features; lacks edge topology or geometry",
+        "readiness_verdict": "FEATURE_POINTS_ONLY_NOT_ROUTABLE"
+      },
+      {
+        "layer_id": "LAYER-RN-02-HOTSPOTS",
+        "layer_name": "Chronic Flooding Placemarks",
+        "physical_path": "data/hyderabad_risk/raw/flooding_locations.kml",
+        "records_count": 23,
+        "is_routable_graph": false,
+        "has_live_closure_telemetry": false,
+        "has_real_time_speeds": false,
+        "operational_limitations": "Static KML points; no connectivity, turn restrictions, or road hierarchy",
+        "readiness_verdict": "STATIC_PLACEMARKS_NOT_ROUTABLE"
+      },
+      {
+        "layer_id": "LAYER-RN-03-OSM-TOPOLOGY",
+        "layer_name": "Routable OpenStreetMap Directed Graph",
+        "physical_path": "data/network/osm_hyderabad_graph.xml",
+        "records_count": 0,
+        "is_routable_graph": false,
+        "has_live_closure_telemetry": false,
+        "has_real_time_speeds": false,
+        "operational_limitations": "No routable directed road network graph exists in the repository",
+        "readiness_verdict": "MISSING_ON_DISK"
+      },
+      {
+        "layer_id": "LAYER-RN-04-TRAFFIC-POLICE",
+        "layer_name": "Hyderabad Traffic Police Live Road Closure Feed",
+        "physical_path": "api/live/traffic_police_closures.json",
+        "records_count": 0,
+        "is_routable_graph": false,
+        "has_live_closure_telemetry": false,
+        "has_real_time_speeds": false,
+        "operational_limitations": "Zero programmatic feeds for real-time barricades, diverts, or waterlogged underpass closures",
+        "readiness_verdict": "BLOCKED_NO_LIVE_FEED"
+      }
+    ],
+    "unresolved_blockers": [
+      "Zero routable directed road network graph files exist on disk (only 20 point placemarks).",
+      "Zero live road closure or police barricade feeds are connected in the repository.",
+      "Zero real-time traffic velocity / congestion feeds are available to estimate traversal duration.",
+      "Phase 18 forecast precipitation context is uncalibrated and cannot establish physical road closure.",
+      "Phase 16 community reports are evidence inputs, not verified road closures unless inspected by official responders."
+    ],
+    "prerequisites_to_unblock": [
+      "Ingest a validated OpenStreetMap (OSM) routable road network graph for Greater Hyderabad with lane counts and turn restrictions.",
+      "Establish an institutional programmatic data feed with Hyderabad Traffic Police / GHMC DRF for official road closure notices.",
+      "Calibrate link traversal speed distributions against historical monsoon travel time datasets.",
+      "Pre-register an evaluation benchmark of verified flood-safe vs impassable route choices during >= 4 storm events."
+    ]
+  },
+  "evidence_signal_separation": {
+    "distinct_signals_separated": [
+      "1. Ground road-status verification (passable vs impassable vs unverified)",
+      "2. Citizen corroboration vs single-source claims",
+      "3. Stale, expired, or conflicting evidence status",
+      "4. Experimental forecast rainfall context (Phase 18)",
+      "5. Static geospatial susceptibility (Phase 17)",
+      "6. Telemetry missingness and uncertainty flags"
+    ],
+    "calibrated_probability_claims_prohibited": true,
+    "optimality_claims_prohibited": true,
+    "guaranteed_safety_claims_prohibited": true,
+    "phase18_dispatch_actionability_disarmed": true
+  },
+  "evaluation_scenarios": {
+    "scenario_a_impassable_exclusion": {
+      "outcome": "BLOCKED_IMPASSABLE_SEGMENTS_PRESENT",
+      "recommended_segments_count": 1,
+      "excluded_segments_count": 1,
+      "excluded_segment_ids": [
+        "HYD-LOC-001"
+      ],
+      "exclusion_explanations": [
+        "Segment HYD-LOC-001 (Tolichowki Flyover Underpass) is excluded from the recommended path: Verified impassable by official field inspection."
+      ]
+    },
+    "scenario_b_unmonitored_traversal": {
+      "outcome": "ADVISORY_TRAVERSABLE_WITH_CAUTION",
+      "has_unmonitored_segments": true,
+      "unmonitored_segments_count": 1,
+      "is_guaranteed_safe": false,
+      "warnings": [
+        "Route traverses 1 unmonitored segments with no active ground evidence. Absence of reported flooding does NOT indicate dry or safe roads."
+      ]
+    },
+    "scenario_c_forecast_surge_advisory": {
+      "outcome": "ADVISORY_TRAVERSABLE_WITH_CAUTION",
+      "segment_is_traversable": true,
+      "segment_passability_state": "UNMONITORED_NO_EVIDENCE",
+      "forecast_risk_category": "CRITICAL",
+      "phase18_dispatch_actionable": true,
+      "operational_action_authorized": false
+    },
+    "scenario_d_inundated_hospital_access": {
+      "outcome": "ADVISORY_TRAVERSABLE_WITH_CAUTION",
+      "target_facility_name": "Care Hospital Banjara",
+      "facility_status": "INUNDATED_ACCESS_RESTRICTED",
+      "warnings": [
+        "Target emergency facility Care Hospital Banjara has inundated and restricted access. Proceed with extreme caution or coordinate with emergency services."
+      ]
+    }
+  },
+  "test_suite_results": {
+    "test_suite_file": "tests/test_phase19_risk_aware_routing.py",
+    "tests_collected": 15,
+    "tests_passed": 15,
+    "tests_failed": 0,
+    "full_suite_collected": 407,
+    "full_suite_passed": 403,
+    "full_suite_historical_failures_preserved": 4
+  },
+  "final_gate_decision": {
+    "software_engineering_status": "OFFLINE_ASSESSMENT_LAYER_COMPLETE",
+    "road_network_readiness_status": "INSUFFICIENT_DATA_ROUTING_UNSUPPORTED",
+    "operational_deployment_readiness": "BLOCKED_NO_ROUTABLE_NETWORK",
+    "live_dispatch_closure_trigger": "STRICTLY_PROHIBITED",
+    "predictive_performance_claims": "PROHIBITED_UNEARNED"
+  }
+}

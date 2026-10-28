@@ -30,6 +30,11 @@ class VisionPredictionResponse(BaseModel):
     created_at: str
     report_id: Optional[str] = None
     location: Optional[LocationCoords] = None
+    corridor_id: Optional[str] = None
+    is_provisional_evidence: bool = True
+    evidence_registered: bool = False
+    verification_status: str = "PROVISIONAL_UNVERIFIED"
+    deduplication_status: Optional[str] = None
     warnings: List[str] = Field(default_factory=list)
 
 class VisionHealthResponse(BaseModel):

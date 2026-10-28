@@ -1,0 +1,441 @@
+{
+  "audit_phase": "Phase 14",
+  "audit_title": "Vision Data Readiness and Evaluation Audit",
+  "timestamp_utc": "2026-10-27T05:00:00Z",
+  "gate_status_v4_training": "NO-GO",
+  "gate_status_independent_evaluation": "DEFENSIBLE_INDEPENDENT_EVAL_SET_ABSENT",
+  "sections": {
+    "checkpoint_inventory": {
+      "v1_baseline": {
+        "checkpoint_path": "models/vision/best_model.pt",
+        "exists": true,
+        "size_bytes": 18493276,
+        "size_mb": 17.64,
+        "md5": "82b57acf92942266b4a6a26713515ee4"
+      },
+      "v2_dedup": {
+        "checkpoint_path": "models/vision/v2/model_v2.pt",
+        "exists": true,
+        "size_bytes": 18493276,
+        "size_mb": 17.64,
+        "md5": "88e117abbc123bd6299e22c6374bd8c7"
+      },
+      "v3_clean": {
+        "checkpoint_path": "models/vision/v3/model_v3_clean.pt",
+        "exists": true,
+        "size_bytes": 18493276,
+        "size_mb": 17.64,
+        "md5": "b553eee151c66f96b809204a638fd30e"
+      },
+      "v3_monsoon": {
+        "checkpoint_path": "models/vision/v3/model_v3_monsoon.pt",
+        "exists": true,
+        "size_bytes": 18493276,
+        "size_mb": 17.64,
+        "md5": "818ae953fc264badf86e14e08bf9f26b"
+      }
+    },
+    "raw_dataset_inventory": {
+      "roham1_flood": {
+        "path": "C:\\Users\\MahendraReddy\\.cache\\kagglehub\\datasets\\roham1\\flood-classification-dataset\\versions\\1\\Flood",
+        "exists": true,
+        "total_files": 1500,
+        "image_files": 1500
+      },
+      "roham1_non_flood": {
+        "path": "C:\\Users\\MahendraReddy\\.cache\\kagglehub\\datasets\\roham1\\flood-classification-dataset\\versions\\1\\Non_Flood",
+        "exists": true,
+        "total_files": 1500,
+        "image_files": 1500
+      },
+      "clemson_flood": {
+        "path": "C:\\Users\\MahendraReddy\\.cache\\kagglehub\\datasets\\hhrclemson\\flooding-image-dataset\\versions\\5\\Flood Images",
+        "exists": true,
+        "total_files": 9296,
+        "image_files": 9296
+      },
+      "virenbr11_plain": {
+        "path": "C:\\Users\\MahendraReddy\\.cache\\kagglehub\\datasets\\virenbr11\\pothole-and-plain-rode-images\\versions\\1\\My Dataset\\train\\Plain",
+        "exists": true,
+        "total_files": 367,
+        "image_files": 366
+      },
+      "virenbr11_pothole": {
+        "path": "C:\\Users\\MahendraReddy\\.cache\\kagglehub\\datasets\\virenbr11\\pothole-and-plain-rode-images\\versions\\1\\My Dataset\\train\\Pothole",
+        "exists": true,
+        "total_files": 357,
+        "image_files": 357
+      },
+      "collection_v4_raw": {
+        "path": "data/collection_v4/raw",
+        "exists": false,
+        "total_files": 0,
+        "image_files": 0
+      }
+    },
+    "manifest_inventory": {
+      "manifest_v1": {
+        "full": {
+          "exists": true,
+          "path": "data/processed/full_manifest.csv",
+          "total_rows": 3000,
+          "class_counts": {
+            "0": 1500,
+            "1": 1500
+          },
+          "source_counts": {
+            "roham1_binary_ground": 3000
+          }
+        },
+        "train": {
+          "exists": true,
+          "path": "data/processed/train.csv",
+          "total_rows": 2100,
+          "class_counts": {
+            "0": 1050,
+            "1": 1050
+          },
+          "source_counts": {
+            "roham1_binary_ground": 2100
+          }
+        },
+        "val": {
+          "exists": true,
+          "path": "data/processed/val.csv",
+          "total_rows": 450,
+          "class_counts": {
+            "0": 225,
+            "1": 225
+          },
+          "source_counts": {
+            "roham1_binary_ground": 450
+          }
+        },
+        "test": {
+          "exists": true,
+          "path": "data/processed/test.csv",
+          "total_rows": 450,
+          "class_counts": {
+            "1": 225,
+            "0": 225
+          },
+          "source_counts": {
+            "roham1_binary_ground": 450
+          }
+        }
+      },
+      "manifest_v2": {
+        "full": {
+          "exists": true,
+          "path": "data/processed/manifest_v2/full_manifest_v2.csv",
+          "total_rows": 3000,
+          "class_counts": {
+            "0": 1500,
+            "1": 1500
+          },
+          "source_counts": {
+            "roham1_binary_ground": 3000
+          }
+        },
+        "train": {
+          "exists": true,
+          "path": "data/processed/manifest_v2/train_v2.csv",
+          "total_rows": 2100,
+          "class_counts": {
+            "0": 1050,
+            "1": 1050
+          },
+          "source_counts": {
+            "roham1_binary_ground": 2100
+          }
+        },
+        "val": {
+          "exists": true,
+          "path": "data/processed/manifest_v2/val_v2.csv",
+          "total_rows": 450,
+          "class_counts": {
+            "0": 225,
+            "1": 225
+          },
+          "source_counts": {
+            "roham1_binary_ground": 450
+          }
+        },
+        "test": {
+          "exists": true,
+          "path": "data/processed/manifest_v2/test_v2.csv",
+          "total_rows": 450,
+          "class_counts": {
+            "0": 225,
+            "1": 225
+          },
+          "source_counts": {
+            "roham1_binary_ground": 450
+          }
+        }
+      },
+      "manifest_v3": {
+        "full": {
+          "exists": true,
+          "path": "data/processed/manifest_v3/full_manifest_v3.csv",
+          "total_rows": 1478,
+          "class_counts": {
+            "1": 739,
+            "0": 739
+          },
+          "source_counts": {
+            "clemson_flood": 739,
+            "virenbr11_plain": 374,
+            "virenbr11_pothole": 365
+          }
+        },
+        "train": {
+          "exists": true,
+          "path": "data/processed/manifest_v3/train_v3.csv",
+          "total_rows": 1034,
+          "class_counts": {
+            "0": 517,
+            "1": 517
+          },
+          "source_counts": {
+            "clemson_flood": 517,
+            "virenbr11_plain": 260,
+            "virenbr11_pothole": 257
+          }
+        },
+        "val": {
+          "exists": true,
+          "path": "data/processed/manifest_v3/val_v3.csv",
+          "total_rows": 222,
+          "class_counts": {
+            "1": 111,
+            "0": 111
+          },
+          "source_counts": {
+            "clemson_flood": 111,
+            "virenbr11_plain": 64,
+            "virenbr11_pothole": 47
+          }
+        },
+        "test": {
+          "exists": true,
+          "path": "data/processed/manifest_v3/test_v3.csv",
+          "total_rows": 222,
+          "class_counts": {
+            "1": 111,
+            "0": 111
+          },
+          "source_counts": {
+            "clemson_flood": 111,
+            "virenbr11_pothole": 61,
+            "virenbr11_plain": 50
+          }
+        }
+      },
+      "manifest_v4": {
+        "full": {
+          "exists": true,
+          "path": "data/processed/manifest_v4/full_manifest_v4.csv",
+          "total_rows": 1478,
+          "class_counts": {
+            "1": 739,
+            "0": 739
+          },
+          "source_counts": {
+            "clemson_flood": 739,
+            "virenbr11_plain": 374,
+            "virenbr11_pothole": 365
+          }
+        },
+        "train": {
+          "exists": true,
+          "path": "data/processed/manifest_v4/train_v4.csv",
+          "total_rows": 1034,
+          "class_counts": {
+            "0": 517,
+            "1": 517
+          },
+          "source_counts": {
+            "clemson_flood": 517,
+            "virenbr11_plain": 266,
+            "virenbr11_pothole": 251
+          }
+        },
+        "val": {
+          "exists": true,
+          "path": "data/processed/manifest_v4/val_v4.csv",
+          "total_rows": 223,
+          "class_counts": {
+            "1": 112,
+            "0": 111
+          },
+          "source_counts": {
+            "clemson_flood": 112,
+            "virenbr11_plain": 57,
+            "virenbr11_pothole": 54
+          }
+        },
+        "test": {
+          "exists": true,
+          "path": "data/processed/manifest_v4/test_v4.csv",
+          "total_rows": 221,
+          "class_counts": {
+            "0": 111,
+            "1": 110
+          },
+          "source_counts": {
+            "clemson_flood": 110,
+            "virenbr11_pothole": 60,
+            "virenbr11_plain": 51
+          }
+        }
+      }
+    },
+    "exact_md5_leakage": {
+      "manifest_v1": {
+        "train_val_exact_leaks": 17,
+        "train_test_exact_leaks": 23,
+        "val_test_exact_leaks": 3,
+        "total_cross_split_exact_leaks": 43
+      },
+      "manifest_v2": {
+        "train_val_exact_leaks": 0,
+        "train_test_exact_leaks": 0,
+        "val_test_exact_leaks": 0,
+        "total_cross_split_exact_leaks": 0
+      },
+      "manifest_v3": {
+        "train_val_exact_leaks": 0,
+        "train_test_exact_leaks": 0,
+        "val_test_exact_leaks": 0,
+        "total_cross_split_exact_leaks": 0
+      },
+      "manifest_v4": {
+        "train_val_exact_leaks": 0,
+        "train_test_exact_leaks": 0,
+        "val_test_exact_leaks": 0,
+        "total_cross_split_exact_leaks": 0
+      }
+    },
+    "near_duplicate_leakage": {
+      "manifest_v3": {
+        "train_test_near_leaks_count": 7,
+        "train_val_near_leaks_count": 4,
+        "val_test_near_leaks_count": 5,
+        "train_test_samples": [
+          {
+            "id1": "v3_01247",
+            "id2": "v3_00116",
+            "hamming_dist": 0
+          },
+          {
+            "id1": "v3_01247",
+            "id2": "v3_00236",
+            "hamming_dist": 1
+          },
+          {
+            "id1": "v3_00312",
+            "id2": "v3_00661",
+            "hamming_dist": 1
+          },
+          {
+            "id1": "v3_00141",
+            "id2": "v3_00834",
+            "hamming_dist": 2
+          },
+          {
+            "id1": "v3_00486",
+            "id2": "v3_00914",
+            "hamming_dist": 1
+          }
+        ]
+      },
+      "manifest_v4": {
+        "train_test_near_leaks_count": 0,
+        "train_val_near_leaks_count": 0,
+        "val_test_near_leaks_count": 0,
+        "train_test_samples": []
+      }
+    },
+    "source_confounding": {
+      "contingency_matrix": {
+        "0": {
+          "clemson_flood": 0,
+          "virenbr11_plain": 374,
+          "virenbr11_pothole": 365
+        },
+        "1": {
+          "clemson_flood": 739,
+          "virenbr11_plain": 0,
+          "virenbr11_pothole": 0
+        }
+      },
+      "cramers_v": 1.0,
+      "mutual_information_bits": 1.0,
+      "label_entropy_bits": 1.0,
+      "multi_source_cross_representation_sources_with_both_classes": 0,
+      "metadata_diagnostics": {
+        "random_forest_all_metadata": {
+          "features": [
+            "width",
+            "height",
+            "aspect_ratio",
+            "file_size_kb"
+          ],
+          "test_accuracy": 0.8597,
+          "test_precision": 0.954,
+          "test_recall": 0.7545,
+          "test_macro_f1": 0.8426,
+          "test_roc_auc": 0.9066,
+          "feature_importances": {
+            "width": 0.2461,
+            "height": 0.1499,
+            "aspect_ratio": 0.0623,
+            "file_size_kb": 0.5417
+          }
+        },
+        "file_size_only_stump": {
+          "test_accuracy": 0.8009
+        }
+      }
+    },
+    "collection_v4_status": {
+      "real_world_images_acquired": 0,
+      "synthetic_fixtures": 3,
+      "streams": {
+        "STREAM-01-MUNICIPAL-CCTV": {
+          "name": "GHMC / Hyderabad Traffic Police CCTV",
+          "organization": "Greater Hyderabad Municipal Corporation (GHMC) / Hyderabad Traffic Police (HTP)",
+          "status": "pending",
+          "blocker": "Awaiting human project owner formal submission to GHMC Commissioner & Traffic Police DCP"
+        },
+        "STREAM-02-CITIZEN-UPLOAD": {
+          "name": "Citizen-Submitted Imagery",
+          "organization": "Sahaay Community Contributors / Registered Hyderabad Residents",
+          "status": "not_started",
+          "blocker": "Frontend upload portal and terms acceptance flow undergoing legal review before deployment"
+        },
+        "STREAM-03-FIELD-VANTAGE": {
+          "name": "Field-Team Photography",
+          "organization": "Sahaay AI Research & Field Engineering Team",
+          "status": "pending",
+          "blocker": "Pre-collection physical site inspection at 4 pilot corridors and PPE gear procurement"
+        },
+        "STREAM-04-COMMERCIAL-DASHCAM": {
+          "name": "Commercial Dashcam Partners",
+          "organization": "Commercial Logistics & Public Transit Fleet Operators",
+          "status": "not_started",
+          "blocker": "Partner fleet identification and legal review of commercial telemetry data-sharing"
+        }
+      },
+      "approved_streams_count": 0
+    }
+  },
+  "blocking_reasons": [
+    "Zero real-world street observations acquired (0 in acquisition register).",
+    "Severe source-label confounding active (Cramer's V = 1.0000 > 0.30).",
+    "Non-semantic metadata classifier achieves 85.97% accuracy > 65.0% threshold.",
+    "Zero acquisition streams have approved legal/governance permissions."
+  ],
+  "overall_gate_status": "NO-GO"
+}

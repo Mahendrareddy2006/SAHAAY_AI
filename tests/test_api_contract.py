@@ -34,10 +34,48 @@ def test_vision_predict_valid_image():
     assert resp.status_code == 200
     res = resp.json()
     assert "prediction_id" in res
-    assert res["predicted_class"] in ["flooded", "not_flooded"]
+    assert res["predicted_class"] in ["flooded", "not_flooded", "inconclusive"]
     assert "class_scores" in res
     assert res["location"]["latitude"] == 17.3850
     assert len(res["warnings"]) >= 2
+
+
+def test_vision_predict_inconclusive_serialization(monkeypatch):
+    """Verify that an inconclusive prediction result is serialized as 'inconclusive' without forcing binary classification."""
+    from unittest.mock import MagicMock
+    import sahaay.api.routes as routes
+
+    mock_service = MagicMock()
+    mock_service.predict.return_value = {
+        "prediction_id": "pred_inconclusive_001",
+        "predicted_class": "inconclusive",
+        "confidence": 0.65,
+        "class_scores": {"not_flooded": 0.50, "flooded": 0.50},
+        "is_ambiguous": True,
+        "is_inconclusive": True,
+        "inconclusive_reasons": ["Score falls within [0.35, 0.65] ambiguity band"],
+        "quality_metrics": None,
+        "model_name": "mobilenetv3_large_baseline",
+        "model_version": "v3.0.0",
+        "device": "cpu",
+        "inference_latency_ms": 12.5,
+        "created_at": "2026-10-26T12:00:00Z",
+        "report_id": "rep_test_inconcl",
+        "location": {"latitude": 17.3850, "longitude": 78.4867},
+        "warnings": ["Model evaluation is inconclusive. Manual field verification recommended."]
+    }
+    monkeypatch.setattr(routes, "get_inference_service", lambda: mock_service)
+
+    fake_file = io.BytesIO(b"fake_jpeg_payload")
+    files = {"file": ("test.jpg", fake_file, "image/jpeg")}
+    resp = client.post("/api/v1/vision/predict", files=files)
+    assert resp.status_code == 200
+    res = resp.json()
+    assert res["predicted_class"] == "inconclusive"
+    assert res["is_inconclusive"] is True
+    assert res["is_ambiguous"] is True
+    assert "inconclusive" in res["warnings"][0].lower()
+
 
 def test_vision_predict_unsupported_mimetype():
     files = {"file": ("test.txt", io.BytesIO(b"Hello world text"), "text/plain")}

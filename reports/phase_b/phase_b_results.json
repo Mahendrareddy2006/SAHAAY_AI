@@ -1,0 +1,116 @@
+{
+  "audit_timestamp_utc": "2026-10-27T13:58:01.161828Z",
+  "phase": "Phase B: Topological Graph & Routing Integration",
+  "repository": "Mahendrareddy2006/SAHAAY_AI",
+  "overall_status": "CONDITIONALLY ACCEPTED",
+  "reasons": [
+    "Directed road graph successfully constructed with 40 nodes, 44 directed edges, and 18 components.",
+    "Risk-aware topological Dijkstra pathfinder correctly enforces hard avoidance of verified impassable roads.",
+    "Demonstration routes correctly surface uncertainty warnings and strictly prohibit forbidden safety phrasing.",
+    "Metropolitan routing remains constrained by sparse seed catalog (22 segments, ~25.64 km); citywide routing BLOCKED pending authorized OSM bulk ingestion.",
+    "Production authorization remains BLOCKED pending server-side cryptographic authentication provider."
+  ],
+  "graph_topology": {
+    "total_segments_represented": 22,
+    "total_centerline_length_km": 25.64,
+    "total_nodes": 40,
+    "total_directed_edges": 44,
+    "forward_edges_count": 22,
+    "reverse_edges_count": 22,
+    "one_way_segments_count": 0,
+    "bidirectional_segments_count": 22,
+    "junction_nodes_count": 3,
+    "connected_components_count": 18,
+    "largest_component_node_count": 5,
+    "is_fully_connected": false,
+    "topology_fabrication_avoided": true,
+    "no_proximity_snapping": true
+  },
+  "demonstration_routing_evaluations": {
+    "connected_seed_pair": {
+      "origin_node_id": "NODE-OU-COLONY",
+      "destination_node_id": "NODE-RETHIBOWLI",
+      "outcome": "ADVISORY_TRAVERSABLE_WITH_CAUTION",
+      "recommended_segments": [
+        "HYD-LOC-002",
+        "HYD-LOC-001"
+      ],
+      "total_distance_meters": 2430.0,
+      "is_guaranteed_safe": false,
+      "demonstration_warning_present": true
+    },
+    "disconnected_seed_pair": {
+      "origin_node_id": "NODE-OU-COLONY",
+      "destination_node_id": "NODE-PATNY-CIRCLE",
+      "outcome": "TOPOLOGY_UNSUPPORTED",
+      "recommended_segments_count": 0,
+      "total_distance_meters": 0.0,
+      "warning": "Origin node 'NODE-OU-COLONY' and destination node 'NODE-PATNY-CIRCLE' belong to disconnected topological components. No continuous road network path exists between them."
+    },
+    "test_graph_baseline": {
+      "outcome": "ADVISORY_TRAVERSABLE_WITH_CAUTION",
+      "recommended_segments": [
+        "TEST-SEG-1",
+        "TEST-SEG-2"
+      ],
+      "total_distance_meters": 900.0
+    },
+    "test_graph_verified_impassable_detour": {
+      "outcome": "ADVISORY_TRAVERSABLE_WITH_CAUTION",
+      "avoided_impassable_segment": "TEST-SEG-2",
+      "detour_segments": [
+        "TEST-SEG-BYPASS-1",
+        "TEST-SEG-BYPASS-2",
+        "TEST-SEG-BYPASS-3"
+      ],
+      "total_distance_meters": 1700.0,
+      "impassable_segments_count": 1,
+      "exclusion_explanation": "Segment TEST-SEG-2 (Tolichowki Flyover Underpass) was pruned: Verified impassable flood inundation."
+    },
+    "test_graph_all_candidate_paths_flooded": {
+      "outcome": "ALL_CANDIDATE_ROUTES_IMPASSABLE",
+      "impassable_segments_count": 2,
+      "recommended_segments_count": 0
+    }
+  },
+  "data_sources_and_licensing": {
+    "seed_catalog_source": "Sahaay AI Curated Hyderabad Inundation Vulnerability Corridors",
+    "osm_ingestion_path": "OSMNetworkImporter (WGS84 EPSG:4326 GeoJSON normalizer)",
+    "license": "Open Database License (ODbL) 1.0 (OpenStreetMap contributors)",
+    "attribution_compliance": "Explicit OpenStreetMap attribution required in map symbology and metadata",
+    "paid_services_introduced": false,
+    "unauthorized_large_downloads": false,
+    "metropolitan_coverage_claimed": false
+  },
+  "authentication_security": {
+    "status": "BLOCKED",
+    "finding": "Map refresh endpoint (POST /api/v1/map/corridors/refresh) trusts caller-supplied JSON role payload.",
+    "vulnerability_analysis": "No server-side cryptographic signature, JWT validator, or session authority verifies the caller's role.",
+    "secure_integration_path": [
+      "1. Implement RFC 7519 JWT / OAuth2 Bearer token authentication via FastAPI HTTPBearer / Security dependency.",
+      "2. Integrate municipal SSO / Identity Provider (Keycloak / Auth0 / Supabase / OIDC).",
+      "3. Server-side signature verification against IdP public key (JWKS) before evaluating role claims.",
+      "4. Eliminate all caller-supplied role strings from request body schemas."
+    ],
+    "approval_required": "Introduction of a cryptographic auth provider requires administrative approval."
+  },
+  "test_suite_results": {
+    "phase_b_focused_tests": "13 passed, 0 failed (tests/test_phase_b_topological_graph_routing.py)",
+    "phase_a_regression_tests": "18 passed, 0 failed (tests/test_phase_a_live_map_foundation.py)",
+    "phase_19_routing_tests": "15 passed, 0 failed (tests/test_phase19_risk_aware_routing.py)",
+    "full_test_suite": "461 passed, 4 failed, 6 warnings (465 total tests)",
+    "tracked_historical_failures": [
+      "tests/test_image_quality_gate.py::test_borderline_darkness_rejection",
+      "tests/test_image_quality_gate.py::test_borderline_whiteout_rejection",
+      "tests/test_hyderabad_risk_pipeline.py::test_decision_engine_synthesis",
+      "tests/test_phase5_integration.py::test_decision_engine_modeled_risk_vs_observed_flooding"
+    ],
+    "new_regressions_introduced": 0
+  },
+  "remaining_blockers": [
+    "Network coverage gap: Only 22 discrete corridors (~25.64 km) exist in the seed catalog across 18 disconnected components.",
+    "Citywide routing blocked: Production routing requires bulk ingestion of an authorized OSM extract covering the entire Hyderabad metropolitan area (EPSG:4326).",
+    "Authentication blocked: Production administrative and dispatcher actions require integration of a server-side cryptographic Identity Provider.",
+    "Live sensor telemetry: Dynamic road-status updates currently rely on mock snapshots; physical IoT flood gauges and DRF field responder telemetry must be integrated."
+  ]
+}

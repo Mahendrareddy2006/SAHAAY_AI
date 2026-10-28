@@ -1,0 +1,26 @@
+{
+  "gate_title": "Sahaay AI Vision V4 Training Readiness Decision Gate",
+  "overall_status": "NO-GO",
+  "is_permission_for_public_safety_deployment": false,
+  "disclaimer": "This readiness gate grants permission ONLY to execute a documented scientific experiment. It does NOT grant permission to deploy vision predictions for autonomous municipal operations, road closures, or evacuation directives.",
+  "blocking_reasons": [
+    "Acquisition register contains 0 authorized real-world records. Real-world data collection has not commenced.",
+    "Source-label confounding active: Non-semantic metadata classifier achieves 85.97% test accuracy (threshold limit: 65.0%). Floods and negatives originate from distinct datasets (Clemson vs Virenbr11).",
+    "Insufficient multi-source cross-representation: 0 sources have both classes >= 100 (requires >= 2)."
+  ],
+  "advisories": [],
+  "checks_passed": [
+    "Manifest V4 splits exist (Train=1034, Val=223, Test=221).",
+    "Zero exact MD5 duplicate leakage across splits."
+  ],
+  "statistics": {
+    "real_world_records_in_register": 0,
+    "manifest_v4_available": true,
+    "thresholds": {
+      "min_total_samples": 1000,
+      "min_samples_per_class": 400,
+      "min_independent_sources": 2,
+      "max_metadata_accuracy": 0.65
+    }
+  }
+}

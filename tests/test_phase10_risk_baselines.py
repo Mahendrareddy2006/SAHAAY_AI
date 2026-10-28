@@ -87,15 +87,22 @@ def test_missing_hourly_rain_triggers_unknown_never_low():
 
 
 def test_negative_rainfall_is_clamped():
-    """Negative sensor glitch is clamped to 0.0mm without crashing."""
+    """
+    SAFETY INVARIANT: Negative rainfall sensor glitch must NEVER be clamped to 0.0mm / LOW.
+    Must return UNKNOWN category with confidence 0.10 and INVALID_SENSOR_READING reason code.
+    """
     res = evaluate_rainfall_risk_engine(
         location_id="TEST-LOC",
         rain_1h_mm=-15.5,
         station_dist_km=2.0,
         data_freshness_hours=0.5,
     )
-    assert res.risk_category == "LOW"
-    assert res.risk_score == 0.02
+    assert res.risk_category == "UNKNOWN"
+    assert res.risk_score == 0.0
+    assert res.confidence == 0.10
+    assert "INVALID_SENSOR_READING" in res.reason_codes
+    assert "INSUFFICIENT_TELEMETRY_DATA" in res.reason_codes
+
 
 
 # ==============================================================================

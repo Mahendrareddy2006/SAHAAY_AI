@@ -8,7 +8,7 @@ import time
 from datetime import datetime, timezone
 from enum import Enum
 from typing import Any, Dict, List, Optional
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
 
 
 class AlertLevel(str, Enum):
@@ -51,8 +51,49 @@ class DecisionInput(BaseModel):
     vision_is_ambiguous: bool = False
     
     # Component 2: Rainfall Evidence
-    rainfall_risk_category: str = Field("LOW", description="LOW, MEDIUM, HIGH, CRITICAL, or UNKNOWN")
+    rainfall_risk_category: str = Field("UNKNOWN", description="LOW, MEDIUM, HIGH, CRITICAL, or UNKNOWN")
     rainfall_risk_score: float = Field(0.0, ge=0.0, le=1.0)
+    rainfall_proximity_tier: str = Field("UNKNOWN", description="LOCAL_URBAN, PERI_URBAN, REGIONAL_CATCHMENT, or UNKNOWN")
+    rainfall_station_id: Optional[str] = None
+    
+    @field_validator("rainfall_risk_category")
+    @classmethod
+    def validate_rainfall_category(cls, v: str) -> str:
+        valid_cats = {"LOW", "MEDIUM", "HIGH", "CRITICAL", "UNKNOWN"}
+        if v not in valid_cats:
+            raise ValueError(f"rainfall_risk_category must be one of {valid_cats}, got {v}")
+        return v
+
+    @classmethod
+    def from_rainfall_result(
+        cls,
+        location_id: str,
+        road_name: str,
+        rainfall_result: Any,
+        **kwargs: Any
+    ) -> "DecisionInput":
+        """
+        Constructs DecisionInput from a RainfallRiskResult, preserving explicit UNKNOWN semantics
+        and propagating station proximity tier and provenance metadata.
+        Ensures missing telemetry is never silently imputed as safe zero rainfall.
+        """
+        cat = getattr(rainfall_result, "risk_category", "UNKNOWN")
+        score = getattr(rainfall_result, "risk_score", 0.0)
+        proximity_tier = getattr(rainfall_result, "station_proximity_tier", None) or kwargs.pop("rainfall_proximity_tier", "UNKNOWN")
+        st_id = getattr(rainfall_result, "station_id", None) or kwargs.pop("rainfall_station_id", None)
+        engine_missing = list(getattr(rainfall_result, "missing_inputs", []))
+        user_missing = list(kwargs.pop("missing_inputs", []))
+        combined_missing = sorted(list(set(engine_missing + user_missing)))
+        return cls(
+            location_id=location_id,
+            road_name=road_name,
+            rainfall_risk_category=cat,
+            rainfall_risk_score=score,
+            rainfall_proximity_tier=proximity_tier,
+            rainfall_station_id=st_id,
+            missing_inputs=combined_missing,
+            **kwargs
+        )
     
     # Component 3: Road Vulnerability Evidence
     vulnerability_category: str = Field("LOW", description="LOW, MODERATE, HIGH, SEVERE")
@@ -88,6 +129,7 @@ class DecisionOutput(BaseModel):
     # Phase 5 Unified Response Contract Fields
     decision_status: DecisionStatus = DecisionStatus.EVALUATED
     environmental_risk_category: str = "LOW"
+    rainfall_proximity_tier: str = "UNKNOWN"
     road_vulnerability_category: str = "LOW"
     current_flood_evidence_status: CurrentFloodEvidenceStatus = CurrentFloodEvidenceStatus.NO_CURRENT_EVIDENCE_AVAILABLE
     requires_human_verification: bool = False
@@ -177,6 +219,7 @@ def evaluate_decision(input_data: DecisionInput) -> DecisionOutput:
             warnings=warnings,
             decision_status=dec_status,
             environmental_risk_category=input_data.rainfall_risk_category,
+            rainfall_proximity_tier=input_data.rainfall_proximity_tier,
             road_vulnerability_category=input_data.vulnerability_category,
             current_flood_evidence_status=evidence_status,
             requires_human_verification=requires_human_verification,
@@ -241,9 +284,10 @@ def evaluate_decision(input_data: DecisionInput) -> DecisionOutput:
         evidence_status = CurrentFloodEvidenceStatus.OBSERVED_FLOOD_EVIDENCE
         actionable = True
         
-        # Emergency Policy: Only verified deep flood + critical rain or on-site responder confirmation
+        # Emergency Policy: Only verified deep flood + critical local rain or on-site responder confirmation
         is_deep = input_data.water_depth_estimate in ["KNEE_DEEP", "WAIST_DEEP_OR_MORE"]
-        if (input_data.rainfall_risk_category in ["HIGH", "CRITICAL"] and is_deep) or input_data.is_field_verified:
+        is_local_rain = input_data.rainfall_proximity_tier in ["LOCAL_URBAN", "PERI_URBAN"]
+        if (input_data.rainfall_risk_category in ["HIGH", "CRITICAL"] and is_local_rain and is_deep) or input_data.is_field_verified:
             level = AlertLevel.EMERGENCY
             score = 0.95
             confidence = 0.95
@@ -278,16 +322,55 @@ def evaluate_decision(input_data: DecisionInput) -> DecisionOutput:
         reason_codes.append("COMMUNITY_CORROBORATION_THRESHOLD_MET")
 
     elif input_data.rainfall_risk_category in ["HIGH", "CRITICAL"] and input_data.vulnerability_category in ["HIGH", "SEVERE"]:
-        # Modeled environmental risk: WATCH (Not observed flooding!)
-        level = AlertLevel.WATCH
-        hazard = HazardNature.PREDICTED_RISK
-        evidence_status = CurrentFloodEvidenceStatus.ELEVATED_ENVIRONMENTAL_RISK
-        score = 0.75
-        confidence = 0.65
-        actionable = True
-        explanation = "High waterlogging risk anticipated over the next 1-3 hours due to heavy rainfall on a chronically vulnerable road segment."
-        reason_codes.append("PREDICTED_WATERLOGGING_SURGE_ANTICIPATED")
-        warnings.append("Elevated environmental risk active. Road is NOT confirmed flooded now.")
+        if input_data.rainfall_proximity_tier == "REGIONAL_CATCHMENT":
+            # Regional catchment heavy rainfall (>35km away) does NOT establish hyper-local urban corridor inundation.
+            # Actionable crew dispatch and WATCH alert are withheld in favor of qualified, non-actionable ADVISORY.
+            level = AlertLevel.ADVISORY
+            hazard = HazardNature.PREDICTED_RISK
+            evidence_status = CurrentFloodEvidenceStatus.NO_CURRENT_EVIDENCE_AVAILABLE
+            score = min(0.40, input_data.rainfall_risk_score)
+            confidence = 0.35
+            actionable = False
+            explanation = (
+                f"Elevated rainfall detected at distant regional catchment station ({input_data.rainfall_station_id or 'regional watershed'}, >35km). "
+                "Represents dam/reservoir catchment conditions, NOT verified hyper-local road corridor precipitation. "
+                "Actionable WATCH alert withheld; normal traffic caution advised."
+            )
+            reason_codes.append("REGIONAL_CATCHMENT_TELEMETRY_DISCOUNTED")
+            warnings.append(
+                "Rainfall telemetry originates from distant regional catchment (>35km); represents watershed conditions, "
+                "NOT hyper-local road corridor precipitation. Corroborated local evidence required for actionable alerts."
+            )
+        elif input_data.rainfall_proximity_tier == "UNKNOWN":
+            # Missing or unverified station proximity cannot produce actionable local alerts based on rainfall alone.
+            # Actionable crew dispatch and WATCH alert are withheld in favor of qualified, non-actionable ADVISORY.
+            level = AlertLevel.ADVISORY
+            hazard = HazardNature.PREDICTED_RISK
+            evidence_status = CurrentFloodEvidenceStatus.NO_CURRENT_EVIDENCE_AVAILABLE
+            score = min(0.40, input_data.rainfall_risk_score)
+            confidence = 0.35
+            actionable = False
+            explanation = (
+                "Elevated rainfall detected, but telemetry station proximity is UNKNOWN (distance not established). "
+                "Telemetry cannot be verified as hyper-local road corridor precipitation. "
+                "Actionable WATCH alert withheld; normal traffic caution advised."
+            )
+            reason_codes.append("UNKNOWN_PROXIMITY_TELEMETRY_DISCOUNTED")
+            warnings.append(
+                "Rainfall telemetry has UNKNOWN proximity tier; station distance cannot be established. "
+                "Cannot be treated as hyper-local road corridor precipitation. Corroborated local evidence required for actionable alerts."
+            )
+        else:
+            # Modeled environmental risk: WATCH (Not observed flooding!)
+            level = AlertLevel.WATCH
+            hazard = HazardNature.PREDICTED_RISK
+            evidence_status = CurrentFloodEvidenceStatus.ELEVATED_ENVIRONMENTAL_RISK
+            score = 0.75
+            confidence = 0.65
+            actionable = True
+            explanation = "High waterlogging risk anticipated over the next 1-3 hours due to heavy rainfall on a chronically vulnerable road segment."
+            reason_codes.append("PREDICTED_WATERLOGGING_SURGE_ANTICIPATED")
+            warnings.append("Elevated environmental risk active. Road is NOT confirmed flooded now.")
 
     elif input_data.citizen_report_count_in_zone >= 1 and is_fresh:
         # Single unverified report -> ADVISORY
@@ -358,6 +441,7 @@ def evaluate_decision(input_data: DecisionInput) -> DecisionOutput:
         warnings=warnings,
         decision_status=dec_status,
         environmental_risk_category=input_data.rainfall_risk_category,
+        rainfall_proximity_tier=input_data.rainfall_proximity_tier,
         road_vulnerability_category=input_data.vulnerability_category,
         current_flood_evidence_status=evidence_status,
         requires_human_verification=requires_human_verification,

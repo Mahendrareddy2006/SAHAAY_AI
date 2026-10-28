@@ -1,0 +1,159 @@
+{
+  "milestone": "Phase F: Production Hardening and Controlled Pilot Readiness",
+  "audit_timestamp_utc": "2026-10-28T11:55:32.108759Z",
+  "audit_verdict": "ACCEPTED",
+  "controlled_pilot_gate_decision": "NO_GO",
+  "branch": "feat/phase12-architecture-audit-and-data-contracts",
+  "reused_components_count": 7,
+  "reused_components": [
+    {
+      "subsystem": "Road Network Catalog",
+      "source": "Phase A",
+      "module": "sahaay.road_network.store",
+      "reused_components": "RoadNetworkStore, default_road_network_store, 22 seed segments",
+      "status": "REUSED_UNCHANGED"
+    },
+    {
+      "subsystem": "Topological Road Graph",
+      "source": "Phase B",
+      "module": "sahaay.routing.graph_router",
+      "reused_components": "RoadGraph, TopologicalGraphRouter, impassable-edge pruning",
+      "status": "REUSED_UNCHANGED"
+    },
+    {
+      "subsystem": "Weather Telemetry Ingestion",
+      "source": "Phase C",
+      "module": "sahaay.hyderabad_risk.weather_pipeline",
+      "reused_components": "WeatherIngestionPipeline, default_weather_pipeline, offline fallback",
+      "status": "REUSED_UNCHANGED"
+    },
+    {
+      "subsystem": "Corridor Evidence Assessment",
+      "source": "Phase D",
+      "module": "sahaay.corridor_evidence.service",
+      "reused_components": "default_corridor_evidence_service, 5-signal evidence separation",
+      "status": "REUSED_UNCHANGED"
+    },
+    {
+      "subsystem": "Emergency Destination Registry",
+      "source": "Phase E",
+      "module": "sahaay.emergency_destinations.registry",
+      "reused_components": "EmergencyDestinationRegistry, default_destination_registry, synthetic fixtures",
+      "status": "REUSED_UNCHANGED"
+    },
+    {
+      "subsystem": "Emergency Human Workflow Engine",
+      "source": "Phase 19 / 20 / E",
+      "module": "sahaay.emergency.workflow",
+      "reused_components": "EmergencyWorkflowEngine, P1 triage escalation, audit hash disclaimer",
+      "status": "REUSED_UNCHANGED"
+    },
+    {
+      "subsystem": "Pilot Prerequisite Gate",
+      "source": "Phase 7",
+      "module": "sahaay.pilot.gate",
+      "reused_components": "PilotActivationGate, PilotState.BLOCKED_NOT_READY_FOR_LIVE_PILOT",
+      "status": "REUSED_UNCHANGED"
+    }
+  ],
+  "security_and_auth_hardening_audit": {
+    "security_checks": {
+      "valid_token_cryptographic_verification": true,
+      "tampered_token_fails_with_401": true,
+      "missing_token_fails_with_401": true,
+      "insufficient_role_fails_with_403": true,
+      "client_role_spoofing_fails_with_403": true,
+      "untrusted_client_auth_flag_fails_with_403": true,
+      "authorized_action_succeeds_with_audit_hash": true
+    },
+    "all_security_checks_passed": true
+  },
+  "configuration_and_secrets_safety_audit": {
+    "config_safety_checks": {
+      "mask_secret_none_handled": true,
+      "mask_secret_empty_handled": true,
+      "mask_secret_short_redacted": true,
+      "mask_secret_long_redacts_entropy": true,
+      "token_inspect_endpoint_safe": true,
+      "operational_config_defaults_disarmed": true,
+      "operational_config_blocks_autonomous_dispatch": true,
+      "operational_config_blocks_live_stream_activation": true
+    },
+    "all_config_safety_checks_passed": true
+  },
+  "health_and_readiness_audit": {
+    "health_and_readiness_checks": {
+      "liveness_returns_up": true,
+      "liveness_reports_pilot_blocked": true,
+      "readiness_probe_status_code_200": true,
+      "readiness_probe_operational_readiness_blocked": true,
+      "readiness_evaluates_all_10_subsystems": true,
+      "readiness_surfaces_active_blockers": true
+    },
+    "all_health_and_readiness_checks_passed": true
+  },
+  "data_integration_readiness_register_audit": {
+    "readiness_register_checks": {
+      "register_total_requirements_is_10": true,
+      "register_ready_count_is_zero": true,
+      "register_partial_count_is_seven": true,
+      "register_blocked_count_is_three": true,
+      "register_pilot_decision_is_no_go": true,
+      "register_endpoint_succeeds": true,
+      "register_endpoint_overall_decision_no_go": true,
+      "register_endpoint_counts_match": true,
+      "reg_05_flood_observations_blocked": true,
+      "reg_06_vision_readiness_blocked": true,
+      "reg_10_institutional_agreements_blocked": true
+    },
+    "all_readiness_register_checks_passed": true
+  },
+  "operational_disarming_audit": {
+    "operational_disarming_checks": {
+      "autonomous_dispatch_fails_with_403": true,
+      "live_stream_activation_fails_with_403": true
+    },
+    "all_operational_disarming_checks_passed": true
+  },
+  "safety_invariants_audit": {
+    "safety_invariants_checks": {
+      "missing_weather_never_becomes_zero_rainfall": true,
+      "disconnected_topology_remains_unsupported": true,
+      "destinations_labeled_synthetic_fixtures": true,
+      "map_corridors_refresh_with_bearer_succeeds": true,
+      "map_corridors_refresh_role_spoofing_denied": true
+    },
+    "all_safety_invariants_checks_passed": true
+  },
+  "readiness_register_summary": {
+    "total_requirements": 10,
+    "ready_count": 0,
+    "partial_count": 7,
+    "blocked_count": 3,
+    "blocked_requirements": [
+      "REG-05: Timestamped & Independently Verified Flood / Wet-Not-Flooded Observations",
+      "REG-06: Vision Data Provenance, Permissions, Leakage & Model Freeze (Vision V4 NO-GO)",
+      "REG-10: Institutional Agreements and Operational Ownership (Zero executed MoUs)"
+    ],
+    "partial_requirements": [
+      "REG-01: Road-Network Completeness and Topology (~22 seed segments, citywide unsupported)",
+      "REG-02: Verified Emergency Destination Records (Synthetic demonstration fixtures)",
+      "REG-03: Authorized Weather & Forecast Ingestion (Offline fallback, unapproved live feed)",
+      "REG-04: Station Coordinates, Provenance & Semantics (Demo stations, uncalibrated drift)",
+      "REG-07: Community-Report Consent & Privacy (DPDP terms unintegrated, unstaffed dispatch)",
+      "REG-08: Human-Review Staffing & Escalation (Unstaffed municipal triage desk)",
+      "REG-09: Authentication, Authorization & Audit Retention (Local HMAC, municipal IdP unlinked)"
+    ]
+  },
+  "verification_metrics": {
+    "all_security_and_auth_checks_satisfied": true,
+    "all_config_safety_checks_satisfied": true,
+    "all_health_and_readiness_checks_satisfied": true,
+    "all_readiness_register_checks_satisfied": true,
+    "all_operational_disarming_checks_satisfied": true,
+    "all_safety_invariants_checks_satisfied": true,
+    "focused_test_suite_status": "23_OF_23_PASSED",
+    "historical_baseline_failures_tracked": 4,
+    "operational_action_authorized": false
+  }
+}

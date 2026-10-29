@@ -303,7 +303,8 @@ def test_api_risk_endpoints():
 
 def test_decision_engine_synthesis():
     """
-    Test Decision Engine synthesizes high rainfall + high vulnerability into WATCH alert level.
+    Test Decision Engine synthesizes high rainfall + high vulnerability into WATCH alert level
+    when station proximity is verified as local urban telemetry.
     """
     client = TestClient(app)
 
@@ -315,6 +316,7 @@ def test_decision_engine_synthesis():
         "vision_is_ambiguous": False,
         "rainfall_risk_category": "HIGH",
         "rainfall_risk_score": 0.70,
+        "rainfall_proximity_tier": "LOCAL_URBAN",
         "vulnerability_category": "HIGH",
         "vulnerability_index": 0.55,
         "report_age_minutes": 10.0,
@@ -328,6 +330,37 @@ def test_decision_engine_synthesis():
     assert out["alert_level"] == "WATCH"
     assert out["hazard_nature"] == "PREDICTED_RISK"
     assert "anticipated" in out["explanation"].lower()
+
+
+def test_decision_engine_unknown_proximity_safety_downgrade():
+    """
+    Mandatory Safety Contract: Missing or UNKNOWN station proximity cannot produce
+    an actionable WATCH alert on rainfall alone, even with HIGH rainfall and HIGH vulnerability.
+    It MUST be downgraded to qualified ADVISORY to prevent uncalibrated dispatch.
+    """
+    client = TestClient(app)
+
+    payload = {
+        "location_id": "HYD-LOC-001",
+        "road_name": "Tolichowki Flyover Underpass",
+        "rainfall_risk_category": "HIGH",
+        "rainfall_risk_score": 0.70,
+        "rainfall_proximity_tier": "UNKNOWN",
+        "vulnerability_category": "HIGH",
+        "vulnerability_index": 0.55,
+        "report_age_minutes": 10.0,
+        "is_field_verified": False,
+        "citizen_report_count_in_zone": 0
+    }
+
+    res = client.post("/api/v1/decision/evaluate", json=payload)
+    assert res.status_code == 200
+    out = res.json()
+    assert out["alert_level"] == "ADVISORY"
+    assert out["hazard_nature"] == "PREDICTED_RISK"
+    assert "UNKNOWN_PROXIMITY_TELEMETRY_DISCOUNTED" in out["reason_codes"]
+    assert out["is_actionable_for_crews"] is False
+
 
 
 # ---------------------------------------------------------------------------

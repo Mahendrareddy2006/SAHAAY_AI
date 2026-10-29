@@ -390,8 +390,31 @@ class DestinationAwareRoutingService:
 
         return emergency_assessment
 
-    def _find_nearest_graph_node(self, lat: float, lon: float) -> Optional[str]:
-        """Finds the closest node in the road network graph using Euclidean/geodesic distance."""
+    def _find_nearest_graph_node(
+        self,
+        lat: float,
+        lon: float,
+        max_distance_meters: float = 5000.0,
+    ) -> Optional[str]:
+        """
+        Finds the closest node in the road network graph using geodesic distance.
+        Returns None if coordinates are invalid or outside max_distance_meters.
+        """
+        import math
+        if lat is None or lon is None:
+            return None
+        try:
+            lat_f = float(lat)
+            lon_f = float(lon)
+        except (ValueError, TypeError):
+            return None
+
+        if math.isnan(lat_f) or math.isnan(lon_f) or math.isinf(lat_f) or math.isinf(lon_f):
+            return None
+
+        if not (-90.0 <= lat_f <= 90.0) or not (-180.0 <= lon_f <= 180.0):
+            return None
+
         nodes = getattr(self.graph, "nodes", {})
         if not nodes:
             return None
@@ -400,13 +423,13 @@ class DestinationAwareRoutingService:
         min_dist = float("inf")
 
         for node_id, node in nodes.items():
-            dist = haversine_distance_meters(lat, lon, node.latitude, node.longitude)
+            dist = haversine_distance_meters(lat_f, lon_f, node.latitude, node.longitude)
             if dist < min_dist:
                 min_dist = dist
                 best_node_id = node_id
 
-        # Only associate if within reasonable urban distance (e.g., 5.0 km)
-        if min_dist <= 5000.0:
+        # Only associate if within configured distance threshold
+        if min_dist <= max_distance_meters:
             return best_node_id
         return None
 

@@ -542,36 +542,68 @@ class RoadNetworkStore:
         lat: float,
         lon: float,
         max_distance_meters: float = 3000.0,
-    ) -> Optional[RoadSegment]:
+        ambiguity_threshold_meters: float = 10.0,
+        return_metadata: bool = False,
+    ) -> Any:
         """
         Finds the nearest road segment in the store catalog to the given coordinate.
-        Returns None if no segment is within max_distance_meters.
+        Validates coordinate bounds and physical validity.
+        Returns None (or (None, inf, False) if return_metadata=True) if no segment is within max_distance_meters
+        or if coordinates are invalid.
         """
         import math
+        if lat is None or lon is None:
+            return (None, float("inf"), False) if return_metadata else None
+        try:
+            lat_f = float(lat)
+            lon_f = float(lon)
+        except (ValueError, TypeError):
+            return (None, float("inf"), False) if return_metadata else None
+
+        if math.isnan(lat_f) or math.isnan(lon_f) or math.isinf(lat_f) or math.isinf(lon_f):
+            return (None, float("inf"), False) if return_metadata else None
+
+        if not (-90.0 <= lat_f <= 90.0) or not (-180.0 <= lon_f <= 180.0):
+            return (None, float("inf"), False) if return_metadata else None
+
         nearest_seg = None
         min_dist = float("inf")
+        second_min_dist = float("inf")
 
         with self._lock:
             all_segs = list(self._segments.values())
 
         for seg in all_segs:
             coords = getattr(seg.geometry, "coordinates", []) or []
+            seg_min_dist = float("inf")
             for pt in coords:
                 if len(pt) >= 2:
                     p_lon, p_lat = pt[0], pt[1]
-                    phi1 = math.radians(lat)
+                    phi1 = math.radians(lat_f)
                     phi2 = math.radians(p_lat)
-                    dphi = math.radians(p_lat - lat)
-                    dlambda = math.radians(p_lon - lon)
+                    dphi = math.radians(p_lat - lat_f)
+                    dlambda = math.radians(p_lon - lon_f)
                     a = math.sin(dphi / 2.0) ** 2 + math.cos(phi1) * math.cos(phi2) * math.sin(dlambda / 2.0) ** 2
                     c = 2.0 * math.atan2(math.sqrt(a), math.sqrt(1.0 - a))
                     dist_m = 6371000.0 * c
-                    if dist_m < min_dist:
-                        min_dist = dist_m
-                        nearest_seg = seg
+                    if dist_m < seg_min_dist:
+                        seg_min_dist = dist_m
+
+            if seg_min_dist < min_dist:
+                second_min_dist = min_dist
+                min_dist = seg_min_dist
+                nearest_seg = seg
+            elif seg_min_dist < second_min_dist:
+                second_min_dist = seg_min_dist
 
         if min_dist <= max_distance_meters:
+            is_ambiguous = (second_min_dist - min_dist) <= ambiguity_threshold_meters
+            if return_metadata:
+                return (nearest_seg, min_dist, is_ambiguous)
             return nearest_seg
+
+        if return_metadata:
+            return (None, min_dist, False)
         return None
 
     def add_segment(self, segment: RoadSegment) -> bool:

@@ -10,16 +10,37 @@ from fastapi.middleware.cors import CORSMiddleware
 from sahaay import __version__
 from sahaay.api.routes import router, get_inference_service
 
+from pathlib import Path
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import HTMLResponse, FileResponse, RedirectResponse
+from sahaay.security.logging_filter import attach_redacting_filter_to_root_logger
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
+    attach_redacting_filter_to_root_logger()
     print("Preloading Sahaay Flood Vision AI model into memory...")
     try:
         service = get_inference_service()
         print(f"Sahaay AI model ready: {service.model_name} (v{service.model_version}) on {service.device}")
     except Exception as e:
         print(f"Warning: Model preloading failed: {e}")
+
+    print("Starting automated background ingestion monitor...")
+    try:
+        from sahaay.ingestion.orchestrator import default_orchestrator
+        default_orchestrator.start_background_scheduler(interval_seconds=300)
+        print("Sahaay continuous ingestion monitor active.")
+    except Exception as e:
+        print(f"Warning: Failed to start background ingestion monitor: {e}")
+
     yield
+
     print("Sahaay AI API shutting down...")
+    try:
+        from sahaay.ingestion.orchestrator import default_orchestrator
+        default_orchestrator.stop_background_scheduler()
+    except Exception:
+        pass
 
 app = FastAPI(
     title="Sahaay AI — Flood Intelligence Platform API",
@@ -37,15 +58,15 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-from pathlib import Path
-from fastapi.staticfiles import StaticFiles
-from fastapi.responses import HTMLResponse, FileResponse
-
 app.include_router(router)
 
 static_dir = Path(__file__).parent / "static"
 if static_dir.exists():
     app.mount("/static", StaticFiles(directory=str(static_dir)), name="static")
+
+@app.get("/", include_in_schema=False)
+async def root_redirect():
+    return RedirectResponse(url="/dashboard")
 
 @app.get("/dashboard", response_class=HTMLResponse, tags=["Dashboard"])
 async def get_dashboard():

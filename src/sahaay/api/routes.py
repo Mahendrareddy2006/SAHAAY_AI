@@ -5,7 +5,7 @@ Implements versioned /api/v1 endpoints for Flood Vision inference and system hea
 
 from typing import Optional, List, Dict, Any
 from pydantic import BaseModel, Field
-from fastapi import APIRouter, File, UploadFile, Form, HTTPException, status, Depends, Header
+from fastapi import APIRouter, File, UploadFile, Form, HTTPException, status, Depends, Header, Request, Query
 from fastapi.responses import JSONResponse
 
 from sahaay.api.schemas import (
@@ -68,6 +68,7 @@ async def vision_health():
     tags=["Vision AI"]
 )
 async def predict_flood_vision(
+    request: Request,
     file: UploadFile = File(..., description="JPEG, PNG, or WEBP image (max 15MB)"),
     latitude: Optional[float] = Form(None),
     longitude: Optional[float] = Form(None),
@@ -83,6 +84,10 @@ async def predict_flood_vision(
     import hashlib
     from sahaay.corridor_evidence.service import default_corridor_evidence_service
     from sahaay.road_network.store import default_road_network_store
+    from sahaay.security.rate_limiter import enforce_rate_limit
+
+    if request is not None:
+        enforce_rate_limit(request, limit_per_minute=60, client_key_prefix="vision")
 
     if file.content_type not in ["image/jpeg", "image/png", "image/webp", "application/octet-stream"]:
         raise HTTPException(
@@ -153,9 +158,18 @@ async def predict_flood_vision(
             )
             target_corridor_id = corridor_id
     elif latitude is not None and longitude is not None:
-        matched_seg = default_road_network_store.find_nearest_segment_to_coords(latitude, longitude)
-        if matched_seg:
+        matched_seg, min_dist, is_ambiguous = default_road_network_store.find_nearest_segment_to_coords(
+            latitude, longitude, return_metadata=True
+        )
+        if matched_seg and not is_ambiguous:
             target_corridor_id = matched_seg.corridor_id or matched_seg.segment_id
+            result.setdefault("warnings", []).append(
+                f"LOCATION_MATCHED: Associated with corridor '{target_corridor_id}' ({round(min_dist, 1)}m proximity)."
+            )
+        elif matched_seg and is_ambiguous:
+            result.setdefault("warnings", []).append(
+                f"LOCATION_AMBIGUOUS: Coordinates ({latitude}, {longitude}) are ambiguous between multiple monitored corridors. Visual evidence not registered."
+            )
         else:
             result.setdefault("warnings", []).append(
                 f"LOCATION_UNMATCHED: Coordinates ({latitude}, {longitude}) are outside monitored seed corridors."
@@ -352,11 +366,33 @@ async def submit_citizen_report(submission: CitizenReportSubmission):
     status_code=status.HTTP_200_OK,
     tags=["Citizen Reports"]
 )
-async def verify_citizen_report(report_id: str, request: ReportVerificationRequest):
+async def verify_citizen_report(
+    report_id: str,
+    request: ReportVerificationRequest,
+    authorization: Optional[str] = Header(None, description="Optional Bearer token for server-side verified responder"),
+):
     """
     Updates the verification status of a ground report by an authorized responder.
+    Validates server-side Bearer token if provided and prevents client role spoofing.
     """
-    record = report_service.verify_report(report_id, request)
+    if authorization:
+        from sahaay.security.auth import get_current_authenticated_identity, validate_no_client_role_spoofing, RESPONDER_ROLES
+        identity = get_current_authenticated_identity(authorization)
+        validate_no_client_role_spoofing(identity, request.verifier_role)
+        if identity.role not in RESPONDER_ROLES:
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN,
+                detail=f"Forbidden: role '{identity.role.value}' lacks responder privileges for verifying reports.",
+            )
+
+    try:
+        record = report_service.verify_report(report_id, request)
+    except PermissionError as pe:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail=str(pe),
+        )
+
     if record is None:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
@@ -428,8 +464,21 @@ async def list_pending_reviews():
     status_code=status.HTTP_200_OK,
     tags=["Human Review Queue"]
 )
-async def submit_review_action(submission: ReviewActionSubmission):
+async def submit_review_action(
+    submission: ReviewActionSubmission,
+    authorization: Optional[str] = Header(None, description="Optional Bearer token for server-side verified supervisor"),
+):
     """Submits an attributable, cryptographically hashed human review decision."""
+    if authorization:
+        from sahaay.security.auth import get_current_authenticated_identity, validate_no_client_role_spoofing, SUPERVISOR_ROLES
+        identity = get_current_authenticated_identity(authorization)
+        validate_no_client_role_spoofing(identity, submission.reviewer_role)
+        if identity.role not in SUPERVISOR_ROLES:
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN,
+                detail=f"Forbidden: role '{identity.role.value}' lacks supervisor privileges for review decisions.",
+            )
+
     try:
         return review_queue_service.record_review_action(
             item_id=submission.item_id,
@@ -438,6 +487,11 @@ async def submit_review_action(submission: ReviewActionSubmission):
             action_type=submission.action_type,
             justification_notes=submission.justification_notes,
             new_status=submission.new_status,
+        )
+    except PermissionError as pe:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail=str(pe),
         )
     except KeyError as e:
         raise HTTPException(
@@ -537,6 +591,127 @@ async def get_map_corridors_geojson():
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"Failed to generate map GeoJSON: {str(e)}"
         )
+
+
+@router.get(
+    "/map/forecast-risk/geojson",
+    status_code=status.HTTP_200_OK,
+    tags=["Live Map & Road Network"]
+)
+async def get_map_forecast_risk_geojson(
+    horizon_hours: float = 3.0,
+    rainfall_scenario_mm: Optional[float] = None,
+):
+    """
+    Returns RFC 7946 compliant GeoJSON FeatureCollection of all road corridors
+    with forward-looking forecast-risk overlays across a configurable horizon (1h, 3h, 6h, 24h).
+    Strictly separates forecast risk from observed inundation. Unknown corridors are explicitly
+    marked UNKNOWN_INSUFFICIENT_DATA and NEVER rendered as dry/safe.
+    """
+    from datetime import datetime, timezone, timedelta
+    from sahaay.forecast_risk.schemas import (
+        ForecastRainfallInput,
+        ForecastSourceType,
+        PrecipitationUnit,
+        MANDATORY_FORECAST_RISK_DISCLAIMER,
+    )
+
+    features = []
+    now_dt = datetime.now(timezone.utc)
+    now_iso = now_dt.isoformat().replace("+00:00", "Z")
+    valid_iso = (now_dt + timedelta(hours=horizon_hours)).isoformat().replace("+00:00", "Z")
+
+    # Optional forecast input if scenario provided or live forecast enabled
+    fc_inputs = None
+    if rainfall_scenario_mm is not None and rainfall_scenario_mm > 0.0:
+        fc_inputs = [
+            ForecastRainfallInput(
+                location_id="CITYWIDE_HYD",
+                source_id="NWP_OPEN_METEO_HYD",
+                source_type=ForecastSourceType.GLOBAL_OPEN_MODEL,
+                issue_timestamp_utc=now_iso,
+                valid_timestamp_utc=valid_iso,
+                forecast_horizon_hours=horizon_hours,
+                rainfall_amount=rainfall_scenario_mm,
+                rainfall_units=PrecipitationUnit.MILLIMETERS,
+                spatial_resolution_km=4.0,
+            )
+        ]
+
+    for seg in default_road_network_store.list_segments():
+        if seg.geometry and seg.geometry.coordinates:
+            mid_idx = len(seg.geometry.coordinates) // 2
+            c_lon, c_lat = seg.geometry.coordinates[mid_idx]
+        else:
+            c_lat, c_lon = 17.40, 78.45
+
+        c_id = seg.corridor_id or seg.segment_id
+        risk_res = default_weather_pipeline.evaluate_corridor_forecast_risk(
+            corridor_id=c_id,
+            road_name=seg.road_name,
+            corridor_lat=c_lat,
+            corridor_lon=c_lon,
+            forecast_inputs=fc_inputs,
+            static_vulnerability_index=seg.static_vulnerability_index,
+            static_vulnerability_category=seg.static_vulnerability_category,
+        )
+
+        fc_cat = risk_res.forecast_risk_category
+        # Symbology for forecast risk layer
+        if fc_cat in ("HIGH", "CRITICAL"):
+            color = "#dc2626"   # Red
+            stroke = 6
+        elif fc_cat == "MODERATE":
+            color = "#f59e0b"   # Amber
+            stroke = 5
+        elif fc_cat == "LOW":
+            color = "#10b981"   # Green
+            stroke = 4
+        else:
+            color = "#64748b"   # Slate gray (unknown/insufficient data)
+            stroke = 4
+
+        feat = {
+            "type": "Feature",
+            "id": c_id,
+            "geometry": {
+                "type": seg.geometry.type.value if hasattr(seg.geometry.type, "value") else str(seg.geometry.type),
+                "coordinates": seg.geometry.coordinates,
+            },
+            "properties": {
+                "corridor_id": c_id,
+                "road_name": seg.road_name,
+                "forecast_horizon_hours": horizon_hours,
+                "forecast_risk_category": fc_cat,
+                "heuristic_risk_score": risk_res.heuristic_risk_score,
+                "static_vulnerability_category": seg.static_vulnerability_category,
+                "static_vulnerability_index": seg.static_vulnerability_index,
+                "data_status": risk_res.assessment_status.value if hasattr(risk_res.assessment_status, "value") else str(risk_res.assessment_status),
+                "quality_flags": risk_res.data_quality_flags,
+                "missing_inputs": risk_res.missing_inputs,
+                "is_unknown_or_stale": fc_cat == "UNKNOWN_INSUFFICIENT_DATA",
+                "symbology": {
+                    "marker_color": color,
+                    "stroke_style": "dashed",
+                    "stroke_weight": stroke,
+                    "alert_badge": f"FORECAST_{fc_cat}",
+                },
+                "safety_disclaimer": MANDATORY_FORECAST_RISK_DISCLAIMER,
+            }
+        }
+        features.append(feat)
+
+    return {
+        "type": "FeatureCollection",
+        "metadata": {
+            "layer_type": "FORECAST_FLOOD_RISK_MAP",
+            "forecast_horizon_hours": horizon_hours,
+            "generated_at_utc": now_iso,
+            "total_corridors": len(features),
+            "disclaimer": MANDATORY_FORECAST_RISK_DISCLAIMER,
+        },
+        "features": features,
+    }
 
 
 @router.get(
@@ -711,6 +886,93 @@ async def evaluate_topological_route(request: GraphDemonstrationRouteRequest):
         is_demonstration=True,
     )
     return assessment
+
+
+class NearestNodeResponse(BaseModel):
+    status: str = Field(..., description="'FOUND' or 'OUT_OF_BOUNDS'")
+    nearest_node_id: Optional[str] = Field(None, description="Closest graph node ID in monitored network")
+    node_name: Optional[str] = Field(None, description="Human-readable node or intersection label")
+    latitude: Optional[float] = Field(None, description="Node latitude")
+    longitude: Optional[float] = Field(None, description="Node longitude")
+    distance_meters: Optional[float] = Field(None, description="Geodesic distance from user coordinates to snapped node")
+    is_within_network: bool = Field(False, description="True if within maximum coverage radius")
+    message: str = Field(..., description="Status explanation")
+
+
+@router.get(
+    "/routing/nearest-node",
+    response_model=NearestNodeResponse,
+    status_code=status.HTTP_200_OK,
+    tags=["Topological Routing & Graph"]
+)
+async def get_nearest_graph_node(
+    lat: float = Query(..., description="User latitude (WGS-84)"),
+    lon: float = Query(..., description="User longitude (WGS-84)"),
+    max_distance_meters: float = Query(15000.0, description="Maximum snapping radius in meters")
+):
+    """
+    Snaps arbitrary user coordinates (e.g. from browser geolocation) to the nearest
+    supported Hyderabad road network graph node.
+    """
+    import math
+    if math.isnan(lat) or math.isnan(lon) or math.isinf(lat) or math.isinf(lon):
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+            detail="Coordinates must be finite numeric values."
+        )
+    if not (-90.0 <= lat <= 90.0) or not (-180.0 <= lon <= 180.0):
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+            detail="Latitude must be between -90 and 90, longitude between -180 and 180."
+        )
+
+    from sahaay.emergency_destinations.service import haversine_distance_meters
+    graph = default_road_network_store.get_road_graph()
+    nodes = getattr(graph, "nodes", {})
+    if not nodes:
+        return NearestNodeResponse(
+            status="OUT_OF_BOUNDS",
+            nearest_node_id=None,
+            node_name=None,
+            latitude=None,
+            longitude=None,
+            distance_meters=None,
+            is_within_network=False,
+            message="Road network graph has no active nodes.",
+        )
+
+    best_node = None
+    min_dist = float("inf")
+
+    for node in nodes.values():
+        dist = haversine_distance_meters(lat, lon, node.latitude, node.longitude)
+        if dist < min_dist:
+            min_dist = dist
+            best_node = node
+
+    if best_node is not None and min_dist <= max_distance_meters:
+        node_name = best_node.metadata.get("name") or best_node.node_id
+        return NearestNodeResponse(
+            status="FOUND",
+            nearest_node_id=best_node.node_id,
+            node_name=node_name,
+            latitude=best_node.latitude,
+            longitude=best_node.longitude,
+            distance_meters=round(min_dist, 1),
+            is_within_network=True,
+            message=f"Location snapped to nearest corridor junction: {node_name} ({round(min_dist, 1)}m away)",
+        )
+
+    return NearestNodeResponse(
+        status="OUT_OF_BOUNDS",
+        nearest_node_id=None,
+        node_name=None,
+        latitude=None,
+        longitude=None,
+        distance_meters=round(min_dist, 1) if min_dist != float("inf") else None,
+        is_within_network=False,
+        message=f"Location ({lat:.4f}, {lon:.4f}) is outside supported Hyderabad monitored corridors (nearest node is {min_dist/1000.0:.1f} km away, max search radius: {max_distance_meters/1000.0:.1f} km).",
+    )
 
 
 # ---------------------------------------------------------------------------
@@ -1828,12 +2090,17 @@ async def get_data_integration_readiness_register():
 async def execute_privileged_operational_action(
     request: PrivilegedActionRequest,
     identity: AuthenticatedIdentity = Depends(get_current_authenticated_identity),
+    http_request: Request = None,
 ):
     """
     Executes a privileged operational action with strict server-side Bearer token authentication.
     Rejects missing/invalid tokens (401), unauthorized roles (403), client role spoofing (403),
-    and disarmed actions (403).
+    and disarmed actions (403). Enforces abuse rate limiting.
     """
+    from sahaay.security.rate_limiter import enforce_rate_limit
+    if http_request is not None:
+        enforce_rate_limit(http_request, limit_per_minute=20, client_key_prefix="privileged")
+
     # 1. Enforce supervisor or admin role
     if identity.role not in SUPERVISOR_ROLES:
         raise HTTPException(
@@ -1888,7 +2155,178 @@ async def inspect_authenticated_token(
 
 
 
+# ==============================================================================
+# Automated Source Ingestion & Notification Endpoints (Hackathon Prototype)
+# ==============================================================================
+
+from sahaay.ingestion.orchestrator import default_orchestrator
+from sahaay.ingestion.event_store import default_event_store
+from sahaay.ingestion.schemas import IngestedEvent, ConnectorHealthStatus
+from sahaay.notifications.service import default_notification_service
+from sahaay.notifications.schemas import NotificationRecord, SubscriptionRequest, SubscriptionRecord
 
 
+@router.get(
+    "/ingestion/status",
+    response_model=List[ConnectorHealthStatus],
+    status_code=status.HTTP_200_OK,
+    tags=["Automated Ingestion"]
+)
+async def get_ingestion_connectors_status():
+    """
+    Returns operational health, reliability metrics, and live-vs-mock status
+    for all automated online source connectors (weather, news, community).
+    """
+    return default_orchestrator.get_all_connector_health()
+
+
+@router.get(
+    "/ingestion/events",
+    response_model=List[IngestedEvent],
+    status_code=status.HTTP_200_OK,
+    tags=["Automated Ingestion"]
+)
+async def get_ingested_events(
+    corridor_id: Optional[str] = None,
+    limit: int = 50,
+):
+    """
+    Returns recent normalized events from automated source ingestion.
+    Supports corridor filtering. Old events automatically expire according to TTL.
+    """
+    return default_event_store.get_events(corridor_id=corridor_id, limit=limit)
+
+
+@router.post(
+    "/ingestion/poll",
+    status_code=status.HTTP_200_OK,
+    tags=["Automated Ingestion"]
+)
+async def trigger_ingestion_poll():
+    """
+    Triggers an automated polling cycle across all registered connectors.
+    Normalizes incoming data, extracts entities, and evaluates corridor risk.
+    """
+    return default_orchestrator.poll_all_connectors()
+
+
+@router.post(
+    "/ingestion/demo/simulate",
+    status_code=status.HTTP_200_OK,
+    tags=["Automated Ingestion"]
+)
+async def simulate_automated_ingestion_demo():
+    """
+    Executes the deterministic 10-step hackathon demonstration workflow:
+    Weather warning -> News event -> Automated community image analysis ->
+    Evidence registration -> Decision engine alert -> Map status update ->
+    Deduplicated notification -> Safe route recalculation -> Missing feed handling ->
+    Honest unsupported route response.
+    """
+    return default_orchestrator.run_deterministic_hackathon_demo()
+
+
+@router.get(
+    "/ingestion/discovered-images",
+    status_code=status.HTTP_200_OK,
+    tags=["Automated Ingestion"]
+)
+async def get_discovered_images(limit: int = 50):
+    """
+    Returns candidate flood images discovered across online news articles, blogs,
+    and community reports, along with their MobileNetV3 classification and quality gate results.
+    """
+    return default_orchestrator.get_discovered_images(limit=limit)
+
+
+class CommunityWebhookPayload(BaseModel):
+    text: str
+    image_base64: Optional[str] = None
+    author: Optional[str] = "community_member"
+    post_id: Optional[str] = None
+    platform: Optional[str] = "Civic Webhook Gateway"
+
+
+@router.post(
+    "/ingestion/community/webhook",
+    status_code=status.HTTP_201_CREATED,
+    tags=["Automated Ingestion"]
+)
+async def receive_community_webhook(
+    payload: CommunityWebhookPayload,
+    x_signature_sha256: Optional[str] = Header(None, alias="X-Signature-SHA256"),
+):
+    """
+    Authorized webhook receiver for community channels (e.g. Telegram civic bot / WhatsApp bot).
+    If an image payload is included, it is automatically decoded and forwarded to MobileNetV3
+    without requiring manual operator upload.
+    """
+    raw_image_bytes = None
+    if payload.image_base64:
+        import base64
+        try:
+            raw_image_bytes = base64.b64decode(payload.image_base64)
+        except Exception:
+            raise HTTPException(status_code=400, detail="Invalid base64 image data")
+
+    event = default_orchestrator.community_connector.receive_webhook_submission(
+        text=payload.text,
+        image_bytes=raw_image_bytes,
+        author=payload.author or "community_member",
+        post_id=payload.post_id,
+        platform=payload.platform or "Civic Webhook Gateway",
+    )
+    # Add to store and trigger evidence processing
+    default_event_store.add_event(event)
+    default_orchestrator._process_single_event(event)
+    if event.image_reference:
+        default_orchestrator._record_discovered_image(event)
+
+    return event
+
+
+@router.get(
+    "/notifications/history",
+    response_model=List[NotificationRecord],
+    status_code=status.HTTP_200_OK,
+    tags=["Notifications"]
+)
+async def get_notification_history(
+    corridor_id: Optional[str] = None,
+    limit: int = 50,
+):
+    """
+    Returns recent deduplicated user safety notifications.
+    Clearly distinguishes forecast warnings from verified observed hazards.
+    """
+    return default_notification_service.get_history(corridor_id=corridor_id, limit=limit)
+
+
+@router.post(
+    "/notifications/subscribe",
+    response_model=SubscriptionRecord,
+    status_code=status.HTTP_200_OK,
+    tags=["Notifications"]
+)
+async def subscribe_to_corridor_alerts(
+    request: SubscriptionRequest,
+):
+    """
+    Registers a user subscription for a specific corridor or commute route.
+    """
+    return default_notification_service.subscribe(request)
+
+
+@router.get(
+    "/notifications/external-status",
+    status_code=status.HTTP_200_OK,
+    tags=["Notifications"]
+)
+async def get_notification_external_status():
+    """
+    Returns the real connectivity and readiness state of external push/SMS/webhook gateways.
+    Distinguishes in-app active notifications from unconfigured external gateways.
+    """
+    return default_notification_service.get_external_delivery_status()
 
 

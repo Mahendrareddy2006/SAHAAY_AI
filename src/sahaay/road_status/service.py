@@ -408,11 +408,12 @@ class LiveRoadStatusService:
                 passability = "unverified_unknown"
             else:
                 # Active fresh/aging responder verification
-                cond_str = str(latest_responder.get("reported_condition", "")).upper()
-                if cond_str in {"FLOODED_ROAD", "VERIFIED_IMPASSABLE", "FULL_ROADWAY_INUNDATION"}:
+                raw_cond = latest_responder.get("reported_condition", "")
+                cond_str = (raw_cond.value if hasattr(raw_cond, "value") else str(raw_cond)).upper()
+                if any(k in cond_str for k in {"FLOODED_ROAD", "VERIFIED_IMPASSABLE", "FULL_ROADWAY_INUNDATION"}):
                     condition_state = RoadConditionState.VERIFIED_IMPASSABLE
                     passability = latest_responder.get("verified_passability") or "impassable_all_vehicles"
-                elif cond_str in {"WATERLOGGED_PASSABLE", "VERIFIED_WATERLOGGED", "PARTIAL_LANE_WATERLOGGING"}:
+                elif any(k in cond_str for k in {"WATERLOGGED_PASSABLE", "VERIFIED_WATERLOGGED", "PARTIAL_LANE_WATERLOGGING"}):
                     condition_state = RoadConditionState.VERIFIED_WATERLOGGED
                     passability = latest_responder.get("verified_passability") or "impassable_two_wheelers"
                 else:

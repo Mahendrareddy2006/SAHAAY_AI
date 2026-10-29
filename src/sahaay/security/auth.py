@@ -75,11 +75,25 @@ class AuthenticatedIdentity(BaseModel):
     auth_authority: str = Field("SAHAAY_LOCAL_SECURITY_GATEWAY", description="Issuing security authority")
 
 
+import os
+
 def _get_signing_key() -> bytes:
     """Retrieves server signing secret safely without exposing in logs."""
     cfg = get_runtime_config()
     secret = cfg.security.secret_key or INTERNAL_DEV_AUTH_SECRET
     return secret.encode("utf-8")
+
+
+def _get_verification_keys() -> List[bytes]:
+    """
+    Returns candidate signing keys for token verification, supporting zero-downtime key rotation.
+    Checks primary active signing key first, followed by previous/standby keys.
+    """
+    keys = [_get_signing_key()]
+    prev_secret = os.getenv("SAHAAY_PREVIOUS_SECRET_KEY")
+    if prev_secret and prev_secret.strip():
+        keys.append(prev_secret.strip().encode("utf-8"))
+    return keys
 
 
 def create_access_token(
@@ -120,6 +134,7 @@ def verify_bearer_token(raw_token: str) -> AuthenticatedIdentity:
     """
     Validates a cryptographic Bearer token and returns the trusted AuthenticatedIdentity.
     Raises HTTPException(401) on any failure (tampering, expiration, or malformation).
+    Supports key rotation by checking standby keys if the primary signature fails.
     """
     if not raw_token or not isinstance(raw_token, str):
         raise HTTPException(
@@ -136,11 +151,16 @@ def verify_bearer_token(raw_token: str) -> AuthenticatedIdentity:
 
     _, payload_b64, sig_b64 = parts
 
-    # Verify HMAC signature
-    expected_sig = hmac.new(_get_signing_key(), payload_b64.encode("utf-8"), hashlib.sha256).digest()
-    expected_sig_b64 = base64.urlsafe_b64encode(expected_sig).decode("utf-8").rstrip("=")
+    # Verify HMAC signature against active primary key and standby rotated keys
+    signature_valid = False
+    for candidate_key in _get_verification_keys():
+        expected_sig = hmac.new(candidate_key, payload_b64.encode("utf-8"), hashlib.sha256).digest()
+        expected_sig_b64 = base64.urlsafe_b64encode(expected_sig).decode("utf-8").rstrip("=")
+        if hmac.compare_digest(sig_b64, expected_sig_b64):
+            signature_valid = True
+            break
 
-    if not hmac.compare_digest(sig_b64, expected_sig_b64):
+    if not signature_valid:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Authentication failed: cryptographic signature mismatch or token tampering detected.",

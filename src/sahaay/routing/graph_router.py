@@ -303,3 +303,67 @@ class TopologicalGraphRouter:
             assessment.engine_status = "PHASE_B_TOPOLOGICAL_GRAPH_ROUTER"
 
         return assessment
+
+    def recalculate_route(
+        self,
+        current_route: RiskAwareRouteAssessment,
+        origin_node_id: str,
+        destination_node_id: str,
+        newly_impassable_segment_ids: Optional[List[str]] = None,
+        segment_status_provider: Optional[Callable[[str], Optional[RoadStatusSnapshot]]] = None,
+        vehicle_type: VehicleType = VehicleType.LIGHT_MOTOR_VEHICLE,
+    ) -> Tuple[RiskAwareRouteAssessment, bool]:
+        """
+        Evaluates whether an active route is intercepted by newly reported hazards,
+        and triggers a topological recalculation avoiding the impassable corridors.
+        Returns:
+            (new_assessment, is_recalculated)
+        """
+        impassable_set = set(newly_impassable_segment_ids or [])
+        affected = False
+
+        for seg in current_route.recommended_segments:
+            if seg.segment_id in impassable_set:
+                affected = True
+                break
+            if segment_status_provider:
+                st = segment_status_provider(seg.segment_id)
+                if st and st.condition_state == RoadConditionState.VERIFIED_IMPASSABLE:
+                    affected = True
+                    break
+
+        if not affected:
+            return current_route, False
+
+        def _merged_provider(sid: str) -> Optional[RoadStatusSnapshot]:
+            if sid in impassable_set:
+                from sahaay.road_status.schemas import RoadEvidenceType, RoadFreshnessCategory, UncertaintyLevel
+                now_iso = datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
+                return RoadStatusSnapshot(
+                    road_segment_id=sid,
+                    road_name=f"Corridor {sid}",
+                    condition_state=RoadConditionState.VERIFIED_IMPASSABLE,
+                    evidence_type=RoadEvidenceType.FIELD_RESPONDER_INSPECTION,
+                    verification_state=RoadVerificationState.VERIFIED_BY_RESPONDER,
+                    freshness_category=RoadFreshnessCategory.FRESH,
+                    uncertainty_level=UncertaintyLevel.LOW,
+                    confidence_score=0.95,
+                    evidence_age_minutes=5.0,
+                    source_authority="GHMC_FIELD_REPORT",
+                    source_provenance="LIVE_INCIDENT_INGESTION",
+                    snapshot_timestamp_utc=now_iso,
+                    last_status_update_utc=now_iso,
+                    evidence_timestamp_utc=now_iso,
+                )
+            if segment_status_provider:
+                return segment_status_provider(sid)
+            return None
+
+        new_route = self.find_risk_aware_route(
+            origin_node_id=origin_node_id,
+            destination_node_id=destination_node_id,
+            vehicle_type=vehicle_type,
+            segment_status_provider=_merged_provider,
+        )
+        return new_route, True
+

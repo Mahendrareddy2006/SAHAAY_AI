@@ -254,14 +254,15 @@ def test_decision_engine_non_silent_missing_rainfall():
 
 def test_decision_engine_modeled_risk_vs_observed_flooding():
     """
-    Critical rainfall + Severe vulnerability = WATCH (ELEVATED_ENVIRONMENTAL_RISK),
-    NOT confirmed inundation.
+    Critical rainfall + Severe vulnerability = WATCH (ELEVATED_ENVIRONMENTAL_RISK)
+    when proximity tier is verified as LOCAL_URBAN. NOT confirmed inundation.
     """
     inp = DecisionInput(
         location_id="HYD-LOC-001",
         road_name="Tolichowki Flyover Underpass",
         rainfall_risk_category="CRITICAL",
         rainfall_risk_score=0.95,
+        rainfall_proximity_tier="LOCAL_URBAN",
         vulnerability_category="HIGH",
         vulnerability_index=0.60,
         citizen_report_count_in_zone=0,
@@ -273,6 +274,32 @@ def test_decision_engine_modeled_risk_vs_observed_flooding():
     assert out.current_flood_evidence_status == CurrentFloodEvidenceStatus.ELEVATED_ENVIRONMENTAL_RISK
     assert "PREDICTED_WATERLOGGING_SURGE_ANTICIPATED" in out.reason_codes
     assert any("not confirmed flooded now" in w.lower() for w in out.warnings)
+
+
+def test_decision_engine_unknown_proximity_modeled_risk_advisory():
+    """
+    Mandatory Safety Contract: When rainfall telemetry proximity is UNKNOWN,
+    even CRITICAL rainfall + HIGH vulnerability must NOT produce an actionable WATCH alert.
+    Telemetry is discounted to qualified ADVISORY to prevent uncalibrated dispatch.
+    """
+    inp = DecisionInput(
+        location_id="HYD-LOC-001",
+        road_name="Tolichowki Flyover Underpass",
+        rainfall_risk_category="CRITICAL",
+        rainfall_risk_score=0.95,
+        rainfall_proximity_tier="UNKNOWN",
+        vulnerability_category="HIGH",
+        vulnerability_index=0.60,
+        citizen_report_count_in_zone=0,
+        is_field_verified=False,
+    )
+    out = evaluate_decision(inp)
+
+    assert out.alert_level == AlertLevel.ADVISORY
+    assert "UNKNOWN_PROXIMITY_TELEMETRY_DISCOUNTED" in out.reason_codes
+    assert out.is_actionable_for_crews is False
+    assert any("unknown proximity tier" in w.lower() for w in out.warnings)
+
 
 
 def test_emergency_escalation_policy():

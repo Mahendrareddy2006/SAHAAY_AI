@@ -98,3 +98,10 @@ Actual Flooded                 0 (FN)                225 (TP)
    - *Mitigation:* The Decision Engine does not trigger emergency alerts without corroborating rainfall intensity or multiple citizen reports.
 3. **Perspective Shift:** Citizen photos taken from upper-floor balconies exhibit partial oblique views.
    - *Mitigation:* MobileNetV3 random crop training provides scale invariance, but future fine-tuning on Hyderabad-specific community captures is scheduled in Phase 2.
+4. **Dataset-Source Confounding & Shortcut Learning:**
+   - *Critical Notice:* The 100% held-out test score on `roham1/flood-classification-dataset` reflects benchmark-specific partition artifacts and environmental shortcuts rather than generalized flood physics.
+   - *Limitation:* Internal evaluation results **do NOT establish real-world generalization or accuracy on Hyderabad urban roads** during active monsoon cloudbursts.
+5. **No Water Depth or Road Passability Assessment:**
+   - *Critical Notice:* Binary image classification indicates the visual appearance of surface water only. It **NEVER assesses water depth, flow velocity, manhole displacement, or vehicle passability**.
+   - *Mitigation:* The Decision Engine treats vision output as provisional unverified evidence and strictly abstains (`inconclusive`) on underexposed images or confidence scores within the `[0.35, 0.65]` band.
+

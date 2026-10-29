@@ -59,11 +59,13 @@
       background: rgba(14, 22, 38, 0.85);
       backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--border-subtle);
-      padding: 12px 24px;
+      padding: 10px 20px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       z-index: 1000;
+      flex-wrap: wrap;
+      gap: 10px;
     }
 
     .brand {
@@ -105,9 +107,9 @@
       font-size: 0.65rem;
       text-transform: uppercase;
       letter-spacing: 0.08em;
-      background: rgba(56, 189, 248, 0.15);
-      color: var(--color-cyan);
-      border: 1px solid rgba(56, 189, 248, 0.3);
+      background: rgba(245, 158, 11, 0.15);
+      color: #f59e0b;
+      border: 1px solid rgba(245, 158, 11, 0.4);
       padding: 2px 8px;
       border-radius: 20px;
       font-weight: 600;
@@ -116,18 +118,19 @@
     .header-metrics {
       display: flex;
       align-items: center;
-      gap: 16px;
+      gap: 10px;
+      flex-wrap: wrap;
     }
 
     .metric-pill {
       background: rgba(255, 255, 255, 0.04);
       border: 1px solid var(--border-subtle);
-      padding: 6px 14px;
+      padding: 6px 12px;
       border-radius: 8px;
       display: flex;
       align-items: center;
       gap: 8px;
-      font-size: 0.8rem;
+      font-size: 0.78rem;
     }
 
     .pulse-dot {
@@ -145,13 +148,39 @@
       100% { transform: scale(0.95); opacity: 0.8; }
     }
 
+    .btn-action {
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text-primary);
+      border: 1px solid var(--border-subtle);
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .btn-action:hover {
+      background: rgba(255, 255, 255, 0.15);
+      border-color: var(--color-cyan);
+    }
+
+    .btn-action.active {
+      background: rgba(56, 189, 248, 0.2);
+      border-color: var(--color-cyan);
+      color: var(--color-cyan);
+    }
+
     .btn-report {
       background: linear-gradient(135deg, #0284c7, #2563eb);
       color: white;
       border: none;
-      padding: 8px 16px;
+      padding: 7px 14px;
       border-radius: 8px;
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       font-weight: 600;
       cursor: pointer;
       display: flex;
@@ -166,66 +195,14 @@
       box-shadow: 0 6px 16px rgba(37, 99, 235, 0.5);
     }
 
-    .btn-refresh-map {
-      background: rgba(255, 255, 255, 0.08);
-      color: var(--text-primary);
-      border: 1px solid var(--border-subtle);
-      padding: 8px 14px;
-      border-radius: 8px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      transition: all 0.2s ease;
-    }
-
-    .btn-refresh-map:hover {
-      background: rgba(255, 255, 255, 0.15);
-      border-color: var(--color-cyan);
-    }
-
-    .map-safety-banner {
-      position: absolute;
-      top: 14px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: rgba(14, 22, 38, 0.94);
-      backdrop-filter: blur(12px);
-      border: 1px solid rgba(245, 158, 11, 0.4);
-      border-radius: 8px;
-      padding: 8px 16px;
-      z-index: 500;
-      font-size: 0.75rem;
-      color: #fde68a;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.5);
-      pointer-events: none;
-      max-width: 90%;
-      text-align: center;
-    }
-
-    .legend-line {
-      width: 24px;
-      border-radius: 2px;
-      flex-shrink: 0;
-    }
-
-    .legend-line.dashed {
-      background: transparent !important;
-      height: 0 !important;
-    }
-
     /* Main Grid Layout */
     .app-container {
       flex: 1;
       display: grid;
-      grid-template-columns: 360px 1fr 420px;
-      height: calc(100vh - 61px);
+      grid-template-columns: 350px 1fr 430px;
+      height: calc(100vh - 58px);
       overflow: hidden;
+      position: relative;
     }
 
     /* Left Sidebar: Corridor Directory */
@@ -238,7 +215,7 @@
     }
 
     .sidebar-header {
-      padding: 16px;
+      padding: 14px;
       border-bottom: 1px solid var(--border-subtle);
     }
 
@@ -289,7 +266,7 @@
     .corridor-list {
       flex: 1;
       overflow-y: auto;
-      padding: 12px;
+      padding: 10px;
       display: flex;
       flex-direction: column;
       gap: 8px;
@@ -299,7 +276,7 @@
       background: var(--bg-card);
       border: 1px solid var(--border-subtle);
       border-radius: 10px;
-      padding: 12px 14px;
+      padding: 10px 12px;
       cursor: pointer;
       transition: all 0.2s ease;
       position: relative;
@@ -331,16 +308,16 @@
     }
 
     .corridor-name {
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       font-weight: 600;
       color: var(--text-primary);
-      margin-bottom: 6px;
+      margin-bottom: 4px;
     }
 
     .corridor-meta {
       display: flex;
       justify-content: space-between;
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       color: var(--text-secondary);
     }
 
@@ -348,7 +325,7 @@
       font-size: 0.65rem;
       font-weight: 700;
       text-transform: uppercase;
-      padding: 2px 8px;
+      padding: 2px 7px;
       border-radius: 4px;
       letter-spacing: 0.04em;
     }
@@ -359,6 +336,34 @@
     .badge-warning { background: rgba(244, 63, 94, 0.15); color: var(--color-warning); border: 1px solid rgba(244, 63, 94, 0.3); }
     .badge-emergency { background: rgba(225, 29, 72, 0.25); color: var(--color-emergency); border: 1px solid rgba(225, 29, 72, 0.5); }
     .badge-unknown { background: rgba(100, 116, 139, 0.2); color: var(--color-unknown); border: 1px solid rgba(100, 116, 139, 0.4); }
+
+    /* Scenario Bar */
+    .demo-bar {
+      padding: 10px 14px;
+      border-top: 1px solid var(--border-subtle);
+      background: rgba(0, 0, 0, 0.3);
+    }
+
+    .demo-title {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--color-cyan);
+      margin-bottom: 6px;
+    }
+
+    .scenario-select {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-primary);
+      border-radius: 6px;
+      padding: 6px 8px;
+      font-size: 0.75rem;
+      font-family: var(--font-main);
+      outline: none;
+    }
 
     /* Map View Container */
     .map-container {
@@ -373,20 +378,97 @@
       width: 100%;
     }
 
+    /* Sleek dark filter for OpenStreetMap basemap tiles (No watermarks) */
+    .leaflet-container.dark-tiles .leaflet-tile-pane {
+      filter: brightness(0.65) invert(1) contrast(1.8) hue-rotate(200deg) saturate(0.28) brightness(0.75);
+    }
+
+    .basemap-switch-control {
+      position: absolute;
+      top: 64px;
+      right: 12px;
+      z-index: 500;
+    }
+
+    .btn-basemap {
+      background: rgba(14, 22, 38, 0.92);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--border-accent);
+      color: var(--text-primary);
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+      transition: all 0.2s ease;
+    }
+
+    .btn-basemap:hover {
+      background: rgba(28, 42, 70, 0.95);
+      border-color: var(--color-cyan);
+    }
+
+    .map-safety-banner {
+      position: absolute;
+      top: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(14, 22, 38, 0.94);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(245, 158, 11, 0.4);
+      border-radius: 8px;
+      padding: 6px 14px;
+      z-index: 500;
+      font-size: 0.72rem;
+      color: #fde68a;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.5);
+      pointer-events: none;
+      max-width: 92%;
+      text-align: center;
+    }
+
+    .map-telemetry-banner {
+      position: absolute;
+      top: 50px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(15, 23, 42, 0.92);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      border-radius: 6px;
+      padding: 4px 12px;
+      z-index: 500;
+      font-size: 0.68rem;
+      color: var(--color-cyan);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      pointer-events: none;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    }
+
     .map-legend {
       position: absolute;
-      bottom: 24px;
-      left: 24px;
-      background: rgba(14, 22, 38, 0.9);
+      bottom: 20px;
+      left: 20px;
+      background: rgba(14, 22, 38, 0.92);
       backdrop-filter: blur(12px);
       border: 1px solid var(--border-subtle);
       border-radius: 8px;
-      padding: 10px 14px;
+      padding: 10px 12px;
       z-index: 500;
-      font-size: 0.75rem;
+      font-size: 0.7rem;
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      gap: 5px;
+      max-width: 290px;
     }
 
     .legend-item {
@@ -395,10 +477,15 @@
       gap: 8px;
     }
 
-    .legend-color {
-      width: 12px;
-      height: 12px;
-      border-radius: 3px;
+    .legend-line {
+      width: 22px;
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+
+    .legend-line.dashed {
+      background: transparent !important;
+      height: 0 !important;
     }
 
     .map-status-overlay {
@@ -406,7 +493,7 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      background: rgba(14, 22, 38, 0.94);
+      background: rgba(14, 22, 38, 0.96);
       backdrop-filter: blur(14px);
       border: 1px solid var(--border-accent);
       border-radius: 10px;
@@ -434,40 +521,79 @@
       to { transform: rotate(360deg); }
     }
 
-    /* Right Panel: Corridor Intelligence Detail */
+    /* Right Sidebar: Tabs & Panels */
     .sidebar-right {
       background: var(--bg-surface);
       border-left: 1px solid var(--border-subtle);
       display: flex;
       flex-direction: column;
+      overflow: hidden;
+    }
+
+    .sidebar-tabs {
+      display: flex;
+      border-bottom: 1px solid var(--border-subtle);
+      background: rgba(0, 0, 0, 0.2);
+    }
+
+    .sidebar-tab-btn {
+      flex: 1;
+      background: transparent;
+      border: none;
+      color: var(--text-secondary);
+      padding: 12px 6px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      font-family: var(--font-main);
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      transition: all 0.2s;
+      text-align: center;
+    }
+
+    .sidebar-tab-btn:hover {
+      color: var(--text-primary);
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .sidebar-tab-btn.active {
+      color: var(--color-cyan);
+      border-bottom-color: var(--color-cyan);
+      background: rgba(56, 189, 248, 0.08);
+    }
+
+    .tab-content-panel {
+      flex: 1;
       overflow-y: auto;
-      padding: 20px;
-      gap: 16px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
     }
 
     .detail-card {
       background: var(--bg-card);
       border: 1px solid var(--border-subtle);
       border-radius: 12px;
-      padding: 18px;
+      padding: 16px;
     }
 
     .detail-title {
-      font-size: 1.15rem;
+      font-size: 1.1rem;
       font-weight: 700;
       margin-bottom: 4px;
     }
 
     .detail-zone {
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       color: var(--text-muted);
       margin-bottom: 12px;
     }
 
     .status-banner {
       border-radius: 8px;
-      padding: 12px 14px;
-      margin-bottom: 14px;
+      padding: 10px 12px;
+      margin-bottom: 12px;
       display: flex;
       flex-direction: column;
       gap: 4px;
@@ -478,11 +604,11 @@
       justify-content: space-between;
       align-items: center;
       font-weight: 700;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
     }
 
     .status-banner-desc {
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       line-height: 1.4;
       opacity: 0.9;
     }
@@ -491,28 +617,28 @@
     .pillars-grid {
       display: grid;
       grid-template-columns: 1fr;
-      gap: 10px;
+      gap: 8px;
     }
 
     .pillar-box {
       background: rgba(0, 0, 0, 0.2);
       border: 1px solid rgba(255, 255, 255, 0.05);
       border-radius: 8px;
-      padding: 12px;
+      padding: 10px 12px;
     }
 
     .pillar-header {
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       text-transform: uppercase;
       letter-spacing: 0.05em;
       color: var(--text-muted);
-      margin-bottom: 6px;
+      margin-bottom: 4px;
       display: flex;
       justify-content: space-between;
     }
 
     .pillar-value {
-      font-size: 1rem;
+      font-size: 0.92rem;
       font-weight: 700;
       display: flex;
       align-items: baseline;
@@ -520,24 +646,24 @@
     }
 
     .pillar-meta {
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       color: var(--text-secondary);
       margin-top: 4px;
+      line-height: 1.35;
     }
 
-    /* Evidence Timeline */
     .timeline {
       display: flex;
       flex-direction: column;
-      gap: 8px;
-      margin-top: 10px;
+      gap: 6px;
+      margin-top: 8px;
     }
 
     .timeline-item {
       display: flex;
       align-items: flex-start;
       gap: 8px;
-      font-size: 0.8rem;
+      font-size: 0.75rem;
       line-height: 1.4;
       color: var(--text-secondary);
     }
@@ -547,46 +673,292 @@
       height: 6px;
       border-radius: 50%;
       background: var(--color-cyan);
-      margin-top: 6px;
+      margin-top: 5px;
       flex-shrink: 0;
     }
 
-    /* Scenario Bar at Bottom of Left Sidebar */
-    .demo-bar {
-      padding: 12px;
-      border-top: 1px solid var(--border-subtle);
-      background: rgba(0, 0, 0, 0.3);
+    /* Routing Panel Styles */
+    .route-form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      margin-bottom: 10px;
     }
 
-    .demo-title {
+    .route-label {
       font-size: 0.75rem;
-      font-weight: 700;
+      font-weight: 600;
+      color: var(--text-secondary);
       text-transform: uppercase;
-      letter-spacing: 0.06em;
-      color: var(--color-cyan);
-      margin-bottom: 8px;
+      letter-spacing: 0.04em;
     }
 
-    .scenario-select {
+    .route-select, .route-input {
       width: 100%;
-      background: rgba(255, 255, 255, 0.06);
+      background: rgba(0, 0, 0, 0.3);
       border: 1px solid var(--border-subtle);
-      color: var(--text-primary);
       border-radius: 6px;
-      padding: 6px 10px;
-      font-size: 0.8rem;
+      padding: 8px 10px;
+      color: var(--text-primary);
       font-family: var(--font-main);
+      font-size: 0.8rem;
       outline: none;
     }
 
-    /* Modal Styling */
+    .route-select:focus, .route-input:focus {
+      border-color: var(--color-cyan);
+    }
+
+    .btn-calculate-route {
+      background: linear-gradient(135deg, #0284c7, #2563eb);
+      color: white;
+      border: none;
+      padding: 10px;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      margin-top: 6px;
+      transition: all 0.2s;
+    }
+
+    .btn-calculate-route:hover {
+      background: linear-gradient(135deg, #0369a1, #1d4ed8);
+      box-shadow: 0 4px 16px rgba(37, 99, 235, 0.4);
+    }
+
+    .route-result-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-accent);
+      border-radius: 10px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .route-stat-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .route-stat-box {
+      background: rgba(0,0,0,0.25);
+      border: 1px solid var(--border-subtle);
+      border-radius: 6px;
+      padding: 8px;
+      text-align: center;
+    }
+
+    .route-stat-title {
+      font-size: 0.68rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+
+    .route-stat-value {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--color-cyan);
+      font-family: var(--font-mono);
+      margin-top: 2px;
+    }
+
+    /* Live Geolocation and Navigation Tracking Styles */
+    .location-control-bar {
+      background: rgba(15, 23, 42, 0.7);
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      padding: 10px;
+      margin-bottom: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .btn-location-detect {
+      background: linear-gradient(135deg, #0ea5e9, #0284c7);
+      color: #ffffff;
+      border: none;
+      padding: 9px 12px;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+
+    .btn-location-detect:hover {
+      background: linear-gradient(135deg, #38bdf8, #0369a1);
+      box-shadow: 0 4px 12px rgba(14, 165, 233, 0.4);
+    }
+
+    .btn-location-detect.active {
+      background: linear-gradient(135deg, #059669, #10b981);
+    }
+
+    .location-status-badge {
+      font-size: 0.72rem;
+      color: var(--text-secondary);
+      line-height: 1.4;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .live-origin-display {
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      border-radius: 6px;
+      padding: 8px 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 4px;
+    }
+
+    .live-origin-info {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.76rem;
+      color: #a7f3d0;
+    }
+
+    .btn-switch-manual {
+      background: transparent;
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      color: #6ee7b7;
+      border-radius: 4px;
+      padding: 3px 8px;
+      font-size: 0.68rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-switch-manual:hover {
+      background: rgba(16, 185, 129, 0.2);
+    }
+
+    /* Radar Pulsing Marker for Live User Location */
+    .user-radar-container {
+      position: relative;
+      width: 24px;
+      height: 24px;
+    }
+
+    .user-radar-pulse {
+      position: absolute;
+      top: -4px;
+      left: -4px;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: rgba(14, 165, 233, 0.45);
+      animation: user-radar-pulse-anim 2s infinite ease-out;
+    }
+
+    .user-radar-core {
+      position: absolute;
+      top: 4px;
+      left: 4px;
+      width: 16px;
+      height: 16px;
+      background: #0284c7;
+      border: 3px solid #ffffff;
+      border-radius: 50%;
+      box-shadow: 0 0 12px rgba(14, 165, 233, 0.9);
+      z-index: 2;
+    }
+
+    @keyframes user-radar-pulse-anim {
+      0% {
+        transform: scale(0.6);
+        opacity: 0.9;
+      }
+      100% {
+        transform: scale(2.2);
+        opacity: 0;
+      }
+    }
+
+    .live-pulse-dot {
+      width: 8px;
+      height: 8px;
+      background: #10b981;
+      border-radius: 50%;
+      display: inline-block;
+      box-shadow: 0 0 8px #10b981;
+      animation: live-dot-blink 1.4s infinite;
+    }
+
+    @keyframes live-dot-blink {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.85); }
+    }
+
+    .blocked-callout-icon {
+      background: #e11d48;
+      color: white;
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 700;
+      box-shadow: 0 0 10px rgba(225, 29, 72, 0.8);
+      border: 2px solid #ffffff;
+    }
+
+    /* Vision AI Upload Panel Styles */
+    .drop-zone {
+      border: 2px dashed rgba(56, 189, 248, 0.4);
+      border-radius: 10px;
+      padding: 20px 14px;
+      text-align: center;
+      background: rgba(0, 0, 0, 0.2);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .drop-zone:hover, .drop-zone.dragover {
+      border-color: var(--color-cyan);
+      background: rgba(56, 189, 248, 0.08);
+    }
+
+    .drop-zone-icon {
+      font-size: 1.8rem;
+      margin-bottom: 6px;
+    }
+
+    .drop-zone-text {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+    }
+
+    .drop-zone-hint {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    /* Modal Overlay */
     .modal-overlay {
       position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(0, 0, 0, 0.7);
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.75);
       backdrop-filter: blur(8px);
       display: none;
       align-items: center;
@@ -604,20 +976,20 @@
       border-radius: 14px;
       width: 480px;
       max-width: 90vw;
-      padding: 24px;
+      padding: 22px;
       box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
     }
 
     .form-group {
-      margin-bottom: 14px;
+      margin-bottom: 12px;
     }
 
     .form-label {
       display: block;
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       font-weight: 600;
       color: var(--text-secondary);
-      margin-bottom: 6px;
+      margin-bottom: 5px;
     }
 
     .form-input, .form-textarea, .form-select {
@@ -625,10 +997,10 @@
       background: rgba(0, 0, 0, 0.3);
       border: 1px solid var(--border-subtle);
       border-radius: 6px;
-      padding: 8px 12px;
+      padding: 8px 10px;
       color: white;
       font-family: var(--font-main);
-      font-size: 0.85rem;
+      font-size: 0.82rem;
       outline: none;
     }
 
@@ -640,44 +1012,71 @@
       display: flex;
       justify-content: flex-end;
       gap: 10px;
-      margin-top: 20px;
+      margin-top: 16px;
     }
 
     .btn-cancel {
       background: transparent;
       border: 1px solid var(--border-subtle);
       color: var(--text-secondary);
-      padding: 8px 16px;
+      padding: 7px 14px;
       border-radius: 6px;
       cursor: pointer;
+      font-size: 0.8rem;
+    }
+
+    /* Mobile Responsive Navigation Bar */
+    .mobile-tab-bar {
+      display: none;
+      background: var(--bg-surface);
+      border-top: 1px solid var(--border-subtle);
+      padding: 6px 12px;
+      justify-content: space-around;
+      z-index: 1000;
+    }
+
+    @media (max-width: 960px) {
+      .app-container {
+        grid-template-columns: 1fr;
+        height: calc(100vh - 110px);
+      }
+      .sidebar-left { display: none; }
+      .sidebar-right { display: none; }
+      .sidebar-left.mobile-active { display: flex; }
+      .map-container.mobile-active { display: block; }
+      .sidebar-right.mobile-active { display: flex; }
+      .mobile-tab-bar { display: flex; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Header -->
+  <!-- Top Glassmorphism Navigation Bar -->
   <header>
     <div class="brand">
-      <div class="brand-logo">S</div>
+      <div class="brand-logo" aria-label="Sahaay Logo">S</div>
       <div class="brand-title">
         Sahaay AI <span>Intelligence</span>
-        <span class="brand-badge">Phase 5 Live</span>
+        <span class="brand-badge" title="Hackathon Evaluation Prototype; operational field deployment blocked pending official municipal authorization">Hackathon Prototype</span>
       </div>
     </div>
     
     <div class="header-metrics">
       <div class="metric-pill">
-        <div class="pulse-dot"></div>
+        <div class="pulse-dot" aria-hidden="true"></div>
         <span>Decision Engine: <strong>v2.0 Active</strong></span>
       </div>
-      <div class="metric-pill">
-        <span>Vision V4 Gate: <strong style="color: var(--color-warning);">NO-GO Preserved</strong></span>
+      <div class="metric-pill" id="telemetryStatusPill" title="No live external provider connected; operating in safe offline mode">
+        <span>IMD Telemetry: <strong style="color: #f59e0b;">Mock/Fallback (Unconfigured)</strong></span>
       </div>
-      <button class="btn-refresh-map" id="btnSyncMap" onclick="refreshLiveMap()">
-        <span id="syncIcon">↻</span> <span>Sync Live Map</span>
+      <button class="btn-action" id="btnToggleFacilities" onclick="toggleEmergencyDestinations()" aria-label="Toggle Emergency Destinations">
+        <span>🏥</span> <span id="facilitiesBtnText">Facilities Layer</span>
       </button>
-      <button class="btn-report" onclick="openReportModal()">
-        <span>+ Submit Ground Report</span>
+      <button class="btn-action" id="btnSyncMap" onclick="refreshLiveMap()" aria-label="Synchronize live map data">
+        <span id="syncIcon">↻</span> <span>Sync Map</span>
+      </button>
+      <button class="btn-report" onclick="openReportModal()" aria-label="Submit a ground flood observation">
+        <span>+ Ground Report</span>
       </button>
     </div>
   </header>
@@ -686,10 +1085,10 @@
   <div class="app-container">
     
     <!-- Left Sidebar: Corridor Directory -->
-    <div class="sidebar-left">
+    <div class="sidebar-left" id="sidebarLeft" role="region" aria-label="Corridor Directory">
       <div class="sidebar-header">
-        <input type="text" id="searchInput" class="search-box" placeholder="Search 20 candidate corridors..." oninput="filterCorridors()">
-        <div class="filter-bar">
+        <input type="text" id="searchInput" class="search-box" placeholder="Search 20 seed corridors..." oninput="filterCorridors()" aria-label="Search Corridors">
+        <div class="filter-bar" role="group" aria-label="Corridor Alert Level Filters">
           <button class="filter-chip active" onclick="setFilter('ALL')">All (20)</button>
           <button class="filter-chip" onclick="setFilter('WATCH')">Watch</button>
           <button class="filter-chip" onclick="setFilter('ADVISORY')">Advisory</button>
@@ -698,13 +1097,13 @@
         </div>
       </div>
 
-      <div class="corridor-list" id="corridorList">
+      <div class="corridor-list" id="corridorList" role="list">
         <!-- Rendered dynamically -->
       </div>
 
       <div class="demo-bar">
         <div class="demo-title">Scenario Playback Engine</div>
-        <select id="scenarioSelect" class="scenario-select" onchange="loadScenario(this.value)">
+        <select id="scenarioSelect" class="scenario-select" onchange="loadScenario(this.value)" aria-label="Select Test Scenario">
           <option value="current">Current Baseline Observations</option>
           <option value="heavy_surge">Scenario 2: Heavy Rain + High Vulnerability (Watch)</option>
           <option value="unverified_report">Scenario 3: Single Unverified Report (Advisory)</option>
@@ -717,20 +1116,33 @@
     </div>
 
     <!-- Center: Interactive Map -->
-    <div class="map-container" style="position: relative;">
-      <div id="map"></div>
+    <div class="map-container mobile-active" id="mapContainer" role="region" aria-label="Hyderabad Interactive Map">
+      <div id="map" class="dark-tiles"></div>
+      
+      <!-- Basemap View Switcher -->
+      <div class="basemap-switch-control">
+        <button id="btnBasemapToggle" class="btn-basemap" onclick="toggleBasemapStyle()" title="Toggle between Dark Mode and Standard Street Basemap">
+          <span id="basemapIcon">🗺️</span> <span id="basemapLabel">Street View</span>
+        </button>
+      </div>
       
       <!-- Loading, Empty, and Error Status Overlay -->
-      <div id="mapStatusOverlay" class="map-status-overlay"></div>
+      <div id="mapStatusOverlay" class="map-status-overlay" role="status"></div>
 
-      <!-- Mandatory Advisory Banner -->
-      <div class="map-safety-banner">
+      <!-- Mandatory Safety Disclaimer -->
+      <div class="map-safety-banner" role="alert">
         <span>⚠</span>
-        <span><strong>ADVISORY ONLY:</strong> Absence of flood reports on a road segment does NOT imply safe passage or dry pavement. Comply with Traffic Police directives.</span>
+        <span><strong>ADVISORY ONLY:</strong> Absence of reports on a road segment does NOT imply safe passage or dry pavement. Comply with Traffic Police directives.</span>
       </div>
 
-      <!-- Live Road Condition Symbology Legend -->
-      <div class="map-legend">
+      <!-- Telemetry Provider Mode Banner -->
+      <div class="map-telemetry-banner">
+        <span>📡</span>
+        <span>Provider Status: Offline Baselines / Mock Gateway. Live provider unconfigured (Safe boundary).</span>
+      </div>
+
+      <!-- Symbology Legend -->
+      <div class="map-legend" role="complementary" aria-label="Map Symbology Legend">
         <div style="font-weight: 700; font-size: 0.72rem; text-transform: uppercase; color: var(--text-muted); margin-bottom: 2px;">
           Live Road Status & Evidence Overlays
         </div>
@@ -748,49 +1160,314 @@
       </div>
     </div>
 
-    <!-- Right Sidebar: Corridor Intelligence Detail -->
-    <div class="sidebar-right" id="detailPanel">
-      <!-- Rendered dynamically -->
+    <!-- Right Sidebar: Tabs & Multi-Subsystem Panels -->
+    <div class="sidebar-right" id="sidebarRight" role="region" aria-label="Corridor Intelligence and Operations">
+      <div class="sidebar-tabs" role="tablist">
+        <button class="sidebar-tab-btn active" id="tabBtnIntel" onclick="switchRightTab('intel')" role="tab" aria-selected="true">
+          Corridor Intel
+        </button>
+        <button class="sidebar-tab-btn" id="tabBtnRoute" onclick="switchRightTab('route')" role="tab" aria-selected="false">
+          🧭 Safe Route
+        </button>
+        <button class="sidebar-tab-btn" id="tabBtnVision" onclick="switchRightTab('vision')" role="tab" aria-selected="false">
+          📷 Vision AI
+        </button>
+        <button class="sidebar-tab-btn" id="tabBtnFeeds" onclick="switchRightTab('feeds')" role="tab" aria-selected="false">
+          📡 Live Feeds
+        </button>
+      </div>
+
+      <!-- Tab 1: Corridor Intelligence Detail -->
+      <div class="tab-content-panel" id="panelIntel" role="tabpanel" aria-labelledby="tabBtnIntel">
+        <div id="detailPanel">
+          <!-- Rendered dynamically -->
+        </div>
+      </div>
+
+      <!-- Tab 2: Safe Route & Emergency Navigation -->
+      <div class="tab-content-panel" id="panelRoute" style="display: none;" role="tabpanel" aria-labelledby="tabBtnRoute">
+        <div class="detail-card">
+          <div style="font-size: 0.7rem; font-family: var(--font-mono); color: var(--color-cyan); margin-bottom: 2px;">
+            PHASE 19 &amp; 20 TOPOLOGICAL NAVIGATION
+          </div>
+          <div class="detail-title">Risk-Aware Safe Routing</div>
+          <p style="font-size: 0.78rem; color: var(--text-secondary); margin-bottom: 12px; line-height: 1.4;">
+            Calculates risk-penalized paths over Hyderabad's topological road graph. Excludes verified impassable roads and surfaces unmonitored uncertainty.
+          </p>
+
+          <!-- Live Geolocation Control Bar -->
+          <div class="location-control-bar">
+            <button type="button" class="btn-location-detect" id="btnDetectLocation" onclick="handleDetectUserLocation()">
+              <span id="locBtnIcon">📍</span>
+              <span id="locBtnText">Detect My Live Location</span>
+            </button>
+            <div class="location-status-badge" id="locationStatusBadge">
+              <span>🔒 Location permission not requested yet. Manual origin/destination active.</span>
+            </div>
+          </div>
+
+          <form id="safeRouteForm" onsubmit="handleRouteCalculation(event)">
+            <!-- Automatic Live Location Origin Container (Shown when permission granted) -->
+            <div id="originAutoContainer" style="display: none;" class="route-form-group">
+              <label class="route-label">Origin (Live GPS Position)</label>
+              <div class="live-origin-display">
+                <div class="live-origin-info">
+                  <span class="live-pulse-dot"></span>
+                  <span>Live Origin: <strong id="liveOriginNodeText">Detecting...</strong></span>
+                </div>
+                <button type="button" class="btn-switch-manual" onclick="disableLiveLocationMode()">Use Manual Origin</button>
+              </div>
+            </div>
+
+            <!-- Manual Origin Selection Container (Shown by default or if permission denied/switched) -->
+            <div id="originManualContainer" class="route-form-group">
+              <label class="route-label">Origin Location / Node</label>
+              <select id="routeOriginSelect" class="route-select" required aria-label="Origin Node">
+                <option value="NODE-TOLICHOWKI-W">Tolichowki Junction (NODE-TOLICHOWKI-W)</option>
+                <option value="NODE-RETHIBOWLI" selected>Rethibowli Crossroad (NODE-RETHIBOWLI)</option>
+                <option value="NODE-SHAIKPET-ENTRY">Shaikpet Flyover Entry (NODE-SHAIKPET-ENTRY)</option>
+                <option value="NODE-LAKDIKAPUL-N">Lakdikapul Station (NODE-LAKDIKAPUL-N)</option>
+                <option value="NODE-RAJBHAVAN-S">Raj Bhavan Road (NODE-RAJBHAVAN-S)</option>
+                <option value="NODE-AMEERPET-S">Ameerpet Junction (NODE-AMEERPET-S)</option>
+                <option value="NODE-BANJARA-HILLS-RD1">Banjara Hills Rd 1 (NODE-BANJARA-HILLS-RD1)</option>
+                <option value="NODE-GACHIBOWLI-ORR">Gachibowli ORR Entry (NODE-GACHIBOWLI-ORR)</option>
+                <option value="NODE-BEGUMPET-STN">Begumpet Station (NODE-BEGUMPET-STN)</option>
+                <option value="NODE-CHADERGHAT">Chaderghat Bridge (NODE-CHADERGHAT)</option>
+                <option value="NODE-MALAKPET-GUNJ">Malakpet Gunj (NODE-MALAKPET-GUNJ)</option>
+              </select>
+            </div>
+
+            <div class="route-form-group">
+              <label class="route-label">Emergency Destination / Node</label>
+              <select id="routeDestSelect" class="route-select" required aria-label="Destination Node or Facility">
+                <optgroup label="Emergency Facilities">
+                  <option value="NODE-CHADERGHAT">Osmania General Hospital (NODE-CHADERGHAT)</option>
+                  <option value="NODE-AMEERPET-S">Nizam's Institute of Medical Sciences (NIMS)</option>
+                  <option value="NODE-BANJARA-RD12">Care Hospital Banjara Hills (UNVERIFIED)</option>
+                  <option value="NODE-SHAIKPET-ENTRY" selected>GHMC Flood Relief Shelter Tolichowki</option>
+                  <option value="NODE-RAJBHAVAN-S">Khairatabad High School Relief Shelter</option>
+                </optgroup>
+                <optgroup label="Road Network Graph Nodes">
+                  <option value="NODE-MEHDIPATNAM-E">Mehdipatnam (NODE-MEHDIPATNAM-E)</option>
+                  <option value="NODE-RAIDURGAM">Raidurgam Metro (NODE-RAIDURGAM)</option>
+                  <option value="NODE-RASOOLPURA-X">Rasoolpura X Roads (NODE-RASOOLPURA-X)</option>
+                </optgroup>
+                <optgroup label="Disconnected / Test Unsupported Areas">
+                  <option value="NODE-UNSUPPORTED-SECUNDERABAD">Secunderabad Cantonment (Disconnected / Unsupported Area)</option>
+                </optgroup>
+              </select>
+            </div>
+
+            <div class="route-form-group">
+              <label class="route-label">Vehicle Type</label>
+              <select id="routeVehicleSelect" class="route-select">
+                <option value="LIGHT_MOTOR_VEHICLE" selected>Light Motor Vehicle (Car / LMV)</option>
+                <option value="TWO_WHEELER">Two Wheeler (Motorcycle / Scooter)</option>
+                <option value="HEAVY_RESCUE_VEHICLE">Heavy Rescue Vehicle (HMV / DRF Truck)</option>
+              </select>
+            </div>
+
+            <button type="submit" class="btn-calculate-route" id="btnRunRoute">
+              <span>Calculate Safe Route</span>
+            </button>
+
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 8px;">
+              <label style="font-size: 0.72rem; color: var(--text-secondary); display: flex; align-items: center; gap: 6px; cursor: pointer;">
+                <input type="checkbox" id="chkFollowMovement" checked style="accent-color: var(--color-cyan);">
+                <span>Live Map Tracking (Center on User Movement)</span>
+              </label>
+              <button type="button" class="btn-text-small" id="btnSimulateMove" onclick="handleSimulateMovement()" style="font-size: 0.7rem; color: var(--color-cyan); background: transparent; border: 1px dashed var(--color-cyan); border-radius: 4px; padding: 2px 6px; cursor: pointer;">
+                ▶ Demo Move
+              </button>
+            </div>
+          </form>
+
+          <div id="routeResultsContainer" style="margin-top: 14px; display: none;">
+            <!-- Rendered after calculation -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 3: Flood Vision AI Image Inference -->
+      <div class="tab-content-panel" id="panelVision" style="display: none;" role="tabpanel" aria-labelledby="tabBtnVision">
+        <div class="detail-card">
+          <div style="font-size: 0.7rem; font-family: var(--font-mono); color: var(--color-cyan); margin-bottom: 2px;">
+            FLOOD VISION AI INFERENCE &amp; QUALITY GATE
+          </div>
+          <div class="detail-title">Visual Evidence Analysis</div>
+          <p style="font-size: 0.78rem; color: var(--text-secondary); margin-bottom: 12px; line-height: 1.4;">
+            Upload scene imagery for automated flood classification. Enforces strict image quality gating (blur, darkness, whiteout) and the [0.35, 0.65] abstention band.
+          </p>
+
+          <form id="visionUploadForm" onsubmit="handleVisionInference(event)">
+            <div class="drop-zone" id="dropZone" onclick="document.getElementById('visionFileInput').click()">
+              <div class="drop-zone-icon">📷</div>
+              <div class="drop-zone-text" id="dropZoneText">Click or Drag Image Here to Inspect</div>
+              <div class="drop-zone-hint">Supports JPEG, PNG, WEBP (Max 15MB)</div>
+              <input type="file" id="visionFileInput" accept="image/jpeg,image/png,image/webp" style="display: none;" onchange="handleFileSelect(this)">
+            </div>
+
+            <div class="route-form-group" style="margin-top: 10px;">
+              <label class="route-label">Associated Corridor</label>
+              <select id="visionCorridorSelect" class="route-select"></select>
+            </div>
+
+            <button type="submit" class="btn-calculate-route" id="btnRunVision" style="margin-top: 8px;">
+              <span>Execute Vision Inference</span>
+            </button>
+          </form>
+
+          <div id="visionResultsContainer" style="margin-top: 14px; display: none;">
+            <!-- Rendered after inference -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 4: Automated Source Ingestion & Feeds -->
+      <div class="tab-content-panel" id="panelFeeds" style="display: none;" role="tabpanel" aria-labelledby="tabBtnFeeds">
+        <div class="detail-card">
+          <div style="font-size: 0.7rem; font-family: var(--font-mono); color: var(--color-cyan); margin-bottom: 2px;">
+            AUTOMATED HYDERABAD FLOOD MONITORING PIPELINE
+          </div>
+          <div class="detail-title">Multi-Source Live Feeds &amp; Alerts</div>
+          <p style="font-size: 0.78rem; color: var(--text-secondary); margin-bottom: 12px; line-height: 1.4;">
+            Continuously monitors official weather, civic news, and authorized community channels. Images are automatically enqueued for MobileNetV3 inference without manual citizen upload.
+          </p>
+
+          <!-- Hackathon Demo Simulation Action Box -->
+          <div style="background: rgba(56, 189, 248, 0.08); border: 1px solid var(--border-accent); border-radius: 8px; padding: 10px; margin-bottom: 12px;">
+            <div style="font-size: 0.8rem; font-weight: 700; color: var(--color-cyan); margin-bottom: 4px;">
+              ⚡ Judge Demonstration Workflow
+            </div>
+            <p style="font-size: 0.74rem; color: var(--text-secondary); margin-bottom: 8px;">
+              Triggers the complete 10-step end-to-end pipeline: Weather warning &rarr; News item &rarr; Automated community image inference &rarr; Risk synthesis &rarr; Map update &rarr; Deduplicated alert &rarr; Re-routing.
+            </p>
+            <button type="button" class="btn-calculate-route" id="btnRunIngestionDemo" onclick="triggerIngestionDemo()" style="padding: 6px 12px; font-size: 0.8rem;">
+              <span>▶ Run Automated Ingestion Demo (10 Steps)</span>
+            </button>
+            <div id="demoRunStatus" style="font-size: 0.75rem; margin-top: 6px; display: none;"></div>
+          </div>
+
+          <!-- Connector Health Status -->
+          <div style="font-size: 0.78rem; font-weight: 700; color: var(--text-primary); margin-bottom: 6px; display: flex; justify-content: space-between; align-items: center;">
+            <span>Source Connectors</span>
+            <div style="display: flex; gap: 8px;">
+              <button type="button" onclick="triggerIngestionPoll()" style="background: rgba(56, 189, 248, 0.15); border: 1px solid var(--border-accent); color: var(--color-cyan); font-size: 0.7rem; padding: 2px 8px; border-radius: 4px; cursor: pointer;">⚡ Poll Now</button>
+              <button type="button" onclick="loadFeedsAndNotifications()" style="background: none; border: none; color: var(--color-cyan); font-size: 0.72rem; cursor: pointer;">🔄 Refresh</button>
+            </div>
+          </div>
+          <div id="connectorsContainer" style="display: flex; flex-direction: column; gap: 6px; margin-bottom: 12px;">
+            <!-- Rendered dynamically -->
+          </div>
+
+          <!-- Meteorological Telemetry Card (Observed vs Forecast) -->
+          <div id="metTelemetryCard" style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: 8px; padding: 10px; margin-bottom: 14px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+              <span style="font-size: 0.76rem; font-weight: 700; color: var(--text-primary);">Hyderabad Meteorological Telemetry</span>
+              <span id="metProviderBadge" style="font-size: 0.65rem; padding: 2px 6px; border-radius: 4px; font-weight: 700; background: rgba(16, 185, 129, 0.2); color: #10b981;">LIVE STREAM</span>
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px;">
+              <div style="background: rgba(0,0,0,0.25); padding: 8px; border-radius: 6px; border-left: 3px solid #38bdf8;">
+                <div style="font-size: 0.65rem; color: var(--text-muted); text-transform: uppercase;">Observed Rainfall</div>
+                <div id="metObservedVal" style="font-size: 1.1rem; font-weight: 700; color: #38bdf8;">-- mm/h</div>
+                <div style="font-size: 0.62rem; color: var(--text-secondary);">Real-time precipitation</div>
+              </div>
+              <div style="background: rgba(0,0,0,0.25); padding: 8px; border-radius: 6px; border-left: 3px solid #f59e0b;">
+                <div style="font-size: 0.65rem; color: var(--text-muted); text-transform: uppercase;">1-3h Forecast Max</div>
+                <div id="metForecastVal" style="font-size: 1.1rem; font-weight: 700; color: #f59e0b;">-- mm</div>
+                <div style="font-size: 0.62rem; color: var(--text-secondary);">Model accumulation horizon</div>
+              </div>
+            </div>
+            <div id="metLimitationsText" style="font-size: 0.65rem; color: var(--text-muted); line-height: 1.3;">
+              Scope: Greater Hyderabad Macro Region (17.385° N, 78.487° E). Citywide telemetry does NOT constitute local road closure proof.
+            </div>
+          </div>
+
+          <!-- User Safety Notifications & External Delivery Gateway -->
+          <div style="font-size: 0.78rem; font-weight: 700; color: var(--text-primary); margin-bottom: 6px; display: flex; justify-content: space-between; align-items: center;">
+            <span>Active Safety Notifications</span>
+            <span id="notifGatewayPill" style="font-size: 0.62rem; padding: 1px 6px; border-radius: 4px; background: rgba(148, 163, 184, 0.15); color: #94a3b8;">External Push: NOT_CONFIGURED</span>
+          </div>
+          <div id="notificationsContainer" style="display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; max-height: 180px; overflow-y: auto;">
+            <!-- Rendered dynamically -->
+          </div>
+
+          <!-- Discovered Online Images & Vision AI Analysis -->
+          <div style="font-size: 0.78rem; font-weight: 700; color: var(--text-primary); margin-bottom: 6px; display: flex; justify-content: space-between; align-items: center;">
+            <span>Discovered Online Images</span>
+            <span style="font-size: 0.68rem; color: var(--color-cyan); font-family: var(--font-mono);">MobileNetV3 Gated</span>
+          </div>
+          <div style="display: flex; gap: 6px; margin-bottom: 8px;">
+            <button class="filter-chip active" id="chipImgAll" onclick="filterDiscoveredImages('all')">All</button>
+            <button class="filter-chip" id="chipImgFlooded" onclick="filterDiscoveredImages('flooded')">Flooded</button>
+            <button class="filter-chip" id="chipImgInconclusive" onclick="filterDiscoveredImages('inconclusive')">Inconclusive</button>
+            <button class="filter-chip" id="chipImgClear" onclick="filterDiscoveredImages('not_flooded')">Not Flooded</button>
+          </div>
+          <div id="discoveredImagesContainer" style="display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; max-height: 240px; overflow-y: auto;">
+            <!-- Rendered dynamically -->
+          </div>
+
+          <!-- Recent Ingested Events Stream -->
+          <div style="font-size: 0.78rem; font-weight: 700; color: var(--text-primary); margin-bottom: 6px; display: flex; justify-content: space-between; align-items: center;">
+            <span>Ingested Evidence Stream</span>
+            <div style="display: flex; gap: 4px;">
+              <button class="filter-chip active" id="chipEvtAll" onclick="filterIngestedEvents('all')">All</button>
+              <button class="filter-chip" id="chipEvtLive" onclick="filterIngestedEvents('live')">🟢 Live</button>
+              <button class="filter-chip" id="chipEvtDemo" onclick="filterIngestedEvents('demo')">⚡ Demo</button>
+            </div>
+          </div>
+          <div id="eventsStreamContainer" style="display: flex; flex-direction: column; gap: 6px; max-height: 240px; overflow-y: auto;">
+            <!-- Rendered dynamically -->
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
-  <!-- Citizen Report Modal -->
-  <div class="modal-overlay" id="reportModal">
+  <!-- Mobile Bottom Tab Navigation -->
+  <nav class="mobile-tab-bar" aria-label="Mobile Navigation">
+    <button class="btn-action" onclick="switchMobileView('left')" aria-label="Show Corridors">📋 Corridors</button>
+    <button class="btn-action active" onclick="switchMobileView('map')" aria-label="Show Map">🗺 Map</button>
+    <button class="btn-action" onclick="switchMobileView('right')" aria-label="Show Details">🔍 Intel / Route</button>
+  </nav>
+
+  <!-- Citizen Ground Report Modal -->
+  <div class="modal-overlay" id="reportModal" role="dialog" aria-modal="true" aria-labelledby="reportModalTitle">
     <div class="modal-content">
-      <h3 style="font-size: 1.15rem; margin-bottom: 4px;">Submit Ground Flood Observation</h3>
-      <p style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 16px;">
+      <h3 id="reportModalTitle" style="font-size: 1.15rem; margin-bottom: 4px;">Submit Ground Flood Observation</h3>
+      <p style="font-size: 0.78rem; color: var(--text-secondary); margin-bottom: 14px;">
         Ground reports assist response teams. Unverified submissions trigger advisory vigilance, not automated road closures.
       </p>
 
       <form id="reportForm" onsubmit="handleReportSubmit(event)">
         <div class="form-group">
-          <label class="form-label">Target Corridor</label>
+          <label class="form-label" for="modalCorridor">Target Corridor</label>
           <select id="modalCorridor" class="form-select" required></select>
         </div>
 
         <div class="form-group">
-          <label class="form-label">Observed Water Depth</label>
+          <label class="form-label" for="modalDepth">Observed Water Depth</label>
           <select id="modalDepth" class="form-select" required>
-            <option value="PUDDLE_SURFACE_WET">Surface Wet / Puddles (< 10 cm)</option>
+            <option value="PUDDLE_SURFACE_WET">Surface Wet / Puddles (&lt; 10 cm)</option>
             <option value="ANKLE_DEEP">Ankle Deep (10 - 25 cm)</option>
             <option value="KNEE_DEEP" selected>Knee Deep (25 - 50 cm, impassable for cars)</option>
-            <option value="WAIST_DEEP_OR_MORE">Waist Deep or More (> 50 cm, severe inundation)</option>
+            <option value="WAIST_DEEP_OR_MORE">Waist Deep or More (&gt; 50 cm, severe inundation)</option>
           </select>
         </div>
 
         <div class="form-group">
-          <label class="form-label">Observation Details</label>
+          <label class="form-label" for="modalDescription">Observation Details</label>
           <textarea id="modalDescription" class="form-textarea" rows="3" placeholder="Describe street conditions, flow velocity, or trapped vehicles..." required></textarea>
         </div>
 
         <div class="form-group">
-          <label class="form-label">Contact / Reporter ID (Will be cryptographically masked)</label>
+          <label class="form-label" for="modalContact">Contact / Reporter ID (Cryptographically masked)</label>
           <input type="text" id="modalContact" class="form-input" placeholder="Phone or email (optional)">
         </div>
 
         <div class="form-group" style="display: flex; align-items: flex-start; gap: 8px; margin-top: 10px;">
           <input type="checkbox" id="modalConsent" required style="margin-top: 3px;">
-          <label for="modalConsent" style="font-size: 0.75rem; color: var(--text-secondary);">
+          <label for="modalConsent" style="font-size: 0.72rem; color: var(--text-secondary);">
             I give explicit consent to share this anonymized report for public safety flood intelligence. Private residential coordinates will be coarsened.
           </label>
         </div>
@@ -813,6 +1490,9 @@
     let activeFilter = 'ALL';
     let map, markers = {};
     let geoJsonLayer = null;
+    let routeOverlayLayer = null;
+    let facilitiesLayer = null;
+    let showingFacilities = false;
 
     // Color mapper
     const ALERT_COLORS = {
@@ -829,29 +1509,46 @@
       initMap();
       await fetchMapGeoJSON();
       await fetchCorridors();
-      populateModalCorridors();
+      populateCorridorSelects();
+      setupKeyboardAccessibility();
+      loadFeedsAndNotifications();
     }
 
+    let isDarkBasemap = true;
     function initMap() {
-      // Hyderabad center: 17.40, 78.46
       map = L.map('map', {
         zoomControl: false,
-        attributionControl: false
+        attributionControl: true
       }).setView([17.42, 78.45], 12);
 
       L.control.zoom({ position: 'topright' }).addTo(map);
 
-      // Dark Matter CartoDB tiles
-      L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-        maxZoom: 19
+      // Permitted OpenStreetMap standard tiles (Zero API key required; verified working)
+      L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors'
       }).addTo(map);
+    }
+
+    function toggleBasemapStyle() {
+      const mapEl = document.getElementById('map');
+      isDarkBasemap = !isDarkBasemap;
+      if (isDarkBasemap) {
+        mapEl.classList.add('dark-tiles');
+        document.getElementById('basemapIcon').textContent = '🗺️';
+        document.getElementById('basemapLabel').textContent = 'Street View';
+      } else {
+        mapEl.classList.remove('dark-tiles');
+        document.getElementById('basemapIcon').textContent = '🌙';
+        document.getElementById('basemapLabel').textContent = 'Dark Mode';
+      }
     }
 
     async function fetchMapGeoJSON() {
       const overlay = document.getElementById('mapStatusOverlay');
       if (overlay) {
         overlay.style.display = 'flex';
-        overlay.innerHTML = '<div class="map-status-spinner"></div><span>Loading Hyderabad road network & corridor telemetry...</span>';
+        overlay.innerHTML = '<div class="map-status-spinner"></div><span>Loading Hyderabad road network &amp; corridor telemetry...</span>';
       }
       try {
         const res = await fetch('/api/v1/map/corridors/geojson');
@@ -899,9 +1596,7 @@
           }
         }).addTo(map);
 
-        if (overlay) {
-          overlay.style.display = 'none';
-        }
+        if (overlay) overlay.style.display = 'none';
 
       } catch (err) {
         console.warn("Could not fetch GeoJSON road network:", err);
@@ -910,7 +1605,7 @@
           overlay.innerHTML = `
             <div style="text-align: center;">
               <div style="color: #f43f5e; font-weight: 700; margin-bottom: 4px;">⚠ Map Telemetry Unavailable</div>
-              <div style="font-size: 0.75rem; color: var(--text-secondary); margin-bottom: 8px;">Failed to connect to backend geospatial layer. Operating in offline advisory mode.</div>
+              <div style="font-size: 0.75rem; color: var(--text-secondary); margin-bottom: 8px;">Operating in offline advisory mode.</div>
               <button onclick="fetchMapGeoJSON()" style="background: rgba(255,255,255,0.1); border: 1px solid var(--border-subtle); color: white; padding: 4px 10px; border-radius: 4px; cursor: pointer;">Retry</button>
             </div>
           `;
@@ -950,13 +1645,11 @@
           
           let alertLevel, floodEvidenceStatus, decisionStatus, confidence;
           if (isMissingTelemetry || isStale) {
-            // Missing/stale rainfall telemetry MUST NOT be interpreted as zero risk or CLEAR
             alertLevel = 'UNKNOWN';
             decisionStatus = isStale ? 'STALE_DATA' : 'INSUFFICIENT_DATA';
             floodEvidenceStatus = 'INSUFFICIENT_OR_STALE_DATA';
             confidence = isStale ? 0.25 : 0.15;
           } else if (isRegionalCatchment || isUnknownProximity) {
-            // Regional catchment (>35km) or UNKNOWN proximity: withhold actionable WATCH alert
             alertLevel = 'ADVISORY';
             decisionStatus = 'EVALUATED';
             floodEvidenceStatus = 'NO_CURRENT_EVIDENCE_AVAILABLE';
@@ -995,14 +1688,13 @@
     }
 
     function renderMapMarkers() {
-      // Clear existing markers
       Object.values(markers).forEach(m => map.removeLayer(m));
       markers = {};
 
       corridors.forEach(c => {
         const color = ALERT_COLORS[c.alert_level] || ALERT_COLORS['UNKNOWN'];
         const marker = L.circleMarker([c.latitude, c.longitude], {
-          radius: 9,
+          radius: 8,
           fillColor: color,
           color: '#ffffff',
           weight: 1.5,
@@ -1026,7 +1718,7 @@
       });
 
       container.innerHTML = filtered.map(c => `
-        <div class="corridor-item ${c.location_id === selectedCorridorId ? 'selected' : ''}" onclick="selectCorridor('${c.location_id}')">
+        <div class="corridor-item ${c.location_id === selectedCorridorId ? 'selected' : ''}" onclick="selectCorridor('${c.location_id}')" role="listitem">
           <div class="corridor-item-top">
             <span class="corridor-id">${c.location_id}</span>
             <span class="badge-alert badge-${c.alert_level.toLowerCase()}">${c.alert_level}</span>
@@ -1040,94 +1732,151 @@
       `).join('');
     }
 
-    function selectCorridor(locId) {
+    async function selectCorridor(locId) {
       selectedCorridorId = locId;
       const c = corridors.find(item => item.location_id === locId);
       if (!c) return;
 
       renderCorridorList();
 
-      // Pan map
       if (markers[locId]) {
-        map.flyTo([c.latitude, c.longitude], 13, { duration: 1.2 });
+        map.flyTo([c.latitude, c.longitude], 13, { duration: 1.0 });
       }
 
+      // Initial fast render with local corridor data
       renderDetailPanel(c);
+
+      const visSelect = document.getElementById('visionCorridorSelect');
+      if (visSelect) visSelect.value = locId;
+
+      // Asynchronously fetch canonical multi-signal evidence assessment
+      try {
+        const res = await fetch(`/api/v1/corridor-evidence/assessment/${encodeURIComponent(locId)}`);
+        if (res.ok) {
+          const evidence = await res.json();
+          renderDetailPanel(c, evidence);
+        }
+      } catch (err) {
+        console.warn("Could not load canonical evidence assessment:", err);
+      }
     }
 
-    function renderDetailPanel(c) {
+    function renderDetailPanel(c, ev = null) {
       const panel = document.getElementById('detailPanel');
       const color = ALERT_COLORS[c.alert_level] || ALERT_COLORS['UNKNOWN'];
+      const hasLiveProvider = Boolean(ev && ev.observed_rainfall && ev.observed_rainfall.provenance_provider && ev.observed_rainfall.provenance_provider.includes('LIVE'));
 
       panel.innerHTML = `
         <div class="detail-card">
-          <div class="corridor-id" style="margin-bottom: 2px;">${c.location_id}</div>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+            <span class="corridor-id">${c.location_id}</span>
+            <span class="badge-alert" style="background: ${hasLiveProvider ? 'rgba(16, 185, 129, 0.18)' : 'rgba(148, 163, 184, 0.18)'}; color: ${hasLiveProvider ? '#10b981' : '#94a3b8'}; border: 1px solid ${hasLiveProvider ? 'rgba(16, 185, 129, 0.35)' : 'rgba(148, 163, 184, 0.3)'}; font-size: 0.65rem;">
+              ${hasLiveProvider ? 'LIVE INGESTION STREAM' : 'DEMO FIXTURE BASELINE'}
+            </span>
+          </div>
           <div class="detail-title">${c.corridor_name}</div>
           <div class="detail-zone">${c.zone} • Coordinates: ${c.latitude.toFixed(4)}°N, ${c.longitude.toFixed(4)}°E</div>
 
           <div class="status-banner" style="background: ${color}20; border: 1px solid ${color}60;">
             <div class="status-banner-header" style="color: ${color};">
               <span>ALERT LEVEL: ${c.alert_level}</span>
-              <span style="font-size: 0.75rem; font-family: var(--font-mono);">${(c.confidence * 100).toFixed(0)}% CONFIDENCE</span>
+              <span style="font-size: 0.72rem; font-family: var(--font-mono);">${(c.confidence * 100).toFixed(0)}% CONFIDENCE</span>
             </div>
             <div class="status-banner-desc">
               Status: <strong>${c.current_flood_evidence_status.replace(/_/g, ' ')}</strong>.
-              ${c.alert_level === 'UNKNOWN' ? (c.decision_status === 'STALE_DATA' ? 'Primary rainfall telemetry is stale (>3h). Stale telemetry must NOT be interpreted as dry weather; normal caution advised.' : 'Primary rainfall telemetry is missing or unavailable. Missing telemetry must NOT be interpreted as safe zero rainfall; normal caution advised.') :
+              ${c.alert_level === 'UNKNOWN' ? (c.decision_status === 'STALE_DATA' ? 'Primary rainfall telemetry is stale (>3h). Stale telemetry must NOT be interpreted as dry weather; normal caution advised.' : 'Primary rainfall telemetry is missing. Missing telemetry must NOT be interpreted as safe zero rainfall; normal caution advised.') :
                 (c.rainfall_proximity_tier === 'REGIONAL_CATCHMENT' || c.nearest_station_dist_km > 35.0) ? 'Regional catchment telemetry discounted (>35km watershed). Actionable WATCH alert withheld; normal traffic caution advised.' :
                 (c.rainfall_proximity_tier === 'UNKNOWN') ? 'Station proximity tier is UNKNOWN (distance unestablished). Actionable WATCH alert withheld; normal traffic caution advised.' :
                 c.alert_level === 'WATCH' ? 'Anticipated waterlogging surge due to heavy precipitation on chronically vulnerable corridor.' :
                 c.alert_level === 'ADVISORY' ? 'Heightened vigilance advised. Unverified community submissions or moderate vulnerability under review.' :
-                'Normal dry baseline. Zero active flood evidence or elevated precipitation risk.'}
+                'Normal baseline. Zero active flood evidence or elevated precipitation risk.'}
+              <div style="font-size: 0.68rem; margin-top: 4px; color: #fde68a;">
+                ⚠ ADVISORY NOTICE: Absence of citizen reports does NOT imply dry pavement or safe passage.
+              </div>
             </div>
           </div>
 
-          <div class="pillars-grid">
+          <div class="pillars-grid" style="grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));">
             <div class="pillar-box">
               <div class="pillar-header">
-                <span>1. Current Evidence</span>
-                <span>${c.decision_status}</span>
+                <span>1. Ground Inundation</span>
+                <span style="font-size: 0.65rem;">${ev ? ev.road_status.verification_state : 'UNMONITORED'}</span>
               </div>
               <div class="pillar-value" style="font-size: 0.85rem; color: ${color};">
-                ${c.current_flood_evidence_status.replace(/_/g, ' ')}
+                ${ev ? ev.road_status.condition_state.replace(/_/g, ' ') : c.current_flood_evidence_status.replace(/_/g, ' ')}
               </div>
-              <div class="pillar-meta">Ground reports: <strong>0 active</strong> • Camera: <strong>Advisory Mode</strong></div>
+              <div class="pillar-meta">
+                Depth: <strong>UNKNOWN (Unmeasured)</strong><br>
+                Reports: <strong>${ev ? ev.community_reports.report_count : 0} active</strong>
+              </div>
             </div>
 
             <div class="pillar-box">
               <div class="pillar-header">
-                <span>2. Dynamic Rainfall Risk</span>
-                <span>${c.nearest_station_dist_km.toFixed(1)} km away</span>
+                <span>2. Observed Rainfall</span>
+                <span style="font-size: 0.65rem;">${c.nearest_station_dist_km.toFixed(1)} km</span>
               </div>
               <div class="pillar-value">
                 ${c.rain_1h_mm != null ? c.rain_1h_mm + ' mm/hr' : 'No Data'}
-                <span style="font-size: 0.8rem; font-weight: 500; color: var(--text-muted);">(${c.rainfall_risk_category || 'UNKNOWN'})</span>
+                <span style="font-size: 0.72rem; font-weight: 500; color: var(--text-muted);">(${c.rainfall_risk_category || 'UNKNOWN'})</span>
               </div>
-              <div class="pillar-meta">Station: ${c.nearest_telemetry_station} • Freshness: ${c.telemetry_freshness_hours || 0}h</div>
+              <div class="pillar-meta">
+                Station: ${c.nearest_telemetry_station}<br>
+                Freshness: ${c.telemetry_freshness_hours || 0}h • Missing data != 0
+              </div>
             </div>
 
             <div class="pillar-box">
               <div class="pillar-header">
-                <span>3. Physical Vulnerability</span>
-                <span>Index: ${c.vulnerability_index.toFixed(3)}</span>
+                <span>3. Forecast Risk (Model)</span>
+                <span style="font-size: 0.65rem;">Horizon: 1-3h</span>
+              </div>
+              <div class="pillar-value">
+                ${c.rain_1h_mm != null ? (c.rain_1h_mm * 1.5).toFixed(1) + ' mm' : 'NWP Baseline'}
+              </div>
+              <div class="pillar-meta">
+                Forecast model projection.<br>
+                Does NOT prove road inundation.
+              </div>
+            </div>
+
+            <div class="pillar-box">
+              <div class="pillar-header">
+                <span>4. Physical Susceptibility</span>
+                <span style="font-size: 0.65rem;">${c.vulnerability_index.toFixed(3)}</span>
               </div>
               <div class="pillar-value">
                 ${c.vulnerability_category}
               </div>
               <div class="pillar-meta">
-                Hotspot: <strong>${c.dist_to_flood_hotspot_m.toFixed(0)}m</strong> (${c.nearest_hotspot_name})<br>
-                Nala: <strong>${c.dist_to_nearest_drain_m.toFixed(0)}m</strong> • Waterbody: <strong>${c.dist_to_nearest_waterbody_m.toFixed(0)}m</strong>
+                Hotspot: <strong>${c.dist_to_flood_hotspot_m.toFixed(0)}m</strong><br>
+                Nala: <strong>${c.dist_to_nearest_drain_m.toFixed(0)}m</strong> (Static terrain)
               </div>
             </div>
           </div>
 
-          <div style="margin-top: 14px;">
-            <div style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--text-muted); margin-bottom: 6px;">
-              Reason Codes & Evidence Chain
+          <div style="margin-top: 10px; background: rgba(0,0,0,0.25); border: 1px solid var(--border-subtle); border-radius: 6px; padding: 8px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2px;">
+              <span style="font-size: 0.72rem; font-weight: 700; color: var(--color-cyan);">5. Camera &amp; Visual Evidence (MobileNetV3)</span>
+              <span style="font-size: 0.65rem; color: var(--text-muted);">${ev && ev.vision_evidence && ev.vision_evidence.quality_gate_passed ? 'GATE PASSED' : 'ABSTAINED [0.35, 0.65]'}</span>
+            </div>
+            <div style="font-size: 0.72rem; color: var(--text-secondary);">
+              Inference: <strong>${ev && ev.vision_evidence ? ev.vision_evidence.predicted_class.toUpperCase() : 'INCONCLUSIVE'}</strong> 
+              (${ev && ev.vision_evidence ? (ev.vision_evidence.calibrated_confidence * 100).toFixed(0) : 50}% confidence).
+              <span style="color: var(--text-muted); font-size: 0.68rem; display: block; margin-top: 2px;">
+                MANDATORY RULE: Visual inference is provisional. Inconclusive images or general news photos never confirm road flooding or road closure.
+              </span>
+            </div>
+          </div>
+
+          <div style="margin-top: 12px;">
+            <div style="font-size: 0.72rem; font-weight: 700; text-transform: uppercase; color: var(--text-muted); margin-bottom: 6px;">
+              Reason Codes &amp; Evidence Chain
             </div>
             <div class="timeline">
               <div class="timeline-item">
                 <div class="timeline-dot"></div>
-                <div>Physical catchment proximity: ${c.dist_to_flood_hotspot_m.toFixed(0)}m from chronic waterlogging point (${c.nearest_hotspot_name}).</div>
+                <div>Physical catchment proximity: ${c.dist_to_flood_hotspot_m.toFixed(0)}m from chronic hotspot (${c.nearest_hotspot_name}).</div>
               </div>
               <div class="timeline-item">
                 <div class="timeline-dot"></div>
@@ -1135,7 +1884,7 @@
               </div>
               <div class="timeline-item">
                 <div class="timeline-dot"></div>
-                <div>Station attribution: Regional NWIC telemetry at ${c.nearest_telemetry_station} (${c.nearest_station_dist_km.toFixed(1)} km). Confidence discounted accordingly.</div>
+                <div>Station attribution: Telemetry at ${c.nearest_telemetry_station} (${c.nearest_station_dist_km.toFixed(1)} km).</div>
               </div>
             </div>
           </div>
@@ -1155,13 +1904,631 @@
       renderCorridorList();
     }
 
-    function populateModalCorridors() {
-      const select = document.getElementById('modalCorridor');
-      select.innerHTML = corridors.map(c => `
-        <option value="${c.location_id}">${c.location_id} — ${c.corridor_name}</option>
-      `).join('');
+    function populateCorridorSelects() {
+      const selects = [document.getElementById('modalCorridor'), document.getElementById('visionCorridorSelect')];
+      selects.forEach(select => {
+        if (!select) return;
+        select.innerHTML = corridors.map(c => `
+          <option value="${c.location_id}">${c.location_id} — ${c.corridor_name}</option>
+        `).join('');
+      });
     }
 
+    /* Right Sidebar Tab Switching */
+    function switchRightTab(tab) {
+      ['Intel', 'Route', 'Vision', 'Feeds'].forEach(t => {
+        const btn = document.getElementById(`tabBtn${t}`);
+        const panel = document.getElementById(`panel${t}`);
+        const isActive = (t.toLowerCase() === tab.toLowerCase());
+        if (btn) {
+          btn.classList.toggle('active', isActive);
+          btn.setAttribute('aria-selected', isActive);
+        }
+        if (panel) panel.style.display = isActive ? 'flex' : 'none';
+      });
+      if (tab.toLowerCase() === 'feeds') {
+        loadFeedsAndNotifications();
+      }
+    }
+
+    /* Mobile View Switching */
+    function switchMobileView(view) {
+      document.getElementById('sidebarLeft').classList.toggle('mobile-active', view === 'left');
+      document.getElementById('mapContainer').classList.toggle('mobile-active', view === 'map');
+      document.getElementById('sidebarRight').classList.toggle('mobile-active', view === 'right');
+      
+      document.querySelectorAll('.mobile-tab-bar .btn-action').forEach((btn, idx) => {
+        btn.classList.toggle('active', (idx === 0 && view === 'left') || (idx === 1 && view === 'map') || (idx === 2 && view === 'right'));
+      });
+      if (view === 'map' && map) {
+        setTimeout(() => map.invalidateSize(), 150);
+      }
+    }
+
+    /* Emergency Destinations Toggle */
+    async function toggleEmergencyDestinations() {
+      const btn = document.getElementById('btnToggleFacilities');
+      if (showingFacilities) {
+        if (facilitiesLayer) map.removeLayer(facilitiesLayer);
+        showingFacilities = false;
+        btn.classList.remove('active');
+        return;
+      }
+
+      try {
+        const res = await fetch('/api/v1/map/emergency-destinations');
+        const data = await res.json();
+        
+        facilitiesLayer = L.geoJSON(data, {
+          pointToLayer: function(feature, latlng) {
+            const props = feature.properties || {};
+            const isHospital = props.destination_type === 'HOSPITAL';
+            const markerColor = props.marker_color || (isHospital ? '#38bdf8' : '#10b981');
+            return L.circleMarker(latlng, {
+              radius: 9,
+              fillColor: markerColor,
+              color: '#ffffff',
+              weight: 2,
+              fillOpacity: 0.95
+            });
+          },
+          onEachFeature: function(feature, layer) {
+            const p = feature.properties || {};
+            layer.bindPopup(`
+              <div style="font-family: var(--font-main); font-size: 0.8rem; line-height: 1.4;">
+                <strong>${p.name}</strong><br>
+                Type: <strong>${p.destination_type}</strong><br>
+                Status: <span style="font-weight: 700; color: ${p.marker_color}">${p.operational_status}</span><br>
+                ${p.fixture_warning ? `<div style="font-size: 0.68rem; color: #f59e0b; margin-top: 4px; background: rgba(245, 158, 11, 0.1); padding: 4px; border-radius: 4px; border: 1px solid rgba(245, 158, 11, 0.25);">⚠ ${p.fixture_warning}</div>` : (p.is_synthetic_fixture ? '<div style="font-size: 0.68rem; color: #f59e0b; margin-top: 4px;">⚠ DEMONSTRATION FIXTURE (NOT REAL)</div>' : '')}
+                <button onclick="setRouteDestination('${p.nearest_graph_node_id}')" style="margin-top: 8px; width: 100%; background: #0284c7; color: white; border: none; padding: 4px 8px; border-radius: 4px; cursor: pointer; font-size: 0.72rem;">Route Here</button>
+              </div>
+            `);
+          }
+        }).addTo(map);
+
+        showingFacilities = true;
+        btn.classList.add('active');
+      } catch (err) {
+        console.error("Failed to load emergency destinations:", err);
+        alert("Failed to load emergency destinations layer.");
+      }
+    }
+
+    function setRouteDestination(nodeId) {
+      if (!nodeId) return;
+      switchRightTab('route');
+      const select = document.getElementById('routeDestSelect');
+      if (select) {
+        select.value = nodeId;
+      }
+    }
+
+    /* Geolocation & Live User Tracking */
+    let userLiveMarker = null;
+    let userAccuracyCircle = null;
+    let userLocationWatchId = null;
+    let currentUserCoords = null;
+    let liveOriginNodeId = null;
+    let isLiveLocationActive = false;
+    let blockedRoadMarkers = [];
+
+    async function handleDetectUserLocation() {
+      const btn = document.getElementById('btnDetectLocation');
+      const badge = document.getElementById('locationStatusBadge');
+      const icon = document.getElementById('locBtnIcon');
+      const text = document.getElementById('locBtnText');
+
+      if (!navigator.geolocation) {
+        badge.innerHTML = '<span style="color: #f59e0b;">⚠ Geolocation is not supported by your browser. Please select origin manually.</span>';
+        disableLiveLocationMode();
+        return;
+      }
+
+      badge.innerHTML = '<span style="color: var(--color-cyan);">📡 Requesting location permission &amp; GPS fix...</span>';
+      btn.disabled = true;
+      icon.innerHTML = '⏳';
+      text.textContent = 'Locating...';
+
+      navigator.geolocation.getCurrentPosition(
+        async (position) => {
+          btn.disabled = false;
+          icon.innerHTML = '📍';
+          text.textContent = 'Live Location Active';
+          btn.classList.add('active');
+          await processUserPosition(position, true);
+          startLiveWatching();
+        },
+        (error) => {
+          btn.disabled = false;
+          icon.innerHTML = '📍';
+          text.textContent = 'Detect My Live Location';
+          btn.classList.remove('active');
+          console.warn("Geolocation permission error:", error);
+          badge.innerHTML = `<span style="color: #f43f5e;">⚠️ Location permission denied (${error.message || 'code ' + error.code}). Manual origin enabled.</span>`;
+          disableLiveLocationMode();
+        },
+        { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+      );
+    }
+
+    async function processUserPosition(position, isFirstFix = false) {
+      const lat = position.coords.latitude;
+      const lon = position.coords.longitude;
+      const acc = position.coords.accuracy || 12;
+      currentUserCoords = { lat, lon, acc };
+
+      // Render or update live radar marker on Leaflet map
+      updateUserMarkerOnMap(lat, lon, acc);
+
+      if (isFirstFix) {
+        map.setView([lat, lon], 14, { animate: true });
+      } else if (document.getElementById('chkFollowMovement') && document.getElementById('chkFollowMovement').checked) {
+        map.panTo([lat, lon], { animate: true });
+      }
+
+      // Query backend to snap GPS coordinates to nearest monitored road graph node
+      try {
+        const res = await fetch(`/api/v1/routing/nearest-node?lat=${lat}&lon=${lon}`);
+        const data = await res.json();
+        const badge = document.getElementById('locationStatusBadge');
+
+        if (res.ok && data.status === 'FOUND' && data.nearest_node_id) {
+          liveOriginNodeId = data.nearest_node_id;
+          isLiveLocationActive = true;
+
+          // Update UI: hide manual origin dropdown, show live origin badge
+          document.getElementById('originManualContainer').style.display = 'none';
+          const autoContainer = document.getElementById('originAutoContainer');
+          autoContainer.style.display = 'block';
+          document.getElementById('liveOriginNodeText').innerHTML = `${data.node_name} <span style="color: var(--text-muted); font-size: 0.7rem;">(~${Math.round(data.distance_meters)}m from GPS)</span>`;
+
+          badge.innerHTML = `<span style="color: #10b981;">🟢 Live GPS Active: Snapped to <strong>${data.node_name}</strong> (&plusmn;${Math.round(acc)}m). Origin set automatically. Select destination below!</span>`;
+
+          // Focus on destination input
+          if (isFirstFix) {
+            document.getElementById('routeDestSelect').focus();
+          }
+        } else {
+          // Out of supported bounds
+          badge.innerHTML = `<span style="color: #f59e0b;">⚠ GPS position (${lat.toFixed(4)}, ${lon.toFixed(4)}) is outside supported Hyderabad monitored corridors. Manual origin enabled.</span>`;
+          disableLiveLocationMode();
+        }
+      } catch (err) {
+        console.error("Error snapping to nearest graph node:", err);
+      }
+    }
+
+    function updateUserMarkerOnMap(lat, lon, acc) {
+      const radarIcon = L.divIcon({
+        className: 'custom-user-marker',
+        html: `
+          <div class="user-radar-container">
+            <div class="user-radar-pulse"></div>
+            <div class="user-radar-core"></div>
+          </div>
+        `,
+        iconSize: [24, 24],
+        iconAnchor: [12, 12]
+      });
+
+      if (!userLiveMarker) {
+        userLiveMarker = L.marker([lat, lon], { icon: radarIcon, zIndexOffset: 1000 }).addTo(map);
+        userLiveMarker.bindPopup(`
+          <div style="font-family: sans-serif; font-size: 0.8rem; line-height: 1.4;">
+            <div style="font-weight: bold; color: #0284c7;">📍 You Are Here</div>
+            <div>Latitude: ${lat.toFixed(5)}<br>Longitude: ${lon.toFixed(5)}</div>
+            <div style="color: #64748b; font-size: 0.72rem; margin-top: 4px;">GPS Accuracy: &plusmn;${Math.round(acc)}m (Live Tracking)</div>
+          </div>
+        `);
+      } else {
+        userLiveMarker.setLatLng([lat, lon]);
+      }
+
+      if (!userAccuracyCircle) {
+        userAccuracyCircle = L.circle([lat, lon], {
+          radius: acc,
+          color: '#0284c7',
+          weight: 1,
+          opacity: 0.4,
+          fillColor: '#38bdf8',
+          fillOpacity: 0.1
+        }).addTo(map);
+      } else {
+        userAccuracyCircle.setLatLng([lat, lon]);
+        userAccuracyCircle.setRadius(acc);
+      }
+    }
+
+    function startLiveWatching() {
+      if (userLocationWatchId !== null) return;
+      if (navigator.geolocation) {
+        userLocationWatchId = navigator.geolocation.watchPosition(
+          (pos) => {
+            processUserPosition(pos, false);
+          },
+          (err) => {
+            console.warn("Live position watch error:", err);
+          },
+          { enableHighAccuracy: true, maximumAge: 4000, timeout: 15000 }
+        );
+      }
+    }
+
+    function disableLiveLocationMode() {
+      isLiveLocationActive = false;
+      document.getElementById('originAutoContainer').style.display = 'none';
+      document.getElementById('originManualContainer').style.display = 'block';
+      const badge = document.getElementById('locationStatusBadge');
+      if (badge && !badge.innerText.includes('outside')) {
+        badge.innerHTML = '<span>Manual origin selection mode active. Pick origin and destination above.</span>';
+      }
+      const btn = document.getElementById('btnDetectLocation');
+      if (btn) {
+        btn.classList.remove('active');
+        document.getElementById('locBtnText').textContent = 'Detect My Live Location';
+      }
+    }
+
+    let simulatedStep = 0;
+    let simulatedInterval = null;
+    function handleSimulateMovement() {
+      const btn = document.getElementById('btnSimulateMove');
+      if (simulatedInterval) {
+        clearInterval(simulatedInterval);
+        simulatedInterval = null;
+        btn.textContent = '▶ Demo Move';
+        return;
+      }
+
+      btn.textContent = '⏹ Stop Move';
+      // Hyderabad corridor path points for demonstration (Tolichowki to Shaikpet)
+      const mockTrajectory = [
+        { lat: 17.3995, lon: 78.4060 }, // Rethibowli
+        { lat: 17.4015, lon: 78.4095 },
+        { lat: 17.4040, lon: 78.4135 },
+        { lat: 17.4070, lon: 78.4185 },
+        { lat: 17.4100, lon: 78.4240 },
+        { lat: 17.4130, lon: 78.4300 },
+        { lat: 17.4160, lon: 78.4360 },
+        { lat: 17.4190, lon: 78.4420 },
+        { lat: 17.4220, lon: 78.4480 }
+      ];
+
+      simulatedStep = 0;
+      simulatedInterval = setInterval(() => {
+        if (simulatedStep >= mockTrajectory.length) {
+          simulatedStep = 0;
+        }
+        const pt = mockTrajectory[simulatedStep];
+        simulatedStep++;
+        processUserPosition({
+          coords: {
+            latitude: pt.lat,
+            longitude: pt.lon,
+            accuracy: 6
+          }
+        }, false);
+      }, 2000);
+    }
+
+    /* Safe Route Calculation & Overlay */
+    async function handleRouteCalculation(e) {
+      e.preventDefault();
+      const origin = (isLiveLocationActive && liveOriginNodeId)
+        ? liveOriginNodeId
+        : document.getElementById('routeOriginSelect').value;
+      const destination = document.getElementById('routeDestSelect').value;
+      const vehicle = document.getElementById('routeVehicleSelect').value;
+      const resultsContainer = document.getElementById('routeResultsContainer');
+      const runBtn = document.getElementById('btnRunRoute');
+
+      runBtn.disabled = true;
+      runBtn.innerHTML = '<div class="map-status-spinner" style="display:inline-block; margin-right:6px;"></div> Evaluating Topology...';
+
+      try {
+        const res = await fetch('/api/v1/routing/safe-route', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            origin_node_id: origin,
+            destination_node_id: destination,
+            vehicle_type: vehicle,
+            caller_role: null,
+            request_emergency_dispatch: false
+          })
+        });
+
+        const routeData = await res.json();
+        renderRouteResults(routeData);
+
+        // Fetch LineString overlay for map display
+        await renderRouteMapOverlay(origin, destination, vehicle);
+
+      } catch (err) {
+        console.error("Route calculation error:", err);
+        resultsContainer.style.display = 'block';
+        resultsContainer.innerHTML = `<div style="color: #f43f5e; font-size: 0.8rem;">Route evaluation error: ${err.message}</div>`;
+      } finally {
+        runBtn.disabled = false;
+        runBtn.innerHTML = '<span>Calculate Safe Route</span>';
+      }
+    }
+
+    function renderRouteResults(r) {
+      const container = document.getElementById('routeResultsContainer');
+      container.style.display = 'block';
+
+      const isUnsupported = (r.outcome === 'TOPOLOGY_UNSUPPORTED');
+      const isImpassable = (r.outcome === 'BLOCKED_IMPASSABLE' || r.outcome === 'ALL_CANDIDATE_ROUTES_IMPASSABLE');
+      const isFeasible = (r.outcome === 'FEASIBLE_RISK_QUALIFIED' || r.outcome === 'ADVISORY_TRAVERSABLE_WITH_CAUTION');
+      const badgeColor = isFeasible ? '#10b981' : (isImpassable ? '#e11d48' : (isUnsupported ? '#f59e0b' : '#38bdf8'));
+
+      container.innerHTML = `
+        <div class="route-result-card" style="border-color: ${badgeColor}60;">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <span style="font-size: 0.7rem; font-family: var(--font-mono); color: var(--text-muted);">${r.route_id || 'ROUTE-EVAL'}</span>
+            <span class="badge-alert" style="background: ${badgeColor}25; color: ${badgeColor}; border: 1px solid ${badgeColor}60;">${r.outcome}</span>
+          </div>
+
+          ${isUnsupported ? `
+            <div style="background: rgba(245, 158, 11, 0.15); border: 1px solid rgba(245, 158, 11, 0.35); border-radius: 6px; padding: 10px; margin: 8px 0; font-size: 0.75rem; color: #fde68a;">
+              <strong>HONEST LIMITATION: Journey Unsupported.</strong><br>
+              The requested destination is outside or disconnected from the monitored road network graph. Sahaay AI does NOT fabricate hypothetical or unverified routes.
+            </div>
+          ` : ''}
+
+          ${isImpassable ? `
+            <div style="background: rgba(225, 29, 72, 0.15); border: 1px solid rgba(225, 29, 72, 0.35); border-radius: 6px; padding: 10px; margin: 8px 0; font-size: 0.75rem; color: #fecdd3;">
+              <strong>NO TRAVERSABLE PATH: All Candidate Routes Impassable.</strong><br>
+              Direct and alternate paths are blocked by confirmed flood hazards. No viable route exists in current network topology.
+            </div>
+          ` : ''}
+
+          <div class="route-stat-grid">
+            <div class="route-stat-box">
+              <div class="route-stat-title">Total Distance</div>
+              <div class="route-stat-value">${(r.total_distance_meters / 1000).toFixed(2)} km</div>
+            </div>
+            <div class="route-stat-box">
+              <div class="route-stat-title">Travel Duration</div>
+              <div class="route-stat-value">${Math.round(r.estimated_duration_seconds / 60)} min</div>
+            </div>
+          </div>
+
+          <div style="font-size: 0.75rem; color: var(--text-secondary); line-height: 1.4;">
+            ${r.recommended_segments && r.recommended_segments.length > 0 ?
+              `Traversable segments: <strong>${r.recommended_segments.length}</strong> (${r.recommended_segments.map(s => s.road_name).join(' &rarr; ')})` :
+              '<span style="color: #f43f5e;">No traversable path found in current graph topology.</span>'}
+          </div>
+
+          ${r.excluded_segments && r.excluded_segments.length > 0 ? `
+            <div style="background: rgba(225, 29, 72, 0.15); border: 1px solid rgba(225, 29, 72, 0.4); border-radius: 6px; padding: 10px; font-size: 0.74rem; color: #fecdd3; line-height: 1.4;">
+              <strong style="color: #fb7185;">🌊 WATERLOGGED ROAD BLOCKAGE DETECTED:</strong><br>
+              ${r.excluded_segments.length} corridor segment(s) blocked by deep water/inundation (${r.excluded_segments.map(s => s.road_name).join(', ')}).<br>
+              <span style="color: #67e8f9;">✔ Sahaay AI has calculated an alternate safe route actively bypassing the blocked corridors.</span>
+            </div>
+          ` : ''}
+
+          ${r.warnings && r.warnings.length > 0 ? `
+            <div style="font-size: 0.7rem; color: #f59e0b; background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.25); border-radius: 6px; padding: 6px 8px;">
+              ⚠ ${r.warnings.join('<br>⚠ ')}
+            </div>
+          ` : ''}
+
+          <div style="font-size: 0.68rem; color: var(--text-muted); border-top: 1px solid var(--border-subtle); padding-top: 6px;">
+            ${r.safety_disclaimer || r.disclaimer || 'ADVISORY ONLY: Does not guarantee safe passage. Obey on-ground traffic directives.'}
+          </div>
+
+          <button onclick="clearRouteOverlay()" style="background: transparent; border: 1px solid var(--border-subtle); color: var(--text-secondary); padding: 5px; border-radius: 4px; cursor: pointer; font-size: 0.72rem;">Clear Route Overlay</button>
+        </div>
+      `;
+    }
+
+    async function renderRouteMapOverlay(origin, destination, vehicle) {
+      try {
+        const url = `/api/v1/map/route-overlay?origin_node_id=${encodeURIComponent(origin)}&destination_node_id=${encodeURIComponent(destination)}&vehicle_type=${encodeURIComponent(vehicle)}`;
+        const res = await fetch(url);
+        if (!res.ok) return;
+        const geojson = await res.json();
+
+        if (routeOverlayLayer) {
+          map.removeLayer(routeOverlayLayer);
+          routeOverlayLayer = null;
+        }
+
+        // Clear previous blocked markers
+        blockedRoadMarkers.forEach(m => map.removeLayer(m));
+        blockedRoadMarkers = [];
+
+        if (geojson.features && geojson.features.length > 0) {
+          geojson.features.forEach(f => {
+            if (f.properties && f.properties.is_traversable === false && f.geometry && f.geometry.coordinates) {
+              const coords = f.geometry.coordinates;
+              const midCoord = coords[Math.floor(coords.length / 2)];
+              if (midCoord && midCoord.length >= 2) {
+                const blockedIcon = L.divIcon({
+                  className: 'custom-blocked-icon',
+                  html: '<div class="blocked-callout-icon" title="Waterlogged Road Block">🌊</div>',
+                  iconSize: [24, 24],
+                  iconAnchor: [12, 12]
+                });
+                const marker = L.marker([midCoord[1], midCoord[0]], { icon: blockedIcon })
+                  .bindPopup(`
+                    <div style="font-family: sans-serif; font-size: 0.8rem; line-height: 1.4;">
+                      <div style="color: #e11d48; font-weight: bold; margin-bottom: 4px;">⚠️ ROAD BLOCKED: Flooding / Inundation</div>
+                      <div><strong>${f.properties.road_name || 'Corridor'}</strong> is impassable due to water accumulation.</div>
+                      <div style="color: #38bdf8; font-size: 0.72rem; margin-top: 4px;">Safe alternate route calculated around this blockage.</div>
+                    </div>
+                  `)
+                  .addTo(map);
+                blockedRoadMarkers.push(marker);
+              }
+            }
+          });
+
+          routeOverlayLayer = L.geoJSON(geojson, {
+            style: function(feature) {
+              const p = feature.properties || {};
+              const isExcluded = (p.is_traversable === false);
+              return {
+                color: isExcluded ? '#e11d48' : (p.stroke_color || '#38bdf8'),
+                weight: isExcluded ? 6 : (p.stroke_weight || 5),
+                opacity: 0.95,
+                dashArray: isExcluded ? '6, 6' : null,
+                lineCap: 'round',
+                lineJoin: 'round'
+              };
+            }
+          }).addTo(map);
+
+          let bounds = routeOverlayLayer.getBounds();
+          if (userLiveMarker) {
+            bounds.extend(userLiveMarker.getLatLng());
+          }
+          map.fitBounds(bounds, { padding: [45, 45] });
+        }
+      } catch (err) {
+        console.warn("Could not render route map overlay:", err);
+      }
+    }
+
+    function clearRouteOverlay() {
+      if (routeOverlayLayer) {
+        map.removeLayer(routeOverlayLayer);
+        routeOverlayLayer = null;
+      }
+      blockedRoadMarkers.forEach(m => map.removeLayer(m));
+      blockedRoadMarkers = [];
+      const container = document.getElementById('routeResultsContainer');
+      if (container) container.style.display = 'none';
+    }
+
+    /* Flood Vision AI Inference Handler */
+    function handleFileSelect(input) {
+      if (input.files && input.files[0]) {
+        const f = input.files[0];
+        document.getElementById('dropZoneText').innerHTML = `Selected: <strong>${f.name}</strong> (${(f.size/1024).toFixed(0)} KB)`;
+      }
+    }
+
+    async function handleVisionInference(e) {
+      e.preventDefault();
+      const fileInput = document.getElementById('visionFileInput');
+      const corridorId = document.getElementById('visionCorridorSelect').value;
+      const resultsContainer = document.getElementById('visionResultsContainer');
+      const btn = document.getElementById('btnRunVision');
+
+      if (!fileInput.files || fileInput.files.length === 0) {
+        alert("Please select an image file (JPEG, PNG, WEBP) to inspect.");
+        return;
+      }
+
+      const file = fileInput.files[0];
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('corridor_id', corridorId);
+
+      const targetCorridor = corridors.find(c => c.location_id === corridorId);
+      if (targetCorridor) {
+        formData.append('latitude', targetCorridor.latitude);
+        formData.append('longitude', targetCorridor.longitude);
+      }
+
+      btn.disabled = true;
+      btn.innerHTML = '<div class="map-status-spinner" style="display:inline-block; margin-right:6px;"></div> Running AI Quality Gate &amp; Vision Model...';
+
+      try {
+        const res = await fetch('/api/v1/vision/predict', {
+          method: 'POST',
+          body: formData
+        });
+
+        const data = await res.json();
+        if (!res.ok) {
+          throw new Error(data.detail || `HTTP ${res.status}`);
+        }
+
+        renderVisionResults(data);
+        await fetchMapGeoJSON();
+      } catch (err) {
+        console.error("Vision inference failed:", err);
+        resultsContainer.style.display = 'block';
+        resultsContainer.innerHTML = `
+          <div style="background: rgba(244, 63, 94, 0.15); border: 1px solid rgba(244, 63, 94, 0.3); border-radius: 8px; padding: 12px; color: #fca5a5; font-size: 0.78rem;">
+            <strong>Inference Execution Rejected:</strong><br>${err.message}
+          </div>
+        `;
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = '<span>Execute Vision Inference</span>';
+      }
+    }
+
+    function renderVisionResults(v) {
+      const container = document.getElementById('visionResultsContainer');
+      container.style.display = 'block';
+
+      const isFlooded = (v.predicted_class === 'flooded');
+      const isInconclusive = (v.is_inconclusive || v.predicted_class === 'inconclusive');
+      const badgeColor = isInconclusive ? '#f59e0b' : (isFlooded ? '#e11d48' : '#10b981');
+      const statusText = isInconclusive ? 'INCONCLUSIVE / ABSTAINED' : (isFlooded ? 'FLOOD EVIDENCE DETECTED' : 'NO FLOOD EVIDENCE DETECTED');
+
+      container.innerHTML = `
+        <div class="route-result-card" style="border-color: ${badgeColor}60;">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <span style="font-size: 0.7rem; font-family: var(--font-mono); color: var(--text-muted);">${v.prediction_id || 'VIS-INFERENCE'}</span>
+            <span class="badge-alert" style="background: ${badgeColor}25; color: ${badgeColor}; border: 1px solid ${badgeColor}60;">
+              ${v.predicted_class.toUpperCase()}
+            </span>
+          </div>
+
+          <div style="font-size: 0.95rem; font-weight: 700; color: ${badgeColor};">
+            ${statusText}
+          </div>
+
+          <div class="route-stat-grid">
+            <div class="route-stat-box">
+              <div class="route-stat-title">Model Confidence</div>
+              <div class="route-stat-value">${(v.confidence_score * 100).toFixed(1)}%</div>
+            </div>
+            <div class="route-stat-box">
+              <div class="route-stat-title">Quality Gate</div>
+              <div class="route-stat-value" style="color: ${isInconclusive ? '#f59e0b' : '#10b981'}; font-size: 0.9rem;">
+                ${isInconclusive ? 'FLAGGED' : 'PASSED'}
+              </div>
+            </div>
+          </div>
+
+          ${v.quality_metrics ? `
+            <div style="font-size: 0.72rem; color: var(--text-secondary); background: rgba(0,0,0,0.25); padding: 8px; border-radius: 6px;">
+              <strong>Image Quality Telemetry:</strong><br>
+              Luminance: <strong>${v.quality_metrics.mean_luminance || 'N/A'}</strong> (std: ${v.quality_metrics.luminance_std || 'N/A'})<br>
+              Blur Variance: <strong>${v.quality_metrics.blur_variance || 'N/A'}</strong><br>
+              Dimensions: <strong>${v.quality_metrics.dimensions ? v.quality_metrics.dimensions.join('x') : 'N/A'}</strong>
+            </div>
+          ` : ''}
+
+          ${v.inconclusive_reasons && v.inconclusive_reasons.length > 0 ? `
+            <div style="font-size: 0.72rem; color: #f59e0b; background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.25); border-radius: 6px; padding: 6px 8px;">
+              <strong>Quality Gate Flags:</strong><br>
+              • ${v.inconclusive_reasons.join('<br>• ')}
+            </div>
+          ` : ''}
+
+          ${v.is_duplicate_submission ? `
+            <div style="font-size: 0.7rem; color: #a855f7; background: rgba(168, 85, 247, 0.1); border: 1px solid rgba(168, 85, 247, 0.25); border-radius: 6px; padding: 6px 8px;">
+              ℹ Duplicate image hash detected. Excluded from inflating independent corroboration counts.
+            </div>
+          ` : ''}
+
+          <div style="font-size: 0.68rem; color: var(--text-muted); border-top: 1px solid var(--border-subtle); padding-top: 6px;">
+            <strong>MANDATORY SAFETY POLICY:</strong> Vision inference constitutes provisional unverified evidence only. Image classification alone NEVER determines water depth, vehicle passability, or official road status.
+          </div>
+        </div>
+      `;
+    }
+
+    /* Citizen Report Submission */
     function openReportModal() {
       document.getElementById('reportModal').classList.add('open');
       if (selectedCorridorId) {
@@ -1198,11 +2565,13 @@
         const data = await res.json();
         alert(`Report ${data.report_id} ingested! Status: ${data.validation_status} (Duplicate: ${data.is_duplicate}). Identity masked as ${data.reporter_id_masked}`);
         closeReportModal();
+        await fetchCorridors();
       } catch (err) {
         alert("Failed to submit report: " + err);
       }
     }
 
+    /* Scenario Playback */
     function loadScenario(scenario) {
       if (scenario === 'heavy_surge') {
         const c = corridors.find(item => item.location_id === 'HYD-LOC-001');
@@ -1250,6 +2619,346 @@
         fetchCorridors();
       }
       renderMapMarkers();
+    }
+
+    /* Automated Ingestion & Live Feeds Functions */
+    /* Automated Ingestion & Live Feeds Functions */
+    let _rawDiscoveredImages = [];
+    let _rawIngestedEvents = [];
+    let _activeImageFilter = 'all';
+    let _activeEventFilter = 'all';
+
+    async function triggerIngestionPoll() {
+      try {
+        const res = await fetch('/api/v1/ingestion/poll', { method: 'POST' });
+        const data = await res.json();
+        console.log("Triggered ingestion poll:", data);
+        await loadFeedsAndNotifications();
+      } catch (err) {
+        console.warn("Manual ingestion poll error:", err);
+      }
+    }
+
+    async function loadFeedsAndNotifications() {
+      // 1. Load Connectors Health & Telemetry Summary
+      const connContainer = document.getElementById('connectorsContainer');
+      if (connContainer) {
+        try {
+          const res = await fetch('/api/v1/ingestion/status');
+          const data = await res.json();
+          connContainer.innerHTML = data.map(c => {
+            const mode = c.connectivity_mode || (c.is_live ? 'LIVE' : 'FIXTURE');
+            let badgeBg = 'rgba(245, 158, 11, 0.2)';
+            let badgeColor = '#f59e0b';
+            if (mode === 'LIVE') {
+              badgeBg = 'rgba(16, 185, 129, 0.2)';
+              badgeColor = '#10b981';
+            } else if (mode === 'NOT_CONFIGURED') {
+              badgeBg = 'rgba(148, 163, 184, 0.2)';
+              badgeColor = '#94a3b8';
+            } else if (mode === 'DEGRADED') {
+              badgeBg = 'rgba(244, 63, 94, 0.2)';
+              badgeColor = '#f43f5e';
+            }
+
+            // If this is weather connector, update telemetry summary card
+            if (c.source_type === 'OFFICIAL_WEATHER' && c.provenance_metadata) {
+              const meta = c.provenance_metadata;
+              const obsVal = document.getElementById('metObservedVal');
+              const fcVal = document.getElementById('metForecastVal');
+              const badge = document.getElementById('metProviderBadge');
+              if (obsVal && meta.last_observed_rain_mm_h != null) {
+                obsVal.textContent = `${meta.last_observed_rain_mm_h.toFixed(1)} mm/h`;
+              }
+              if (fcVal && meta.last_forecast_rain_mm_3h != null) {
+                fcVal.textContent = `${meta.last_forecast_rain_mm_3h.toFixed(1)} mm`;
+              }
+              if (badge) {
+                badge.textContent = mode;
+                badge.style.background = badgeBg;
+                badge.style.color = badgeColor;
+              }
+              const headerPill = document.getElementById('telemetryStatusPill');
+              if (headerPill) {
+                if (c.is_live) {
+                  headerPill.innerHTML = `<span>Weather Telemetry: <strong style="color: #10b981;">Live (${meta.active_weather_provider || 'Open-Meteo'})</strong></span>`;
+                  headerPill.title = `Connected to live weather stream: ${meta.active_weather_provider}`;
+                } else {
+                  headerPill.innerHTML = `<span>Weather Telemetry: <strong style="color: #f59e0b;">Mock/Fallback (Unconfigured)</strong></span>`;
+                }
+              }
+              const mapBanner = document.querySelector('.map-telemetry-banner');
+              if (mapBanner) {
+                if (c.is_live) {
+                  mapBanner.innerHTML = `<span>📡</span><span>Provider Status: <strong>LIVE</strong> (${meta.active_weather_provider || 'Open-Meteo'}). Official IMD: NOT_CONFIGURED.</span>`;
+                }
+              }
+            }
+
+            const fetchTime = c.last_successful_fetch_utc ? c.last_successful_fetch_utc.substring(11, 19) + ' UTC' : 'Pending';
+
+            return `
+              <div style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: 6px; padding: 8px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2px;">
+                  <span style="font-weight: 600; font-size: 0.78rem; color: var(--text-primary);">${c.source_name}</span>
+                  <span style="font-size: 0.65rem; padding: 2px 6px; border-radius: 4px; font-weight: 700; background: ${badgeBg}; color: ${badgeColor};">
+                    ${mode}
+                  </span>
+                </div>
+                <div style="font-size: 0.7rem; color: var(--text-muted); display: flex; justify-content: space-between;">
+                  <span>Last: ${fetchTime}</span>
+                  <span>Items: ${c.total_events_ingested}</span>
+                  <span style="color: ${c.is_operational ? '#10b981' : '#f43f5e'}; font-weight: 600;">${c.is_operational ? 'OPERATIONAL' : 'DEGRADED'}</span>
+                </div>
+              </div>
+            `;
+          }).join('');
+        } catch (e) {
+          connContainer.innerHTML = `<div style="font-size: 0.75rem; color: var(--color-warning);">Failed to load connectors: ${e}</div>`;
+        }
+      }
+
+      // 2. Load Notifications History & External Gateway Status
+      const notifContainer = document.getElementById('notificationsContainer');
+      const gatewayPill = document.getElementById('notifGatewayPill');
+      if (gatewayPill) {
+        try {
+          const gwRes = await fetch('/api/v1/notifications/external-status');
+          const gwData = await gwRes.json();
+          if (gwData.is_configured) {
+            gatewayPill.textContent = `External Gateway: LIVE (${gwData.delivery_channel})`;
+            gatewayPill.style.background = 'rgba(16, 185, 129, 0.2)';
+            gatewayPill.style.color = '#10b981';
+          } else {
+            gatewayPill.textContent = 'External Push: NOT_CONFIGURED (In-App Active)';
+            gatewayPill.style.background = 'rgba(148, 163, 184, 0.15)';
+            gatewayPill.style.color = '#94a3b8';
+          }
+        } catch (_) {}
+      }
+
+      if (notifContainer) {
+        try {
+          const res = await fetch('/api/v1/notifications/history?limit=10');
+          const data = await res.json();
+          if (data.length === 0) {
+            notifContainer.innerHTML = `<div style="font-size: 0.75rem; color: var(--text-muted); font-style: italic;">No active user notifications.</div>`;
+          } else {
+            notifContainer.innerHTML = data.map(n => {
+              let sevColor = '#38bdf8';
+              if (n.severity === 'WARNING' || n.severity === 'EMERGENCY') sevColor = '#f43f5e';
+              else if (n.severity === 'WATCH') sevColor = '#f97316';
+              else if (n.severity === 'ADVISORY') sevColor = '#f59e0b';
+
+              return `
+                <div style="background: rgba(255, 255, 255, 0.03); border-left: 3px solid ${sevColor}; border-radius: 4px; padding: 6px 8px;">
+                  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2px;">
+                    <span style="font-size: 0.75rem; font-weight: 700; color: ${sevColor};">${n.title}</span>
+                    <span style="font-size: 0.62rem; font-family: var(--font-mono); color: var(--text-muted);">${n.evidence_status}</span>
+                  </div>
+                  <div style="font-size: 0.72rem; color: var(--text-secondary); line-height: 1.3;">${n.message}</div>
+                  <div style="font-size: 0.65rem; color: var(--text-muted); margin-top: 2px;">Target: ${n.recipient_or_topic} &bull; ${n.created_at_utc.substring(11, 19)} UTC &bull; In-App Delivered</div>
+                </div>
+              `;
+            }).join('');
+          }
+        } catch (e) {
+          notifContainer.innerHTML = `<div style="font-size: 0.75rem; color: var(--color-warning);">Failed to load notifications.</div>`;
+        }
+      }
+
+      // 3. Load Discovered Online Images
+      try {
+        const res = await fetch('/api/v1/ingestion/discovered-images?limit=25');
+        _rawDiscoveredImages = await res.json();
+        renderDiscoveredImages();
+      } catch (e) {
+        const imgContainer = document.getElementById('discoveredImagesContainer');
+        if (imgContainer) imgContainer.innerHTML = `<div style="font-size: 0.75rem; color: var(--color-warning);">Failed to load discovered images.</div>`;
+      }
+
+      // 4. Load Ingested Events Stream
+      try {
+        const res = await fetch('/api/v1/ingestion/events?limit=30');
+        _rawIngestedEvents = await res.json();
+        renderIngestedEvents();
+      } catch (e) {
+        const eventsContainer = document.getElementById('eventsStreamContainer');
+        if (eventsContainer) eventsContainer.innerHTML = `<div style="font-size: 0.75rem; color: var(--color-warning);">Failed to load event stream.</div>`;
+      }
+    }
+
+    function filterDiscoveredImages(filter) {
+      _activeImageFilter = filter;
+      ['chipImgAll', 'chipImgFlooded', 'chipImgInconclusive', 'chipImgClear'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.classList.remove('active');
+      });
+      if (filter === 'all') document.getElementById('chipImgAll')?.classList.add('active');
+      if (filter === 'flooded') document.getElementById('chipImgFlooded')?.classList.add('active');
+      if (filter === 'inconclusive') document.getElementById('chipImgInconclusive')?.classList.add('active');
+      if (filter === 'not_flooded') document.getElementById('chipImgClear')?.classList.add('active');
+      renderDiscoveredImages();
+    }
+
+    function renderDiscoveredImages() {
+      const imgContainer = document.getElementById('discoveredImagesContainer');
+      if (!imgContainer) return;
+      let items = _rawDiscoveredImages || [];
+      if (_activeImageFilter === 'flooded') items = items.filter(x => x.predicted_class === 'flooded' && !x.is_inconclusive);
+      else if (_activeImageFilter === 'inconclusive') items = items.filter(x => x.is_inconclusive);
+      else if (_activeImageFilter === 'not_flooded') items = items.filter(x => x.predicted_class === 'not_flooded');
+
+      if (!items || items.length === 0) {
+        imgContainer.innerHTML = `<div style="font-size: 0.75rem; color: var(--text-muted); font-style: italic;">No candidate online images match the selected filter.</div>`;
+        return;
+      }
+
+      imgContainer.innerHTML = items.map(img => {
+        let badgeColor = '#38bdf8';
+        let badgeText = (img.predicted_class || 'analyzed').toUpperCase();
+        if (img.is_inconclusive) {
+          badgeColor = '#f59e0b';
+          badgeText = 'INCONCLUSIVE [0.35, 0.65]';
+        } else if (img.predicted_class === 'flooded') {
+          badgeColor = '#f43f5e';
+          badgeText = `FLOODED (${((img.confidence || 0) * 100).toFixed(0)}%)`;
+        } else if (img.predicted_class === 'not_flooded') {
+          badgeColor = '#10b981';
+          badgeText = `NOT FLOODED (${((img.confidence || 0) * 100).toFixed(0)}%)`;
+        }
+
+        const thumbHtml = img.image_url ? `
+          <img src="${img.image_url}" alt="Online flood evidence" style="width: 58px; height: 58px; object-fit: cover; border-radius: 4px; border: 1px solid var(--border-subtle); flex-shrink: 0;" onerror="this.style.display='none'" />
+        ` : '';
+
+        const fixtureBadge = img.is_synthetic_fixture ?
+          `<span style="font-size: 0.6rem; color: #f59e0b; background: rgba(245, 158, 11, 0.15); padding: 1px 4px; border-radius: 3px;">⚡ FIXTURE</span>` :
+          `<span style="font-size: 0.6rem; color: #10b981; background: rgba(16, 185, 129, 0.15); padding: 1px 4px; border-radius: 3px;">🟢 REAL SOURCE</span>`;
+
+        return `
+          <div style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: 6px; padding: 7px; display: flex; gap: 8px; align-items: flex-start;">
+            ${thumbHtml}
+            <div style="flex: 1; min-width: 0;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2px;">
+                <span style="font-size: 0.68rem; font-family: var(--font-mono); color: var(--color-cyan);">${img.source_name}</span>
+                <div style="display: flex; gap: 4px; align-items: center;">
+                  ${fixtureBadge}
+                  <span style="font-size: 0.62rem; font-weight: 700; padding: 1px 5px; border-radius: 3px; color: ${badgeColor}; background: rgba(255, 255, 255, 0.05);">${badgeText}</span>
+                </div>
+              </div>
+              <div style="font-size: 0.73rem; font-weight: 600; color: var(--text-primary); text-overflow: ellipsis; overflow: hidden; white-space: nowrap;">${img.location_name} ${img.resolved_corridor_id ? `[${img.resolved_corridor_id}]` : ''}</div>
+              <div style="font-size: 0.68rem; color: var(--text-secondary); line-height: 1.2; margin-top: 2px;">${img.raw_text}</div>
+              ${img.source_url ? `<a href="${img.source_url}" target="_blank" rel="noopener" style="font-size: 0.65rem; color: var(--color-cyan); text-decoration: underline; margin-top: 3px; display: inline-block;">View Source Article &rarr;</a>` : ''}
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function filterIngestedEvents(filter) {
+      _activeEventFilter = filter;
+      ['chipEvtAll', 'chipEvtLive', 'chipEvtDemo'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.classList.remove('active');
+      });
+      if (filter === 'all') document.getElementById('chipEvtAll')?.classList.add('active');
+      if (filter === 'live') document.getElementById('chipEvtLive')?.classList.add('active');
+      if (filter === 'demo') document.getElementById('chipEvtDemo')?.classList.add('active');
+      renderIngestedEvents();
+    }
+
+    function renderIngestedEvents() {
+      const eventsContainer = document.getElementById('eventsStreamContainer');
+      if (!eventsContainer) return;
+      let items = _rawIngestedEvents || [];
+      if (_activeEventFilter === 'live') items = items.filter(x => !x.is_synthetic_fixture);
+      else if (_activeEventFilter === 'demo') items = items.filter(x => x.is_synthetic_fixture);
+
+      if (!items || items.length === 0) {
+        eventsContainer.innerHTML = `<div style="font-size: 0.75rem; color: var(--text-muted); font-style: italic;">No events match the selected filter.</div>`;
+        return;
+      }
+
+      eventsContainer.innerHTML = items.map(evt => {
+        const prov = evt.provenance || {};
+        let extraTag = '';
+        if (evt.event_type === 'COMMUNITY_IMAGE' || prov.discovered_image_url) {
+          extraTag = `<div style="font-size: 0.68rem; color: var(--color-cyan); margin-top: 3px;">📷 Vision Auto-Analysis: <b>${prov.predicted_class || prov.vision_predicted_class || 'analyzed'}</b> (Conf: ${(((prov.model_confidence || prov.vision_confidence || evt.confidence)) * 100).toFixed(0)}%, Latency: ${prov.inference_latency_ms || 12}ms)</div>`;
+        }
+        const liveBadge = evt.is_synthetic_fixture ?
+          `<span style="font-size: 0.6rem; color: #f59e0b; background: rgba(245, 158, 11, 0.15); padding: 1px 4px; border-radius: 3px;">⚡ FIXTURE</span>` :
+          `<span style="font-size: 0.6rem; color: #10b981; background: rgba(16, 185, 129, 0.15); padding: 1px 4px; border-radius: 3px;">🟢 LIVE</span>`;
+
+        return `
+          <div style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: 6px; padding: 8px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2px;">
+              <span style="font-size: 0.7rem; font-family: var(--font-mono); background: rgba(56, 189, 248, 0.15); color: var(--color-cyan); padding: 1px 6px; border-radius: 3px;">${evt.event_type}</span>
+              <div style="display: flex; gap: 4px; align-items: center;">
+                ${liveBadge}
+                <span style="font-size: 0.65rem; color: var(--text-muted);">${evt.source_name}</span>
+              </div>
+            </div>
+            <div style="font-size: 0.75rem; font-weight: 600; color: var(--text-primary); margin: 3px 0;">${evt.location_name || 'Hyderabad'} ${evt.resolved_corridor_id ? `[${evt.resolved_corridor_id}]` : ''}</div>
+            <div style="font-size: 0.72rem; color: var(--text-secondary); line-height: 1.3;">${evt.raw_text || 'No text content'}</div>
+            ${extraTag}
+            <div style="font-size: 0.63rem; color: var(--text-muted); margin-top: 4px; display: flex; justify-content: space-between;">
+              <span>Accuracy: ${evt.location_accuracy}</span>
+              <span>${evt.published_at.substring(11, 19)} UTC</span>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    async function triggerIngestionDemo() {
+      const btn = document.getElementById('btnRunIngestionDemo');
+      const statusBox = document.getElementById('demoRunStatus');
+      if (btn) btn.disabled = true;
+      if (statusBox) {
+        statusBox.style.display = 'block';
+        statusBox.innerHTML = '<span style="color: var(--color-cyan);">⏳ Running 10-step automated pipeline simulation...</span>';
+      }
+
+      try {
+        const res = await fetch('/api/v1/ingestion/demo/simulate', { method: 'POST' });
+        const data = await res.json();
+        
+        let stepsHtml = data.steps.map(s => `
+          <div style="display: flex; gap: 6px; align-items: baseline; font-size: 0.72rem; margin-top: 3px;">
+            <span style="color: ${s.outcome === 'PASS' ? '#10b981' : '#f59e0b'}; font-weight: 700;">[${s.outcome}]</span>
+            <span style="color: var(--text-primary); font-weight: 600;">Step ${s.step}: ${s.title}</span>
+          </div>
+          <div style="font-size: 0.68rem; color: var(--text-secondary); padding-left: 16px; margin-bottom: 2px;">${s.details}</div>
+        `).join('');
+
+        if (statusBox) {
+          statusBox.innerHTML = `
+            <div style="font-weight: 700; color: #10b981; margin-bottom: 4px;">✅ Simulation Completed: ${data.passed_steps}/${data.total_steps} Steps Passed!</div>
+            <div style="max-height: 180px; overflow-y: auto; background: rgba(0,0,0,0.3); padding: 6px; border-radius: 4px;">
+              ${stepsHtml}
+            </div>
+          `;
+        }
+
+        // Refresh feeds, notifications, and map corridors
+        await loadFeedsAndNotifications();
+        await fetchCorridors();
+      } catch (err) {
+        if (statusBox) {
+          statusBox.innerHTML = `<span style="color: var(--color-warning);">❌ Simulation error: ${err}</span>`;
+        }
+      } finally {
+        if (btn) btn.disabled = false;
+      }
+    }
+
+    function setupKeyboardAccessibility() {
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+          closeReportModal();
+        }
+      });
     }
 
     window.onload = init;
